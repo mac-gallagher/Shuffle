@@ -1,0 +1,1176 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 50;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		2FA5AD296FDB91FF5EFDF160 /* Pods_ShuffleExample.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BEAD69E2973AE33655E1E380 /* Pods_ShuffleExample.framework */; };
+		AD0542C02271397900B42353 /* Shuffle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AD72AC5D2270E5E20083E735 /* Shuffle.framework */; };
+		AD10982922879C42008CB197 /* CardAnimationOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD10982322879C42008CB197 /* CardAnimationOptions.swift */; };
+		AD10982B22879C42008CB197 /* CardAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD10982522879C42008CB197 /* CardAnimator.swift */; };
+		AD10982D22879C42008CB197 /* SwipeCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD10982822879C42008CB197 /* SwipeCard.swift */; };
+		AD10983422879ED6008CB197 /* SwipeCardDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD10983322879ED6008CB197 /* SwipeCardDelegate.swift */; };
+		AD1098362287CAA9008CB197 /* SwipeCardSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD1098352287CAA9008CB197 /* SwipeCardSpec.swift */; };
+		AD1098382287CAD4008CB197 /* TestableSwipeCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD1098372287CAD4008CB197 /* TestableSwipeCard.swift */; };
+		AD10983C2287CAE4008CB197 /* MockCardAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD10983A2287CAE4008CB197 /* MockCardAnimator.swift */; };
+		AD10983D2287CAE4008CB197 /* MockSwipeCardDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD10983B2287CAE4008CB197 /* MockSwipeCardDelegate.swift */; };
+		AD23D05122BAD107009BCB50 /* CardStackAnimationOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD23D05022BAD107009BCB50 /* CardStackAnimationOptions.swift */; };
+		AD2E674322A2F12E00B9843A /* ButtonStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD2E673622A2F12E00B9843A /* ButtonStackView.swift */; };
+		AD2E674422A2F12E00B9843A /* TinderButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD2E673722A2F12E00B9843A /* TinderButton.swift */; };
+		AD2E674522A2F12E00B9843A /* SampleCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD2E673922A2F12E00B9843A /* SampleCard.swift */; };
+		AD2E674622A2F12E00B9843A /* SampleCardContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD2E673A22A2F12E00B9843A /* SampleCardContentView.swift */; };
+		AD2E674722A2F12E00B9843A /* SampleCardOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD2E673B22A2F12E00B9843A /* SampleCardOverlay.swift */; };
+		AD2E674822A2F12E00B9843A /* SampleCardFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD2E673C22A2F12E00B9843A /* SampleCardFooterView.swift */; };
+		AD2E674922A2F12E00B9843A /* SampleCardModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD2E673D22A2F12E00B9843A /* SampleCardModel.swift */; };
+		AD2E674A22A2F12E00B9843A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD2E673E22A2F12E00B9843A /* AppDelegate.swift */; };
+		AD2E674B22A2F12E00B9843A /* UIView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD2E674022A2F12E00B9843A /* UIView+Extensions.swift */; };
+		AD2E674C22A2F12E00B9843A /* TinderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD2E674222A2F12E00B9843A /* TinderViewController.swift */; };
+		AD34BDF022B6C68B009C0BCE /* Animator.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD34BDEF22B6C68B009C0BCE /* Animator.swift */; };
+		AD439DF82285FB7E009DE2F7 /* TestablePanGestureRecognizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD439DF52285FB7E009DE2F7 /* TestablePanGestureRecognizer.swift */; };
+		AD439DF92285FB7E009DE2F7 /* TestableSwipeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD439DF62285FB7E009DE2F7 /* TestableSwipeView.swift */; };
+		AD439DFA2285FB7E009DE2F7 /* TestableTapGestureRecognizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD439DF72285FB7E009DE2F7 /* TestableTapGestureRecognizer.swift */; };
+		AD439DFE2285FDB3009DE2F7 /* SwipeViewSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD439DFD2285FDB3009DE2F7 /* SwipeViewSpec.swift */; };
+		AD514C5B22A08D5600BD8F3E /* CardLayoutProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD514C5A22A08D5600BD8F3E /* CardLayoutProvider.swift */; };
+		AD514C5D22A0903000BD8F3E /* CardLayoutProviderSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD514C5C22A0903000BD8F3E /* CardLayoutProviderSpec.swift */; };
+		AD514C5F22A090A000BD8F3E /* MockCardLayoutProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD514C5E22A090A000BD8F3E /* MockCardLayoutProvider.swift */; };
+		AD52EF8122E5088B0063AE5D /* CardTransformProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD52EF8022E5088B0063AE5D /* CardTransformProvider.swift */; };
+		AD52EF8322E50BFA0063AE5D /* MockCardTransformProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD52EF8222E50BFA0063AE5D /* MockCardTransformProvider.swift */; };
+		AD52EF8522E50DD00063AE5D /* CardTransformProviderSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD52EF8422E50DD00063AE5D /* CardTransformProviderSpec.swift */; };
+		AD52EF8722E523020063AE5D /* CardStackTransformProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD52EF8622E523020063AE5D /* CardStackTransformProvider.swift */; };
+		AD52EF8922E52BFA0063AE5D /* MockCardStackTransformProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD52EF8822E52BFA0063AE5D /* MockCardStackTransformProvider.swift */; };
+		AD52EF8B22E532B90063AE5D /* TestableNotificationCenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD52EF8A22E532B90063AE5D /* TestableNotificationCenter.swift */; };
+		AD52EF8F22E56AB70063AE5D /* TestableCardTransformProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD52EF8E22E56AB70063AE5D /* TestableCardTransformProvider.swift */; };
+		AD5C44F322B6E7B700C11357 /* SwipeCardStackSpec+SwipeCardDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD5C44F222B6E7B700C11357 /* SwipeCardStackSpec+SwipeCardDelegate.swift */; };
+		AD72AC722270E6380083E735 /* SwipeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD72AC702270E6380083E735 /* SwipeView.swift */; };
+		AD72AC742270E66E0083E735 /* Shuffle.h in Headers */ = {isa = PBXBuildFile; fileRef = AD72AC732270E66E0083E735 /* Shuffle.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		AD72AC762270F4130083E735 /* CGVector+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD72AC752270F4130083E735 /* CGVector+Extensions.swift */; };
+		AD72AC852270FB650083E735 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AD72AC842270FB650083E735 /* Assets.xcassets */; };
+		AD72AC882270FB650083E735 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AD72AC862270FB650083E735 /* LaunchScreen.storyboard */; };
+		AD72AC8D2270FB8B0083E735 /* Shuffle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AD72AC5D2270E5E20083E735 /* Shuffle.framework */; };
+		AD72AC8E2270FB8B0083E735 /* Shuffle.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = AD72AC5D2270E5E20083E735 /* Shuffle.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		AD72AC9A2270FCCE0083E735 /* SwipeDirection.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD72AC6F2270E6380083E735 /* SwipeDirection.swift */; };
+		ADA444D422AC651600AFAFFE /* SwipeCardStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADA444D322AC651600AFAFFE /* SwipeCardStack.swift */; };
+		ADA444D722AC658500AFAFFE /* SwipeCardStackDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADA444D622AC658500AFAFFE /* SwipeCardStackDelegate.swift */; };
+		ADA444D922AC658E00AFAFFE /* SwipeCardStackDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADA444D822AC658E00AFAFFE /* SwipeCardStackDataSource.swift */; };
+		ADA444DB22AC662C00AFAFFE /* CardStackAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADA444DA22AC662C00AFAFFE /* CardStackAnimator.swift */; };
+		ADA444DD22AC664C00AFAFFE /* CardStackState.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADA444DC22AC664C00AFAFFE /* CardStackState.swift */; };
+		ADA444DF22AC682400AFAFFE /* CardStackLayoutProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADA444DE22AC682400AFAFFE /* CardStackLayoutProvider.swift */; };
+		ADCEAE2022A1B80B002A5F82 /* CardAnimatorSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADCEAE1F22A1B80B002A5F82 /* CardAnimatorSpec.swift */; };
+		ADCEAE2222A1B88D002A5F82 /* TestableCardAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADCEAE2122A1B88D002A5F82 /* TestableCardAnimator.swift */; };
+		ADDF5F842277FA2C00274C09 /* CGPoint+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADDF5F832277FA2C00274C09 /* CGPoint+Extensions.swift */; };
+		ADE153652288A66700060CB1 /* CardAnimationOptionsSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADE153642288A66700060CB1 /* CardAnimationOptionsSpec.swift */; };
+		ADEE86D722ACE5AA00AAE7A1 /* Array+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADEE86D622ACE5AA00AAE7A1 /* Array+Extensions.swift */; };
+		ADEE86DA22ADEC9700AAE7A1 /* MockSwipeCardStackDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADEE86D922ADEC9700AAE7A1 /* MockSwipeCardStackDelegate.swift */; };
+		ADEE86DC22ADECA300AAE7A1 /* MockSwipeCardStackDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADEE86DB22ADECA300AAE7A1 /* MockSwipeCardStackDataSource.swift */; };
+		ADEE86DF22ADED3600AAE7A1 /* SwipeCardStackSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADEE86DE22ADED3600AAE7A1 /* SwipeCardStackSpec.swift */; };
+		ADEE86E222ADED8A00AAE7A1 /* TestableSwipeCardStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADEE86E122ADED8A00AAE7A1 /* TestableSwipeCardStack.swift */; };
+		ADEE86E422ADEE0000AAE7A1 /* MockCardStackAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADEE86E322ADEE0000AAE7A1 /* MockCardStackAnimator.swift */; };
+		ADEE86E622ADEE3500AAE7A1 /* MockCardStackLayoutProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADEE86E522ADEE3500AAE7A1 /* MockCardStackLayoutProvider.swift */; };
+		ADEE86E822ADF3C200AAE7A1 /* CardStackLayoutProviderSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADEE86E722ADF3C200AAE7A1 /* CardStackLayoutProviderSpec.swift */; };
+		BE8D2F808F03DADC9D1D5045 /* Pods_ShuffleTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6C08D484FE19F2D4B9F553F2 /* Pods_ShuffleTests.framework */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		AD0542C12271397900B42353 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = AD72AC542270E5E20083E735 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = AD72AC5C2270E5E20083E735;
+			remoteInfo = Shuffle;
+		};
+		AD72AC8F2270FB8B0083E735 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = AD72AC542270E5E20083E735 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = AD72AC5C2270E5E20083E735;
+			remoteInfo = Shuffle;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		AD72AC912270FB8B0083E735 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				AD72AC8E2270FB8B0083E735 /* Shuffle.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		1BF3810F67E55447192823D9 /* Pods-ShuffleTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ShuffleTests.debug.xcconfig"; path = "Target Support Files/Pods-ShuffleTests/Pods-ShuffleTests.debug.xcconfig"; sourceTree = "<group>"; };
+		3A1DBC86C688BB1F0E7FD862 /* Pods-ShuffleTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ShuffleTests.release.xcconfig"; path = "Target Support Files/Pods-ShuffleTests/Pods-ShuffleTests.release.xcconfig"; sourceTree = "<group>"; };
+		4CEAEBE96CF9FA466E2206E4 /* Pods-ShuffleExample.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ShuffleExample.release.xcconfig"; path = "Target Support Files/Pods-ShuffleExample/Pods-ShuffleExample.release.xcconfig"; sourceTree = "<group>"; };
+		6C08D484FE19F2D4B9F553F2 /* Pods_ShuffleTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ShuffleTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		A3A4F8A2C0F39A32B57F12BE /* Pods-ShuffleExample.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ShuffleExample.debug.xcconfig"; path = "Target Support Files/Pods-ShuffleExample/Pods-ShuffleExample.debug.xcconfig"; sourceTree = "<group>"; };
+		AD0542BB2271397900B42353 /* ShuffleTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ShuffleTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		AD0542BF2271397900B42353 /* ShuffleTests.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = ShuffleTests.plist; sourceTree = "<group>"; };
+		AD10982322879C42008CB197 /* CardAnimationOptions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardAnimationOptions.swift; sourceTree = "<group>"; };
+		AD10982522879C42008CB197 /* CardAnimator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardAnimator.swift; sourceTree = "<group>"; };
+		AD10982822879C42008CB197 /* SwipeCard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwipeCard.swift; sourceTree = "<group>"; };
+		AD10983322879ED6008CB197 /* SwipeCardDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwipeCardDelegate.swift; sourceTree = "<group>"; };
+		AD1098352287CAA9008CB197 /* SwipeCardSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwipeCardSpec.swift; sourceTree = "<group>"; };
+		AD1098372287CAD4008CB197 /* TestableSwipeCard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestableSwipeCard.swift; sourceTree = "<group>"; };
+		AD10983A2287CAE4008CB197 /* MockCardAnimator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockCardAnimator.swift; sourceTree = "<group>"; };
+		AD10983B2287CAE4008CB197 /* MockSwipeCardDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockSwipeCardDelegate.swift; sourceTree = "<group>"; };
+		AD23D05022BAD107009BCB50 /* CardStackAnimationOptions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardStackAnimationOptions.swift; sourceTree = "<group>"; };
+		AD2E673622A2F12E00B9843A /* ButtonStackView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ButtonStackView.swift; sourceTree = "<group>"; };
+		AD2E673722A2F12E00B9843A /* TinderButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TinderButton.swift; sourceTree = "<group>"; };
+		AD2E673922A2F12E00B9843A /* SampleCard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SampleCard.swift; sourceTree = "<group>"; };
+		AD2E673A22A2F12E00B9843A /* SampleCardContentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SampleCardContentView.swift; sourceTree = "<group>"; };
+		AD2E673B22A2F12E00B9843A /* SampleCardOverlay.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SampleCardOverlay.swift; sourceTree = "<group>"; };
+		AD2E673C22A2F12E00B9843A /* SampleCardFooterView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SampleCardFooterView.swift; sourceTree = "<group>"; };
+		AD2E673D22A2F12E00B9843A /* SampleCardModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SampleCardModel.swift; sourceTree = "<group>"; };
+		AD2E673E22A2F12E00B9843A /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		AD2E674022A2F12E00B9843A /* UIView+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+Extensions.swift"; sourceTree = "<group>"; };
+		AD2E674222A2F12E00B9843A /* TinderViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TinderViewController.swift; sourceTree = "<group>"; };
+		AD34BDEF22B6C68B009C0BCE /* Animator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Animator.swift; sourceTree = "<group>"; };
+		AD439DF52285FB7E009DE2F7 /* TestablePanGestureRecognizer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestablePanGestureRecognizer.swift; sourceTree = "<group>"; };
+		AD439DF62285FB7E009DE2F7 /* TestableSwipeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestableSwipeView.swift; sourceTree = "<group>"; };
+		AD439DF72285FB7E009DE2F7 /* TestableTapGestureRecognizer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestableTapGestureRecognizer.swift; sourceTree = "<group>"; };
+		AD439DFD2285FDB3009DE2F7 /* SwipeViewSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwipeViewSpec.swift; sourceTree = "<group>"; };
+		AD514C5A22A08D5600BD8F3E /* CardLayoutProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardLayoutProvider.swift; sourceTree = "<group>"; };
+		AD514C5C22A0903000BD8F3E /* CardLayoutProviderSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardLayoutProviderSpec.swift; sourceTree = "<group>"; };
+		AD514C5E22A090A000BD8F3E /* MockCardLayoutProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockCardLayoutProvider.swift; sourceTree = "<group>"; };
+		AD52EF8022E5088B0063AE5D /* CardTransformProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardTransformProvider.swift; sourceTree = "<group>"; };
+		AD52EF8222E50BFA0063AE5D /* MockCardTransformProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockCardTransformProvider.swift; sourceTree = "<group>"; };
+		AD52EF8422E50DD00063AE5D /* CardTransformProviderSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardTransformProviderSpec.swift; sourceTree = "<group>"; };
+		AD52EF8622E523020063AE5D /* CardStackTransformProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardStackTransformProvider.swift; sourceTree = "<group>"; };
+		AD52EF8822E52BFA0063AE5D /* MockCardStackTransformProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockCardStackTransformProvider.swift; sourceTree = "<group>"; };
+		AD52EF8A22E532B90063AE5D /* TestableNotificationCenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestableNotificationCenter.swift; sourceTree = "<group>"; };
+		AD52EF8E22E56AB70063AE5D /* TestableCardTransformProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestableCardTransformProvider.swift; sourceTree = "<group>"; };
+		AD5C44F222B6E7B700C11357 /* SwipeCardStackSpec+SwipeCardDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SwipeCardStackSpec+SwipeCardDelegate.swift"; sourceTree = "<group>"; };
+		AD72AC5D2270E5E20083E735 /* Shuffle.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Shuffle.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		AD72AC612270E5E20083E735 /* Shuffle.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Shuffle.plist; sourceTree = "<group>"; };
+		AD72AC6F2270E6380083E735 /* SwipeDirection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwipeDirection.swift; sourceTree = "<group>"; };
+		AD72AC702270E6380083E735 /* SwipeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwipeView.swift; sourceTree = "<group>"; };
+		AD72AC732270E66E0083E735 /* Shuffle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Shuffle.h; sourceTree = "<group>"; };
+		AD72AC752270F4130083E735 /* CGVector+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CGVector+Extensions.swift"; sourceTree = "<group>"; };
+		AD72AC7B2270FB650083E735 /* ShuffleExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ShuffleExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		AD72AC842270FB650083E735 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		AD72AC872270FB650083E735 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		AD72AC892270FB650083E735 /* ShuffleExample.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = ShuffleExample.plist; sourceTree = "<group>"; };
+		ADA444D322AC651600AFAFFE /* SwipeCardStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwipeCardStack.swift; sourceTree = "<group>"; };
+		ADA444D622AC658500AFAFFE /* SwipeCardStackDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwipeCardStackDelegate.swift; sourceTree = "<group>"; };
+		ADA444D822AC658E00AFAFFE /* SwipeCardStackDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwipeCardStackDataSource.swift; sourceTree = "<group>"; };
+		ADA444DA22AC662C00AFAFFE /* CardStackAnimator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardStackAnimator.swift; sourceTree = "<group>"; };
+		ADA444DC22AC664C00AFAFFE /* CardStackState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardStackState.swift; sourceTree = "<group>"; };
+		ADA444DE22AC682400AFAFFE /* CardStackLayoutProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardStackLayoutProvider.swift; sourceTree = "<group>"; };
+		ADB8EED122F174BB004F8633 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		ADCEAE1F22A1B80B002A5F82 /* CardAnimatorSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardAnimatorSpec.swift; sourceTree = "<group>"; };
+		ADCEAE2122A1B88D002A5F82 /* TestableCardAnimator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestableCardAnimator.swift; sourceTree = "<group>"; };
+		ADDF5F832277FA2C00274C09 /* CGPoint+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CGPoint+Extensions.swift"; sourceTree = "<group>"; };
+		ADE153642288A66700060CB1 /* CardAnimationOptionsSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardAnimationOptionsSpec.swift; sourceTree = "<group>"; };
+		ADEE86D622ACE5AA00AAE7A1 /* Array+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+Extensions.swift"; sourceTree = "<group>"; };
+		ADEE86D922ADEC9700AAE7A1 /* MockSwipeCardStackDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockSwipeCardStackDelegate.swift; sourceTree = "<group>"; };
+		ADEE86DB22ADECA300AAE7A1 /* MockSwipeCardStackDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockSwipeCardStackDataSource.swift; sourceTree = "<group>"; };
+		ADEE86DE22ADED3600AAE7A1 /* SwipeCardStackSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwipeCardStackSpec.swift; sourceTree = "<group>"; };
+		ADEE86E122ADED8A00AAE7A1 /* TestableSwipeCardStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestableSwipeCardStack.swift; sourceTree = "<group>"; };
+		ADEE86E322ADEE0000AAE7A1 /* MockCardStackAnimator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockCardStackAnimator.swift; sourceTree = "<group>"; };
+		ADEE86E522ADEE3500AAE7A1 /* MockCardStackLayoutProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockCardStackLayoutProvider.swift; sourceTree = "<group>"; };
+		ADEE86E722ADF3C200AAE7A1 /* CardStackLayoutProviderSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardStackLayoutProviderSpec.swift; sourceTree = "<group>"; };
+		BEAD69E2973AE33655E1E380 /* Pods_ShuffleExample.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ShuffleExample.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		CD70A8BE0FF499F1C1A87AA3 /* Pods_Shuffle.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Shuffle.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		AD0542B82271397900B42353 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AD0542C02271397900B42353 /* Shuffle.framework in Frameworks */,
+				BE8D2F808F03DADC9D1D5045 /* Pods_ShuffleTests.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		AD72AC5A2270E5E20083E735 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		AD72AC782270FB650083E735 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AD72AC8D2270FB8B0083E735 /* Shuffle.framework in Frameworks */,
+				2FA5AD296FDB91FF5EFDF160 /* Pods_ShuffleExample.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		2F240E85379BF2773DA29E75 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				1BF3810F67E55447192823D9 /* Pods-ShuffleTests.debug.xcconfig */,
+				3A1DBC86C688BB1F0E7FD862 /* Pods-ShuffleTests.release.xcconfig */,
+				A3A4F8A2C0F39A32B57F12BE /* Pods-ShuffleExample.debug.xcconfig */,
+				4CEAEBE96CF9FA466E2206E4 /* Pods-ShuffleExample.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
+		AD0542BC2271397900B42353 /* Tests */ = {
+			isa = PBXGroup;
+			children = (
+				AD18F0DD22B9F85E007BACE9 /* Shuffle */,
+				AD18F0E022B9F8D2007BACE9 /* Supporting Files */,
+			);
+			path = Tests;
+			sourceTree = "<group>";
+		};
+		AD10982222879C42008CB197 /* SwipeCard */ = {
+			isa = PBXGroup;
+			children = (
+				AD10982522879C42008CB197 /* CardAnimator.swift */,
+				AD10982322879C42008CB197 /* CardAnimationOptions.swift */,
+				AD52EF8022E5088B0063AE5D /* CardTransformProvider.swift */,
+				AD514C5A22A08D5600BD8F3E /* CardLayoutProvider.swift */,
+				AD10982822879C42008CB197 /* SwipeCard.swift */,
+				AD10983322879ED6008CB197 /* SwipeCardDelegate.swift */,
+				AD72AC702270E6380083E735 /* SwipeView.swift */,
+			);
+			path = SwipeCard;
+			sourceTree = "<group>";
+		};
+		AD18F0D822B9F447007BACE9 /* Mocks */ = {
+			isa = PBXGroup;
+			children = (
+				ADEE86D922ADEC9700AAE7A1 /* MockSwipeCardStackDelegate.swift */,
+				ADEE86DB22ADECA300AAE7A1 /* MockSwipeCardStackDataSource.swift */,
+				ADEE86E322ADEE0000AAE7A1 /* MockCardStackAnimator.swift */,
+				ADEE86E522ADEE3500AAE7A1 /* MockCardStackLayoutProvider.swift */,
+				AD52EF8822E52BFA0063AE5D /* MockCardStackTransformProvider.swift */,
+			);
+			path = Mocks;
+			sourceTree = "<group>";
+		};
+		AD18F0D922B9F44E007BACE9 /* Mocks */ = {
+			isa = PBXGroup;
+			children = (
+				AD10983A2287CAE4008CB197 /* MockCardAnimator.swift */,
+				AD10983B2287CAE4008CB197 /* MockSwipeCardDelegate.swift */,
+				AD514C5E22A090A000BD8F3E /* MockCardLayoutProvider.swift */,
+				AD52EF8222E50BFA0063AE5D /* MockCardTransformProvider.swift */,
+			);
+			path = Mocks;
+			sourceTree = "<group>";
+		};
+		AD18F0DA22B9F458007BACE9 /* Specs */ = {
+			isa = PBXGroup;
+			children = (
+				ADE153642288A66700060CB1 /* CardAnimationOptionsSpec.swift */,
+				ADCEAE1F22A1B80B002A5F82 /* CardAnimatorSpec.swift */,
+				AD514C5C22A0903000BD8F3E /* CardLayoutProviderSpec.swift */,
+				AD52EF8422E50DD00063AE5D /* CardTransformProviderSpec.swift */,
+				AD1098352287CAA9008CB197 /* SwipeCardSpec.swift */,
+				AD439DFD2285FDB3009DE2F7 /* SwipeViewSpec.swift */,
+			);
+			path = Specs;
+			sourceTree = "<group>";
+		};
+		AD18F0DD22B9F85E007BACE9 /* Shuffle */ = {
+			isa = PBXGroup;
+			children = (
+				AD42DEB822D97DD6007A82E8 /* Shared */,
+				ADCEAE2422A1B8D4002A5F82 /* SwipeCard */,
+				ADEE86D822ADEC8500AAE7A1 /* SwipeCardStack */,
+			);
+			path = Shuffle;
+			sourceTree = "<group>";
+		};
+		AD18F0DE22B9F874007BACE9 /* Shuffle */ = {
+			isa = PBXGroup;
+			children = (
+				AD34BDEF22B6C68B009C0BCE /* Animator.swift */,
+				AD72AC6F2270E6380083E735 /* SwipeDirection.swift */,
+				AD10982222879C42008CB197 /* SwipeCard */,
+				ADA444D522AC651B00AFAFFE /* SwipeCardStack */,
+				AD72AC682270E61D0083E735 /* Extensions */,
+			);
+			path = Shuffle;
+			sourceTree = "<group>";
+		};
+		AD18F0DF22B9F8C4007BACE9 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				AD72AC732270E66E0083E735 /* Shuffle.h */,
+				AD72AC612270E5E20083E735 /* Shuffle.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		AD18F0E022B9F8D2007BACE9 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				AD0542BF2271397900B42353 /* ShuffleTests.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		AD18F0E122B9F957007BACE9 /* TinderExample */ = {
+			isa = PBXGroup;
+			children = (
+				AD2E674222A2F12E00B9843A /* TinderViewController.swift */,
+				AD2E673522A2F12E00B9843A /* Views */,
+				AD2E673F22A2F12E00B9843A /* Extensions */,
+			);
+			path = TinderExample;
+			sourceTree = "<group>";
+		};
+		AD2E673522A2F12E00B9843A /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				AD2E673622A2F12E00B9843A /* ButtonStackView.swift */,
+				AD2E673722A2F12E00B9843A /* TinderButton.swift */,
+				AD2E673822A2F12E00B9843A /* SampleCard */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		AD2E673822A2F12E00B9843A /* SampleCard */ = {
+			isa = PBXGroup;
+			children = (
+				AD2E673922A2F12E00B9843A /* SampleCard.swift */,
+				AD2E673A22A2F12E00B9843A /* SampleCardContentView.swift */,
+				AD2E673B22A2F12E00B9843A /* SampleCardOverlay.swift */,
+				AD2E673C22A2F12E00B9843A /* SampleCardFooterView.swift */,
+				AD2E673D22A2F12E00B9843A /* SampleCardModel.swift */,
+			);
+			path = SampleCard;
+			sourceTree = "<group>";
+		};
+		AD2E673F22A2F12E00B9843A /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				AD2E674022A2F12E00B9843A /* UIView+Extensions.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		AD3FAC2822A2413A001A24F9 /* Testables */ = {
+			isa = PBXGroup;
+			children = (
+				ADCEAE2122A1B88D002A5F82 /* TestableCardAnimator.swift */,
+				AD52EF8E22E56AB70063AE5D /* TestableCardTransformProvider.swift */,
+				AD1098372287CAD4008CB197 /* TestableSwipeCard.swift */,
+				AD439DF62285FB7E009DE2F7 /* TestableSwipeView.swift */,
+			);
+			path = Testables;
+			sourceTree = "<group>";
+		};
+		AD42DEB822D97DD6007A82E8 /* Shared */ = {
+			isa = PBXGroup;
+			children = (
+				AD42DEBA22D98302007A82E8 /* Testables */,
+			);
+			path = Shared;
+			sourceTree = "<group>";
+		};
+		AD42DEBA22D98302007A82E8 /* Testables */ = {
+			isa = PBXGroup;
+			children = (
+				AD52EF8A22E532B90063AE5D /* TestableNotificationCenter.swift */,
+				AD439DF52285FB7E009DE2F7 /* TestablePanGestureRecognizer.swift */,
+				AD439DF72285FB7E009DE2F7 /* TestableTapGestureRecognizer.swift */,
+			);
+			path = Testables;
+			sourceTree = "<group>";
+		};
+		AD72AC532270E5E20083E735 = {
+			isa = PBXGroup;
+			children = (
+				ADB8EED022F174A1004F8633 /* Podspec Metadata */,
+				AD72AC7C2270FB650083E735 /* Example for Shuffle */,
+				AD72AC5F2270E5E20083E735 /* Sources */,
+				AD0542BC2271397900B42353 /* Tests */,
+				AD72AC5E2270E5E20083E735 /* Products */,
+				2F240E85379BF2773DA29E75 /* Pods */,
+				B61876558DC14FE6B658BF46 /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		AD72AC5E2270E5E20083E735 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				AD72AC5D2270E5E20083E735 /* Shuffle.framework */,
+				AD72AC7B2270FB650083E735 /* ShuffleExample.app */,
+				AD0542BB2271397900B42353 /* ShuffleTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		AD72AC5F2270E5E20083E735 /* Sources */ = {
+			isa = PBXGroup;
+			children = (
+				AD18F0DE22B9F874007BACE9 /* Shuffle */,
+				AD18F0DF22B9F8C4007BACE9 /* Supporting Files */,
+			);
+			path = Sources;
+			sourceTree = "<group>";
+		};
+		AD72AC682270E61D0083E735 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				ADEE86D622ACE5AA00AAE7A1 /* Array+Extensions.swift */,
+				ADDF5F832277FA2C00274C09 /* CGPoint+Extensions.swift */,
+				AD72AC752270F4130083E735 /* CGVector+Extensions.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		AD72AC7C2270FB650083E735 /* Example for Shuffle */ = {
+			isa = PBXGroup;
+			children = (
+				AD2E673E22A2F12E00B9843A /* AppDelegate.swift */,
+				AD18F0E122B9F957007BACE9 /* TinderExample */,
+				AD72AC932270FC7C0083E735 /* Supporting Files */,
+			);
+            name = "Example for Shuffle";
+			path = Example;
+			sourceTree = "<group>";
+		};
+		AD72AC932270FC7C0083E735 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				AD72AC842270FB650083E735 /* Assets.xcassets */,
+				AD72AC862270FB650083E735 /* LaunchScreen.storyboard */,
+				AD72AC892270FB650083E735 /* ShuffleExample.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		ADA444D522AC651B00AFAFFE /* SwipeCardStack */ = {
+			isa = PBXGroup;
+			children = (
+				ADA444DA22AC662C00AFAFFE /* CardStackAnimator.swift */,
+				ADA444DE22AC682400AFAFFE /* CardStackLayoutProvider.swift */,
+				ADA444DC22AC664C00AFAFFE /* CardStackState.swift */,
+				AD52EF8622E523020063AE5D /* CardStackTransformProvider.swift */,
+				AD23D05022BAD107009BCB50 /* CardStackAnimationOptions.swift */,
+				ADA444D322AC651600AFAFFE /* SwipeCardStack.swift */,
+				ADA444D822AC658E00AFAFFE /* SwipeCardStackDataSource.swift */,
+				ADA444D622AC658500AFAFFE /* SwipeCardStackDelegate.swift */,
+			);
+			path = SwipeCardStack;
+			sourceTree = "<group>";
+		};
+		ADB8EED022F174A1004F8633 /* Podspec Metadata */ = {
+			isa = PBXGroup;
+			children = (
+				ADB8EED122F174BB004F8633 /* README.md */,
+			);
+			name = "Podspec Metadata";
+			sourceTree = "<group>";
+		};
+		ADCEAE2422A1B8D4002A5F82 /* SwipeCard */ = {
+			isa = PBXGroup;
+			children = (
+				AD18F0D922B9F44E007BACE9 /* Mocks */,
+				AD18F0DA22B9F458007BACE9 /* Specs */,
+				AD3FAC2822A2413A001A24F9 /* Testables */,
+			);
+			path = SwipeCard;
+			sourceTree = "<group>";
+		};
+		ADEE86D822ADEC8500AAE7A1 /* SwipeCardStack */ = {
+			isa = PBXGroup;
+			children = (
+				AD18F0D822B9F447007BACE9 /* Mocks */,
+				ADEE86DD22ADED2900AAE7A1 /* Specs */,
+				ADEE86E022ADED7F00AAE7A1 /* Testables */,
+			);
+			path = SwipeCardStack;
+			sourceTree = "<group>";
+		};
+		ADEE86DD22ADED2900AAE7A1 /* Specs */ = {
+			isa = PBXGroup;
+			children = (
+				ADEE86E722ADF3C200AAE7A1 /* CardStackLayoutProviderSpec.swift */,
+				ADEE86DE22ADED3600AAE7A1 /* SwipeCardStackSpec.swift */,
+				AD5C44F222B6E7B700C11357 /* SwipeCardStackSpec+SwipeCardDelegate.swift */,
+			);
+			path = Specs;
+			sourceTree = "<group>";
+		};
+		ADEE86E022ADED7F00AAE7A1 /* Testables */ = {
+			isa = PBXGroup;
+			children = (
+				ADEE86E122ADED8A00AAE7A1 /* TestableSwipeCardStack.swift */,
+			);
+			path = Testables;
+			sourceTree = "<group>";
+		};
+		B61876558DC14FE6B658BF46 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				CD70A8BE0FF499F1C1A87AA3 /* Pods_Shuffle.framework */,
+				BEAD69E2973AE33655E1E380 /* Pods_ShuffleExample.framework */,
+				6C08D484FE19F2D4B9F553F2 /* Pods_ShuffleTests.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		AD72AC582270E5E20083E735 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AD72AC742270E66E0083E735 /* Shuffle.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		AD0542BA2271397900B42353 /* ShuffleTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = AD0542C32271397900B42353 /* Build configuration list for PBXNativeTarget "ShuffleTests" */;
+			buildPhases = (
+				F0C156BCE9E33924E7A97EE3 /* [CP] Check Pods Manifest.lock */,
+				AD0542B72271397900B42353 /* Sources */,
+				AD0542B82271397900B42353 /* Frameworks */,
+				AD0542B92271397900B42353 /* Resources */,
+				5EB10166E86B76500C6C528A /* [CP] Embed Pods Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				AD0542C22271397900B42353 /* PBXTargetDependency */,
+			);
+			name = ShuffleTests;
+			productName = ShuffleTests;
+			productReference = AD0542BB2271397900B42353 /* ShuffleTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		AD72AC5C2270E5E20083E735 /* Shuffle */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = AD72AC652270E5E20083E735 /* Build configuration list for PBXNativeTarget "Shuffle" */;
+			buildPhases = (
+				AD72AC582270E5E20083E735 /* Headers */,
+				AD72AC592270E5E20083E735 /* Sources */,
+				AD72AC5A2270E5E20083E735 /* Frameworks */,
+				AD72AC5B2270E5E20083E735 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Shuffle;
+			productName = Shuffle;
+			productReference = AD72AC5D2270E5E20083E735 /* Shuffle.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		AD72AC7A2270FB650083E735 /* ShuffleExample */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = AD72AC8A2270FB650083E735 /* Build configuration list for PBXNativeTarget "ShuffleExample" */;
+			buildPhases = (
+				C46CA6AB0E68B474A26B4214 /* [CP] Check Pods Manifest.lock */,
+				AD72AC772270FB650083E735 /* Sources */,
+				AD72AC782270FB650083E735 /* Frameworks */,
+				AD72AC792270FB650083E735 /* Resources */,
+				AD72AC912270FB8B0083E735 /* Embed Frameworks */,
+				76E5F6F1F50A858879D9E397 /* [CP] Embed Pods Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				AD72AC902270FB8B0083E735 /* PBXTargetDependency */,
+			);
+			name = ShuffleExample;
+			productName = ShuffleExample;
+			productReference = AD72AC7B2270FB650083E735 /* ShuffleExample.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		AD72AC542270E5E20083E735 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 1020;
+				LastUpgradeCheck = 1020;
+				ORGANIZATIONNAME = "Mac Gallagher";
+				TargetAttributes = {
+					AD0542BA2271397900B42353 = {
+						CreatedOnToolsVersion = 10.2.1;
+					};
+					AD72AC5C2270E5E20083E735 = {
+						CreatedOnToolsVersion = 10.2.1;
+					};
+					AD72AC7A2270FB650083E735 = {
+						CreatedOnToolsVersion = 10.2.1;
+						LastSwiftMigration = 1020;
+					};
+				};
+			};
+			buildConfigurationList = AD72AC572270E5E20083E735 /* Build configuration list for PBXProject "Shuffle" */;
+			compatibilityVersion = "Xcode 9.3";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = AD72AC532270E5E20083E735;
+			productRefGroup = AD72AC5E2270E5E20083E735 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				AD72AC5C2270E5E20083E735 /* Shuffle */,
+				AD72AC7A2270FB650083E735 /* ShuffleExample */,
+				AD0542BA2271397900B42353 /* ShuffleTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		AD0542B92271397900B42353 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		AD72AC5B2270E5E20083E735 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		AD72AC792270FB650083E735 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AD72AC882270FB650083E735 /* LaunchScreen.storyboard in Resources */,
+				AD72AC852270FB650083E735 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		5EB10166E86B76500C6C528A /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-ShuffleTests/Pods-ShuffleTests-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/Nimble/Nimble.framework",
+				"${BUILT_PRODUCTS_DIR}/Quick/Quick.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Nimble.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Quick.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-ShuffleTests/Pods-ShuffleTests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		76E5F6F1F50A858879D9E397 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-ShuffleExample/Pods-ShuffleExample-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/PopBounceButton/PopBounceButton.framework",
+				"${BUILT_PRODUCTS_DIR}/pop/pop.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/PopBounceButton.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/pop.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-ShuffleExample/Pods-ShuffleExample-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		C46CA6AB0E68B474A26B4214 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-ShuffleExample-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		F0C156BCE9E33924E7A97EE3 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-ShuffleTests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		AD0542B72271397900B42353 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AD5C44F322B6E7B700C11357 /* SwipeCardStackSpec+SwipeCardDelegate.swift in Sources */,
+				AD1098362287CAA9008CB197 /* SwipeCardSpec.swift in Sources */,
+				ADEE86E822ADF3C200AAE7A1 /* CardStackLayoutProviderSpec.swift in Sources */,
+				ADCEAE2022A1B80B002A5F82 /* CardAnimatorSpec.swift in Sources */,
+				ADEE86DF22ADED3600AAE7A1 /* SwipeCardStackSpec.swift in Sources */,
+				AD52EF8922E52BFA0063AE5D /* MockCardStackTransformProvider.swift in Sources */,
+				ADEE86DC22ADECA300AAE7A1 /* MockSwipeCardStackDataSource.swift in Sources */,
+				AD439DFE2285FDB3009DE2F7 /* SwipeViewSpec.swift in Sources */,
+				AD439DF82285FB7E009DE2F7 /* TestablePanGestureRecognizer.swift in Sources */,
+				AD52EF8322E50BFA0063AE5D /* MockCardTransformProvider.swift in Sources */,
+				AD514C5F22A090A000BD8F3E /* MockCardLayoutProvider.swift in Sources */,
+				ADEE86E422ADEE0000AAE7A1 /* MockCardStackAnimator.swift in Sources */,
+				ADCEAE2222A1B88D002A5F82 /* TestableCardAnimator.swift in Sources */,
+				ADE153652288A66700060CB1 /* CardAnimationOptionsSpec.swift in Sources */,
+				AD514C5D22A0903000BD8F3E /* CardLayoutProviderSpec.swift in Sources */,
+				AD439DF92285FB7E009DE2F7 /* TestableSwipeView.swift in Sources */,
+				AD52EF8B22E532B90063AE5D /* TestableNotificationCenter.swift in Sources */,
+				AD1098382287CAD4008CB197 /* TestableSwipeCard.swift in Sources */,
+				AD52EF8F22E56AB70063AE5D /* TestableCardTransformProvider.swift in Sources */,
+				AD10983D2287CAE4008CB197 /* MockSwipeCardDelegate.swift in Sources */,
+				ADEE86DA22ADEC9700AAE7A1 /* MockSwipeCardStackDelegate.swift in Sources */,
+				ADEE86E622ADEE3500AAE7A1 /* MockCardStackLayoutProvider.swift in Sources */,
+				AD10983C2287CAE4008CB197 /* MockCardAnimator.swift in Sources */,
+				AD439DFA2285FB7E009DE2F7 /* TestableTapGestureRecognizer.swift in Sources */,
+				AD52EF8522E50DD00063AE5D /* CardTransformProviderSpec.swift in Sources */,
+				ADEE86E222ADED8A00AAE7A1 /* TestableSwipeCardStack.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		AD72AC592270E5E20083E735 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				ADA444D422AC651600AFAFFE /* SwipeCardStack.swift in Sources */,
+				ADDF5F842277FA2C00274C09 /* CGPoint+Extensions.swift in Sources */,
+				ADA444DF22AC682400AFAFFE /* CardStackLayoutProvider.swift in Sources */,
+				AD10983422879ED6008CB197 /* SwipeCardDelegate.swift in Sources */,
+				AD52EF8122E5088B0063AE5D /* CardTransformProvider.swift in Sources */,
+				AD514C5B22A08D5600BD8F3E /* CardLayoutProvider.swift in Sources */,
+				AD72AC9A2270FCCE0083E735 /* SwipeDirection.swift in Sources */,
+				ADA444D922AC658E00AFAFFE /* SwipeCardStackDataSource.swift in Sources */,
+				AD52EF8722E523020063AE5D /* CardStackTransformProvider.swift in Sources */,
+				ADA444DD22AC664C00AFAFFE /* CardStackState.swift in Sources */,
+				ADEE86D722ACE5AA00AAE7A1 /* Array+Extensions.swift in Sources */,
+				AD10982922879C42008CB197 /* CardAnimationOptions.swift in Sources */,
+				AD72AC762270F4130083E735 /* CGVector+Extensions.swift in Sources */,
+				AD10982B22879C42008CB197 /* CardAnimator.swift in Sources */,
+				AD34BDF022B6C68B009C0BCE /* Animator.swift in Sources */,
+				AD10982D22879C42008CB197 /* SwipeCard.swift in Sources */,
+				ADA444D722AC658500AFAFFE /* SwipeCardStackDelegate.swift in Sources */,
+				AD72AC722270E6380083E735 /* SwipeView.swift in Sources */,
+				ADA444DB22AC662C00AFAFFE /* CardStackAnimator.swift in Sources */,
+				AD23D05122BAD107009BCB50 /* CardStackAnimationOptions.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		AD72AC772270FB650083E735 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AD2E674C22A2F12E00B9843A /* TinderViewController.swift in Sources */,
+				AD2E674A22A2F12E00B9843A /* AppDelegate.swift in Sources */,
+				AD2E674622A2F12E00B9843A /* SampleCardContentView.swift in Sources */,
+				AD2E674522A2F12E00B9843A /* SampleCard.swift in Sources */,
+				AD2E674B22A2F12E00B9843A /* UIView+Extensions.swift in Sources */,
+				AD2E674322A2F12E00B9843A /* ButtonStackView.swift in Sources */,
+				AD2E674422A2F12E00B9843A /* TinderButton.swift in Sources */,
+				AD2E674722A2F12E00B9843A /* SampleCardOverlay.swift in Sources */,
+				AD2E674822A2F12E00B9843A /* SampleCardFooterView.swift in Sources */,
+				AD2E674922A2F12E00B9843A /* SampleCardModel.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		AD0542C22271397900B42353 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = AD72AC5C2270E5E20083E735 /* Shuffle */;
+			targetProxy = AD0542C12271397900B42353 /* PBXContainerItemProxy */;
+		};
+		AD72AC902270FB8B0083E735 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = AD72AC5C2270E5E20083E735 /* Shuffle */;
+			targetProxy = AD72AC8F2270FB8B0083E735 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		AD72AC862270FB650083E735 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				AD72AC872270FB650083E735 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		AD0542C42271397900B42353 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 1BF3810F67E55447192823D9 /* Pods-ShuffleTests.debug.xcconfig */;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = "";
+				INFOPLIST_FILE = Tests/ShuffleTests.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.macgallagher.ShuffleTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		AD0542C52271397900B42353 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 3A1DBC86C688BB1F0E7FD862 /* Pods-ShuffleTests.release.xcconfig */;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = "";
+				INFOPLIST_FILE = Tests/ShuffleTests.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.macgallagher.ShuffleTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		AD72AC632270E5E20083E735 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.2;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		AD72AC642270E5E20083E735 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.2;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		AD72AC662270E5E20083E735 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "";
+				CODE_SIGN_STYLE = Automatic;
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = DYZ8Y2U8DB;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = "$(SRCROOT)/Sources/Shuffle.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.macgallagher.Shuffle;
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		AD72AC672270E5E20083E735 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "";
+				CODE_SIGN_STYLE = Automatic;
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = DYZ8Y2U8DB;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = "$(SRCROOT)/Sources/Shuffle.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.macgallagher.Shuffle;
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		AD72AC8B2270FB650083E735 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = A3A4F8A2C0F39A32B57F12BE /* Pods-ShuffleExample.debug.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = DYZ8Y2U8DB;
+				INFOPLIST_FILE = "$(SRCROOT)/Example/ShuffleExample.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.macgallagher.ShuffleExample;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_INSTALL_OBJC_HEADER = NO;
+				SWIFT_OBJC_INTERFACE_HEADER_NAME = "";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_PRECOMPILE_BRIDGING_HEADER = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		AD72AC8C2270FB650083E735 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 4CEAEBE96CF9FA466E2206E4 /* Pods-ShuffleExample.release.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = DYZ8Y2U8DB;
+				INFOPLIST_FILE = "$(SRCROOT)/Example/ShuffleExample.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.macgallagher.ShuffleExample;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_INSTALL_OBJC_HEADER = NO;
+				SWIFT_OBJC_INTERFACE_HEADER_NAME = "";
+				SWIFT_PRECOMPILE_BRIDGING_HEADER = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		AD0542C32271397900B42353 /* Build configuration list for PBXNativeTarget "ShuffleTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				AD0542C42271397900B42353 /* Debug */,
+				AD0542C52271397900B42353 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		AD72AC572270E5E20083E735 /* Build configuration list for PBXProject "Shuffle" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				AD72AC632270E5E20083E735 /* Debug */,
+				AD72AC642270E5E20083E735 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		AD72AC652270E5E20083E735 /* Build configuration list for PBXNativeTarget "Shuffle" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				AD72AC662270E5E20083E735 /* Debug */,
+				AD72AC672270E5E20083E735 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		AD72AC8A2270FB650083E735 /* Build configuration list for PBXNativeTarget "ShuffleExample" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				AD72AC8B2270FB650083E735 /* Debug */,
+				AD72AC8C2270FB650083E735 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = AD72AC542270E5E20083E735 /* Project object */;
+}

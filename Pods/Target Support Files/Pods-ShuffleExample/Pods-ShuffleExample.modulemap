@@ -1,0 +1,6 @@
+framework module Pods_ShuffleExample {
+  umbrella header "Pods-ShuffleExample-umbrella.h"
+
+  export *
+  module * { export * }
+}

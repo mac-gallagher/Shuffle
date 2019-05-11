@@ -1,0 +1,28 @@
+PODS:
+  - Nimble (8.0.1)
+  - pop (1.0.12)
+  - PopBounceButton (1.2.2):
+    - pop (~> 1.0)
+  - Quick (2.1.0)
+
+DEPENDENCIES:
+  - Nimble
+  - PopBounceButton
+  - Quick
+
+SPEC REPOS:
+  https://github.com/cocoapods/specs.git:
+    - Nimble
+    - pop
+    - PopBounceButton
+    - Quick
+
+SPEC CHECKSUMS:
+  Nimble: 45f786ae66faa9a709624227fae502db55a8bdd0
+  pop: d582054913807fd11fd50bfe6a539d91c7e1a55a
+  PopBounceButton: 34105a012678222f058f8d2621672724a3d5c9fb
+  Quick: 4be43f6634acfa727dd106bdf3929ce125ffa79d
+
+PODFILE CHECKSUM: 34a1d969f02caaf166b4ee375c8a1b27d593fd09
+
+COCOAPODS: 1.6.1
