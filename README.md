@@ -1,4 +1,4 @@
-<img src="Images/swipe_example.gif" width="260" align="right">
+<img src="https://raw.githubusercontent.com/mac-gallagher/Shuffle/master/Images/swipe_example.gif" width="260" align="right">
 
 <H1 align="center"> Shuffle
 </H1>
@@ -9,12 +9,12 @@
 
 <p align="center">
 <a href="https://developer.apple.com/swift"><img alt="Swift 5" src="https://img.shields.io/badge/language-Swift_5-orange.svg"/></a>
-<!--<a href="https://cocoapods.org/pods/MultiProgressView"><img alt="CocoaPods" src="https://img.shields.io/cocoapods/v/MultiProgressView.svg"/></a>-->
+<a href="https://cocoapods.org/pods/MultiProgressView"><img alt="CocoaPods" src="https://img.shields.io/cocoapods/v/Shuffle-iOS.svg"/></a>
 <a href="https://github.com/Carthage/Carthage"><img alt="Carthage" src="https://img.shields.io/badge/carthage-compatible-4BC51D.svg?style=flat)"/></a>
 <!--<a href="https://swift.org/package-manager"><img alt="Swift Package Manager" src="https://img.shields.io/badge/swift pm-compatible-yellow.svg"/></a>-->
 </br>
 <!--<a href="https://travis-ci.org/mac-gallagher/MultiProgressView"><img alt="Build Status" src="https://travis-ci.com/mac-gallagher/MultiProgressView.svg?branch=master"/></a>
---><a href="https://cocoapods.org/pods/MultiProgressView"><img alt="Platform" src="https://img.shields.io/cocoapods/p/MultiProgressView.svg"/></a>
+--><a href="https://cocoapods.org/pods/MultiProgressView"><img alt="Platform" src="https://img.shields.io/cocoapods/p/Shuffle-iOS.svg"/></a>
 <!--<a href="https://codecov.io/gh/mac-gallagher/MultiProgressView"><img alt="Code Coverage" src="https://codecov.io/gh/mac-gallagher/MultiProgressView/branch/master/graph/badge.svg"></a>
 --><a href="https://github.com/mac-gallagher/MultiProgressView/blob/master/LICENSE"><img alt="LICENSE" src="https://img.shields.io/cocoapods/l/MultiProgressView"></a>
 </p>
@@ -122,7 +122,7 @@ Performs a swipe programmatically in the given direction.
 func swipe(_ direction: SwipeDirection, animated: Bool)
 ```
 
-![Shift](Images/swipe.gif)
+![Shift](https://raw.githubusercontent.com/mac-gallagher/Shuffle/master/Images/swipe.gif)
 
 ### Undo
 Restores the card stack to its state before the last swipe.
@@ -131,7 +131,7 @@ Restores the card stack to its state before the last swipe.
 func undoLastSwipe(animated: Bool)
 ```
 
-![Shift](Images/undo.gif)
+![Shift](https://raw.githubusercontent.com/mac-gallagher/Shuffle/master/Images/undo.gif)
 
 ### Shift
 Shifts the card stack's cards by the given distance. Any swiped cards are skipped over.
@@ -140,7 +140,7 @@ Shifts the card stack's cards by the given distance. Any swiped cards are skippe
 func shift(withDistance distance: Int = 1, animated: Bool)
 ```
 
-![Shift](Images/shift.gif)
+![Shift](https://raw.githubusercontent.com/mac-gallagher/Shuffle/master/Images/shift.gif)
 
 ## Advanced Usage
 For more advanced usage, including
@@ -152,12 +152,12 @@ For more advanced usage, including
 visit the document [here](Documentation/AdvancedUsage.md).
 
 ## Installation
-<!--
+
 ### CocoaPods
 Shuffle is available through [CocoaPods](<https://cocoapods.org/>). To install it, simply add the following line to your `Podfile`:
 
 	pod 'Shuffle-iOS'
--->
+
 ### Carthage
 
 Shuffle is available through [Carthage](<https://github.com/Carthage/Carthage>). To install it, simply add the following line to your Cartfile:
