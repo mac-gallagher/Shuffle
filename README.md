@@ -11,7 +11,7 @@
 <a href="https://developer.apple.com/swift"><img alt="Swift 5" src="https://img.shields.io/badge/language-Swift_5-orange.svg"/></a>
 <a href="https://cocoapods.org/pods/MultiProgressView"><img alt="CocoaPods" src="https://img.shields.io/cocoapods/v/Shuffle-iOS.svg"/></a>
 <a href="https://github.com/Carthage/Carthage"><img alt="Carthage" src="https://img.shields.io/badge/carthage-compatible-4BC51D.svg?style=flat)"/></a>
-<!--<a href="https://swift.org/package-manager"><img alt="Swift Package Manager" src="https://img.shields.io/badge/swift pm-compatible-yellow.svg"/></a>-->
+<a href="https://swift.org/package-manager"><img alt="Swift Package Manager" src="https://img.shields.io/badge/swift pm-compatible-yellow.svg"/></a>
 </br>
 <!--<a href="https://travis-ci.org/mac-gallagher/MultiProgressView"><img alt="Build Status" src="https://travis-ci.com/mac-gallagher/MultiProgressView.svg?branch=master"/></a>
 --><a href="https://cocoapods.org/pods/MultiProgressView"><img alt="Platform" src="https://img.shields.io/cocoapods/p/Shuffle-iOS.svg"/></a>
@@ -164,7 +164,6 @@ Shuffle is available through [Carthage](<https://github.com/Carthage/Carthage>).
 
 	github "mac-gallagher/Shuffle"
 
-<!--
 ### Swift Package Manager
 MultiProgressView is available through [Swift PM](<https://swift.org/package-manager/>). To install it, simply add the package as a dependency in `Package.swift`:
 
@@ -173,7 +172,7 @@ dependencies: [
   .package(url: "https://github.com/mac-gallagher/Shuffle.git", from: "0.1.0"),
 ]
 ```
--->
+
 ### Manual
 Download and drop the `Shuffle` directory into your project.
 

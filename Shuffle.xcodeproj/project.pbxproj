@@ -223,7 +223,7 @@
 		AD0542BC2271397900B42353 /* Tests */ = {
 			isa = PBXGroup;
 			children = (
-				AD18F0DD22B9F85E007BACE9 /* Shuffle */,
+				AD18F0DD22B9F85E007BACE9 /* ShuffleTests */,
 				AD18F0E022B9F8D2007BACE9 /* Supporting Files */,
 			);
 			path = Tests;
@@ -279,14 +279,14 @@
 			path = Specs;
 			sourceTree = "<group>";
 		};
-		AD18F0DD22B9F85E007BACE9 /* Shuffle */ = {
+		AD18F0DD22B9F85E007BACE9 /* ShuffleTests */ = {
 			isa = PBXGroup;
 			children = (
 				AD42DEB822D97DD6007A82E8 /* Shared */,
 				ADCEAE2422A1B8D4002A5F82 /* SwipeCard */,
 				ADEE86D822ADEC8500AAE7A1 /* SwipeCardStack */,
 			);
-			path = Shuffle;
+			path = ShuffleTests;
 			sourceTree = "<group>";
 		};
 		AD18F0DE22B9F874007BACE9 /* Shuffle */ = {
@@ -436,7 +436,7 @@
 				AD18F0E122B9F957007BACE9 /* TinderExample */,
 				AD72AC932270FC7C0083E735 /* Supporting Files */,
 			);
-            name = "Example for Shuffle";
+			name = "Example for Shuffle";
 			path = Example;
 			sourceTree = "<group>";
 		};
