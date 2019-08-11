@@ -1,11 +1,14 @@
-<img src="https://raw.githubusercontent.com/mac-gallagher/Shuffle/master/Images/swipe_example.gif" width="260" align="right">
+<img src="https://raw.githubusercontent.com/mac-gallagher/Shuffle/master/Images/swipe_example.gif" width="230" align="right">
 
-<H1 align="center"> Shuffle
-</H1>
+</br>
+
+<p align="center">
+<img src="https://raw.githubusercontent.com/mac-gallagher/Shuffle/master/Images/header.png" width="400">
 
 <H4 align="center">
 🔥 A multi-directional card swiping library inspired by Tinder.
 </H4>
+</p>
 
 <p align="center">
 <a href="https://developer.apple.com/swift"><img alt="Swift 5" src="https://img.shields.io/badge/language-Swift_5-orange.svg"/></a>
@@ -24,15 +27,12 @@ Made with ❤️ by <a href="https://github.com/mac-gallagher">Mac Gallagher</a>
 </p>
 
 </br>
-</br>
-</br>
-</br>
-</br>
+
 
 ## Features
 
 💡 Advanced swipe recognition based on velocity and card position
- 
+
 💡 Manual and programmatic actions
 
 💡 Smooth card overlay view transitions
@@ -42,7 +42,6 @@ Made with ❤️ by <a href="https://github.com/mac-gallagher">Mac Gallagher</a>
 💡 Dynamic card loading using data source pattern
 
 ## Example
-
 To run the example project, clone the repo and run the `ShuffleExample` target.
 
 ## Basic Usage
@@ -122,7 +121,7 @@ Performs a swipe programmatically in the given direction.
 func swipe(_ direction: SwipeDirection, animated: Bool)
 ```
 
-![Shift](https://raw.githubusercontent.com/mac-gallagher/Shuffle/master/Images/swipe.gif)
+<img src="https://raw.githubusercontent.com/mac-gallagher/Shuffle/master/Images/swipe.gif" width="200">
 
 ### Undo
 Restores the card stack to its state before the last swipe.
@@ -131,7 +130,7 @@ Restores the card stack to its state before the last swipe.
 func undoLastSwipe(animated: Bool)
 ```
 
-![Shift](https://raw.githubusercontent.com/mac-gallagher/Shuffle/master/Images/undo.gif)
+<img src="https://raw.githubusercontent.com/mac-gallagher/Shuffle/master/Images/undo.gif" width="200">
 
 ### Shift
 Shifts the card stack's cards by the given distance. Any swiped cards are skipped over.
@@ -140,7 +139,7 @@ Shifts the card stack's cards by the given distance. Any swiped cards are skippe
 func shift(withDistance distance: Int = 1, animated: Bool)
 ```
 
-![Shift](https://raw.githubusercontent.com/mac-gallagher/Shuffle/master/Images/shift.gif)
+<img src="https://raw.githubusercontent.com/mac-gallagher/Shuffle/master/Images/shift.gif" width="200">
 
 ## Advanced Usage
 For more advanced usage, including
@@ -181,5 +180,15 @@ Download and drop the `Shuffle` directory into your project.
 * Xcode 10.2+
 * Swift 5.0+
 
-## License
-Shuffle is available under the [MIT License](LICENSE), see LICENSE for more infomation.
+## Apps Using Shuffle
+We love to hear about apps that use Shuffle - feel free to submit a pull request and share yours here!
+
+</br>
+
+---
+
+<p align="center">
+Made with ❤️ by <a href="https://github.com/mac-gallagher">Mac Gallagher</a>
+</br>
+(Logo designed by <a href="mailto:mghani@uwm.edu">Mazen Ghani</a>)
+</p>
