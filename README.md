@@ -12,14 +12,14 @@
 
 <p align="center">
 <a href="https://developer.apple.com/swift"><img alt="Swift 5" src="https://img.shields.io/badge/language-Swift_5-orange.svg"/></a>
-<a href="https://cocoapods.org/pods/MultiProgressView"><img alt="CocoaPods" src="https://img.shields.io/cocoapods/v/Shuffle-iOS.svg"/></a>
+<a href="https://cocoapods.org/pods/Shuffle-iOS"><img alt="CocoaPods" src="https://img.shields.io/cocoapods/v/Shuffle-iOS.svg"/></a>
 <a href="https://github.com/Carthage/Carthage"><img alt="Carthage" src="https://img.shields.io/badge/carthage-compatible-4BC51D.svg?style=flat)"/></a>
 <a href="https://swift.org/package-manager"><img alt="Swift Package Manager" src="https://img.shields.io/badge/swift pm-compatible-yellow.svg"/></a>
 </br>
 <a href="https://travis-ci.org/mac-gallagher/Shuffle"><img alt="Build Status" src="https://travis-ci.org/mac-gallagher/Shuffle.svg?branch=master"/></a>
-<a href="https://cocoapods.org/pods/Shuffle"><img alt="Platform" src="https://img.shields.io/cocoapods/p/Shuffle-iOS.svg"/></a>
+<a href="https://cocoapods.org/pods/Shuffle-iOS"><img alt="Platform" src="https://img.shields.io/cocoapods/p/Shuffle-iOS.svg"/></a>
 <a href="https://codecov.io/gh/mac-gallagher/Shuffle"><img alt="Code Coverage" src="https://codecov.io/gh/mac-gallagher/Shuffle/branch/master/graph/badge.svg"></a>
-<a href="https://github.com/mac-gallagher/Shuffle/blob/master/LICENSE"><img alt="LICENSE" src="https://img.shields.io/cocoapods/l/Shuffle"></a>
+<a href="https://github.com/mac-gallagher/Shuffle/blob/master/LICENSE"><img alt="LICENSE" src="https://img.shields.io/cocoapods/l/Shuffle-iOS"></a>
 </p>
 
 <p align="center">
@@ -190,5 +190,5 @@ We love to hear about apps that use Shuffle - feel free to submit a pull request
 <p align="center">
 Made with ❤️ by <a href="https://github.com/mac-gallagher">Mac Gallagher</a>
 </br>
-(Logo designed by <a href="mailto:mghani@uwm.edu">Mazen Ghani</a>)
+(Graphic designed by <a href="mailto:mghani@uwm.edu">Mazen Ghani</a>)
 </p>
