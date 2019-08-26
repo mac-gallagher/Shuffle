@@ -4,7 +4,10 @@ xcode_workspace: Shuffle.xcworkspace
 xcode_scheme: Shuffle
 xcode_destination: platform=iOS Simulator,OS=9.0,name=iPhone 6
 
+# run tests
 script:
-  - xcodebuild test -workspace Shuffle.xcworkspace -scheme Shuffle -sdk iphonesimulator -destination 'platform=iOS Simulator,name=iPhone X,OS=12.2' | xcpretty
+  - xcodebuild test -workspace Shuffle.xcworkspace -scheme Shuffle -sdk iphonesimulator -destination 'platform=iOS Simulator,name=iPhone X,OS=12.2'
+
+# upload codecov report
 after_success:
-  - bash <(curl -s https://codecov.io/bash)
+  - bash <(curl -s https://codecov.io/bash) -J 'Shuffle'
