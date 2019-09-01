@@ -81,9 +81,9 @@ open class SwipeCard: SwipeView {
         }
     }
     
-    private let overlayContainer = UIView()
-    
     var animator: CardAnimatable.Type = CardAnimator.self
+    
+    private let overlayContainer = UIView()
     
     private var layoutProvider: CardLayoutProvidable.Type = CardLayoutProvider.self
     private var transformProvider: CardTransformProvidable.Type = CardTransformProvider.self
@@ -125,6 +125,7 @@ open class SwipeCard: SwipeView {
                 overlay.alpha = 0
             }
         }
+        overlayContainer.setUserInteraction(false)
     }
     
     // MARK: - Layout
