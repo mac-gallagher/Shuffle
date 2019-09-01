@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		2FA5AD296FDB91FF5EFDF160 /* Pods_ShuffleExample.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BEAD69E2973AE33655E1E380 /* Pods_ShuffleExample.framework */; };
+		881FD28C231B78FB003ACA43 /* CardStackAnimationOptionsSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 881FD28B231B78FB003ACA43 /* CardStackAnimationOptionsSpec.swift */; };
 		AD0542C02271397900B42353 /* Shuffle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AD72AC5D2270E5E20083E735 /* Shuffle.framework */; };
 		AD10982922879C42008CB197 /* CardAnimationOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD10982322879C42008CB197 /* CardAnimationOptions.swift */; };
 		AD10982B22879C42008CB197 /* CardAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD10982522879C42008CB197 /* CardAnimator.swift */; };
@@ -109,6 +110,7 @@
 		3A1DBC86C688BB1F0E7FD862 /* Pods-ShuffleTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ShuffleTests.release.xcconfig"; path = "Target Support Files/Pods-ShuffleTests/Pods-ShuffleTests.release.xcconfig"; sourceTree = "<group>"; };
 		4CEAEBE96CF9FA466E2206E4 /* Pods-ShuffleExample.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ShuffleExample.release.xcconfig"; path = "Target Support Files/Pods-ShuffleExample/Pods-ShuffleExample.release.xcconfig"; sourceTree = "<group>"; };
 		6C08D484FE19F2D4B9F553F2 /* Pods_ShuffleTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ShuffleTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		881FD28B231B78FB003ACA43 /* CardStackAnimationOptionsSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardStackAnimationOptionsSpec.swift; sourceTree = "<group>"; };
 		A3A4F8A2C0F39A32B57F12BE /* Pods-ShuffleExample.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ShuffleExample.debug.xcconfig"; path = "Target Support Files/Pods-ShuffleExample/Pods-ShuffleExample.debug.xcconfig"; sourceTree = "<group>"; };
 		AD0542BB2271397900B42353 /* ShuffleTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ShuffleTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		AD0542BF2271397900B42353 /* ShuffleTests.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = ShuffleTests.plist; sourceTree = "<group>"; };
@@ -496,6 +498,7 @@
 		ADEE86DD22ADED2900AAE7A1 /* Specs */ = {
 			isa = PBXGroup;
 			children = (
+				881FD28B231B78FB003ACA43 /* CardStackAnimationOptionsSpec.swift */,
 				ADEE86E722ADF3C200AAE7A1 /* CardStackLayoutProviderSpec.swift */,
 				ADEE86DE22ADED3600AAE7A1 /* SwipeCardStackSpec.swift */,
 				AD5C44F222B6E7B700C11357 /* SwipeCardStackSpec+SwipeCardDelegate.swift */,
@@ -771,6 +774,7 @@
 				ADEE86DC22ADECA300AAE7A1 /* MockSwipeCardStackDataSource.swift in Sources */,
 				AD439DFE2285FDB3009DE2F7 /* SwipeViewSpec.swift in Sources */,
 				AD439DF82285FB7E009DE2F7 /* TestablePanGestureRecognizer.swift in Sources */,
+				881FD28C231B78FB003ACA43 /* CardStackAnimationOptionsSpec.swift in Sources */,
 				AD52EF8322E50BFA0063AE5D /* MockCardTransformProvider.swift in Sources */,
 				AD514C5F22A090A000BD8F3E /* MockCardLayoutProvider.swift in Sources */,
 				ADEE86E422ADEE0000AAE7A1 /* MockCardStackAnimator.swift in Sources */,
