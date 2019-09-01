@@ -254,7 +254,7 @@ class SwipeCardSpec: QuickSpec {
                         subject.addOverlays()
                     }
                     
-                    it("should add the new overlays to the overlay container's view hierarchy and remove the old overlays") {
+                    it("should add the new overlays to the overlay container's view hierarchy") {
                         expect(overlayContainer.subviews.count).to(equal(2))
                         expect(overlay1.superview).to(equal(overlayContainer))
                         expect(overlay2.superview).to(equal(overlayContainer))
@@ -263,6 +263,13 @@ class SwipeCardSpec: QuickSpec {
                     it("should set the new overlays' alpha value equal to zero") {
                         expect(overlay1.alpha).to(equal(0))
                         expect(overlay2.alpha).to(equal(0))
+                    }
+                    
+                    it("should disable user interaction on the overlay container and its overlays") {
+                        let overlayContainer = subject.subviews.first
+                        expect(overlayContainer?.isUserInteractionEnabled).to(beFalse())
+                        expect(overlay1.isUserInteractionEnabled).to(beFalse())
+                        expect(overlay2.isUserInteractionEnabled).to(beFalse())
                     }
                 }
             }
