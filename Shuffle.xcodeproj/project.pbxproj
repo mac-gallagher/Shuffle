@@ -161,6 +161,7 @@
 		AD72AC842270FB650083E735 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		AD72AC872270FB650083E735 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		AD72AC892270FB650083E735 /* ShuffleExample.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = ShuffleExample.plist; sourceTree = "<group>"; };
+		AD96BCCF236533CA003B5963 /* Shuffle-iOS.podspec */ = {isa = PBXFileReference; lastKnownFileType = text; path = "Shuffle-iOS.podspec"; sourceTree = "<group>"; };
 		ADA444D322AC651600AFAFFE /* SwipeCardStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwipeCardStack.swift; sourceTree = "<group>"; };
 		ADA444D622AC658500AFAFFE /* SwipeCardStackDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwipeCardStackDelegate.swift; sourceTree = "<group>"; };
 		ADA444D822AC658E00AFAFFE /* SwipeCardStackDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwipeCardStackDataSource.swift; sourceTree = "<group>"; };
@@ -474,6 +475,7 @@
 			isa = PBXGroup;
 			children = (
 				ADB8EED122F174BB004F8633 /* README.md */,
+				AD96BCCF236533CA003B5963 /* Shuffle-iOS.podspec */,
 			);
 			name = "Podspec Metadata";
 			sourceTree = "<group>";
