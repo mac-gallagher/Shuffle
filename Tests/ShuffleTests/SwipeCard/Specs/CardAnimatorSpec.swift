@@ -1,17 +1,10 @@
-//
-//  CardAnimatorSpec.swift
-//  ShuffleTests
-//
-//  Created by Mac Gallagher on 5/31/19.
-//  Copyright © 2019 Mac Gallagher. All rights reserved.
-//
-
 import Quick
 import Nimble
 
 @testable import Shuffle
 
 class CardAnimatorSpec: QuickSpec {
+    
     override func spec() {
         describe("CardAnimator") {
             let cardWidth: CGFloat = 100

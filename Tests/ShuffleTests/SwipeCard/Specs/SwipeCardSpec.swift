@@ -1,17 +1,10 @@
-//
-//  SwipeCardSpec.swift
-//  ShuffleTests
-//
-//  Created by Mac Gallagher on 5/12/19.
-//  Copyright © 2019 Mac Gallagher. All rights reserved.
-//
-
 import Quick
 import Nimble
 
 @testable import Shuffle
 
 class SwipeCardSpec: QuickSpec {
+    
     override func spec() {
         describe("SwipeCard") {
             let mockCardLayoutProvider = MockCardLayoutProvider.self

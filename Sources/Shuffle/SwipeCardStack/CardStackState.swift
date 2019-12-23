@@ -1,11 +1,3 @@
-//
-//  CardStackState.swift
-//  Shuffle
-//
-//  Created by Mac Gallagher on 6/8/19.
-//  Copyright © 2019 Mac Gallagher. All rights reserved.
-//
-
 import Foundation
 
 typealias Swipe = (index: Int, direction: SwipeDirection)

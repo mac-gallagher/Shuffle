@@ -1,11 +1,3 @@
-//
-//  CardAnimationOptions.swift
-//  Shuffle
-//
-//  Created by Mac Gallagher on 5/12/19.
-//  Copyright © 2019 Mac Gallagher. All rights reserved.
-//
-
 import Foundation
 
 public protocol CardAnimatableOptions {

@@ -1,16 +1,10 @@
-//
-//  TestableTapGestureRecognizer.swift
-//  ShuffleTests
-//
-//  Created by Mac Gallagher on 4/29/19.
-//  Copyright © 2019 Mac Gallagher. All rights reserved.
-//
-
 import UIKit
 
 class TestableTapGestureRecognizer: UITapGestureRecognizer {
+    
     private var testTarget: AnyObject?
     private var testAction: Selector?
+    
     private var testLocation: CGPoint?
     
     override init(target: Any?, action: Selector?) {

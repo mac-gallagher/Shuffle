@@ -1,11 +1,3 @@
-//
-//  TestableSwipeCard.swift
-//  ShuffleTests
-//
-//  Created by Mac Gallagher on 1/19/19.
-//  Copyright © 2019 Mac Gallagher. All rights reserved.
-//
-
 @testable import Shuffle
 
 class TestableSwipeCard: SwipeCard {

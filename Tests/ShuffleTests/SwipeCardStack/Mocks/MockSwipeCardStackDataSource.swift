@@ -1,11 +1,3 @@
-//
-//  MockSwipeCardStackDataSource.swift
-//  ShuffleTests
-//
-//  Created by Mac Gallagher on 6/9/19.
-//  Copyright © 2019 Mac Gallagher. All rights reserved.
-//
-
 import Shuffle
 
 class MockSwipeCardStackDataSource: SwipeCardStackDataSource {

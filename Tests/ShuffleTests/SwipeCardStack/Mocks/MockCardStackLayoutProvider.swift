@@ -1,11 +1,3 @@
-//
-//  MockCardStackLayoutProvider.swift
-//  ShuffleTests
-//
-//  Created by Mac Gallagher on 6/9/19.
-//  Copyright © 2019 Mac Gallagher. All rights reserved.
-//
-
 @testable import Shuffle
 
 struct MockCardStackLayoutProvider: CardStackLayoutProvidable {

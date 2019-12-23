@@ -1,11 +1,3 @@
-//
-//  SwipeView.swift
-//  Shuffle
-//
-//  Created by Mac Gallagher on 5/4/19.
-//  Copyright © 2019 Mac Gallagher. All rights reserved.
-//
-
 import UIKit
 
 /// A wrapper over `UIView` which detects customized swipe gestures. The swipe recognition is

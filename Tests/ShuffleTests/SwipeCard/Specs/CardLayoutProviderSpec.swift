@@ -1,17 +1,10 @@
-//
-//  CardLayoutProviderSpec.swift
-//  ShuffleTests
-//
-//  Created by Mac Gallagher on 5/30/19.
-//  Copyright © 2019 Mac Gallagher. All rights reserved.
-//
-
 import Quick
 import Nimble
 
 @testable import Shuffle
 
 class CardLayoutProviderSpec: QuickSpec {
+    
     override func spec() {
         describe("CardLayoutProvider") {
             let cardWidth: CGFloat = 100

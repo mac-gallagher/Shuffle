@@ -1,18 +1,12 @@
-//
-//  SampleCardFooterView.swift
-//  ShuffleExample
-//
-//  Created by Mac Gallagher on 11/14/18.
-//  Copyright © 2018 Mac Gallagher. All rights reserved.
-//
-
 import UIKit
 
 class SampleCardFooterView: UIView {
+    
     private var label = UILabel()
+    
     private var gradientLayer: CAGradientLayer?
     
-    init(title: String?, subtitle: String?) {
+    init(withTitle title: String?, subtitle: String?) {
         super.init(frame: CGRect.zero)
         backgroundColor = .clear
         layer.maskedCorners = [.layerMinXMaxYCorner, .layerMaxXMaxYCorner]
@@ -43,11 +37,15 @@ class SampleCardFooterView: UIView {
     
     override func layoutSubviews() {
         let padding: CGFloat = 20
-        label.frame = CGRect(x: padding, y: bounds.height - label.intrinsicContentSize.height - padding, width: bounds.width - 2 * padding, height: label.intrinsicContentSize.height)
+        label.frame = CGRect(x: padding,
+                             y: bounds.height - label.intrinsicContentSize.height - padding,
+                             width: bounds.width - 2 * padding,
+                             height: label.intrinsicContentSize.height)
     }
 }
 
 extension NSAttributedString.Key {
+    
     static var shadowAttribute: NSShadow = {
         let shadow = NSShadow()
         shadow.shadowOffset = CGSize(width: 0, height: 1)

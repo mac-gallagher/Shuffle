@@ -1,11 +1,3 @@
-//
-//  Animator.swift
-//  Shuffle
-//
-//  Created by Mac Gallagher on 6/16/19.
-//  Copyright © 2019 Mac Gallagher. All rights reserved.
-//
-
 import UIKit
 
 /// A base animator class with testable helper methods.
