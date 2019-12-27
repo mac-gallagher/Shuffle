@@ -1,11 +1,3 @@
-//
-//  CardStackAnimator.swift
-//  Shuffle
-//
-//  Created by Mac Gallagher on 6/8/19.
-//  Copyright © 2019 Mac Gallagher. All rights reserved.
-//
-
 import Foundation
 
 protocol CardStackAnimatable {
@@ -128,9 +120,19 @@ class CardStackAnimator: Animator, CardStackAnimatable {
                      forced: Bool) {
         removeBackgroundCardAnimations(cardStack)
         
+        let delay = swipeDelay(topCard, forced)
         let duration = swipeDuration(cardStack, topCard, direction, forced)
+        
+        //no background cards left to animate, so we instead delay calling the completion block
+        if cardStack.visibleCards.count == 0 {
+            DispatchQueue.main.asyncAfter(deadline: .now() + delay + duration) {
+                cardStack.swipeCompletion()
+            }
+            return
+        }
+        
         animateKeyFrames(withDuration: duration,
-                         delay: swipeDelay(topCard, forced),
+                         delay: delay,
                          animations: {
                             swipeAnimationKeyFrames(cardStack)
         }) { finished in

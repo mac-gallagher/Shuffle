@@ -1,14 +1,7 @@
-//
-//  SampleCardContentView.swift
-//  ShuffleExample
-//
-//  Created by Mac Gallagher on 11/14/18.
-//  Copyright © 2018 Mac Gallagher. All rights reserved.
-//
-
 import UIKit
 
 class SampleCardContentView: UIView {
+    
     private let backgroundView: UIView = {
         let background = UIView()
         background.clipsToBounds = true
@@ -17,9 +10,9 @@ class SampleCardContentView: UIView {
     }()
     
     private let imageView: UIImageView = {
-        let iv = UIImageView()
-        iv.contentMode = .scaleAspectFill
-        return iv
+        let imageView = UIImageView()
+        imageView.contentMode = .scaleAspectFill
+        return imageView
     }()
     
     private let gradientLayer: CAGradientLayer = {
@@ -31,7 +24,7 @@ class SampleCardContentView: UIView {
         return gradient
     }()
     
-    init(image: UIImage?) {
+    init(withImage image: UIImage?) {
         super.init(frame: .zero)
         imageView.image = image
         initialize()

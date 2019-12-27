@@ -1,19 +1,12 @@
-//
-//  ButtonStackView.swift
-//  ShuffleExample
-//
-//  Created by Mac Gallagher on 11/17/18.
-//  Copyright © 2018 Mac Gallagher. All rights reserved.
-//
-
 import PopBounceButton
 
-protocol ButtonStackViewDelegate {
+protocol ButtonStackViewDelegate: class {
     func didTapButton(button: TinderButton)
 }
 
 class ButtonStackView: UIStackView {
-    var delegate: ButtonStackViewDelegate?
+    
+    weak var delegate: ButtonStackViewDelegate?
     
     private let undoButton: TinderButton = {
         let button = TinderButton()
@@ -57,21 +50,16 @@ class ButtonStackView: UIStackView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        initialize()
+        distribution = .equalSpacing
+        alignment = .center
+        configureButtons()
     }
     
     required init(coder: NSCoder) {
-        super.init(coder: coder)
-        initialize()
+        fatalError("init(coder:) has not been implemented")
     }
     
-    private func initialize() {
-        distribution = .equalSpacing
-        alignment = .center
-        configure()
-    }
-    
-    private func configure() {
+    private func configureButtons() {
         let largeMultiplier: CGFloat = 66/414 //based on width of iPhone 8+
         let smallMultiplier: CGFloat = 54/414 //based on width of iPhone 8+
         addArrangedSubview(from: undoButton, diameterMultiplier: smallMultiplier)
@@ -96,7 +84,8 @@ class ButtonStackView: UIStackView {
     }
 }
 
-fileprivate class ButtonContainer: UIView {
+private class ButtonContainer: UIView {
+    
     override func draw(_ rect: CGRect) {
         applyShadow(radius: 0.2 * bounds.width, opacity: 0.05, offset: CGSize(width: 0, height: 0.15 * bounds.width))
     }

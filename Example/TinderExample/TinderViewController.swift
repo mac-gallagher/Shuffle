@@ -1,17 +1,10 @@
-//
-//  SampleCardStackController.swift
-//  ShuffleExample
-//
-//  Created by Mac Gallagher on 5/28/18.
-//  Copyright © 2018 Mac Gallagher. All rights reserved.
-//
-
-import UIKit
 import Shuffle
 import PopBounceButton
 
 class TinderViewController: UIViewController {
+    
     private let cardStack = SwipeCardStack()
+    
     private let buttonStackView = ButtonStackView()
     
     private let cardModels = [
@@ -77,9 +70,9 @@ class TinderViewController: UIViewController {
     }
     
     private func configureBackgroundGradient() {
-        let myGrey = UIColor(red: 244/255, green: 247/255, blue: 250/255, alpha: 1)
+        let backgroundGray = UIColor(red: 244/255, green: 247/255, blue: 250/255, alpha: 1)
         let gradientLayer = CAGradientLayer()
-        gradientLayer.colors = [UIColor.white.cgColor, myGrey.cgColor]
+        gradientLayer.colors = [UIColor.white.cgColor, backgroundGray.cgColor]
         gradientLayer.frame = view.bounds
         view.layer.insertSublayer(gradientLayer, at: 0)
     }
@@ -105,8 +98,11 @@ class TinderViewController: UIViewController {
 //MARK: Data Source + Delegates
 
 extension TinderViewController: ButtonStackViewDelegate, SwipeCardStackDataSource, SwipeCardStackDelegate {
+    
     func cardStack(_ cardStack: SwipeCardStack, cardForIndexAt index: Int) -> SwipeCard {
-        return SampleCard(model: cardModels[index])
+        let card = SampleCard()
+        card.configure(withModel: cardModels[index])
+        return card
     }
     
     func numberOfCards(in cardStack: SwipeCardStack) -> Int {

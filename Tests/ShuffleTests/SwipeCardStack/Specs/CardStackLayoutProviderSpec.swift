@@ -1,17 +1,10 @@
-//
-//  CardStackLayoutProviderSpec.swift
-//  ShuffleTests
-//
-//  Created by Mac Gallagher on 6/9/19.
-//  Copyright © 2019 Mac Gallagher. All rights reserved.
-//
-
 import Quick
 import Nimble
 
 @testable import Shuffle
 
 class CardStackLayoutProviderSpec: QuickSpec {
+    
     override func spec() {
         describe("CardStackLayoutProvider") {
             let insets = UIEdgeInsets(top: -1, left: 2, bottom: 3, right: -4)

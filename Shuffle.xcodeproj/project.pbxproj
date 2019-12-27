@@ -237,10 +237,10 @@
 		AD10982222879C42008CB197 /* SwipeCard */ = {
 			isa = PBXGroup;
 			children = (
-				AD10982522879C42008CB197 /* CardAnimator.swift */,
 				AD10982322879C42008CB197 /* CardAnimationOptions.swift */,
-				AD52EF8022E5088B0063AE5D /* CardTransformProvider.swift */,
+				AD10982522879C42008CB197 /* CardAnimator.swift */,
 				AD514C5A22A08D5600BD8F3E /* CardLayoutProvider.swift */,
+				AD52EF8022E5088B0063AE5D /* CardTransformProvider.swift */,
 				AD10982822879C42008CB197 /* SwipeCard.swift */,
 				AD10983322879ED6008CB197 /* SwipeCardDelegate.swift */,
 				AD72AC702270E6380083E735 /* SwipeView.swift */,
@@ -301,7 +301,7 @@
 				AD72AC6F2270E6380083E735 /* SwipeDirection.swift */,
 				AD10982222879C42008CB197 /* SwipeCard */,
 				ADA444D522AC651B00AFAFFE /* SwipeCardStack */,
-				AD72AC682270E61D0083E735 /* Extensions */,
+				AD72AC682270E61D0083E735 /* Internal */,
 			);
 			path = Shuffle;
 			sourceTree = "<group>";
@@ -424,7 +424,7 @@
 			path = Sources;
 			sourceTree = "<group>";
 		};
-		AD72AC682270E61D0083E735 /* Extensions */ = {
+		AD72AC682270E61D0083E735 /* Internal */ = {
 			isa = PBXGroup;
 			children = (
 				ADEE86D622ACE5AA00AAE7A1 /* Array+Extensions.swift */,
@@ -432,7 +432,7 @@
 				AD72AC752270F4130083E735 /* CGVector+Extensions.swift */,
 				AD4AACA2231C61FC008EC632 /* UIView+Extensions.swift */,
 			);
-			path = Extensions;
+			path = Internal;
 			sourceTree = "<group>";
 		};
 		AD72AC7C2270FB650083E735 /* Example for Shuffle */ = {

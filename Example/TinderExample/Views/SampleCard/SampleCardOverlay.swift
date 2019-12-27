@@ -1,17 +1,10 @@
-//
-//  SampleCardOverlay.swift
-//  ShuffleExample
-//
-//  Created by Mac Gallagher on 11/14/18.
-//  Copyright © 2018 Mac Gallagher. All rights reserved.
-//
-
 import UIKit
 
 class SampleCardOverlay: UIView {
+    
     static func left() -> UIView {
         let overlay = UIView()
-        let leftTextView = SampleOverlayLabelView(title: "NOPE",
+        let leftTextView = SampleOverlayLabelView(withTitle: "NOPE",
                                                   color: .sampleRed,
                                                   rotation: CGFloat.pi/10)
         overlay.addSubview(leftTextView)
@@ -23,7 +16,7 @@ class SampleCardOverlay: UIView {
     
     static func up() -> UIView {
         let overlay = UIView()
-        let upTextView = SampleOverlayLabelView(title: "LOVE",
+        let upTextView = SampleOverlayLabelView(withTitle: "LOVE",
                                                 color: .sampleBlue,
                                                 rotation: -CGFloat.pi/20)
         overlay.addSubview(upTextView)
@@ -34,7 +27,7 @@ class SampleCardOverlay: UIView {
     
     static func right() -> UIView {
         let overlay = UIView()
-        let rightTextView = SampleOverlayLabelView(title: "LIKE",
+        let rightTextView = SampleOverlayLabelView(withTitle: "LIKE",
                                                    color: .sampleGreen,
                                                    rotation: -CGFloat.pi/10)
         overlay.addSubview(rightTextView)
@@ -46,14 +39,15 @@ class SampleCardOverlay: UIView {
     }
 }
 
-fileprivate class SampleOverlayLabelView: UIView {
+private class SampleOverlayLabelView: UIView {
+    
     private let titleLabel: UILabel = {
         let label = UILabel()
         label.textAlignment = .center
         return label
     }()
     
-    init(title: String, color: UIColor, rotation: CGFloat) {
+    init(withTitle title: String, color: UIColor, rotation: CGFloat) {
         super.init(frame: CGRect.zero)
         layer.borderColor = color.cgColor
         layer.borderWidth = 4
@@ -78,6 +72,7 @@ fileprivate class SampleOverlayLabelView: UIView {
 }
 
 extension NSAttributedString.Key {
+    
     static var overlayAttributes: [NSAttributedString.Key: Any] = [
         NSAttributedString.Key.font: UIFont(name: "HelveticaNeue-Bold", size: 42)!,
         NSAttributedString.Key.kern: 5.0

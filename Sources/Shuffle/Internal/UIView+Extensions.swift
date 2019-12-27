@@ -1,11 +1,3 @@
-//
-//  UIView+Extensions.swift
-//  Shuffle
-//
-//  Created by Mac Gallagher on 9/1/19.
-//  Copyright © 2019 Mac Gallagher. All rights reserved.
-//
-
 import UIKit
 
 extension UIView {

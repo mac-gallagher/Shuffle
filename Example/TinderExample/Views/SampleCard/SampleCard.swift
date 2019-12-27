@@ -1,12 +1,3 @@
-//
-//  SampleCard.swift
-//  ShuffleExample
-//
-//  Created by Mac Gallagher on 7/12/18.
-//  Copyright © 2018 Mac Gallagher. All rights reserved.
-//
-
-import UIKit
 import Shuffle
 
 class SampleCard: SwipeCard {
@@ -15,18 +6,13 @@ class SampleCard: SwipeCard {
         return [.left, .up, .right]
     }
     
-    init(model: SampleCardModel) {
-        super.init(frame: .zero)
-        initialize()
-        configure(model: model)
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        footerHeight = 80
     }
     
     required init?(coder aDecoder: NSCoder) {
         return nil
-    }
-    
-    private func initialize() {
-        footerHeight = 80
     }
     
     override func overlay(forDirection direction: SwipeDirection) -> UIView? {
@@ -41,8 +27,9 @@ class SampleCard: SwipeCard {
             return nil
         }
     }
-    private func configure(model: SampleCardModel) {
-        content = SampleCardContentView(image: model.image)
-        footer = SampleCardFooterView(title: "\(model.name), \(model.age)", subtitle: model.occupation)
+    
+    func configure(withModel model: SampleCardModel) {
+        content = SampleCardContentView(withImage: model.image)
+        footer = SampleCardFooterView(withTitle: "\(model.name), \(model.age)", subtitle: model.occupation)
     }
 }

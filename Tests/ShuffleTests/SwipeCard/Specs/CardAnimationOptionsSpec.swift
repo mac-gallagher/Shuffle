@@ -1,17 +1,10 @@
-//
-//  CardAnimationOptionsSpec.swift
-//  ShuffleTests
-//
-//  Created by Mac Gallagher on 5/12/19.
-//  Copyright © 2019 Mac Gallagher. All rights reserved.
-//
-
 import Quick
 import Nimble
 
 import Shuffle
 
 class CardAnimationOptionsSpec: QuickSpec {
+    
     override func spec() {
         describe("CardAnimationOptions") {
             var subject: CardAnimationOptions!

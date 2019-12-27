@@ -1,14 +1,7 @@
-//
-//  UIView+Anchor.swift
-//  ShuffleExample
-//
-//  Created by Mac Gallagher on 6/2/18.
-//  Copyright © 2018 Mac Gallagher. All rights reserved.
-//
-
 import UIKit
 
 extension UIView {
+    
     @discardableResult
     func anchor(top: NSLayoutYAxisAnchor? = nil, left: NSLayoutXAxisAnchor? = nil, bottom: NSLayoutYAxisAnchor? = nil, right: NSLayoutXAxisAnchor? = nil, paddingTop: CGFloat = 0, paddingLeft: CGFloat = 0, paddingBottom: CGFloat = 0, paddingRight: CGFloat = 0, width: CGFloat = 0, height: CGFloat = 0) -> [NSLayoutConstraint] {
         translatesAutoresizingMaskIntoConstraints = false
@@ -46,6 +39,7 @@ extension UIView {
 }
 
 extension UIView {
+    
     func applyShadow(radius: CGFloat, opacity: Float, offset: CGSize, color: UIColor = .black) {
         layer.shadowRadius = radius
         layer.shadowOpacity = opacity

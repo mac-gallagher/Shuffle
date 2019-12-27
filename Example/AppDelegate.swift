@@ -1,15 +1,8 @@
-//
-//  AppDelegate.swift
-//  ShuffleExample
-//
-//  Created by Mac Gallagher on 6/1/18.
-//  Copyright © 2018 Mac Gallagher. All rights reserved.
-//
-
 import UIKit
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
+    
     var window: UIWindow?
     
     func application(_ application: UIApplication,

@@ -28,4 +28,5 @@ comment: # configure github pull request comment
 
 ignore: # ignore these files when measuring absolute coverage (reported in the Github badge)
   - "Pods/"
+  - "Sources/Shuffle/Internal"
   - "Tests/"

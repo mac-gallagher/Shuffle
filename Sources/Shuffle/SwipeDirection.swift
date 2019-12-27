@@ -1,11 +1,3 @@
-//
-//  SwipeDirection.swift
-//  Shuffle
-//
-//  Created by Mac Gallagher on 5/4/18.
-//  Copyright © 2018 Mac Gallagher. All rights reserved.
-//
-
 import Foundation
 
 /// A type representing the direction of a physical drag.
