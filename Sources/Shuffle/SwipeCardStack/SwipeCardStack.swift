@@ -179,6 +179,7 @@ open class SwipeCardStack: UIView, SwipeCardDelegate {
         let numberOfCards = dataSource.numberOfCards(in: self)
         let initialState = CardStackState(remainingIndices: Array(0..<numberOfCards))
         loadState(initialState)
+        isUserInteractionEnabled = true
     }
     
     func loadState(_ state: CardStackState) {

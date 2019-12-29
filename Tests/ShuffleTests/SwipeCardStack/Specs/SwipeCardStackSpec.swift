@@ -254,7 +254,7 @@ class SwipeCardStackSpec: QuickSpec {
                         subject.swipeCompletion()
                     }
                     
-                    it("should enabled user interaction on the card stack") {
+                    it("should enable user interaction on the card stack") {
                         expect(subject.isUserInteractionEnabled).to(beTrue())
                     }
                 }
@@ -269,7 +269,7 @@ class SwipeCardStackSpec: QuickSpec {
                         subject.undoCompletion()
                     }
                     
-                    it("should enabled user interaction on the card stack") {
+                    it("should enable user interaction on the card stack") {
                         expect(subject.isUserInteractionEnabled).to(beTrue())
                     }
                 }
@@ -284,7 +284,7 @@ class SwipeCardStackSpec: QuickSpec {
                         subject.shiftCompletion()
                     }
                     
-                    it("should enabled user interaction on the card stack") {
+                    it("should enable user interaction on the card stack") {
                         expect(subject.isUserInteractionEnabled).to(beTrue())
                     }
                 }
@@ -675,6 +675,7 @@ class SwipeCardStackSpec: QuickSpec {
                             mockDataSource = MockSwipeCardStackDataSource()
                             mockDataSource.testNumberOfCards = numberOfCards
                             subject.dataSource = mockDataSource
+                            subject.isUserInteractionEnabled = false
                             subject.resetReloadData()
                             subject.reloadData()
                         }
@@ -687,6 +688,10 @@ class SwipeCardStackSpec: QuickSpec {
                             let initialState = CardStackState(remainingIndices: Array(0..<numberOfCards))
                             expect(subject.loadStateCalled).to(beTrue())
                             expect(subject.loadStateState).to(equal(initialState))
+                        }
+                        
+                        it("should enable user interaction on the card stack") {
+                            expect(subject.isUserInteractionEnabled).to(beTrue())
                         }
                     }
                 }
