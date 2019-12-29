@@ -183,7 +183,9 @@ Download and drop the `Shuffle` directory into your project.
 ## Apps Using Shuffle
 We love to hear about apps that use Shuffle - feel free to submit a pull request and share yours here!
 
-</br>
+<p><a href="https://apps.apple.com/bw/app/dankr/id1478419632">
+<img src="https://raw.githubusercontent.com/mac-gallagher/Shuffle/master/Images/AppIcons/dankr_app_icon.png" title="Dankr" width="80" align="center"></a>
+</p>
 
 ---
 
