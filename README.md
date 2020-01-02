@@ -164,7 +164,7 @@ Shuffle is available through [Carthage](<https://github.com/Carthage/Carthage>).
 	github "mac-gallagher/Shuffle"
 
 ### Swift Package Manager
-MultiProgressView is available through [Swift PM](<https://swift.org/package-manager/>). To install it, simply add the package as a dependency in `Package.swift`:
+Shuffle is available through [Swift PM](<https://swift.org/package-manager/>). To install it, simply add the package as a dependency in `Package.swift`:
 
 ```swift
 dependencies: [
