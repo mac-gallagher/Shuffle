@@ -6,23 +6,23 @@ import Nimble
 class SwipeCardStackSpec: QuickSpec {
     
     override func spec() {
-        delegateSpec()
-        
         describe("SwipeCardStack") {
             let mockLayoutProvider = MockCardStackLayoutProvider.self
             let mockAnimator = MockCardStackAnimator.self
             let mockTransformProvider = MockCardStackTransformProvider.self
             
             var subject: TestableSwipeCardStack!
+            var mockStateManager: MockCardStackStateManager!
             var mockDelegate: MockSwipeCardStackDelegate!
             
             beforeEach {
                 mockDelegate = MockSwipeCardStackDelegate()
-                
+                mockStateManager = MockCardStackStateManager()
                 subject = TestableSwipeCardStack(animator: mockAnimator,
                                                  transformProvider: mockTransformProvider,
                                                  layoutProvider: mockLayoutProvider,
-                                                 notificationCenter: TestableNotificationCenter())
+                                                 notificationCenter: TestableNotificationCenter(),
+                                                 stateManager: mockStateManager)
                 subject.delegate = mockDelegate
             }
             
@@ -63,12 +63,11 @@ class SwipeCardStackSpec: QuickSpec {
                     
                     expect(cardStack.delegate).to(beNil())
                     expect(cardStack.dataSource).to(beNil())
-                    expect(cardStack.topCardIndex).to(equal(0))
+                    expect(cardStack.topCardIndex).to(beNil())
                     
                     expect(cardStack.topCard).to(beNil())
                     expect(cardStack.visibleCards).to(equal([]))
                     expect(cardStack.backgroundCards).to(equal([]))
-                    expect(cardStack.currentState).to(equal(.emptyState))
                     
                     expect(cardStack.subviews.count).to(equal(1))
                 }
@@ -122,27 +121,25 @@ class SwipeCardStackSpec: QuickSpec {
             
             describe("Top Card Index") {
                 context("When accessing the topCardIndex variable") {
-                    context("and the currentState has no remaining indices") {
+                    context("and there are no remaining indices in the state manager") {
                         beforeEach {
-                            subject.currentState = CardStackState(remainingIndices: [])
+                            mockStateManager.remainingIndices = []
                         }
                         
-                        it("should return zero") {
-                            expect(subject.topCardIndex).to(equal(0))
+                        it("should return nil") {
+                            expect(subject.topCardIndex).to(beNil())
                         }
                     }
                     
-                    context("and the currentState has at least one remaining index") {
-                        let numberOfCards: Int = 10
-                        let firstIndex: Int = 2
+                    context("and there is at least one remaining index in the state manager") {
+                        let index: Int = 2
                         
                         beforeEach {
-                            let indices = Array(firstIndex..<numberOfCards)
-                            subject.currentState = CardStackState(remainingIndices: indices)
+                            mockStateManager.remainingIndices = [index]
                         }
                         
-                        it("should the first index of the current state") {
-                            expect(subject.topCardIndex).to(equal(firstIndex))
+                        it("should return the first remaining index from the state manager") {
+                            expect(subject.topCardIndex).to(equal(index))
                         }
                     }
                 }
@@ -195,7 +192,7 @@ class SwipeCardStackSpec: QuickSpec {
             
             // MARK: Is Enabled
             
-            describe("isEnabled") {
+            describe("Is Enabled") {
                 for enabled in [false, true] {
                     context("When accessing the isEnabled variable") {
                         beforeEach {
@@ -298,13 +295,7 @@ class SwipeCardStackSpec: QuickSpec {
                 context("When calling layoutSubviews") {
                     let cardContainerFrame = CGRect(x: 1, y: 2, width: 3, height: 4)
                     let numberOfCards: Int = 3
-                    let visibleCards: [SwipeCard] = {
-                        var cards = [SwipeCard]()
-                        for i in 0..<numberOfCards {
-                            cards.append(SwipeCard())
-                        }
-                        return cards
-                    }()
+                    let visibleCards: [SwipeCard] = [SwipeCard(), SwipeCard(), SwipeCard()]
                     
                     beforeEach {
                         mockLayoutProvider.testCardContainerFrame = cardContainerFrame
@@ -380,6 +371,7 @@ class SwipeCardStackSpec: QuickSpec {
             }
             
             // MARK: Scale Factor For Card
+            
             describe("Scale Factor For Card") {
                 context("When calling the scaleFactor method") {
                     context("and the index is equal to zero") {
@@ -488,8 +480,9 @@ class SwipeCardStackSpec: QuickSpec {
                             subject.testIsEnabled = true
                         }
                         
-                        context("and the current state has no previous state/swipe") {
+                        context("and the state manager does not have a previous swipe") {
                             beforeEach {
+                                mockStateManager.undoSwipeSwipe = nil
                                 subject.undoLastSwipe(animated: false)
                             }
                             
@@ -498,30 +491,24 @@ class SwipeCardStackSpec: QuickSpec {
                             }
                         }
                         
-                        context("and the current state has a previous state/swipe") {
-                            let previousState = CardStackState(remainingIndices: [])
+                        context("and the state manager has at least one previous swipe") {
+                            let index: Int = 3
                             let direction: SwipeDirection = .left
                             let animated: Bool = false
-                            let index: Int = 5
                             
                             beforeEach {
-                                let previousSwipe = Swipe(index, direction)
-                                let currentState = CardStackState(remainingIndices: [],
-                                                                  previousSwipe: previousSwipe,
-                                                                  previousState: previousState)
-                                subject.currentState = currentState
-                                subject.undoLastSwipe(animated: animated)
+                                mockStateManager.undoSwipeSwipe = Swipe(index, direction)
+                                subject.undoLastSwipe(animated: false)
+                            }
+                            
+                            it("should call the reloadVisibleCards method") {
+                                expect(subject.reloadVisibleCardsCalled).to(beTrue())
                             }
                             
                             it("should call the didUndoCardAt delegate method with the correct parameters") {
                                 expect(mockDelegate.didUndoCardAtCalled).to(beTrue())
                                 expect(mockDelegate.didUndoCardAtIndex).to(equal(index))
                                 expect(mockDelegate.didUndoCardAtDirection).to(equal(direction))
-                            }
-                            
-                            it("should not call loadState method with the previous state") {
-                                expect(subject.loadStateCalled).to(beTrue())
-                                expect(subject.loadStateState).to(equal(previousState))
                             }
                             
                             it("should call the reverseSwipe method on the new topCard with the correct parameters") {
@@ -534,7 +521,7 @@ class SwipeCardStackSpec: QuickSpec {
                     
                     func testNoUndoAction() {
                         expect(mockDelegate.didUndoCardAtCalled).to(beFalse())
-                        expect(subject.loadStateCalled).to(beFalse())
+                        expect(subject.reloadVisibleCardsCalled).to(beFalse())
                         expect(topCard.reverseSwipeCalled).to(beFalse())
                     }
                 }
@@ -584,19 +571,12 @@ class SwipeCardStackSpec: QuickSpec {
                         }
                         
                         context("and distance is greater than zero and there are at least two visible cards") {
-                            let remainingIndices: [Int] = [0, 1, 2]
                             let previousSwipe = Swipe(0, .left)
-                            let previousState: CardStackState = .emptyState
                             let distance: Int = 2
                             
-                            var initialState: CardStackState!
-                            
                             beforeEach {
-                                initialState = CardStackState(remainingIndices: remainingIndices,
-                                                              previousSwipe: previousSwipe,
-                                                              previousState: previousState)
+                                mockStateManager.remainingIndices = [1, 2, 3]
                                 subject.isUserInteractionEnabled = false
-                                subject.currentState = initialState
                                 subject.visibleCards = [SwipeCard(), SwipeCard()]
                             }
                             
@@ -609,12 +589,13 @@ class SwipeCardStackSpec: QuickSpec {
                                     mockAnimator.reset()
                                 }
                                 
-                                it("should call the loadState method with the correct state") {
-                                    let expectedRemainingIndices = remainingIndices.shift(withDistance: distance)
-                                    let expectedState = CardStackState(remainingIndices: expectedRemainingIndices,
-                                                                       previousSwipe: previousSwipe,
-                                                                       previousState: previousState)
-                                    expect(subject.currentState).to(equal(expectedState))
+                                it("should call the state manager's shift method with the correct distance") {
+                                    expect(mockStateManager.shiftCalled).to(beTrue())
+                                    expect(mockStateManager.shiftDistance).to(equal(distance))
+                                }
+                                
+                                it("it should call the reloadVisibleCards method") {
+                                    expect(subject.reloadVisibleCardsCalled).to(beTrue())
                                 }
                                 
                                 it("should disable user interaction and call the animator's shift method with the correct parameters") {
@@ -629,12 +610,17 @@ class SwipeCardStackSpec: QuickSpec {
                                     subject.shift(withDistance: distance, animated: false)
                                 }
                                 
-                                it("should call the loadState method with the correct state") {
-                                    let expectedRemainingIndices = remainingIndices.shift(withDistance: distance)
-                                    let expectedState = CardStackState(remainingIndices: expectedRemainingIndices,
-                                                                       previousSwipe: previousSwipe,
-                                                                       previousState: previousState)
-                                    expect(subject.currentState).to(equal(expectedState))
+                                afterEach {
+                                    mockAnimator.reset()
+                                }
+                                
+                                it("should call the state manager's shift method with the correct distance") {
+                                    expect(mockStateManager.shiftCalled).to(beTrue())
+                                    expect(mockStateManager.shiftDistance).to(equal(distance))
+                                }
+                                
+                                it("it should call the reloadVisibleCards method") {
+                                    expect(subject.reloadVisibleCardsCalled).to(beTrue())
                                 }
                                 
                                 it("should not call the animator's shift method") {
@@ -646,7 +632,7 @@ class SwipeCardStackSpec: QuickSpec {
                 }
                 
                 func testNoShiftAction() {
-                    expect(subject.loadStateCalled).to(beFalse())
+                    expect(subject.reloadVisibleCardsCalled).to(beFalse())
                     expect(mockAnimator.shiftCalled).to(beFalse())
                 }
             }
@@ -657,13 +643,21 @@ class SwipeCardStackSpec: QuickSpec {
             
             describe("Reload Data") {
                 context("When reloadData is called") {
+                    afterEach {
+                        subject.resetReloadData()
+                    }
+                    
                     context("and there is no dataSource") {
                         beforeEach {
                             subject.reloadData()
                         }
                         
-                        it("should not call loadState") {
-                            expect(subject.loadStateCalled).to(beFalse())
+                        it("should not call the reloadVisibleCards method") {
+                            expect(subject.reloadVisibleCardsCalled).to(beFalse())
+                        }
+                        
+                        it("should not call the reset method on the state manager") {
+                            expect(mockStateManager.resetCalled).to(beFalse())
                         }
                     }
                     
@@ -674,9 +668,9 @@ class SwipeCardStackSpec: QuickSpec {
                         beforeEach {
                             mockDataSource = MockSwipeCardStackDataSource()
                             mockDataSource.testNumberOfCards = numberOfCards
+                            
                             subject.dataSource = mockDataSource
                             subject.isUserInteractionEnabled = false
-                            subject.resetReloadData()
                             subject.reloadData()
                         }
                         
@@ -684,10 +678,13 @@ class SwipeCardStackSpec: QuickSpec {
                             expect(mockDataSource.numberOfCardsCalled).to(beTrue())
                         }
                         
-                        it("should call loadState with the correct state") {
-                            let initialState = CardStackState(remainingIndices: Array(0..<numberOfCards))
-                            expect(subject.loadStateCalled).to(beTrue())
-                            expect(subject.loadStateState).to(equal(initialState))
+                        it("should call the reset method on the state manager with the correct number cards") {
+                            expect(mockStateManager.resetCalled).to(beTrue())
+                            expect(mockStateManager.resetNumberOfCards).to(equal(numberOfCards))
+                        }
+                        
+                        it("should call the reloadVisibleCards method") {
+                            expect(subject.reloadVisibleCardsCalled).to(beTrue())
                         }
                         
                         it("should enable user interaction on the card stack") {
@@ -697,10 +694,10 @@ class SwipeCardStackSpec: QuickSpec {
                 }
             }
             
-            // TODO: - Load State
+            // MARK: Reload Visible Cards
             
-            describe("Load State") {
-                
+            describe("Reload Visible Cards") {
+                // TODO
             }
             
             // MARK: Insert Card
@@ -803,6 +800,259 @@ class SwipeCardStackSpec: QuickSpec {
                         it("should remove the card from it's superview") {
                             expect(swipeCard.superview).to(beNil())
                         }
+                    }
+                }
+            }
+            
+            // MARK: - SwipeCardDelegate
+            
+            // MARK: Did Tap
+            
+            describe("Did Tap") {
+                context("when the didTap method is called") {
+                    context("and topCardIndex is nil") {
+                        beforeEach {
+                            subject.testTopCardIndex = nil
+                            subject.card(didTap: SwipeCard())
+                        }
+                        
+                        it("should not call the cardStack's didSelectCard delegate method") {
+                            expect(mockDelegate.didSelectCardAtCalled).to(beFalse())
+                        }
+                    }
+                    
+                    context("and topCardIndex is not nil") {
+                        let topIndex: Int = 4
+                        
+                        beforeEach {
+                            subject.testTopCardIndex = topIndex
+                            subject.card(didTap: SwipeCard())
+                        }
+                        
+                        it("should call the cardStack's didSelectCard delegate method with the correct index") {
+                            expect(mockDelegate.didSelectCardAtCalled).to(beTrue())
+                            expect(mockDelegate.didSelectCardAtIndex).to(equal(topIndex))
+                        }
+                    }
+                }
+            }
+            
+            // MARK: Begin Swipe
+            
+            describe("Begin Swipe") {
+                context("When the beginSwipe method is called") {
+                    beforeEach {
+                        subject.card(didBeginSwipe: SwipeCard())
+                    }
+                    
+                    afterEach {
+                        mockAnimator.reset()
+                    }
+                    
+                    it("should call the animator's removeBackgroundCardAnimation method") {
+                        expect(mockAnimator.removeBackgroundCardAnimationsCalled).to(beTrue())
+                    }
+                }
+            }
+            
+            // MARK: Continue Swipe
+            
+            describe("Continue Swipe") {
+                context("When the didContinueSwipe method is called") {
+                    var backgroundCards: [SwipeCard]!
+                    let cardTransform = CGAffineTransform(a: 1, b: 2, c: 3, d: 4, tx: 5, ty: 6)
+                    
+                    beforeEach {
+                        backgroundCards = [SwipeCard(), SwipeCard(), SwipeCard()]
+                        subject.testBackgroundCards = backgroundCards
+                    }
+                    
+                    afterEach {
+                        mockTransformProvider.reset()
+                    }
+                    
+                    context("and there is no topCard") {
+                        beforeEach {
+                            subject.testTopCard = nil
+                            mockTransformProvider.testBackgroundCardDragTransform = cardTransform
+                            subject.card(didContinueSwipe: SwipeCard())
+                        }
+                        
+                        it("should not set the transforms on any of the background cards") {
+                            for card in backgroundCards {
+                                expect(card.transform).toNot(equal(cardTransform))
+                            }
+                        }
+                    }
+                    
+                    context("and there is a top card") {
+                        beforeEach {
+                            subject.testTopCard = SwipeCard()
+                            mockTransformProvider.testBackgroundCardDragTransform = cardTransform
+                            subject.card(didContinueSwipe: SwipeCard())
+                        }
+                        
+                        it("should set the transforms on any of the background cards") {
+                            for card in backgroundCards {
+                                expect(card.transform).to(equal(cardTransform))
+                            }
+                        }
+                    }
+                }
+            }
+            
+            // MARK: Cancel Swipe
+            
+            describe("Cancel Swipe") {
+                context("When the didCancelSwipe method is called") {
+                    beforeEach {
+                        subject.card(didCancelSwipe: SwipeCard())
+                    }
+                    
+                    it("should call the animator's reset method") {
+                        expect(mockAnimator.resetCalled).to(beTrue())
+                    }
+                }
+            }
+            
+            // MARK: Swipe (Finish!)
+            
+            //check topIndex
+            
+            describe("Swipe") {
+                context("When the didSwipe method is called") {
+                    let direction: SwipeDirection = .left
+                    let forced: Bool = false
+                    let topCard = SwipeCard()
+                    
+                    context("and topIndex is nil") {
+                        beforeEach {
+                            subject.testTopCardIndex = nil
+                            subject.visibleCards = [topCard]
+                            subject.card(didSwipe: SwipeCard(), with: .left, forced: true)
+                        }
+                        
+                        it("it should not call the didSwipeCardAtDelegate method") {
+                            expect(mockDelegate.didSwipeCardAtCalled).to(beFalse())
+                        }
+                    }
+                    
+                    context("and topIndex is not nil") {
+                        let index: Int = 2
+                        
+                        beforeEach {
+                            subject.testTopCardIndex = index
+                            subject.visibleCards = [topCard]
+                            subject.card(didSwipe: topCard, with: direction, forced: forced)
+                        }
+                        
+                        it("should call the didSwipeCardAt delegate method with the correct parameters") {
+                            expect(mockDelegate.didSwipeCardAtCalled).to(beTrue())
+                            expect(mockDelegate.didSwipeCardAtIndex).to(equal(index))
+                            expect(mockDelegate.didSwipeCardAtDirection).to(equal(direction))
+                        }
+                    }
+                    
+                    context("and there is at least one more card to load") {
+                        let testLoadCard = SwipeCard()
+                        let numberOfVisibleCards: Int = 2
+                        let remainingIndices = [0, 1, 2]
+                        
+                        beforeEach {
+                            mockStateManager.remainingIndices = remainingIndices
+                            subject.visibleCards = [topCard, SwipeCard()]
+                            subject.testLoadCard = testLoadCard
+                            subject.card(didSwipe: topCard, with: direction, forced: forced)
+                        }
+                        
+                        testSwipe()
+                        
+                        it("should not call the didSwipeAllCards delegate method") {
+                            expect(mockDelegate.didSwipeAllCardsCalled).to(beFalse())
+                        }
+                        
+                        it("should load the card from the correct data source index") {
+                            expect(subject.loadCardCalled).to(beTrue())
+                            expect(subject.loadCardCalledIndex).to(equal(remainingIndices[numberOfVisibleCards - 1]))
+                        }
+                        
+                        it("should insert the loaded card at the correct index in the card stack") {
+                            expect(subject.insertCardCalled).to(beTrue())
+                            expect(subject.insertCardCard).to(equal(testLoadCard))
+                            expect(subject.insertCardIndex).to(equal(numberOfVisibleCards - 1))
+                        }
+                    }
+                    
+                    context("and there are no more cards to load") {
+                        beforeEach {
+                            mockStateManager.remainingIndices = [1, 2]
+                            subject.visibleCards = [topCard, SwipeCard(), SwipeCard()]
+                            subject.card(didSwipe: topCard, with: direction, forced: forced)
+                        }
+                        
+                        testSwipe()
+                        
+                        it("should not call the didSwipeAllCards delegate method") {
+                            expect(mockDelegate.didSwipeAllCardsCalled).to(beFalse())
+                        }
+                        
+                        it("not load a new card") {
+                            expect(subject.loadCardCalled).to(beFalse())
+                        }
+                    }
+                    
+                    context("and there are no more cards to swipe") {
+                        beforeEach {
+                            mockStateManager.remainingIndices = []
+                            subject.visibleCards = [topCard]
+                            subject.card(didSwipe: topCard, with: direction, forced: forced)
+                        }
+                        
+                        testSwipe()
+                        
+                        it("should call the didSwipeAllCards delegate method") {
+                            expect(mockDelegate.didSwipeAllCardsCalled).to(beTrue())
+                        }
+                    }
+                    
+                    func testSwipe() {
+                        it("should call the state manager's swipe method with the correct direction") {
+                            expect(mockStateManager.swipeCalled).to(beTrue())
+                            expect(mockStateManager.swipeDirection).to(equal(direction))
+                        }
+                        
+                        it("should remove the top card from visibleCards") {
+                            expect(subject.visibleCards.contains(topCard)).to(beFalse())
+                        }
+                        
+                        it("should disable user interaction") {
+                            expect(subject.isUserInteractionEnabled).to(beFalse())
+                        }
+                        
+                        it("should call the animator's swipe method with the correct parameters") {
+                            expect(mockAnimator.swipeCalled).to(beTrue())
+                            expect(mockAnimator.swipeForced).to(equal(forced))
+                            expect(mockAnimator.swipeTopCard).to(equal(topCard))
+                            expect(mockAnimator.swipeDirection).to(equal(direction))
+                        }
+                    }
+                }
+            }
+            
+            // MARK: Reverse Swipe
+            
+            describe("Reverse Swipe") {
+                context("When the didReverseSwipe method is called") {
+                    beforeEach {
+                        subject.card(didReverseSwipe: SwipeCard(), from: .left)
+                    }
+                    
+                    it("should disable user interaction on the card") {
+                        expect(subject.isUserInteractionEnabled).to(beFalse())
+                    }
+                    
+                    it("should call the animator's undo method") {
+                        expect(mockAnimator.undoCalled).to(beTrue())
                     }
                 }
             }
