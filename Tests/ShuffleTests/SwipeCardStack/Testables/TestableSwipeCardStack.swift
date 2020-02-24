@@ -2,6 +2,11 @@
 
 class TestableSwipeCardStack: SwipeCardStack {
     
+    var testTopCardIndex: Int?
+    override var topCardIndex: Int? {
+        return testTopCardIndex ?? super.topCardIndex
+    }
+    
     var testTopCard: SwipeCard?
     override var topCard: SwipeCard? {
         return testTopCard ?? super.topCard
@@ -93,34 +98,20 @@ class TestableSwipeCardStack: SwipeCardStack {
         return testTransformForCard ?? super.transform(forCardAtIndex: index)
     }
     
-    var loadStateCalled: Bool = false
-    var loadStateState: CardStackState?
-    
-    override func loadState(_ state: CardStackState) {
-        super.loadState(state)
-        loadStateCalled = true
-        loadStateState = state
+    var reloadVisibleCardsCalled: Bool = false
+    override func reloadVisibleCards() {
+        super.reloadVisibleCards()
+        reloadVisibleCardsCalled = true
     }
     
     // MARK: - Test Helpers
     
     func resetReloadData() {
         reloadDataCalled = false
+        reloadVisibleCardsCalled = false
         
         layoutCardCalled = false
         layoutCardCards = []
         layoutCardIndices = []
-        
-        loadStateCalled = false
-        loadStateState = nil
-    }
-    
-    var updateSwipeStateCalled: Bool = false
-    var updateSwipeStateDirection: SwipeDirection?
-    
-    override func updateSwipeState(direction: SwipeDirection) {
-        super.updateSwipeState(direction: direction)
-        updateSwipeStateCalled = true
-        updateSwipeStateDirection = direction
     }
 }

@@ -30,6 +30,7 @@
 		AD2E674B22A2F12E00B9843A /* UIView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD2E674022A2F12E00B9843A /* UIView+Extensions.swift */; };
 		AD2E674C22A2F12E00B9843A /* TinderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD2E674222A2F12E00B9843A /* TinderViewController.swift */; };
 		AD34BDF022B6C68B009C0BCE /* Animator.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD34BDEF22B6C68B009C0BCE /* Animator.swift */; };
+		AD4170A824034D4200BD40C8 /* CardStackStateManagerSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD4170A724034D4200BD40C8 /* CardStackStateManagerSpec.swift */; };
 		AD439DF82285FB7E009DE2F7 /* TestablePanGestureRecognizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD439DF52285FB7E009DE2F7 /* TestablePanGestureRecognizer.swift */; };
 		AD439DF92285FB7E009DE2F7 /* TestableSwipeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD439DF62285FB7E009DE2F7 /* TestableSwipeView.swift */; };
 		AD439DFA2285FB7E009DE2F7 /* TestableTapGestureRecognizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD439DF72285FB7E009DE2F7 /* TestableTapGestureRecognizer.swift */; };
@@ -45,7 +46,6 @@
 		AD52EF8922E52BFA0063AE5D /* MockCardStackTransformProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD52EF8822E52BFA0063AE5D /* MockCardStackTransformProvider.swift */; };
 		AD52EF8B22E532B90063AE5D /* TestableNotificationCenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD52EF8A22E532B90063AE5D /* TestableNotificationCenter.swift */; };
 		AD52EF8F22E56AB70063AE5D /* TestableCardTransformProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD52EF8E22E56AB70063AE5D /* TestableCardTransformProvider.swift */; };
-		AD5C44F322B6E7B700C11357 /* SwipeCardStackSpec+SwipeCardDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD5C44F222B6E7B700C11357 /* SwipeCardStackSpec+SwipeCardDelegate.swift */; };
 		AD72AC722270E6380083E735 /* SwipeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD72AC702270E6380083E735 /* SwipeView.swift */; };
 		AD72AC742270E66E0083E735 /* Shuffle.h in Headers */ = {isa = PBXBuildFile; fileRef = AD72AC732270E66E0083E735 /* Shuffle.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		AD72AC762270F4130083E735 /* CGVector+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD72AC752270F4130083E735 /* CGVector+Extensions.swift */; };
@@ -58,7 +58,6 @@
 		ADA444D722AC658500AFAFFE /* SwipeCardStackDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADA444D622AC658500AFAFFE /* SwipeCardStackDelegate.swift */; };
 		ADA444D922AC658E00AFAFFE /* SwipeCardStackDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADA444D822AC658E00AFAFFE /* SwipeCardStackDataSource.swift */; };
 		ADA444DB22AC662C00AFAFFE /* CardStackAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADA444DA22AC662C00AFAFFE /* CardStackAnimator.swift */; };
-		ADA444DD22AC664C00AFAFFE /* CardStackState.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADA444DC22AC664C00AFAFFE /* CardStackState.swift */; };
 		ADA444DF22AC682400AFAFFE /* CardStackLayoutProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADA444DE22AC682400AFAFFE /* CardStackLayoutProvider.swift */; };
 		ADCEAE2022A1B80B002A5F82 /* CardAnimatorSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADCEAE1F22A1B80B002A5F82 /* CardAnimatorSpec.swift */; };
 		ADCEAE2222A1B88D002A5F82 /* TestableCardAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADCEAE2122A1B88D002A5F82 /* TestableCardAnimator.swift */; };
@@ -72,6 +71,8 @@
 		ADEE86E422ADEE0000AAE7A1 /* MockCardStackAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADEE86E322ADEE0000AAE7A1 /* MockCardStackAnimator.swift */; };
 		ADEE86E622ADEE3500AAE7A1 /* MockCardStackLayoutProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADEE86E522ADEE3500AAE7A1 /* MockCardStackLayoutProvider.swift */; };
 		ADEE86E822ADF3C200AAE7A1 /* CardStackLayoutProviderSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADEE86E722ADF3C200AAE7A1 /* CardStackLayoutProviderSpec.swift */; };
+		ADFAAC0A23FA66540084323B /* CardStackStateManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADFAAC0923FA66540084323B /* CardStackStateManager.swift */; };
+		ADFAAC0C23FB75D30084323B /* MockCardStackStateManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADFAAC0B23FB75D30084323B /* MockCardStackStateManager.swift */; };
 		BE8D2F808F03DADC9D1D5045 /* Pods_ShuffleTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6C08D484FE19F2D4B9F553F2 /* Pods_ShuffleTests.framework */; };
 /* End PBXBuildFile section */
 
@@ -135,6 +136,7 @@
 		AD2E674022A2F12E00B9843A /* UIView+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+Extensions.swift"; sourceTree = "<group>"; };
 		AD2E674222A2F12E00B9843A /* TinderViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TinderViewController.swift; sourceTree = "<group>"; };
 		AD34BDEF22B6C68B009C0BCE /* Animator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Animator.swift; sourceTree = "<group>"; };
+		AD4170A724034D4200BD40C8 /* CardStackStateManagerSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardStackStateManagerSpec.swift; sourceTree = "<group>"; };
 		AD439DF52285FB7E009DE2F7 /* TestablePanGestureRecognizer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestablePanGestureRecognizer.swift; sourceTree = "<group>"; };
 		AD439DF62285FB7E009DE2F7 /* TestableSwipeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestableSwipeView.swift; sourceTree = "<group>"; };
 		AD439DF72285FB7E009DE2F7 /* TestableTapGestureRecognizer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestableTapGestureRecognizer.swift; sourceTree = "<group>"; };
@@ -150,7 +152,6 @@
 		AD52EF8822E52BFA0063AE5D /* MockCardStackTransformProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockCardStackTransformProvider.swift; sourceTree = "<group>"; };
 		AD52EF8A22E532B90063AE5D /* TestableNotificationCenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestableNotificationCenter.swift; sourceTree = "<group>"; };
 		AD52EF8E22E56AB70063AE5D /* TestableCardTransformProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestableCardTransformProvider.swift; sourceTree = "<group>"; };
-		AD5C44F222B6E7B700C11357 /* SwipeCardStackSpec+SwipeCardDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SwipeCardStackSpec+SwipeCardDelegate.swift"; sourceTree = "<group>"; };
 		AD72AC5D2270E5E20083E735 /* Shuffle.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Shuffle.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		AD72AC612270E5E20083E735 /* Shuffle.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Shuffle.plist; sourceTree = "<group>"; };
 		AD72AC6F2270E6380083E735 /* SwipeDirection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwipeDirection.swift; sourceTree = "<group>"; };
@@ -166,7 +167,6 @@
 		ADA444D622AC658500AFAFFE /* SwipeCardStackDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwipeCardStackDelegate.swift; sourceTree = "<group>"; };
 		ADA444D822AC658E00AFAFFE /* SwipeCardStackDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwipeCardStackDataSource.swift; sourceTree = "<group>"; };
 		ADA444DA22AC662C00AFAFFE /* CardStackAnimator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardStackAnimator.swift; sourceTree = "<group>"; };
-		ADA444DC22AC664C00AFAFFE /* CardStackState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardStackState.swift; sourceTree = "<group>"; };
 		ADA444DE22AC682400AFAFFE /* CardStackLayoutProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardStackLayoutProvider.swift; sourceTree = "<group>"; };
 		ADB8EED122F174BB004F8633 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		ADCEAE1F22A1B80B002A5F82 /* CardAnimatorSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardAnimatorSpec.swift; sourceTree = "<group>"; };
@@ -181,6 +181,8 @@
 		ADEE86E322ADEE0000AAE7A1 /* MockCardStackAnimator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockCardStackAnimator.swift; sourceTree = "<group>"; };
 		ADEE86E522ADEE3500AAE7A1 /* MockCardStackLayoutProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockCardStackLayoutProvider.swift; sourceTree = "<group>"; };
 		ADEE86E722ADF3C200AAE7A1 /* CardStackLayoutProviderSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardStackLayoutProviderSpec.swift; sourceTree = "<group>"; };
+		ADFAAC0923FA66540084323B /* CardStackStateManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardStackStateManager.swift; sourceTree = "<group>"; };
+		ADFAAC0B23FB75D30084323B /* MockCardStackStateManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockCardStackStateManager.swift; sourceTree = "<group>"; };
 		BEAD69E2973AE33655E1E380 /* Pods_ShuffleExample.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ShuffleExample.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		CD70A8BE0FF499F1C1A87AA3 /* Pods_Shuffle.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Shuffle.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -251,11 +253,12 @@
 		AD18F0D822B9F447007BACE9 /* Mocks */ = {
 			isa = PBXGroup;
 			children = (
-				ADEE86D922ADEC9700AAE7A1 /* MockSwipeCardStackDelegate.swift */,
-				ADEE86DB22ADECA300AAE7A1 /* MockSwipeCardStackDataSource.swift */,
 				ADEE86E322ADEE0000AAE7A1 /* MockCardStackAnimator.swift */,
 				ADEE86E522ADEE3500AAE7A1 /* MockCardStackLayoutProvider.swift */,
+				ADFAAC0B23FB75D30084323B /* MockCardStackStateManager.swift */,
 				AD52EF8822E52BFA0063AE5D /* MockCardStackTransformProvider.swift */,
+				ADEE86D922ADEC9700AAE7A1 /* MockSwipeCardStackDelegate.swift */,
+				ADEE86DB22ADECA300AAE7A1 /* MockSwipeCardStackDataSource.swift */,
 			);
 			path = Mocks;
 			sourceTree = "<group>";
@@ -459,11 +462,11 @@
 		ADA444D522AC651B00AFAFFE /* SwipeCardStack */ = {
 			isa = PBXGroup;
 			children = (
+				AD23D05022BAD107009BCB50 /* CardStackAnimationOptions.swift */,
 				ADA444DA22AC662C00AFAFFE /* CardStackAnimator.swift */,
 				ADA444DE22AC682400AFAFFE /* CardStackLayoutProvider.swift */,
-				ADA444DC22AC664C00AFAFFE /* CardStackState.swift */,
+				ADFAAC0923FA66540084323B /* CardStackStateManager.swift */,
 				AD52EF8622E523020063AE5D /* CardStackTransformProvider.swift */,
-				AD23D05022BAD107009BCB50 /* CardStackAnimationOptions.swift */,
 				ADA444D322AC651600AFAFFE /* SwipeCardStack.swift */,
 				ADA444D822AC658E00AFAFFE /* SwipeCardStackDataSource.swift */,
 				ADA444D622AC658500AFAFFE /* SwipeCardStackDelegate.swift */,
@@ -506,7 +509,7 @@
 				881FD28B231B78FB003ACA43 /* CardStackAnimationOptionsSpec.swift */,
 				ADEE86E722ADF3C200AAE7A1 /* CardStackLayoutProviderSpec.swift */,
 				ADEE86DE22ADED3600AAE7A1 /* SwipeCardStackSpec.swift */,
-				AD5C44F222B6E7B700C11357 /* SwipeCardStackSpec+SwipeCardDelegate.swift */,
+				AD4170A724034D4200BD40C8 /* CardStackStateManagerSpec.swift */,
 			);
 			path = Specs;
 			sourceTree = "<group>";
@@ -770,7 +773,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				AD5C44F322B6E7B700C11357 /* SwipeCardStackSpec+SwipeCardDelegate.swift in Sources */,
 				AD1098362287CAA9008CB197 /* SwipeCardSpec.swift in Sources */,
 				ADEE86E822ADF3C200AAE7A1 /* CardStackLayoutProviderSpec.swift in Sources */,
 				ADCEAE2022A1B80B002A5F82 /* CardAnimatorSpec.swift in Sources */,
@@ -786,7 +788,9 @@
 				ADCEAE2222A1B88D002A5F82 /* TestableCardAnimator.swift in Sources */,
 				ADE153652288A66700060CB1 /* CardAnimationOptionsSpec.swift in Sources */,
 				AD514C5D22A0903000BD8F3E /* CardLayoutProviderSpec.swift in Sources */,
+				ADFAAC0C23FB75D30084323B /* MockCardStackStateManager.swift in Sources */,
 				AD439DF92285FB7E009DE2F7 /* TestableSwipeView.swift in Sources */,
+				AD4170A824034D4200BD40C8 /* CardStackStateManagerSpec.swift in Sources */,
 				AD52EF8B22E532B90063AE5D /* TestableNotificationCenter.swift in Sources */,
 				AD1098382287CAD4008CB197 /* TestableSwipeCard.swift in Sources */,
 				AD52EF8F22E56AB70063AE5D /* TestableCardTransformProvider.swift in Sources */,
@@ -804,6 +808,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				ADFAAC0A23FA66540084323B /* CardStackStateManager.swift in Sources */,
 				AD4AACA3231C61FC008EC632 /* UIView+Extensions.swift in Sources */,
 				ADA444D422AC651600AFAFFE /* SwipeCardStack.swift in Sources */,
 				ADDF5F842277FA2C00274C09 /* CGPoint+Extensions.swift in Sources */,
@@ -814,7 +819,6 @@
 				AD72AC9A2270FCCE0083E735 /* SwipeDirection.swift in Sources */,
 				ADA444D922AC658E00AFAFFE /* SwipeCardStackDataSource.swift in Sources */,
 				AD52EF8722E523020063AE5D /* CardStackTransformProvider.swift in Sources */,
-				ADA444DD22AC664C00AFAFFE /* CardStackState.swift in Sources */,
 				ADEE86D722ACE5AA00AAE7A1 /* Array+Extensions.swift in Sources */,
 				AD10982922879C42008CB197 /* CardAnimationOptions.swift in Sources */,
 				AD72AC762270F4130083E735 /* CGVector+Extensions.swift in Sources */,

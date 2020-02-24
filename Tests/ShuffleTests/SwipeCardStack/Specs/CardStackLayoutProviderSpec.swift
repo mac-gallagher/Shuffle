@@ -18,7 +18,8 @@ class CardStackLayoutProviderSpec: QuickSpec {
                 cardStack = SwipeCardStack(animator: MockCardStackAnimator.self,
                                            transformProvider: MockCardStackTransformProvider.self,
                                            layoutProvider: MockCardStackLayoutProvider.self,
-                                           notificationCenter: TestableNotificationCenter())
+                                           notificationCenter: TestableNotificationCenter(),
+                                           stateManager: MockCardStackStateManager())
                 cardStack.cardStackInsets = insets
                 cardStack.frame = CGRect(x: 0, y: 0,
                                          width: cardStackWidth,

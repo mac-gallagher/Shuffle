@@ -1,7 +1,6 @@
 import Foundation
 
-let CardDidFinishSwipeAnimationNotification
-    = NSNotification.Name(rawValue: "cardDidFinishSwipeAnimation")
+let CardDidFinishSwipeAnimationNotification = NSNotification.Name(rawValue: "cardDidFinishSwipeAnimation")
 
 open class SwipeCard: SwipeView {
     
@@ -61,9 +60,7 @@ open class SwipeCard: SwipeView {
     
     var swipeCompletion: () -> Void {
         return { [unowned self] in
-            self.notificationCenter
-                .post(name: CardDidFinishSwipeAnimationNotification,
-                      object: self)
+            self.notificationCenter.post(name: CardDidFinishSwipeAnimationNotification, object: self)
         }
     }
     
