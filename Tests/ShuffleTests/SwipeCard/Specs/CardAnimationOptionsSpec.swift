@@ -1,7 +1,7 @@
-import Quick
 import Nimble
-
+import Quick
 import Shuffle
+import UIKit
 
 class CardAnimationOptionsSpec: QuickSpec {
     

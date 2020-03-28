@@ -1,4 +1,4 @@
-import Foundation
+import UIKit
 
 /// A type representing the direction of a physical drag.
 @objc public enum SwipeDirection: Int, CustomStringConvertible {

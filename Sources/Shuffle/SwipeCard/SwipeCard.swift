@@ -1,4 +1,4 @@
-import Foundation
+import UIKit
 
 let CardDidFinishSwipeAnimationNotification = NSNotification.Name(rawValue: "cardDidFinishSwipeAnimation")
 
