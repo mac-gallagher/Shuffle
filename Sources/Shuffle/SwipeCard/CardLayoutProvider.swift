@@ -1,4 +1,4 @@
-import Foundation
+import UIKit
 
 protocol CardLayoutProvidable {
     static var overlayContainerFrame: (SwipeCard) -> CGRect { get }

@@ -1,4 +1,4 @@
-import Foundation
+import UIKit
 
 protocol CardAnimatable {
     static func swipe(_ card: SwipeCard, direction: SwipeDirection, forced: Bool)

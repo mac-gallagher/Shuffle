@@ -1,7 +1,7 @@
-import Quick
 import Nimble
-
+import Quick
 @testable import Shuffle
+import UIKit
 
 class CardTransformProviderSpec: QuickSpec {
     

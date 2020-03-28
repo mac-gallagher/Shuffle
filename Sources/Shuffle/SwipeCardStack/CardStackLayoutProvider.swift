@@ -1,4 +1,4 @@
-import Foundation
+import UIKit
 
 protocol CardStackLayoutProvidable {
     static var cardContainerFrame: (SwipeCardStack) -> CGRect { get }

@@ -1,4 +1,5 @@
 @testable import Shuffle
+import UIKit
 
 class TestableSwipeView: SwipeView {
     

@@ -1,4 +1,4 @@
-import Foundation
+import UIKit
 
 protocol CardTransformProvidable {
     static var cardTransform: (SwipeCard) -> CGAffineTransform { get }

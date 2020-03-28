@@ -1,4 +1,4 @@
-import Foundation
+import UIKit
 
 public protocol CardAnimatableOptions {
     var maximumRotationAngle: CGFloat { get }
