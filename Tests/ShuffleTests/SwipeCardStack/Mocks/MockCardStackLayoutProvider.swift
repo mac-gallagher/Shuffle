@@ -2,25 +2,25 @@
 import UIKit
 
 struct MockCardStackLayoutProvider: CardStackLayoutProvidable {
-    
-    static var testCardContainerFrame: CGRect = .zero
-    static var cardContainerFrame: (SwipeCardStack) -> CGRect {
-        return { _ in
-            return testCardContainerFrame
-        }
+
+  static var testCardContainerFrame: CGRect = .zero
+  static var cardContainerFrame: (SwipeCardStack) -> CGRect {
+    return { _ in
+      return testCardContainerFrame
     }
-    
-    static var testCardFrame: CGRect = .zero
-    static var cardFrame: (SwipeCardStack) -> CGRect {
-        return { _ in
-            return testCardFrame
-        }
+  }
+
+  static var testCardFrame: CGRect = .zero
+  static var cardFrame: (SwipeCardStack) -> CGRect {
+    return { _ in
+      return testCardFrame
     }
-    
-    // MARK: - Test Helpers
-    
-    static func reset() {
-        testCardContainerFrame = .zero
-        testCardFrame = .zero
-    }
+  }
+
+  // MARK: - Test Helpers
+
+  static func reset() {
+    testCardContainerFrame = .zero
+    testCardFrame = .zero
+  }
 }
