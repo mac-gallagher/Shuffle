@@ -46,24 +46,27 @@ To run the example project, clone the repo and run the `ShuffleExample` target.
 
 ## Basic Usage
 
-1. Create your own card by subclassing `SwipeCard`. The card below displays an image, can be swiped left or right, and has overlay views for both directions:
+1.  Create your own card by either subclassing `SwipeCard` or creating a `SwipeCard` and setting its properties directly:
 
+    
     ```swift
-    class SampleCard: SwipeCard {
-       override var swipeDirections {
-          return [.left, .right]
-       }
+    func card(fromImage image: UIImage) -> SwipeCard {
+        let card = SwipeCard()
+        card.swipeDirections = [.left, .right]
+        card.content = UIImageView(image: image)
+        
+        let leftOverlay = UIView()
+        leftoverlay.backgroundColor = .green
        
-       init(image: UIImage) {
-            content = UIImageView(image: image)
-            leftOverlay = UIView()
-            rightOverlay = UIView()
-            
-            leftoverlay.backgroundColor = .green
-            rightOverlay.backgroundColor = .red
-       }
+        let rightOverlay = UIView()
+        rightOverlay.backgroundColor = .red
+       
+        card.setOverlays([.left: leftOverlay, .right: rightOverlay])
+       
+        return card
     }
     ```
+    The card returned from `card(fromImage:)` displays an image, can be swiped left or right, and has overlay views for both directions.
 
 2. Initialize your card data and place a `SwipeCardStack` on your view:
 
@@ -80,33 +83,33 @@ To run the example project, clone the repo and run the `ShuffleExample` target.
         override func viewDidLoad() {
             super.viewDidLoad()
             view.addSubview(cardStack)
-            cardStack.frame = view.safeAreaLayoutGuide
-                                  .bounds.insetBy(dx: 10, dy: 50)
+            cardStack.frame = view.safeAreaLayoutGuide.bounds
         }
     }
     ```
-3. Conform your class to the `SwipeCardStackDataSource` protocol and set your card stack's `dataSource`:
+    
+3. Conform your class to `SwipeCardStackDataSource` and set your card stack's `dataSource`:
     
     ```swift
-    func numberOfCards(in cardStack: SwipeCardStack) -> Int {
-       return cardImages.count
+    func cardStack(_ cardStack: SwipeCardStack, cardForIndexAt index: Int) -> SwipeCard {
+       return card(fromImage: cardImages[index])
     }
     
-    func cardStack(_ cardStack: SwipeCardStack, cardForIndexAt index: Int) -> SwipeCard {
-       return SampleCard(image: cardImages[index])
+    func numberOfCards(in cardStack: SwipeCardStack) -> Int {
+       return cardImages.count
     }
     ```
     ```swift
     cardStack.dataSource = self
     ```
-3. Conform to the `SwipeCardStackDelegate` protocol to subscribe to any of the following events:
+    
+3. Conform to `SwipeCardStackDelegate` to subscribe to any of the following events:
 
    ```swift
-    func didSwipeAllCards(_ cardStack: SwipeCardStack)
+    func cardStack(_ cardStack: SwipeCardStack, didSelectCardAt index: Int)
     func cardStack(_ cardStack: SwipeCardStack, didSwipeCardAt index: Int, with direction: SwipeDirection)
     func cardStack(_ cardStack: SwipeCardStack, didUndoCardAt index: Int, from direction: SwipeDirection)
-    func cardStack(_ cardStack: SwipeCardStack, didSelectCardAt index: Int)
-
+    func didSwipeAllCards(_ cardStack: SwipeCardStack)
    ```
    
    **Note**:  `didSwipeCardAt` and `didSwipeAllCards`  are called regardless if a card is swiped programmatically or by the user.

@@ -1,40 +1,36 @@
 import UIKit
 
 protocol CardLayoutProvidable {
-  static var overlayContainerFrame: (SwipeCard) -> CGRect { get }
-  static var contentFrame: (SwipeCard) -> CGRect { get }
-  static var footerFrame: (SwipeCard) -> CGRect { get }
+  func createContentFrame(for card: SwipeCard) -> CGRect
+  func createFooterFrame(for card: SwipeCard) -> CGRect
+  func createOverlayContainerFrame(for card: SwipeCard) -> CGRect
 }
 
 class CardLayoutProvider: CardLayoutProvidable {
 
-  static var overlayContainerFrame: (SwipeCard) -> CGRect {
-    return { card in
-      if let _ = card.footer {
-        return CGRect(x: 0, y: 0,
-                      width: card.bounds.width,
-                      height: card.bounds.height - card.footerHeight)
-      }
-      return card.bounds
-    }
-  }
+  static var shared = CardLayoutProvider()
 
-  static var contentFrame: (SwipeCard) -> CGRect {
-    return { card in
-      if let footer = card.footer, footer.isOpaque {
-        return CGRect(x: 0, y: 0,
-                      width: card.bounds.width,
-                      height: card.bounds.height - card.footerHeight)
-      }
-      return card.bounds
-    }
-  }
-
-  static var footerFrame: (SwipeCard) -> CGRect {
-    return { card in
-      return CGRect(x: 0, y: card.bounds.height - card.footerHeight,
+  func createContentFrame(for card: SwipeCard) -> CGRect {
+    if let footer = card.footer, footer.isOpaque {
+      return CGRect(x: 0, y: 0,
                     width: card.bounds.width,
-                    height: card.footerHeight)
+                    height: card.bounds.height - card.footerHeight)
     }
+    return card.bounds
+  }
+
+  func createFooterFrame(for card: SwipeCard) -> CGRect {
+    return CGRect(x: 0, y: card.bounds.height - card.footerHeight,
+                  width: card.bounds.width,
+                  height: card.footerHeight)
+  }
+
+  func createOverlayContainerFrame(for card: SwipeCard) -> CGRect {
+    if card.footer != nil {
+      return CGRect(x: 0, y: 0,
+                    width: card.bounds.width,
+                    height: card.bounds.height - card.footerHeight)
+    }
+    return card.bounds
   }
 }

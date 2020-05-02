@@ -6,61 +6,27 @@ import UIKit
 /// This view is intended to be subclassed.
 open class SwipeView: UIView {
 
-  /// The swipe directions to be detected by the view. Subclasses can override this variable
-  /// to ignore certain directions.
-  open var swipeDirections: [SwipeDirection] {
-    return SwipeDirection.allDirections
-  }
+  /// The swipe directions to be detected by the view. Set this variable to ignore certain directions.
+  /// Defaults to `SwipeDirection.allDirections`.
+  open var swipeDirections = SwipeDirection.allDirections
 
   /// The pan gesture recognizer attached to the view.
-  open var panGestureRecognizer: UIPanGestureRecognizer {
-    return panRecognizer
+  public var panGestureRecognizer: UIPanGestureRecognizer {
+    return internalPanGestureRecognizer
   }
 
-  private lazy var panRecognizer = UIPanGestureRecognizer(target: self,
-                                                          action: #selector(handlePan))
+  private lazy var internalPanGestureRecognizer = PanGestureRecognizer(target: self,
+                                                                       action: #selector(handlePan))
 
   /// The tap gesture recognizer attached to the view.
-  open var tapGestureRecognizer: UITapGestureRecognizer {
-    return tapRecognizer
+  public var tapGestureRecognizer: UITapGestureRecognizer {
+    return internalTapGestureRecognizer
   }
 
-  private lazy var tapRecognizer = UITapGestureRecognizer(target: self,
-                                                          action: #selector(didTap))
+  private lazy var internalTapGestureRecognizer = TapGestureRecognizer(target: self,
+                                                                       action: #selector(didTap))
 
-  /// The member of `swipeDirections` which returns the highest `dragPercentage`.
-  public var activeDirection: SwipeDirection? {
-    return swipeDirections
-      .reduce((percentage: CGFloat.zero, activeDirection: nil),
-              { [unowned self] lastResult, direction in
-                let dragPercentage = self.dragPercentage(direction)
-                return dragPercentage > lastResult.percentage
-                  ? (dragPercentage, direction) : lastResult
-      }).activeDirection
-  }
-
-  /// The speed of the user's drag projected onto the specified direction.
-  ///
-  /// Expressed in points per second.
-  public var dragSpeed: (SwipeDirection) -> CGFloat {
-    return { [unowned self] direction in
-      let velocity = self.panGestureRecognizer.velocity(in: self.superview)
-      return abs(direction.vector * CGVector(to: velocity))
-    }
-  }
-
-  /// The percentage of `minimumSwipeDistance` the drag attains in the specified direction.
-  ///
-  /// The given swipe direction is not necessarily a member of `swipeDirections`.
-  /// Can return a value greater than 1.
-  public var dragPercentage: (SwipeDirection) -> CGFloat {
-    return { [unowned self] direction in
-      let translation = CGVector(to: self.panGestureRecognizer.translation(in: self.superview))
-      let scaleFactor = 1 / self.minimumSwipeDistance(on: direction)
-      let percentage = scaleFactor * (translation * direction.vector)
-      return percentage < 0 ? 0 : percentage
-    }
-  }
+  // MARK: - Initialization
 
   /// Initializes the `SwipeView` with the required gesture recognizers.
   ///
@@ -79,8 +45,46 @@ open class SwipeView: UIView {
   }
 
   private func initialize() {
-    addGestureRecognizer(panRecognizer)
-    addGestureRecognizer(tapRecognizer)
+    addGestureRecognizer(internalPanGestureRecognizer)
+    addGestureRecognizer(internalTapGestureRecognizer)
+  }
+
+  // MARK: - Swipe Calulations
+
+  /// The active swipe direction, if any.
+  ///
+  /// - Returns: The member of `swipeDirections` which returns the highest `dragPercentage:`.
+  public func activeDirection() -> SwipeDirection? {
+    return swipeDirections
+      .reduce((percentage: CGFloat.zero, activeDirection: nil),
+              { [unowned self] lastResult, direction in
+                let dragPercentage = self.dragPercentage(on: direction)
+                return dragPercentage > lastResult.percentage
+                  ? (dragPercentage, direction) : lastResult
+      }).activeDirection
+  }
+
+  /// The speed of the current drag velocity projected onto the specified direction.
+  ///
+  ///  Expressed in points per second.
+  /// - Parameter direction: The direction to project the drag onto.
+  /// - Returns: The speed of the current drag velocity on the specifed direction.
+  public func dragSpeed(on direction: SwipeDirection) -> CGFloat {
+    let velocity = panGestureRecognizer.velocity(in: superview)
+    return abs(direction.vector * CGVector(to: velocity))
+  }
+
+  /// The percentage of `minimumSwipeDistance` the current drag translation attains in the specified direction.
+  ///
+  /// The provided swipe direction need not be a member of `swipeDirections`.
+  /// Can return a value greater than 1.
+  /// - Parameter direction: The swipe direction.
+  /// - Returns: The percentage of `minimumSwipeDistance` the current drag translation attains in the specified direction.
+  public func dragPercentage(on direction: SwipeDirection) -> CGFloat {
+    let translation = CGVector(to: panGestureRecognizer.translation(in: superview))
+    let scaleFactor = 1 / minimumSwipeDistance(on: direction)
+    let percentage = scaleFactor * (translation * direction.vector)
+    return percentage < 0 ? 0 : percentage
   }
 
   /// The minimum required speed on the intended direction to trigger a swipe. Subclasses can override
@@ -98,23 +102,12 @@ open class SwipeView: UIView {
   ///
   /// - Parameter direction: The swipe direction.
   /// - Returns: The minimum distance required to trigger a swipe in the indicated direction, measured in
-  ///            points. Defaults to 1/4 of the minimum of the screen's width/height.
+  ///            points. Defaults to 1/4 of the minimum of the screen's width and height.
   open func minimumSwipeDistance(on direction: SwipeDirection) -> CGFloat {
     return min(UIScreen.main.bounds.width, UIScreen.main.bounds.height) / 4
   }
 
-  @objc func handlePan(_ recognizer: UIPanGestureRecognizer) {
-    switch recognizer.state {
-    case .possible, .began:
-      beginSwiping(recognizer)
-    case .changed:
-      continueSwiping(recognizer)
-    case .ended, .cancelled:
-      endSwiping(recognizer)
-    default:
-      break
-    }
-  }
+  // MARK: - Gesture Recognition
 
   /// This function is called whenever the view is tapped. The default implementation does nothing;
   /// subclasses can override this method to perform whatever actions are necessary.
@@ -141,8 +134,9 @@ open class SwipeView: UIView {
   ///
   /// - Parameter recognizer: The gesture recognizer associated with the swipe.
   open func endSwiping(_ recognizer: UIPanGestureRecognizer) {
-    if let direction = activeDirection {
-      if dragSpeed(direction) >= minimumSwipeSpeed(on: direction) || dragPercentage(direction) >= 1 {
+    if let direction = activeDirection() {
+      if dragSpeed(on: direction) >= minimumSwipeSpeed(on: direction)
+        || dragPercentage(on: direction) >= 1 {
         didSwipe(recognizer, with: direction)
         return
       }
@@ -163,4 +157,19 @@ open class SwipeView: UIView {
   ///
   /// - Parameter recognizer: The gesture recognizer associated with the cancelled swipe.
   open func didCancelSwipe(_ recognizer: UIPanGestureRecognizer) {}
+
+  // MARK: - Selectors
+
+  @objc private func handlePan(_ recognizer: UIPanGestureRecognizer) {
+    switch recognizer.state {
+    case .possible, .began:
+      beginSwiping(recognizer)
+    case .changed:
+      continueSwiping(recognizer)
+    case .ended, .cancelled:
+      endSwiping(recognizer)
+    default:
+      break
+    }
+  }
 }

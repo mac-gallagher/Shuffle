@@ -3,20 +3,6 @@ import UIKit
 
 class TestableSwipeView: SwipeView {
 
-  // MARK: - Gesture Recognizers
-
-  override var panGestureRecognizer: UIPanGestureRecognizer {
-    return panRecognizer
-  }
-
-  private lazy var panRecognizer = TestablePanGestureRecognizer(target: self, action: #selector(handlePan))
-
-  override var tapGestureRecognizer: UITapGestureRecognizer {
-    return tapRecognizer
-  }
-
-  private lazy var tapRecognizer = TestableTapGestureRecognizer(target: self, action: #selector(didTap))
-
   // MARK: - Swipe Functions
 
   var minSwipeSpeed: CGFloat?

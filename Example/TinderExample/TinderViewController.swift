@@ -8,31 +8,31 @@ class TinderViewController: UIViewController {
   private let buttonStackView = ButtonStackView()
 
   private let cardModels = [
-    SampleCardModel(name: "Michelle",
+    TinderCardModel(name: "Michelle",
                     age: 26,
                     occupation: "Graphic Designer",
                     image: UIImage(named: "michelle")),
-    SampleCardModel(name: "Joshua",
+    TinderCardModel(name: "Joshua",
                     age: 27,
                     occupation: "Business Services Sales Representative",
                     image: UIImage(named: "joshua")),
-    SampleCardModel(name: "Daiane",
+    TinderCardModel(name: "Daiane",
                     age: 23,
                     occupation: "Graduate Student",
                     image: UIImage(named: "daiane")),
-    SampleCardModel(name: "Julian",
+    TinderCardModel(name: "Julian",
                     age: 25,
                     occupation: "Model/Photographer",
                     image: UIImage(named: "julian")),
-    SampleCardModel(name: "Andrew",
+    TinderCardModel(name: "Andrew",
                     age: 26,
                     occupation: nil,
                     image: UIImage(named: "andrew")),
-    SampleCardModel(name: "Bailey",
+    TinderCardModel(name: "Bailey",
                     age: 25,
                     occupation: "Software Engineer",
                     image: UIImage(named: "bailey")),
-    SampleCardModel(name: "Rachel",
+    TinderCardModel(name: "Rachel",
                     age: 27,
                     occupation: "Interior Designer",
                     image: UIImage(named: "rachel"))
@@ -95,13 +95,22 @@ class TinderViewController: UIViewController {
   }
 }
 
-//MARK: Data Source + Delegates
+// MARK: Data Source + Delegates
 
 extension TinderViewController: ButtonStackViewDelegate, SwipeCardStackDataSource, SwipeCardStackDelegate {
 
   func cardStack(_ cardStack: SwipeCardStack, cardForIndexAt index: Int) -> SwipeCard {
-    let card = SampleCard()
-    card.configure(withModel: cardModels[index])
+    let card = SwipeCard()
+    card.footerHeight = 80
+    card.swipeDirections = [.left, .up, .right]
+    for direction in card.swipeDirections {
+      card.setOverlay(TinderCardOverlay(direction: direction), forDirection: direction)
+    }
+
+    let model = cardModels[index]
+    card.content = TinderCardContentView(withImage: model.image)
+    card.footer = TinderCardFooterView(withTitle: "\(model.name), \(model.age)", subtitle: model.occupation)
+
     return card
   }
 

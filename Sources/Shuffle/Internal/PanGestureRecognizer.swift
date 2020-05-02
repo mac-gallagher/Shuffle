@@ -1,15 +1,16 @@
 import UIKit
 
-class TestablePanGestureRecognizer: UIPanGestureRecognizer {
+/// A testable `UIPanGestureRecognizer`
+class PanGestureRecognizer: UIPanGestureRecognizer {
 
-  private var testTarget: AnyObject?
+  private weak var testTarget: AnyObject?
   private var testAction: Selector?
 
   private var testLocation: CGPoint?
   private var testTranslation: CGPoint?
   private var testVelocity: CGPoint?
   private var testState: UIGestureRecognizer.State?
-  
+
   override var state: UIGestureRecognizer.State {
     get {
       return testState ?? super.state

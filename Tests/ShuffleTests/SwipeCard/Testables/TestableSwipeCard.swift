@@ -3,29 +3,6 @@ import UIKit
 
 class TestableSwipeCard: SwipeCard {
 
-  // MARK: - Gesture Recognizers
-
-  override var panGestureRecognizer: UIPanGestureRecognizer {
-    return panRecognizer
-  }
-
-  private lazy var panRecognizer
-    = TestablePanGestureRecognizer(target: self, action: #selector(handlePan))
-
-  override var tapGestureRecognizer: UITapGestureRecognizer {
-    return tapRecognizer
-  }
-
-  private lazy var tapRecognizer
-    = TestableTapGestureRecognizer(target: self, action: #selector(didTap))
-
-  // MARK: - Other Variables
-
-  var testActiveDirection: SwipeDirection?
-  override var activeDirection: SwipeDirection? {
-    return testActiveDirection ?? super.activeDirection
-  }
-
   var testTouchLocation: CGPoint?
   override var touchLocation: CGPoint? {
     return testTouchLocation ?? super.touchLocation
@@ -33,32 +10,33 @@ class TestableSwipeCard: SwipeCard {
 
   //MARK: - Completion Blocks
 
-  var swipeCompletionCalled: Bool = false
-  override var swipeCompletion: () -> Void {
-    swipeCompletionCalled = true
-    return super.swipeCompletion
+  var swipeCompletionBlockCalled: Bool = false
+  override var swipeCompletionBlock: () -> Void {
+    swipeCompletionBlockCalled = true
+    return super.swipeCompletionBlock
   }
 
-  var reverseSwipeCompletionCalled: Bool = false
-  override var reverseSwipeCompletion: (SwipeDirection) -> Void {
-    reverseSwipeCompletionCalled = true
-    return super.reverseSwipeCompletion
+  var reverseSwipeCompletionBlockCalled: Bool = false
+  override var reverseSwipeCompletionBlock: () -> Void {
+    reverseSwipeCompletionBlockCalled = true
+    return super.reverseSwipeCompletionBlock
   }
 
-  // MARK: - Swipe Recognition
+  // MARK: - Swipe Calculations
+
+  var testActiveDirection: SwipeDirection?
+  override func activeDirection() -> SwipeDirection? {
+    return testActiveDirection ?? super.activeDirection()
+  }
 
   var testDragSpeed: CGFloat?
-  override var dragSpeed: (SwipeDirection) -> CGFloat {
-    return { direction in
-      return self.testDragSpeed ?? super.dragSpeed(direction)
-    }
+  override func dragSpeed(on direction: SwipeDirection) -> CGFloat {
+    return testDragSpeed ?? super.dragSpeed(on: direction)
   }
 
   var testDragPercentage = [SwipeDirection: CGFloat]()
-  override var dragPercentage: (SwipeDirection) -> CGFloat {
-    return { direction in
-      return self.testDragPercentage[direction] ?? super.dragPercentage(direction)
-    }
+  override func dragPercentage(on direction: SwipeDirection) -> CGFloat {
+    return testDragPercentage[direction] ?? super.dragPercentage(on: direction)
   }
 
   var testMinimumSwipeDistance = [SwipeDirection: CGFloat]()
@@ -74,9 +52,13 @@ class TestableSwipeCard: SwipeCard {
 
   // MARK: - Main Methods
 
-  var testOverlay = [SwipeDirection: UIView]()
-  override func overlay(forDirection direction: SwipeDirection) -> UIView? {
-    return testOverlay[direction] ?? super.overlay(forDirection: direction)
+  var setOverlayCalled: Bool = false
+  var setOverlayOverlays = [SwipeDirection: UIView]()
+
+  override func setOverlay(_ overlay: UIView?, forDirection direction: SwipeDirection) {
+    super.setOverlay(overlay, forDirection: direction)
+    setOverlayOverlays[direction] = overlay
+    setOverlayCalled = true
   }
 
   var swipeActionDirection: SwipeDirection?

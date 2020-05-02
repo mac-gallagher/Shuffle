@@ -1,6 +1,6 @@
 import UIKit
 
-class SampleCardFooterView: UIView {
+class TinderCardFooterView: UIView {
 
   private var label = UILabel()
 
@@ -22,7 +22,7 @@ class SampleCardFooterView: UIView {
 
   private func initialize(title: String?, subtitle: String?) {
     let attributedText = NSMutableAttributedString(string: (title ?? "") + "\n", attributes: NSAttributedString.Key.titleAttributes)
-    if let subtitle = subtitle, subtitle != "" {
+    if let subtitle = subtitle, !subtitle.isEmpty {
       attributedText.append(NSMutableAttributedString(string: subtitle, attributes: NSAttributedString.Key.subtitleAttributes))
       let paragraphStyle = NSMutableParagraphStyle()
       paragraphStyle.lineSpacing = 4

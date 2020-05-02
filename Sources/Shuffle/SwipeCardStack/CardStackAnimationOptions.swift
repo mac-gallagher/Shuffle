@@ -9,7 +9,7 @@ public protocol CardStackAnimatableOptions {
 
 /// The animation options provided to the internal card stack animator.
 public final class CardStackAnimationOptions: CardStackAnimatableOptions {
-  
+
   /// The static default instance of `CardStackAnimationOptions`.
   static let `default` = CardStackAnimationOptions()
 

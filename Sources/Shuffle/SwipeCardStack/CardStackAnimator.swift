@@ -15,15 +15,15 @@ protocol CardStackAnimatable {
 
 /// The background card animator for the card stack.
 ///
-///All methods should be called only after the new `CardStackState` has been loaded.
-class CardStackAnimator: Animator, CardStackAnimatable {
+/// All methods should be called only after the new `CardStackState` has been loaded.
+class CardStackAnimator: CardStackAnimatable {
 
   // MARK: - Animation Key Frames
 
   class var swipeAnimationKeyFrames: (SwipeCardStack) -> Void {
     return { cardStack in
       for (index, card) in cardStack.visibleCards.enumerated() {
-        addKeyFrame {
+        Animator.addKeyFrame {
           cardStack.layoutCard(card, at: index)
         }
       }
@@ -34,7 +34,7 @@ class CardStackAnimator: Animator, CardStackAnimatable {
     return { cardStack in
       for (index, card) in cardStack.visibleCards.enumerated() {
         let transform = cardStack.transform(forCardAtIndex: index)
-        addTransformKeyFrame(to: card, transform: transform)
+        Animator.addTransformKeyFrame(to: card, transform: transform)
       }
     }
   }
@@ -43,7 +43,7 @@ class CardStackAnimator: Animator, CardStackAnimatable {
     return { cardStack in
       for (index, card) in cardStack.backgroundCards.enumerated() {
         let transform = cardStack.transform(forCardAtIndex: index + 1)
-        addTransformKeyFrame(to: card, transform: transform)
+        Animator.addTransformKeyFrame(to: card, transform: transform)
       }
     }
   }
@@ -51,7 +51,7 @@ class CardStackAnimator: Animator, CardStackAnimatable {
   class var undoAnimationKeyFrames: (SwipeCardStack) -> Void {
     return { cardStack in
       for (index, card) in cardStack.backgroundCards.enumerated() {
-        addKeyFrame {
+        Animator.addKeyFrame {
           cardStack.layoutCard(card, at: index + 1)
         }
       }
@@ -80,14 +80,14 @@ class CardStackAnimator: Animator, CardStackAnimatable {
         return topCard.animationOptions.totalSwipeDuration / 2
       }
 
-      let velocityFactor = topCard.dragSpeed(direction) / topCard.minimumSwipeSpeed(on: direction)
+      let velocityFactor = topCard.dragSpeed(on: direction) / topCard.minimumSwipeSpeed(on: direction)
 
-      //card swiped below the minimum swipe speed
+      // card swiped below the minimum swipe speed
       if velocityFactor < 1.0 {
         return topCard.animationOptions.totalSwipeDuration / 2
       }
 
-      //card swiped at least the minimum swipe speed -> return relative duration
+      // card swiped at least the minimum swipe speed -> return relative duration
       return 1.0 / (2.0 * TimeInterval(velocityFactor))
     }
   }
@@ -123,7 +123,7 @@ class CardStackAnimator: Animator, CardStackAnimatable {
     let delay = swipeDelay(topCard, forced)
     let duration = swipeDuration(cardStack, topCard, direction, forced)
 
-    //no background cards left to animate, so we instead delay calling the completion block
+    // no background cards left to animate, so we instead delay calling the completion block
     if cardStack.visibleCards.count == 0 {
       DispatchQueue.main.asyncAfter(deadline: .now() + delay + duration) {
         cardStack.swipeCompletion()
@@ -131,7 +131,7 @@ class CardStackAnimator: Animator, CardStackAnimatable {
       return
     }
 
-    animateKeyFrames(withDuration: duration,
+    Animator.animateKeyFrames(withDuration: duration,
                      delay: delay,
                      animations: {
                       swipeAnimationKeyFrames(cardStack)
@@ -141,17 +141,17 @@ class CardStackAnimator: Animator, CardStackAnimatable {
       }
     }
   }
-  
+
   class func shift(_ cardStack: SwipeCardStack, withDistance distance: Int) {
     removeAllCardAnimations(cardStack)
 
-    //place background cards in old positions
+    // place background cards in old positions
     for (index, card) in cardStack.visibleCards.enumerated() {
       card.transform = cardStack.transform(forCardAtIndex: index + distance)
     }
 
-    //animate background cards to new positions
-    animateKeyFrames(withDuration: shiftDuration(cardStack),
+    // animate background cards to new positions
+    Animator.animateKeyFrames(withDuration: shiftDuration(cardStack),
                      animations: {
                       shiftAnimationKeyFrames(cardStack)
     }) { finshed in
@@ -164,7 +164,7 @@ class CardStackAnimator: Animator, CardStackAnimatable {
   class func reset(_ cardStack: SwipeCardStack, topCard: SwipeCard) {
     removeBackgroundCardAnimations(cardStack)
 
-    animateKeyFrames(withDuration: resetDuration(cardStack, topCard),
+    Animator.animateKeyFrames(withDuration: resetDuration(cardStack, topCard),
                      options: .allowUserInteraction,
                      animations: {
                       self.cancelSwipeAnimationKeyFrames(cardStack)
@@ -174,13 +174,13 @@ class CardStackAnimator: Animator, CardStackAnimatable {
   class func undo(_ cardStack: SwipeCardStack, topCard: SwipeCard) {
     removeBackgroundCardAnimations(cardStack)
 
-    //place background cards in old positions
+    // place background cards in old positions
     for (index, card) in cardStack.backgroundCards.enumerated() {
       card.transform = cardStack.transform(forCardAtIndex: index)
     }
 
-    //animate background cards to new positions
-    animateKeyFrames(withDuration: undoDuration(cardStack, topCard),
+    // animate background cards to new positions
+    Animator.animateKeyFrames(withDuration: undoDuration(cardStack, topCard),
                      animations: {
                       undoAnimationKeyFrames(cardStack)
     }) { finished in

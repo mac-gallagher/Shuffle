@@ -19,12 +19,12 @@ class CardAnimationOptionsSpec: QuickSpec {
 
           it("should have the correct default properties") {
             expect(subject.maximumRotationAngle).to(equal(CGFloat.pi / 10))
-            expect(subject.totalSwipeDuration).to(equal(0.7))
             expect(subject.relativeSwipeOverlayFadeDuration).to(equal(0.15))
             expect(subject.relativeReverseSwipeOverlayFadeDuration).to(equal(0.15))
-            expect(subject.totalReverseSwipeDuration).to(equal(0.25))
             expect(subject.resetSpringDamping).to(equal(0.5))
             expect(subject.totalResetDuration).to(equal(0.6))
+            expect(subject.totalReverseSwipeDuration).to(equal(0.25))
+            expect(subject.totalSwipeDuration).to(equal(0.7))
           }
         }
       }
@@ -49,48 +49,6 @@ class CardAnimationOptionsSpec: QuickSpec {
 
           it("should return CGFloat.pi/2") {
             expect(subject.maximumRotationAngle).to(equal(.pi / 2))
-          }
-        }
-      }
-
-      // MARK: - Total Swipe Duration
-
-      describe("Total Swipe Duration") {
-        context("When setting totalSwipeDuration to a value less than or equal to zero") {
-          beforeEach {
-            subject = CardAnimationOptions(totalSwipeDuration: 0)
-          }
-
-          it("should return zero") {
-            expect(subject.totalSwipeDuration).to(equal(0))
-          }
-        }
-      }
-
-      // MARK: - Total Reverse Swipe Duration
-
-      describe("Total Reverse Swipe Duration") {
-        context("When setting totalReverseSwipeDuration to a value less than or equal to zero") {
-          beforeEach {
-            subject = CardAnimationOptions(totalReverseSwipeDuration: 0)
-          }
-
-          it("should return zero") {
-            expect(subject.totalReverseSwipeDuration).to(equal(0))
-          }
-        }
-      }
-
-      // MARK: - Total Reset Duration
-
-      describe("Total Reset Duration") {
-        context("When setting totalResetDuration to a value less than or equal to zero") {
-          beforeEach {
-            subject = CardAnimationOptions(totalResetDuration: 0)
-          }
-
-          it("should return zero") {
-            expect(subject.totalResetDuration).to(equal(0))
           }
         }
       }
@@ -163,6 +121,48 @@ class CardAnimationOptionsSpec: QuickSpec {
 
           it("should return 1") {
             expect(subject.resetSpringDamping).to(equal(1))
+          }
+        }
+      }
+
+      // MARK: - Total Reset Duration
+
+      describe("Total Reset Duration") {
+        context("When setting totalResetDuration to a value less than or equal to zero") {
+          beforeEach {
+            subject = CardAnimationOptions(totalResetDuration: 0)
+          }
+
+          it("should return zero") {
+            expect(subject.totalResetDuration).to(equal(0))
+          }
+        }
+      }
+
+      // MARK: - Total Reverse Swipe Duration
+
+      describe("Total Reverse Swipe Duration") {
+        context("When setting totalReverseSwipeDuration to a value less than or equal to zero") {
+          beforeEach {
+            subject = CardAnimationOptions(totalReverseSwipeDuration: 0)
+          }
+
+          it("should return zero") {
+            expect(subject.totalReverseSwipeDuration).to(equal(0))
+          }
+        }
+      }
+
+      // MARK: - Total Swipe Duration
+
+      describe("Total Swipe Duration") {
+        context("When setting totalSwipeDuration to a value less than or equal to zero") {
+          beforeEach {
+            subject = CardAnimationOptions(totalSwipeDuration: 0)
+          }
+
+          it("should return zero") {
+            expect(subject.totalSwipeDuration).to(equal(0))
           }
         }
       }

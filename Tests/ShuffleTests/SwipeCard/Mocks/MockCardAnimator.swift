@@ -1,50 +1,32 @@
-import Quick
-import Nimble
-
 @testable import Shuffle
 
-struct MockCardAnimator: CardAnimatable {
+class MockCardAnimator: CardAnimatable {
 
-  static var resetCalled: Bool = false
-  static func reset(_ card: SwipeCard) {
-    resetCalled = true
+  var animateResetCalled: Bool = false
+  func animateReset(on card: SwipeCard) {
+    animateResetCalled = true
   }
 
-  static var swipeCalled: Bool = false
-  static var swipeDirection: SwipeDirection?
-  static var swipeForced: Bool?
+  var animateReverseSwipeCalled: Bool = false
+  var animateReverseSwipeDirection: SwipeDirection?
 
-  static func swipe(_ card: SwipeCard, direction: SwipeDirection, forced: Bool) {
-    swipeCalled = true
-    swipeDirection = direction
-    swipeForced = forced
+  func animateReverseSwipe(on card: SwipeCard, from direction: SwipeDirection) {
+    animateReverseSwipeCalled = true
+    animateReverseSwipeDirection = direction
   }
 
-  static var reverseSwipeCalled: Bool = false
-  static var reverseSwipeDirection: SwipeDirection?
+  var animateSwipeCalled: Bool = false
+  var animateSwipeDirection: SwipeDirection?
+  var animateSwipeForced: Bool?
 
-  static func reverseSwipe(_ card: SwipeCard, from direction: SwipeDirection) {
-    reverseSwipeCalled = true
-    reverseSwipeDirection = direction
+  func animateSwipe(on card: SwipeCard, direction: SwipeDirection, forced: Bool) {
+    animateSwipeCalled = true
+    animateSwipeDirection = direction
+    animateSwipeForced = forced
   }
 
-  static var removeAllAnimationsCalled: Bool = false
-  static func removeAllAnimations(on card: SwipeCard) {
+  var removeAllAnimationsCalled: Bool = false
+  func removeAllAnimations(on card: SwipeCard) {
     removeAllAnimationsCalled = true
-  }
-
-  // MARK: - Test Helpers
-
-  static func reset() {
-    resetCalled = false
-
-    swipeCalled = false
-    swipeDirection = nil
-    swipeForced = nil
-
-    reverseSwipeCalled = false
-    reverseSwipeDirection = nil
-
-    removeAllAnimationsCalled = false
   }
 }

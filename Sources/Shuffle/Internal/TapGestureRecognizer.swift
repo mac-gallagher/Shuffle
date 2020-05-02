@@ -1,8 +1,9 @@
 import UIKit
 
-class TestableTapGestureRecognizer: UITapGestureRecognizer {
+/// A testable `UITapGestureRecognizer`
+class TapGestureRecognizer: UITapGestureRecognizer {
 
-  private var testTarget: AnyObject?
+  private weak var testTarget: AnyObject?
   private var testAction: Selector?
 
   private var testLocation: CGPoint?

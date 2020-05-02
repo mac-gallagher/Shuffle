@@ -571,7 +571,6 @@ class SwipeCardStackSpec: QuickSpec {
             }
 
             context("and distance is greater than zero and there are at least two visible cards") {
-              let previousSwipe = Swipe(0, .left)
               let distance: Int = 2
 
               beforeEach {
