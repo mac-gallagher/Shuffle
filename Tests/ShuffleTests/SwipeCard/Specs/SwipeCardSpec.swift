@@ -23,8 +23,8 @@ class SwipeCardSpec: QuickSpec {
 
         subject = TestableSwipeCard(animator: mockCardAnimator,
                                     layoutProvider: mockCardLayoutProvider,
-                                    transformProvider: mockCardTransformProvider,
-                                    notificationCenter: notificationCenter)
+                                    notificationCenter: notificationCenter,
+                                    transformProvider: mockCardTransformProvider)
         subject.delegate = mockSwipeCardDelegate
       }
 

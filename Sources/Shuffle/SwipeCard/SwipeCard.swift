@@ -58,8 +58,8 @@ open class SwipeCard: SwipeView {
 
   private var animator: CardAnimatable = CardAnimator.shared
   private var layoutProvider: CardLayoutProvidable = CardLayoutProvider.shared
-  private var transformProvider: CardTransformProvidable = CardTransformProvider.shared
   private var notificationCenter = NotificationCenter.default
+  private var transformProvider: CardTransformProvidable = CardTransformProvider.shared
 
   // MARK: - Initialization
 
@@ -75,13 +75,13 @@ open class SwipeCard: SwipeView {
 
   convenience init(animator: CardAnimatable,
                    layoutProvider: CardLayoutProvidable,
-                   transformProvider: CardTransformProvidable,
-                   notificationCenter:NotificationCenter) {
+                   notificationCenter: NotificationCenter,
+                   transformProvider: CardTransformProvidable) {
     self.init(frame: .zero)
     self.animator = animator
     self.layoutProvider = layoutProvider
-    self.transformProvider = transformProvider
     self.notificationCenter = notificationCenter
+    self.transformProvider = transformProvider
   }
 
   private func initialize() {

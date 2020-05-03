@@ -17,8 +17,8 @@ class CardAnimatorSpec: QuickSpec {
         subject = TestableCardAnimator()
         card = TestableSwipeCard(animator: MockCardAnimator(),
                                  layoutProvider: MockCardLayoutProvider(),
-                                 transformProvider: MockCardTransformProvider(),
-                                 notificationCenter: NotificationCenter.default)
+                                 notificationCenter: NotificationCenter.default,
+                                 transformProvider: MockCardTransformProvider())
         card.frame = CGRect(x: 0, y: 0, width: cardWidth, height: cardHeight)
       }
 

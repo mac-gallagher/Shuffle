@@ -1,62 +1,47 @@
 @testable import Shuffle
 
-struct MockCardStackAnimator: CardStackAnimatable {
+class MockCardStackAnimator: CardStackAnimatable {
 
-  static var swipeCalled: Bool = false
-  static var swipeForced: Bool?
-  static var swipeDirection: SwipeDirection?
-  static var swipeTopCard: SwipeCard?
+  var animateResetCalled: Bool = false
+  func animateReset(_ cardStack: SwipeCardStack, topCard: SwipeCard) {
+    animateResetCalled = true
+  }
 
-  static func swipe(_ cardStack: SwipeCardStack,
+  var animateShiftCalled: Bool = false
+  var animateShiftDistance: Int?
+
+  func animateShift(_ cardStack: SwipeCardStack, withDistance distance: Int) {
+    animateShiftCalled = true
+    animateShiftDistance = distance
+  }
+
+  var animateSwipeCalled: Bool = false
+  var animateSwipeForced: Bool?
+  var animateSwipeDirection: SwipeDirection?
+  var animateSwipeTopCard: SwipeCard?
+
+  func animateSwipe(_ cardStack: SwipeCardStack,
                     topCard: SwipeCard,
                     direction: SwipeDirection,
                     forced: Bool) {
-    swipeCalled = true
-    swipeForced = forced
-    swipeDirection = direction
-    swipeTopCard = topCard
+    animateSwipeCalled = true
+    animateSwipeForced = forced
+    animateSwipeDirection = direction
+    animateSwipeTopCard = topCard
   }
 
-  static var shiftCalled: Bool = false
-  static var shiftDistance: Int?
-
-  static func shift(_ cardStack: SwipeCardStack, withDistance distance: Int) {
-    shiftCalled = true
-    shiftDistance = distance
+  var animateUndoCalled: Bool = false
+  func animateUndo(_ cardStack: SwipeCardStack, topCard: SwipeCard) {
+    animateUndoCalled = true
   }
 
-  static var resetCalled: Bool = false
-  static func reset(_ cardStack: SwipeCardStack, topCard: SwipeCard) {
-    resetCalled = true
-  }
-
-  static var undoCalled: Bool = false
-  static func undo(_ cardStack: SwipeCardStack, topCard: SwipeCard) {
-    undoCalled = true
-  }
-
-  static var removeBackgroundCardAnimationsCalled: Bool = false
-  static  func removeBackgroundCardAnimations(_ cardStack: SwipeCardStack) {
+  var removeBackgroundCardAnimationsCalled: Bool = false
+  func removeBackgroundCardAnimations(_ cardStack: SwipeCardStack) {
     removeBackgroundCardAnimationsCalled = true
   }
 
-  static var removeAllCardAnimationsCalled: Bool = false
-  static func removeAllCardAnimations(_ cardStack: SwipeCardStack) {
+  var removeAllCardAnimationsCalled: Bool = false
+  func removeAllCardAnimations(_ cardStack: SwipeCardStack) {
     removeAllCardAnimationsCalled = true
-  }
-
-  // MARK: - Test Helpers
-
-  static func reset() {
-    swipeCalled = false
-    swipeForced = nil
-
-    shiftCalled = false
-    shiftDistance = nil
-
-    resetCalled = false
-    undoCalled = false
-    removeBackgroundCardAnimationsCalled = false
-    removeAllCardAnimationsCalled = false
   }
 }

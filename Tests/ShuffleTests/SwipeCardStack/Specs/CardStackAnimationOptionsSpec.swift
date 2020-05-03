@@ -18,10 +18,24 @@ class CardStackAnimationOptionsSpec: QuickSpec {
           }
 
           it("should have the correct default properties") {
+            expect(subject.resetDuration).to(beNil())
             expect(subject.shiftDuration).to(equal(0.1))
             expect(subject.swipeDuration).to(beNil())
             expect(subject.undoDuration).to(beNil())
-            expect(subject.resetDuration).to(beNil())
+          }
+        }
+      }
+
+      // MARK: - Reset Duration
+
+      describe("Reset Duration") {
+        context("When setting resetDuration to a value less than zero") {
+          beforeEach {
+            subject = CardStackAnimationOptions(resetDuration: -0.5)
+          }
+
+          it("should return zero") {
+            expect(subject.resetDuration).to(equal(0))
           }
         }
       }
@@ -64,20 +78,6 @@ class CardStackAnimationOptionsSpec: QuickSpec {
 
           it("should return zero") {
             expect(subject.undoDuration).to(equal(0))
-          }
-        }
-      }
-
-      // MARK: - Reset Duration
-
-      describe("Reset Duration") {
-        context("When setting resetDuration to a value less than zero") {
-          beforeEach {
-            subject = CardStackAnimationOptions(resetDuration: -0.5)
-          }
-
-          it("should return zero") {
-            expect(subject.resetDuration).to(equal(0))
           }
         }
       }

@@ -3,36 +3,21 @@ import UIKit
 
 class MockCardStackTransformProvider: CardStackTransformProvidable {
 
-  static var testBackgroundCardDragTransform: CGAffineTransform = .identity
-  static var backgroundCardDragTransformIndex: Int?
-  static var backgroundCardDragTransformCard: SwipeCard?
+  var testBackgroundCardDragTransform: CGAffineTransform = .identity
+  var backgroundCardDragTransformCard: SwipeCard?
+  var backgroundCardDragTransformIndex: Int?
 
-  static var backgroundCardDragTransform: (SwipeCardStack, SwipeCard, Int) -> CGAffineTransform {
-    return { _, card, index in
-      backgroundCardDragTransformIndex = index
-      backgroundCardDragTransformCard = card
-      return testBackgroundCardDragTransform
-    }
+  func backgroundCardDragTransform(for cardStack: SwipeCardStack, topCard: SwipeCard, topCardIndex: Int) -> CGAffineTransform {
+    backgroundCardDragTransformCard = topCard
+    backgroundCardDragTransformIndex = topCardIndex
+    return testBackgroundCardDragTransform
   }
 
-  static var testBackgroundCardTransformPercentage: CGFloat = 0.0
-  static var backgroundCardTransformPercentageCard: SwipeCard?
-
-  static var backgroundCardTransformPercentage: (SwipeCardStack, SwipeCard) -> CGFloat {
-    return { _, card in
-      backgroundCardTransformPercentageCard = card
-      return testBackgroundCardTransformPercentage
-    }
-  }
-
-  // MARK: - Test Helpers
+  var testBackgroundCardTransformPercentage: CGFloat = 0.0
+  var backgroundCardTransformPercentageCard: SwipeCard?
   
-  static func reset() {
-    testBackgroundCardDragTransform = .identity
-    backgroundCardDragTransformIndex = nil
-    backgroundCardDragTransformCard = nil
-
-    testBackgroundCardTransformPercentage = 0.0
-    backgroundCardTransformPercentageCard = nil
+  func backgroundCardTransformPercentage(for cardStack: SwipeCardStack, topCard: SwipeCard) -> CGFloat {
+    backgroundCardTransformPercentageCard = topCard
+    return testBackgroundCardTransformPercentage
   }
 }
