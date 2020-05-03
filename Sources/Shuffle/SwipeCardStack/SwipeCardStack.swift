@@ -63,8 +63,7 @@ open class SwipeCardStack: UIView, SwipeCardDelegate {
       self.isUserInteractionEnabled = true
     }
   }
-
-
+  
   private var animator: CardStackAnimatable.Type = CardStackAnimator.self
   private var layoutProvider: CardStackLayoutProvidable.Type = CardStackLayoutProvider.self
   private var transformProvider: CardStackTransformProvidable.Type = CardStackTransformProvider.self
@@ -73,7 +72,7 @@ open class SwipeCardStack: UIView, SwipeCardDelegate {
 
   private let cardContainer = UIView()
 
-  //MARK: - Initialization
+  // MARK: - Initialization
 
   public override init(frame: CGRect) {
     super.init(frame: frame)
@@ -106,7 +105,7 @@ open class SwipeCardStack: UIView, SwipeCardDelegate {
                                    object: nil)
   }
 
-  //MARK: - Layout
+  // MARK: - Layout
 
   open override func layoutSubviews() {
     super.layoutSubviews()
@@ -132,7 +131,7 @@ open class SwipeCardStack: UIView, SwipeCardDelegate {
     return CGAffineTransform(scaleX: cardScaleFactor.x, y: cardScaleFactor.y)
   }
 
-  //MARK: - Main Methods
+  // MARK: - Main Methods
 
   public func swipe(_ direction: SwipeDirection, animated: Bool) {
     if !isEnabled { return }
@@ -160,7 +159,7 @@ open class SwipeCardStack: UIView, SwipeCardDelegate {
     }
   }
 
-  //MARK: - Data Source
+  // MARK: - Data Source
 
   public func reloadData() {
     guard let dataSource = dataSource else { return }
@@ -233,7 +232,7 @@ open class SwipeCardStack: UIView, SwipeCardDelegate {
     stateManager.swipe(direction)
     visibleCards.remove(at: 0)
 
-    //insert new card if needed
+    // insert new card if needed
     if stateManager.remainingIndices.count - visibleCards.count > 0 {
       let bottomCardIndex = stateManager.remainingIndices[visibleCards.count]
       if let card = loadCard(at: bottomCardIndex) {

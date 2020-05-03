@@ -7,17 +7,20 @@ class SwipeCardSpec: QuickSpec {
 
   override func spec() {
     describe("SwipeCard") {
-      let mockCardLayoutProvider = MockCardLayoutProvider.self
-      let mockCardAnimator = MockCardAnimator.self
-      let mockCardTransformProvider = MockCardTransformProvider.self
-
+      var mockCardAnimator: MockCardAnimator!
+      var mockCardLayoutProvider: MockCardLayoutProvider!
+      var mockCardTransformProvider: MockCardTransformProvider!
       var mockSwipeCardDelegate: MockSwipeCardDelegate!
       var notificationCenter: TestableNotificationCenter!
       var subject: TestableSwipeCard!
 
       beforeEach {
+        mockCardAnimator = MockCardAnimator()
+        mockCardLayoutProvider = MockCardLayoutProvider()
+        mockCardTransformProvider = MockCardTransformProvider()
         mockSwipeCardDelegate = MockSwipeCardDelegate()
         notificationCenter = TestableNotificationCenter()
+
         subject = TestableSwipeCard(animator: mockCardAnimator,
                                     layoutProvider: mockCardLayoutProvider,
                                     transformProvider: mockCardTransformProvider,
@@ -56,34 +59,15 @@ class SwipeCardSpec: QuickSpec {
           expect(card.footerHeight).to(equal(100))
           expect(card.content).to(beNil())
           expect(card.footer).to(beNil())
-
-          expect(card.leftOverlay).to(beNil())
-          expect(card.upOverlay).to(beNil())
-          expect(card.rightOverlay).to(beNil())
-          expect(card.downOverlay).to(beNil())
-
           expect(card.touchLocation).to(beNil())
 
           let overlayContainer = card.subviews.first
           expect(overlayContainer).toNot(beNil())
+          expect(overlayContainer?.isUserInteractionEnabled).to(beFalse())
         }
       }
 
       // MARK: - Variables
-
-      // MARK: Footer Height
-
-      describe("Footer Height") {
-        context("When setting the footerHeight variable") {
-          beforeEach {
-            subject.footerHeight = 100
-          }
-
-          it("should trigger a new layout cycle") {
-            subject.setNeedsLayoutCalled = true
-          }
-        }
-      }
 
       // MARK: Content
 
@@ -155,14 +139,26 @@ class SwipeCardSpec: QuickSpec {
         }
       }
 
-      // MARK: - Animation Completions
+      // MARK: Footer Height
 
-      // MARK: Swipe Completion
+      describe("Footer Height") {
+        context("When setting the footerHeight variable") {
+          beforeEach {
+            subject.footerHeight = 100
+          }
 
-      describe("Swipe Completion") {
+          it("should trigger a new layout cycle") {
+            subject.setNeedsLayoutCalled = true
+          }
+        }
+      }
+
+      // MARK: Swipe Completion Block
+
+      describe("Swipe Completion Block") {
         context("When the swipe animation completion is called") {
           beforeEach {
-            subject.swipeCompletion()
+            subject.swipeCompletionBlock()
           }
 
           it("should post the correct notification to the notification center") {
@@ -173,13 +169,13 @@ class SwipeCardSpec: QuickSpec {
         }
       }
 
-      // MARK: Reverse Swipe Completion
+      // MARK: Reverse Swipe Completion Block
 
-      describe("Reverse Swipe Completion") {
+      describe("Reverse Swipe Completion Block") {
         context("When the reverse swipe animation completion is called") {
           beforeEach {
             subject.isUserInteractionEnabled = false
-            subject.reverseSwipeCompletion(.left)
+            subject.reverseSwipeCompletionBlock()
           }
 
           it("should enable user interaction on the card") {
@@ -201,19 +197,14 @@ class SwipeCardSpec: QuickSpec {
 
           beforeEach {
             mockCardLayoutProvider.testContentFrame = contentFrame
-            mockCardLayoutProvider.testOverlayContainerFrame = overlayContainerFrame
             mockCardLayoutProvider.testFooterFrame = footerFrame
+            mockCardLayoutProvider.testOverlayContainerFrame = overlayContainerFrame
 
             subject.content = content
             subject.footer = footer
-            subject.testOverlay[.left] = overlay
+            subject.setOverlay(overlay, forDirection: .left)
 
-            subject.addOverlays()
             subject.layoutSubviews()
-          }
-
-          afterEach {
-            mockCardLayoutProvider.reset()
           }
 
           it("should correctly layout the footer and the content") {
@@ -231,42 +222,6 @@ class SwipeCardSpec: QuickSpec {
         }
       }
 
-      // MARK: Add Overlays
-
-      describe("Add Overlays") {
-        context("When calling addOverlays") {
-          var overlayContainer: UIView!
-
-          let overlay1 = UIView()
-          let overlay2 = UIView()
-
-          beforeEach {
-            overlayContainer = subject.subviews.last
-            subject.testOverlay[.left] = overlay1
-            subject.testOverlay[.right] = overlay2
-            subject.addOverlays()
-          }
-
-          it("should add the new overlays to the overlay container's view hierarchy") {
-            expect(overlayContainer.subviews.count).to(equal(2))
-            expect(overlay1.superview).to(equal(overlayContainer))
-            expect(overlay2.superview).to(equal(overlayContainer))
-          }
-
-          it("should set the new overlays' alpha value equal to zero") {
-            expect(overlay1.alpha).to(equal(0))
-            expect(overlay2.alpha).to(equal(0))
-          }
-
-          it("should disable user interaction on the overlay container and its overlays") {
-            let overlayContainer = subject.subviews.first
-            expect(overlayContainer?.isUserInteractionEnabled).to(beFalse())
-            expect(overlay1.isUserInteractionEnabled).to(beFalse())
-            expect(overlay2.isUserInteractionEnabled).to(beFalse())
-          }
-        }
-      }
-
       // MARK: - Gesture Recognizer Methods
 
       // MARK: Tap Gesture
@@ -274,7 +229,7 @@ class SwipeCardSpec: QuickSpec {
       describe("Tap Gesture") {
         context("When didTap is called") {
           let touchPoint = CGPoint(x: 50, y: 50)
-          let testTapGestureRecognizer = TestableTapGestureRecognizer()
+          let testTapGestureRecognizer = TapGestureRecognizer()
 
           beforeEach {
             testTapGestureRecognizer.performTap(withLocation: touchPoint)
@@ -291,22 +246,18 @@ class SwipeCardSpec: QuickSpec {
         }
       }
 
-      // MARK: Physical Swipe Begin
+      // MARK: Begin Swiping
 
-      describe("Physical Swipe Begin") {
-        context("When beginSwiping is called") {
+      describe("Begin Swiping") {
+        context("When the beginSwiping method is called") {
           let touchPoint = CGPoint(x: 50, y: 50)
-          let testPanGestureRecognizer = TestablePanGestureRecognizer()
+          let testPanGestureRecognizer = PanGestureRecognizer()
 
           beforeEach {
             testPanGestureRecognizer.performPan(withLocation: touchPoint,
                                                 translation: nil,
                                                 velocity: nil)
             subject.beginSwiping(testPanGestureRecognizer)
-          }
-
-          afterEach {
-            mockCardAnimator.reset()
           }
 
           it("should set the correct touch location") {
@@ -323,9 +274,9 @@ class SwipeCardSpec: QuickSpec {
         }
       }
 
-      // MARK: Physical Swipe Change
+      // MARK: Continue Swiping
 
-      describe("Physical Swipe Change") {
+      describe("Continue Swiping") {
         context("When the continueSwiping method is called") {
           let overlay = UIView()
           let overlayPercentage: CGFloat = 0.5
@@ -337,44 +288,34 @@ class SwipeCardSpec: QuickSpec {
           }()
 
           beforeEach {
-            subject.testOverlay[.left] = overlay
-            mockCardTransformProvider.testCardOverlayPercentage[.left] = overlayPercentage
-            subject.addOverlays()
-
-            mockCardTransformProvider.testCardTranform = transform
+            subject.setOverlay(overlay, forDirection: .left)
+            mockCardTransformProvider.testOverlayPercentage[.left] = overlayPercentage
+            mockCardTransformProvider.testTranform = transform
             subject.continueSwiping(UIPanGestureRecognizer())
-          }
-
-          afterEach {
-            mockCardTransformProvider.reset()
           }
 
           it("should call the didContinueSwipe delegate method") {
             expect(mockSwipeCardDelegate.didContinueSwipeCalled).to(beTrue())
           }
 
-          it("should apply the proper overlay alpha values") {
-            expect(overlay.alpha).to(equal(overlayPercentage))
-          }
-
           it("should apply the proper transformation to the card") {
             expect(subject.transform).to(equal(transform))
+          }
+
+          it("should apply the proper overlay alpha values") {
+            expect(overlay.alpha).to(equal(overlayPercentage))
           }
         }
       }
 
-      // MARK: Physical Swipe End
+      // MARK: Did Swipe
 
-      describe("Physical Swipe End") {
+      describe("Did Swipe") {
         context("When the didSwipe method is called") {
           let direction: SwipeDirection = .left
 
           beforeEach {
             subject.didSwipe(UIPanGestureRecognizer(), with: direction)
-          }
-
-          afterEach {
-            mockCardAnimator.reset()
           }
 
           it("should call the swipeAction method with the correct parameters") {
@@ -385,28 +326,84 @@ class SwipeCardSpec: QuickSpec {
         }
       }
 
-      context("When the didCancelSwipe method is called") {
-        beforeEach {
-          subject.didCancelSwipe(UIPanGestureRecognizer())
-        }
+      // MARK: Did Cancel Swipe
 
-        afterEach {
-          mockCardAnimator.reset()
-        }
+      describe("Did Cancel Swipe") {
+        context("When the didCancelSwipe method is called") {
+          beforeEach {
+            subject.didCancelSwipe(UIPanGestureRecognizer())
+          }
 
-        it("should call the animator's reset method") {
-          expect(mockCardAnimator.resetCalled).to(beTrue())
+          it("should call the animator's reset method") {
+            expect(mockCardAnimator.animateResetCalled).to(beTrue())
+          }
         }
       }
 
       // MARK: - Main Methods
 
+      // MARK: Set Overlay
+
+      describe("Set Overlay") {
+        context("When calling setOverlay") {
+          let oldOverlay = UIView()
+          let newOverlay = UIView()
+          let direction = SwipeDirection.left
+
+          var overlayContainer: UIView!
+
+          beforeEach {
+            overlayContainer = subject.subviews.last
+            subject.setOverlay(oldOverlay, forDirection: direction)
+            subject.setOverlay(newOverlay, forDirection: direction)
+          }
+
+          it("should remove the old overlay from the view hierarchy") {
+            expect(oldOverlay.superview).to(beNil())
+          }
+          
+          it("add the new overlay to the overlay container's view hierarchy") {
+            expect(newOverlay.superview).to(be(overlayContainer))
+          }
+          
+          it("should set the overlay's alpha value to 0 and disable user interaction") {
+            expect(newOverlay.alpha).to(equal(0))
+            expect(newOverlay.isUserInteractionEnabled).to(beFalse())
+          }
+        }
+      }
+
+      // MARK: Set Overlays
+
+      describe("Set Overlays") {
+        context("When calling setOverlays") {
+          let overlay1 = UIView()
+          let overlay2 = UIView()
+
+          beforeEach {
+            subject.setOverlays([.left: overlay1, .right: overlay2])
+          }
+
+          it("should call the setOverlay method for each provided direction/overlay pair") {
+            expect(subject.setOverlayOverlays).to(equal([.left: overlay1, .right: overlay2]))
+          }
+        }
+      }
+
       // MARK: Overlay Getter
 
       describe("Overlay Getter") {
         context("When calling the overlay getter function") {
-          it("should return nil") {
-            expect(subject.overlay(forDirection: .left)).to(beNil())
+          let overlay = UIView()
+          let direction = SwipeDirection.left
+
+          beforeEach {
+            subject.setOverlay(overlay, forDirection: direction)
+          }
+
+          it("should return the overlay in the indicated direction") {
+            let actualOverlay = subject.overlay(forDirection: direction)
+            expect(actualOverlay).to(be(overlay))
           }
         }
       }
@@ -420,10 +417,6 @@ class SwipeCardSpec: QuickSpec {
 
           beforeEach {
             subject.swipe(direction: direction, animated: animated)
-          }
-
-          afterEach {
-            mockCardAnimator.reset()
           }
 
           it("should call the swipeAction method with the correct parameters") {
@@ -448,10 +441,6 @@ class SwipeCardSpec: QuickSpec {
                                   animated: true)
             }
 
-            afterEach {
-              mockCardAnimator.reset()
-            }
-
             it("should disable the user interaction on the card") {
               expect(subject.isUserInteractionEnabled).to(beFalse())
             }
@@ -463,9 +452,9 @@ class SwipeCardSpec: QuickSpec {
             }
 
             it("call the animator's swipe method with the correct parameters") {
-              expect(mockCardAnimator.swipeCalled).to(beTrue())
-              expect(mockCardAnimator.swipeDirection).to(equal(direction))
-              expect(mockCardAnimator.swipeForced).to(equal(forced))
+              expect(mockCardAnimator.animateSwipeCalled).to(beTrue())
+              expect(mockCardAnimator.animateSwipeDirection).to(equal(direction))
+              expect(mockCardAnimator.animateSwipeForced).to(equal(forced))
             }
           }
 
@@ -487,11 +476,11 @@ class SwipeCardSpec: QuickSpec {
             }
 
             it("should call the card's swipe completion block") {
-              expect(subject.swipeCompletionCalled).to(beTrue())
+              expect(subject.swipeCompletionBlockCalled).to(beTrue())
             }
 
             it("should not call the animator's swipe") {
-              expect(mockCardAnimator.swipeCalled).to(beFalse())
+              expect(mockCardAnimator.animateSwipeCalled).to(beFalse())
             }
           }
         }
@@ -508,10 +497,6 @@ class SwipeCardSpec: QuickSpec {
               subject.reverseSwipe(from: direction, animated: true)
             }
 
-            afterEach {
-              mockCardAnimator.reset()
-            }
-
             it("should disable user interaction on the card") {
               expect(subject.isUserInteractionEnabled).to(beFalse())
             }
@@ -522,8 +507,8 @@ class SwipeCardSpec: QuickSpec {
             }
 
             it("should call the animator's reverse swipe method with the correct direction") {
-              expect(mockCardAnimator.reverseSwipeCalled).to(beTrue())
-              expect(mockCardAnimator.reverseSwipeDirection).to(equal(direction))
+              expect(mockCardAnimator.animateReverseSwipeCalled).to(beTrue())
+              expect(mockCardAnimator.animateReverseSwipeDirection).to(equal(direction))
             }
           }
 
@@ -538,11 +523,11 @@ class SwipeCardSpec: QuickSpec {
             }
 
             it("should not call the animator's reverse swipe method") {
-              expect(mockCardAnimator.reverseSwipeCalled).to(beFalse())
+              expect(mockCardAnimator.animateReverseSwipeCalled).to(beFalse())
             }
 
             it("should call the card's reverse swipe completion block") {
-              expect(subject.reverseSwipeCompletionCalled).to(beTrue())
+              expect(subject.reverseSwipeCompletionBlockCalled).to(beTrue())
             }
           }
         }
@@ -557,10 +542,6 @@ class SwipeCardSpec: QuickSpec {
               subject.alpha = 0
             })
             subject.removeAllAnimations()
-          }
-
-          afterEach {
-            mockCardAnimator.reset()
           }
 
           it("should remove all the current animations on it's layer") {

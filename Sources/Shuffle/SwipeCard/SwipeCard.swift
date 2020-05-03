@@ -6,12 +6,7 @@ open class SwipeCard: SwipeView {
 
   public var animationOptions: CardAnimatableOptions = CardAnimationOptions.default
 
-  public var footerHeight: CGFloat = 100 {
-    didSet {
-      setNeedsLayout()
-    }
-  }
-
+  /// The the main content view.
   public var content: UIView? {
     didSet {
       if let content = content {
@@ -21,6 +16,7 @@ open class SwipeCard: SwipeView {
     }
   }
 
+  /// The the footer view.
   public var footer: UIView? {
     didSet {
       if let footer = footer {
@@ -30,52 +26,39 @@ open class SwipeCard: SwipeView {
     }
   }
 
-  public var leftOverlay: UIView? {
-    return overlays[.left]
-  }
-
-  public var upOverlay: UIView? {
-    return overlays[.up]
-  }
-
-  public var rightOverlay: UIView? {
-    return overlays[.right]
-  }
-
-  public var downOverlay: UIView? {
-    return overlays[.down]
+  /// The height of the footer view.
+  public var footerHeight: CGFloat = 100 {
+    didSet {
+      setNeedsLayout()
+    }
   }
 
   weak var delegate: SwipeCardDelegate?
 
-  var overlays = [SwipeDirection: UIView]()
-
   var touchLocation: CGPoint? {
-    return touchPoint
+    return internalTouchLocation
   }
 
-  private var touchPoint: CGPoint?
+  private var internalTouchLocation: CGPoint?
 
-  // MARK: Completion Handlers
-
-  var swipeCompletion: () -> Void {
-    return { [unowned self] in
-      self.notificationCenter.post(name: CardDidFinishSwipeAnimationNotification, object: self)
+  var swipeCompletionBlock: () -> Void {
+    return { [weak self] in
+      self?.notificationCenter.post(name: CardDidFinishSwipeAnimationNotification, object: self)
     }
   }
 
-  var reverseSwipeCompletion: (SwipeDirection) -> Void {
-    return { [unowned self] direction in
-      self.isUserInteractionEnabled = true
+  var reverseSwipeCompletionBlock: () -> Void {
+    return { [weak self] in
+      self?.isUserInteractionEnabled = true
     }
   }
-
-  var animator: CardAnimatable.Type = CardAnimator.self
 
   private let overlayContainer = UIView()
+  private var overlays = [SwipeDirection: UIView]()
 
-  private var layoutProvider: CardLayoutProvidable.Type = CardLayoutProvider.self
-  private var transformProvider: CardTransformProvidable.Type = CardTransformProvider.self
+  private var animator: CardAnimatable = CardAnimator.shared
+  private var layoutProvider: CardLayoutProvidable = CardLayoutProvider.shared
+  private var transformProvider: CardTransformProvidable = CardTransformProvider.shared
   private var notificationCenter = NotificationCenter.default
 
   // MARK: - Initialization
@@ -90,10 +73,10 @@ open class SwipeCard: SwipeView {
     initialize()
   }
 
-  convenience init(animator: CardAnimatable.Type,
-                   layoutProvider: CardLayoutProvidable.Type,
-                   transformProvider: CardTransformProvidable.Type,
-                   notificationCenter: NotificationCenter) {
+  convenience init(animator: CardAnimatable,
+                   layoutProvider: CardLayoutProvidable,
+                   transformProvider: CardTransformProvidable,
+                   notificationCenter:NotificationCenter) {
     self.init(frame: .zero)
     self.animator = animator
     self.layoutProvider = layoutProvider
@@ -103,17 +86,6 @@ open class SwipeCard: SwipeView {
 
   private func initialize() {
     addSubview(overlayContainer)
-    addOverlays()
-  }
-
-  func addOverlays() {
-    for direction in swipeDirections {
-      if let overlay = overlay(forDirection: direction) {
-        overlays[direction] = overlay
-        overlayContainer.addSubview(overlay)
-        overlay.alpha = 0
-      }
-    }
     overlayContainer.setUserInteraction(false)
   }
 
@@ -121,19 +93,19 @@ open class SwipeCard: SwipeView {
 
   open override func layoutSubviews() {
     super.layoutSubviews()
-    footer?.frame = layoutProvider.footerFrame(self)
+    footer?.frame = layoutProvider.createFooterFrame(for: self)
     layoutContentView()
     layoutOverlays()
   }
 
   private func layoutContentView() {
     guard let content = content else { return }
-    content.frame = layoutProvider.contentFrame(self)
+    content.frame = layoutProvider.createContentFrame(for: self)
     sendSubviewToBack(content)
   }
 
   private func layoutOverlays() {
-    overlayContainer.frame = layoutProvider.overlayContainerFrame(self)
+    overlayContainer.frame = layoutProvider.createOverlayContainerFrame(for: self)
     bringSubviewToFront(overlayContainer)
     for overlay in overlays.values {
       overlay.frame = overlayContainer.bounds
@@ -144,13 +116,13 @@ open class SwipeCard: SwipeView {
 
   override open func didTap(_ recognizer: UITapGestureRecognizer) {
     super.didTap(recognizer)
-    touchPoint = recognizer.location(in: self)
+    internalTouchLocation = recognizer.location(in: self)
     delegate?.card(didTap: self)
   }
 
   override open func beginSwiping(_ recognizer: UIPanGestureRecognizer) {
     super.beginSwiping(recognizer)
-    touchPoint = recognizer.location(in: self)
+    internalTouchLocation = recognizer.location(in: self)
     delegate?.card(didBeginSwipe: self)
     animator.removeAllAnimations(on: self)
   }
@@ -159,10 +131,10 @@ open class SwipeCard: SwipeView {
     super.continueSwiping(recognizer)
     delegate?.card(didContinueSwipe: self)
 
-    transform = transformProvider.cardTransform(self)
+    transform = transformProvider.transform(for: self)
 
     for (direction, overlay) in overlays {
-      overlay.alpha = transformProvider.cardOverlayPercentage(self, direction)
+      overlay.alpha = transformProvider.overlayPercentage(for: self, direction: direction)
     }
   }
 
@@ -175,13 +147,30 @@ open class SwipeCard: SwipeView {
   override open func didCancelSwipe(_ recognizer: UIPanGestureRecognizer) {
     super.didCancelSwipe(recognizer)
     delegate?.card(didCancelSwipe: self)
-    animator.reset(self)
+    animator.animateReset(on: self)
   }
 
   // MARK: - Main Methods
 
-  open func overlay(forDirection direction: SwipeDirection) -> UIView? {
-    return nil
+  public func setOverlay(_ overlay: UIView?, forDirection direction: SwipeDirection) {
+    overlays[direction]?.removeFromSuperview()
+    overlays[direction] = overlay
+
+    if let overlay = overlay {
+      overlayContainer.addSubview(overlay)
+      overlay.alpha = 0
+      overlay.setUserInteraction(false)
+    }
+  }
+
+  public func setOverlays(_ overlays: [SwipeDirection: UIView]) {
+    for (direction, overlay) in overlays {
+      setOverlay(overlay, forDirection: direction)
+    }
+  }
+
+  public func overlay(forDirection direction: SwipeDirection) -> UIView? {
+    return overlays[direction]
   }
 
   public func swipe(direction: SwipeDirection, animated: Bool) {
@@ -192,9 +181,9 @@ open class SwipeCard: SwipeView {
     isUserInteractionEnabled = false
     delegate?.card(didSwipe: self, with: direction, forced: forced)
     if animated {
-      animator.swipe(self, direction: direction, forced: forced)
+      animator.animateSwipe(on: self, direction: direction, forced: forced)
     } else {
-      swipeCompletion()
+      swipeCompletionBlock()
     }
   }
 
@@ -202,9 +191,9 @@ open class SwipeCard: SwipeView {
     isUserInteractionEnabled = false
     delegate?.card(didReverseSwipe: self, from: direction)
     if animated {
-      animator.reverseSwipe(self, from: direction)
+      animator.animateReverseSwipe(on: self, from: direction)
     } else {
-      reverseSwipeCompletion(direction)
+      reverseSwipeCompletionBlock()
     }
   }
 

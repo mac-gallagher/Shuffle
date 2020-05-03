@@ -3,40 +3,23 @@ import UIKit
 
 class MockCardTransformProvider: CardTransformProvidable {
 
-  static var testCardRotationDirectionY: CGFloat = 0
-  static var cardRotationDirectionY: (SwipeCard) -> CGFloat {
-    return { _ in
-      testCardRotationDirectionY
-    }
+  var testOverlayPercentage = [SwipeDirection: CGFloat]()
+  func overlayPercentage(for card: SwipeCard, direction: SwipeDirection) -> CGFloat {
+    return testOverlayPercentage[direction] ?? 0
   }
 
-
-  static var testCardTranform: CGAffineTransform = .identity
-  static var cardTransform: (SwipeCard) -> CGAffineTransform {
-    return { _ in
-      return testCardTranform
-    }
+  var testRotationAngle: CGFloat = 0
+  func rotationAngle(for card: SwipeCard) -> CGFloat {
+    return testRotationAngle
   }
 
-  static var testCardRotationAngle: CGFloat = 0
-  static var cardRotationAngle: (SwipeCard) -> CGFloat {
-    return { _ in
-      return testCardRotationAngle
-    }
+  var testRotationDirectionY: CGFloat = 0
+  func rotationDirectionY(for card: SwipeCard) -> CGFloat {
+    return testRotationDirectionY
   }
 
-  static var testCardOverlayPercentage = [SwipeDirection: CGFloat]()
-  static var cardOverlayPercentage: (SwipeCard, SwipeDirection) -> CGFloat {
-    return { _, direction in
-      testCardOverlayPercentage[direction]!
-    }
-  }
-
-  // MARK: - Test Helpers
-
-  static func reset() {
-    testCardTranform = .identity
-    testCardRotationAngle = 0
-    testCardOverlayPercentage = [:]
+  var testTranform: CGAffineTransform = .identity
+  func transform(for card: SwipeCard) -> CGAffineTransform {
+    return testTranform
   }
 }

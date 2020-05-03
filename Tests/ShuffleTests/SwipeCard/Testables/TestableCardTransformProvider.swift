@@ -2,25 +2,14 @@
 import UIKit
 
 class TestableCardTransformProvider: CardTransformProvider {
-
-  static var testCardRotationDirectionY: CGFloat?
-  override class var cardRotationDirectionY: (SwipeCard) -> CGFloat {
-    return { card in
-      testCardRotationDirectionY ?? super.cardRotationDirectionY(card)
-    }
+  
+  var testRotationDirectionY: CGFloat?
+  override func rotationDirectionY(for card: SwipeCard) -> CGFloat {
+    return testRotationDirectionY ?? super.rotationDirectionY(for: card)
   }
-
-  static var testCardRotationAngle: CGFloat?
-  override class var cardRotationAngle: (SwipeCard) -> CGFloat {
-    return { card in
-      testCardRotationAngle ?? super.cardRotationAngle(card)
-    }
-  }
-
-  // MARK: - Test Helpers
-
-  static func reset() {
-    testCardRotationDirectionY = nil
-    testCardRotationAngle = nil
+  
+  var testRotationAngle: CGFloat?
+  override func rotationAngle(for card: SwipeCard) -> CGFloat {
+    return testRotationAngle ?? super.rotationAngle(for: card)
   }
 }

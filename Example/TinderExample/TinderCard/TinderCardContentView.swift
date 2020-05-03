@@ -1,6 +1,6 @@
 import UIKit
 
-class SampleCardContentView: UIView {
+class TinderCardContentView: UIView {
 
   private let backgroundView: UIView = {
     let background = UIView()

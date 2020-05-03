@@ -8,13 +8,13 @@ class SwipeViewSpec: QuickSpec {
   override func spec() {
     describe("SwipeView") {
       var subject: TestableSwipeView!
-      var testPanGestureRecognizer: TestablePanGestureRecognizer!
-      var testTapGestureRecognizer: TestableTapGestureRecognizer!
+      var testPanGestureRecognizer: PanGestureRecognizer!
+      var testTapGestureRecognizer: TapGestureRecognizer!
 
       beforeEach {
         subject = TestableSwipeView()
-        testPanGestureRecognizer = subject.panGestureRecognizer as? TestablePanGestureRecognizer
-        testTapGestureRecognizer = subject.tapGestureRecognizer as? TestableTapGestureRecognizer
+        testPanGestureRecognizer = subject.panGestureRecognizer as? PanGestureRecognizer
+        testTapGestureRecognizer = subject.tapGestureRecognizer as? TapGestureRecognizer
       }
 
       // MARK: - Initialization
@@ -48,14 +48,13 @@ class SwipeViewSpec: QuickSpec {
           expect(swipeView.swipeDirections).to(equal(SwipeDirection.allDirections))
           expect(swipeView.tapGestureRecognizer).toNot(beNil())
           expect(swipeView.panGestureRecognizer).toNot(beNil())
-          expect(swipeView.activeDirection).to(beNil())
         }
       }
 
       // MARK: - Active Direction
 
       describe("Active Direction") {
-        describe("When accessing the activeDirection variable") {
+        describe("When calling the activeDirectionMethod") {
           let minimumSwipeDistance: CGFloat = 100
           let neighboringPairs: [(SwipeDirection, SwipeDirection)]
             = [(.up, .right),
@@ -75,7 +74,7 @@ class SwipeViewSpec: QuickSpec {
             }
 
             it("should return nil") {
-              expect(subject.activeDirection).to(beNil())
+              expect(subject.activeDirection()).to(beNil())
             }
           }
 
@@ -88,7 +87,7 @@ class SwipeViewSpec: QuickSpec {
               }
 
               it("should return the correct direction") {
-                expect(subject.activeDirection).to(equal(direction))
+                expect(subject.activeDirection()).to(equal(direction))
               }
             }
           }
@@ -106,7 +105,7 @@ class SwipeViewSpec: QuickSpec {
               }
 
               it("should return the direction with the highest drag percentage") {
-                expect(subject.activeDirection).to(equal(direction1))
+                expect(subject.activeDirection()).to(equal(direction1))
               }
             }
           }
@@ -117,7 +116,7 @@ class SwipeViewSpec: QuickSpec {
 
       describe("Drag Speed") {
         for direction in SwipeDirection.allDirections {
-          context("When accessing the dragSpeed variable with the specified direction") {
+          context("When calling the dragSpeed method with the specified direction") {
             beforeEach {
               let velocity = direction.vector
               testPanGestureRecognizer.performPan(withLocation: nil,
@@ -126,7 +125,7 @@ class SwipeViewSpec: QuickSpec {
             }
 
             it("should return a positive drag speed") {
-              expect(subject.dragSpeed(direction)).to(beGreaterThan(0))
+              expect(subject.dragSpeed(on: direction)).to(beGreaterThan(0))
             }
           }
         }
@@ -136,7 +135,7 @@ class SwipeViewSpec: QuickSpec {
 
       describe("Drag Percentage") {
         for direction in SwipeDirection.allDirections {
-          describe("When accessing the dragPercentage variable after swiping in the specified direction") {
+          describe("When calling the dragPercentage method after swiping in the specified direction") {
             let minimumSwipeDistance: CGFloat = 100
             let swipeFactor: CGFloat = 0.5
 
@@ -150,7 +149,7 @@ class SwipeViewSpec: QuickSpec {
 
             it("should return the correct drag percentage in the swiped direction and 0% in all other directions") {
               for swipeDirection in SwipeDirection.allDirections {
-                let actualPercentage = subject.dragPercentage(swipeDirection)
+                let actualPercentage = subject.dragPercentage(on: swipeDirection)
                 let expectedPercentage = swipeDirection == direction ? swipeFactor : 0.0
                 expect(actualPercentage).to(equal(expectedPercentage))
               }
@@ -311,7 +310,7 @@ class SwipeViewSpec: QuickSpec {
                                                   velocity: nil)
               subject.endSwiping(testPanGestureRecognizer)
             }
-            
+
             it("should call the didSwipe method with the correct direction") {
               expect(subject.didSwipeCalled).to(beTrue())
               expect(subject.didSwipeDirection).to(equal(direction))

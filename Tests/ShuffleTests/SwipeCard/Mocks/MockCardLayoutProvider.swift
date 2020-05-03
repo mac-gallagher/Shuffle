@@ -1,34 +1,20 @@
 @testable import Shuffle
 import UIKit
 
-struct MockCardLayoutProvider: CardLayoutProvidable {
+class MockCardLayoutProvider: CardLayoutProvidable {
 
-  static var testOverlayContainerFrame: CGRect = .zero
-  static var overlayContainerFrame: (SwipeCard) -> CGRect {
-    return { _ in
-      return testOverlayContainerFrame
-    }
+  var testContentFrame: CGRect = .zero
+  func createContentFrame(for card: SwipeCard) -> CGRect {
+    return testContentFrame
   }
 
-  static var testContentFrame: CGRect = .zero
-  static var contentFrame: (SwipeCard) -> CGRect {
-    return { _ in
-      return testContentFrame
-    }
+  var testFooterFrame: CGRect = .zero
+  func createFooterFrame(for card: SwipeCard) -> CGRect {
+    return testFooterFrame
   }
 
-  static var testFooterFrame: CGRect = .zero
-  static var footerFrame: (SwipeCard) -> CGRect {
-    return { _ in
-      return testFooterFrame
-    }
-  }
-
-  // MARK: - Test Helpers
-
-  static func reset() {
-    testOverlayContainerFrame = .zero
-    testContentFrame = .zero
-    testFooterFrame = .zero
+  var testOverlayContainerFrame: CGRect = .zero
+  func createOverlayContainerFrame(for card: SwipeCard) -> CGRect {
+    return testOverlayContainerFrame
   }
 }

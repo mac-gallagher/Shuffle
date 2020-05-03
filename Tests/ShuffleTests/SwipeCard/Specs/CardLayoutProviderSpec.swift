@@ -10,54 +10,23 @@ class CardLayoutProviderSpec: QuickSpec {
       let cardWidth: CGFloat = 100
       let cardHeight: CGFloat = 200
       let footerHeight: CGFloat = 50
-      let subject = CardLayoutProvider.self
 
       var card: SwipeCard!
+      var subject: CardLayoutProvider!
 
       beforeEach {
-        card = SwipeCard(animator: MockCardAnimator.self,
-                         layoutProvider: MockCardLayoutProvider.self,
-                         transformProvider: MockCardTransformProvider.self,
-                         notificationCenter: TestableNotificationCenter())
+        subject = CardLayoutProvider()
+        card = SwipeCard(animator: MockCardAnimator(),
+                         layoutProvider: MockCardLayoutProvider(),
+                         transformProvider: MockCardTransformProvider(),
+                         notificationCenter: NotificationCenter.default)
         card.frame = CGRect(x: 0, y: 0, width: cardWidth, height: cardHeight)
         card.footerHeight = footerHeight
       }
 
-      // MARK: - Overlay Container Frame
+      // MARK: - Create Content Frame
 
-      describe("When accessing the overlayContainerFrame variable") {
-        context("and the card has a footer") {
-          beforeEach {
-            card.footer = UIView()
-          }
-
-          it("should return the correct frame") {
-            let actualFrame = subject.overlayContainerFrame(card)
-            let expectedFrame = CGRect(x: 0, y: 0,
-                                       width: cardWidth,
-                                       height: cardHeight - footerHeight)
-            expect(actualFrame).to(equal(expectedFrame))
-          }
-        }
-
-        context("and the card has no footer") {
-          beforeEach {
-            card.footer = nil
-          }
-
-          it("should return the correct frame") {
-            let actualFrame = subject.overlayContainerFrame(card)
-            let expectedFrame = CGRect(x: 0, y: 0,
-                                       width: cardWidth,
-                                       height: cardHeight)
-            expect(actualFrame).to(equal(expectedFrame))
-          }
-        }
-      }
-
-      // MARK: - Content Frame
-
-      describe("When acessing the contentFrame variable") {
+      describe("When acessing the createContentFrame method") {
         context("and the card has an opaque footer") {
           let footer = UIView()
 
@@ -67,7 +36,7 @@ class CardLayoutProviderSpec: QuickSpec {
           }
 
           it("should return the correct frame") {
-            let actualFrame = subject.contentFrame(card)
+            let actualFrame = subject.createContentFrame(for: card)
             let expectedFrame = CGRect(x: 0, y: 0,
                                        width: cardWidth,
                                        height: cardHeight - footerHeight)
@@ -84,7 +53,7 @@ class CardLayoutProviderSpec: QuickSpec {
           }
 
           it("should return the correct frame") {
-            let actualFrame = subject.contentFrame(card)
+            let actualFrame = subject.createContentFrame(for: card)
             let expectedFrame = CGRect(x: 0, y: 0,
                                        width: cardWidth,
                                        height: cardHeight)
@@ -98,7 +67,7 @@ class CardLayoutProviderSpec: QuickSpec {
           }
 
           it("should return the correct frame") {
-            let actualFrame = subject.contentFrame(card)
+            let actualFrame = subject.createContentFrame(for: card)
             let expectedFrame = CGRect(x: 0, y: 0,
                                        width: cardWidth,
                                        height: cardHeight)
@@ -107,15 +76,47 @@ class CardLayoutProviderSpec: QuickSpec {
         }
       }
 
-      // MARK: - Footer Frame
+      // MARK: - Create Footer Frame
 
-      describe("When accessing the footerFrame variable") {
+      describe("When calling the createFooterFrame variable") {
         it("should return the correct frame") {
-          let actualFrame = subject.footerFrame(card)
+          let actualFrame = subject.createFooterFrame(for: card)
           let expectedFrame = CGRect(x: 0, y: cardHeight - footerHeight,
                                      width: cardWidth,
                                      height: footerHeight)
           expect(actualFrame).to(equal(expectedFrame))
+        }
+      }
+
+      // MARK: - Create Overlay Container Frame
+
+      describe("When calling the createOverlayContainerFrame method") {
+        context("and the card has a footer") {
+          beforeEach {
+            card.footer = UIView()
+          }
+
+          it("should return the correct frame") {
+            let actualFrame = subject.createOverlayContainerFrame(for: card)
+            let expectedFrame = CGRect(x: 0, y: 0,
+                                       width: cardWidth,
+                                       height: cardHeight - footerHeight)
+            expect(actualFrame).to(equal(expectedFrame))
+          }
+        }
+
+        context("and the card has no footer") {
+          beforeEach {
+            card.footer = nil
+          }
+
+          it("should return the correct frame") {
+            let actualFrame = subject.createOverlayContainerFrame(for: card)
+            let expectedFrame = CGRect(x: 0, y: 0,
+                                       width: cardWidth,
+                                       height: cardHeight)
+            expect(actualFrame).to(equal(expectedFrame))
+          }
         }
       }
     }
