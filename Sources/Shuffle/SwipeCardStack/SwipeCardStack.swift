@@ -46,29 +46,29 @@ open class SwipeCardStack: UIView, SwipeCardDelegate {
 
   // MARK: - Completion Handlers
 
-  var swipeCompletion: () -> Void {
-    return { [unowned self] in
-      self.isUserInteractionEnabled = true
+  var swipeCompletionBlock: () -> Void {
+    return { [weak self] in
+      self?.isUserInteractionEnabled = true
     }
   }
 
-  var undoCompletion: () -> Void {
-    return { [unowned self] in
-      self.isUserInteractionEnabled = true
+  var undoCompletionBlock: () -> Void {
+    return { [weak self] in
+      self?.isUserInteractionEnabled = true
     }
   }
 
-  var shiftCompletion: () -> Void {
-    return { [unowned self] in
-      self.isUserInteractionEnabled = true
+  var shiftCompletionBlock: () -> Void {
+    return { [weak self] in
+      self?.isUserInteractionEnabled = true
     }
   }
   
-  private var animator: CardStackAnimatable.Type = CardStackAnimator.self
-  private var layoutProvider: CardStackLayoutProvidable.Type = CardStackLayoutProvider.self
-  private var transformProvider: CardStackTransformProvidable.Type = CardStackTransformProvider.self
+  private var animator: CardStackAnimatable = CardStackAnimator.shared
+  private var layoutProvider: CardStackLayoutProvidable = CardStackLayoutProvider.shared
   private var notificationCenter = NotificationCenter.default
   private var stateManager: CardStackStateManagable = CardStackStateManager.shared
+  private var transformProvider: CardStackTransformProvidable = CardStackTransformProvider.shared
 
   private let cardContainer = UIView()
 
@@ -84,17 +84,17 @@ open class SwipeCardStack: UIView, SwipeCardDelegate {
     initialize()
   }
 
-  convenience init(animator: CardStackAnimatable.Type,
-                   transformProvider: CardStackTransformProvidable.Type,
-                   layoutProvider: CardStackLayoutProvidable.Type,
+  convenience init(animator: CardStackAnimatable,
+                   layoutProvider: CardStackLayoutProvidable,
                    notificationCenter: NotificationCenter,
-                   stateManager: CardStackStateManagable) {
+                   stateManager: CardStackStateManagable,
+                   transformProvider: CardStackTransformProvidable) {
     self.init(frame: .zero)
     self.animator = animator
-    self.transformProvider = transformProvider
     self.layoutProvider = layoutProvider
     self.notificationCenter = notificationCenter
     self.stateManager = stateManager
+    self.transformProvider = transformProvider
   }
 
   private func initialize() {
@@ -109,7 +109,7 @@ open class SwipeCardStack: UIView, SwipeCardDelegate {
 
   open override func layoutSubviews() {
     super.layoutSubviews()
-    cardContainer.frame = layoutProvider.cardContainerFrame(self)
+    cardContainer.frame = layoutProvider.createCardContainerFrame(for: self)
     for (index, card) in visibleCards.enumerated() {
       layoutCard(card, at: index)
     }
@@ -117,7 +117,7 @@ open class SwipeCardStack: UIView, SwipeCardDelegate {
 
   func layoutCard(_ card: SwipeCard, at index: Int) {
     card.transform = .identity
-    card.frame = layoutProvider.cardFrame(self)
+    card.frame = layoutProvider.createCardFrame(for: self)
     card.transform = transform(forCardAtIndex: index)
     card.isUserInteractionEnabled = index == 0
   }
@@ -155,7 +155,7 @@ open class SwipeCardStack: UIView, SwipeCardDelegate {
 
     if animated {
       isUserInteractionEnabled = false
-      animator.shift(self, withDistance: distance)
+      animator.animateShift(self, withDistance: distance)
     }
   }
 
@@ -216,12 +216,12 @@ open class SwipeCardStack: UIView, SwipeCardDelegate {
   func card(didContinueSwipe card: SwipeCard) {
     guard let topCard = topCard else { return }
     for (index, card) in backgroundCards.enumerated() {
-      card.transform = transformProvider.backgroundCardDragTransform(self, topCard, index + 1)
+      card.transform = transformProvider.backgroundCardDragTransform(for: self, topCard: topCard, topCardIndex: index + 1)
     }
   }
 
   func card(didCancelSwipe card: SwipeCard) {
-    animator.reset(self, topCard: card)
+    animator.animateReset(self, topCard: card)
   }
 
   func card(didSwipe card: SwipeCard, with direction: SwipeDirection, forced: Bool) {
@@ -243,11 +243,11 @@ open class SwipeCardStack: UIView, SwipeCardDelegate {
     }
 
     isUserInteractionEnabled = false
-    animator.swipe(self, topCard: card, direction: direction, forced: forced)
+    animator.animateSwipe(self, topCard: card, direction: direction, forced: forced)
   }
 
   func card(didReverseSwipe card: SwipeCard, from direction: SwipeDirection) {
     isUserInteractionEnabled = false
-    animator.undo(self, topCard: card)
+    animator.animateUndo(self, topCard: card)
   }
 }

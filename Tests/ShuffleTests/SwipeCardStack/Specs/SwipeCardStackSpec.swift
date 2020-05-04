@@ -7,22 +7,25 @@ class SwipeCardStackSpec: QuickSpec {
 
   override func spec() {
     describe("SwipeCardStack") {
-      let mockLayoutProvider = MockCardStackLayoutProvider.self
-      let mockAnimator = MockCardStackAnimator.self
-      let mockTransformProvider = MockCardStackTransformProvider.self
 
-      var subject: TestableSwipeCardStack!
-      var mockStateManager: MockCardStackStateManager!
+      var mockAnimator: MockCardStackAnimator!
       var mockDelegate: MockSwipeCardStackDelegate!
+      var mockLayoutProvider: MockCardStackLayoutProvider!
+      var mockStateManager: MockCardStackStateManager!
+      var mockTransformProvider: MockCardStackTransformProvider!
+      var subject: TestableSwipeCardStack!
 
       beforeEach {
+        mockAnimator = MockCardStackAnimator()
         mockDelegate = MockSwipeCardStackDelegate()
+        mockLayoutProvider = MockCardStackLayoutProvider()
         mockStateManager = MockCardStackStateManager()
+        mockTransformProvider = MockCardStackTransformProvider()
         subject = TestableSwipeCardStack(animator: mockAnimator,
-                                         transformProvider: mockTransformProvider,
                                          layoutProvider: mockLayoutProvider,
-                                         notificationCenter: TestableNotificationCenter(),
-                                         stateManager: mockStateManager)
+                                         notificationCenter: NotificationCenter.default,
+                                         stateManager: mockStateManager,
+                                         transformProvider: mockTransformProvider)
         subject.delegate = mockDelegate
       }
 
@@ -248,7 +251,7 @@ class SwipeCardStackSpec: QuickSpec {
         context("When the swipe completion is called") {
           beforeEach {
             subject.isUserInteractionEnabled = false
-            subject.swipeCompletion()
+            subject.swipeCompletionBlock()
           }
 
           it("should enable user interaction on the card stack") {
@@ -263,7 +266,7 @@ class SwipeCardStackSpec: QuickSpec {
         context("When the undo completion is called") {
           beforeEach {
             subject.isUserInteractionEnabled = false
-            subject.undoCompletion()
+            subject.undoCompletionBlock()
           }
 
           it("should enable user interaction on the card stack") {
@@ -278,7 +281,7 @@ class SwipeCardStackSpec: QuickSpec {
         context("When the shift completion is called") {
           beforeEach {
             subject.isUserInteractionEnabled = false
-            subject.shiftCompletion()
+            subject.shiftCompletionBlock()
           }
 
           it("should enable user interaction on the card stack") {
@@ -301,10 +304,6 @@ class SwipeCardStackSpec: QuickSpec {
             mockLayoutProvider.testCardContainerFrame = cardContainerFrame
             subject.visibleCards = visibleCards
             subject.layoutSubviews()
-          }
-
-          afterEach {
-            mockLayoutProvider.reset()
           }
 
           it("should correctly layout the card container") {
@@ -584,10 +583,6 @@ class SwipeCardStackSpec: QuickSpec {
                   subject.shift(withDistance: distance, animated: true)
                 }
 
-                afterEach {
-                  mockAnimator.reset()
-                }
-
                 it("should call the state manager's shift method with the correct distance") {
                   expect(mockStateManager.shiftCalled).to(beTrue())
                   expect(mockStateManager.shiftDistance).to(equal(distance))
@@ -599,18 +594,14 @@ class SwipeCardStackSpec: QuickSpec {
 
                 it("should disable user interaction and call the animator's shift method with the correct parameters") {
                   expect(subject.isUserInteractionEnabled).to(beFalse())
-                  expect(mockAnimator.shiftCalled).to(beTrue())
-                  expect(mockAnimator.shiftDistance).to(equal(distance))
+                  expect(mockAnimator.animateShiftCalled).to(beTrue())
+                  expect(mockAnimator.animateShiftDistance).to(equal(distance))
                 }
               }
 
               context("and animated is false") {
                 beforeEach {
                   subject.shift(withDistance: distance, animated: false)
-                }
-
-                afterEach {
-                  mockAnimator.reset()
                 }
 
                 it("should call the state manager's shift method with the correct distance") {
@@ -623,7 +614,7 @@ class SwipeCardStackSpec: QuickSpec {
                 }
 
                 it("should not call the animator's shift method") {
-                  expect(mockAnimator.shiftCalled).to(beFalse())
+                  expect(mockAnimator.animateShiftCalled).to(beFalse())
                 }
               }
             }
@@ -632,7 +623,7 @@ class SwipeCardStackSpec: QuickSpec {
 
         func testNoShiftAction() {
           expect(subject.reloadVisibleCardsCalled).to(beFalse())
-          expect(mockAnimator.shiftCalled).to(beFalse())
+          expect(mockAnimator.animateShiftCalled).to(beFalse())
         }
       }
 
@@ -844,10 +835,6 @@ class SwipeCardStackSpec: QuickSpec {
             subject.card(didBeginSwipe: SwipeCard())
           }
 
-          afterEach {
-            mockAnimator.reset()
-          }
-
           it("should call the animator's removeBackgroundCardAnimation method") {
             expect(mockAnimator.removeBackgroundCardAnimationsCalled).to(beTrue())
           }
@@ -864,10 +851,6 @@ class SwipeCardStackSpec: QuickSpec {
           beforeEach {
             backgroundCards = [SwipeCard(), SwipeCard(), SwipeCard()]
             subject.testBackgroundCards = backgroundCards
-          }
-
-          afterEach {
-            mockTransformProvider.reset()
           }
 
           context("and there is no topCard") {
@@ -909,7 +892,7 @@ class SwipeCardStackSpec: QuickSpec {
           }
 
           it("should call the animator's reset method") {
-            expect(mockAnimator.resetCalled).to(beTrue())
+            expect(mockAnimator.animateResetCalled).to(beTrue())
           }
         }
       }
@@ -1029,10 +1012,10 @@ class SwipeCardStackSpec: QuickSpec {
             }
 
             it("should call the animator's swipe method with the correct parameters") {
-              expect(mockAnimator.swipeCalled).to(beTrue())
-              expect(mockAnimator.swipeForced).to(equal(forced))
-              expect(mockAnimator.swipeTopCard).to(equal(topCard))
-              expect(mockAnimator.swipeDirection).to(equal(direction))
+              expect(mockAnimator.animateSwipeCalled).to(beTrue())
+              expect(mockAnimator.animateSwipeForced).to(equal(forced))
+              expect(mockAnimator.animateSwipeTopCard).to(equal(topCard))
+              expect(mockAnimator.animateSwipeDirection).to(equal(direction))
             }
           }
         }
@@ -1051,7 +1034,7 @@ class SwipeCardStackSpec: QuickSpec {
           }
 
           it("should call the animator's undo method") {
-            expect(mockAnimator.undoCalled).to(beTrue())
+            expect(mockAnimator.animateUndoCalled).to(beTrue())
           }
         }
       }

@@ -20,8 +20,8 @@ class CardTransformProviderSpec: QuickSpec {
         subject = TestableCardTransformProvider()
         card = TestableSwipeCard(animator: MockCardAnimator(),
                                  layoutProvider: MockCardLayoutProvider(),
-                                 transformProvider: MockCardTransformProvider(),
-                                 notificationCenter: TestableNotificationCenter())
+                                 notificationCenter: TestableNotificationCenter(),
+                                 transformProvider: MockCardTransformProvider())
         card.frame = CGRect(x: 0, y: 0, width: cardWidth, height: cardHeight)
 
         testPanGestureRecognizer = card.panGestureRecognizer as? PanGestureRecognizer

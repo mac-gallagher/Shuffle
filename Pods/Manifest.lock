@@ -11,7 +11,7 @@ DEPENDENCIES:
   - Quick
 
 SPEC REPOS:
-  https://github.com/cocoapods/specs.git:
+  https://github.com/CocoaPods/Specs.git:
     - Nimble
     - pop
     - PopBounceButton
@@ -23,6 +23,6 @@ SPEC CHECKSUMS:
   PopBounceButton: 34105a012678222f058f8d2621672724a3d5c9fb
   Quick: 4be43f6634acfa727dd106bdf3929ce125ffa79d
 
-PODFILE CHECKSUM: 34a1d969f02caaf166b4ee375c8a1b27d593fd09
+PODFILE CHECKSUM: 5d98b8987e9380eaacca5bbb5254b2c9f71cfba2
 
-COCOAPODS: 1.6.1
+COCOAPODS: 1.8.4

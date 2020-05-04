@@ -14,10 +14,10 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "CFC4E89E220B0CDD0D54D035D98BCF83"
-               BuildableName = "PopBounceButton.framework"
-               BlueprintName = "PopBounceButton"
-               ReferencedContainer = "container:Pods.xcodeproj">
+               BlueprintIdentifier = "AD72AC7A2270FB650083E735"
+               BuildableName = "ShuffleExample.app"
+               BlueprintName = "ShuffleExample"
+               ReferencedContainer = "container:Shuffle.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -40,6 +40,16 @@
       debugDocumentVersioning = "YES"
       debugServiceExtension = "internal"
       allowLocationSimulation = "YES">
+      <BuildableProductRunnable
+         runnableDebuggingMode = "0">
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "AD72AC7A2270FB650083E735"
+            BuildableName = "ShuffleExample.app"
+            BlueprintName = "ShuffleExample"
+            ReferencedContainer = "container:Shuffle.xcodeproj">
+         </BuildableReference>
+      </BuildableProductRunnable>
    </LaunchAction>
    <ProfileAction
       buildConfiguration = "Release"
@@ -47,15 +57,16 @@
       savedToolIdentifier = ""
       useCustomWorkingDirectory = "NO"
       debugDocumentVersioning = "YES">
-      <MacroExpansion>
+      <BuildableProductRunnable
+         runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "CFC4E89E220B0CDD0D54D035D98BCF83"
-            BuildableName = "PopBounceButton.framework"
-            BlueprintName = "PopBounceButton"
-            ReferencedContainer = "container:Pods.xcodeproj">
+            BlueprintIdentifier = "AD72AC7A2270FB650083E735"
+            BuildableName = "ShuffleExample.app"
+            BlueprintName = "ShuffleExample"
+            ReferencedContainer = "container:Shuffle.xcodeproj">
          </BuildableReference>
-      </MacroExpansion>
+      </BuildableProductRunnable>
    </ProfileAction>
    <AnalyzeAction
       buildConfiguration = "Debug">

@@ -18,8 +18,8 @@ class CardLayoutProviderSpec: QuickSpec {
         subject = CardLayoutProvider()
         card = SwipeCard(animator: MockCardAnimator(),
                          layoutProvider: MockCardLayoutProvider(),
-                         transformProvider: MockCardTransformProvider(),
-                         notificationCenter: NotificationCenter.default)
+                         notificationCenter: NotificationCenter.default,
+                         transformProvider: MockCardTransformProvider())
         card.frame = CGRect(x: 0, y: 0, width: cardWidth, height: cardHeight)
         card.footerHeight = footerHeight
       }
