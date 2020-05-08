@@ -1,23 +1,13 @@
-<img src="https://raw.githubusercontent.com/mac-gallagher/Shuffle/master/Images/swipe_example.gif" width="230" align="right">
-
-</br>
-
 <p align="center">
-<img src="https://raw.githubusercontent.com/mac-gallagher/Shuffle/master/Images/header.png" width="400">
-
-<H4 align="center">
-🔥 A multi-directional card swiping library inspired by Tinder.
-</H4>
+<img src="https://raw.githubusercontent.com/mac-gallagher/Shuffle/master/Assets/logo.png" width="520">
 </p>
 
 <p align="center">
-<a href="https://developer.apple.com/swift"><img alt="Swift 5" src="https://img.shields.io/badge/language-Swift_5-orange.svg"/></a>
+<a href="https://cocoapods.org/pods/Shuffle-iOS"><img alt="Platform" src="https://img.shields.io/cocoapods/p/Shuffle-iOS.svg"/></a>
+<a href="https://travis-ci.org/mac-gallagher/Shuffle"><img alt="Build Status" src="https://travis-ci.org/mac-gallagher/Shuffle.svg?branch=master"/></a>
 <a href="https://cocoapods.org/pods/Shuffle-iOS"><img alt="CocoaPods" src="https://img.shields.io/cocoapods/v/Shuffle-iOS.svg"/></a>
 <a href="https://github.com/Carthage/Carthage"><img alt="Carthage" src="https://img.shields.io/badge/carthage-compatible-4BC51D.svg?style=flat)"/></a>
 <a href="https://swift.org/package-manager"><img alt="Swift Package Manager" src="https://img.shields.io/badge/swift pm-compatible-yellow.svg"/></a>
-</br>
-<a href="https://travis-ci.org/mac-gallagher/Shuffle"><img alt="Build Status" src="https://travis-ci.org/mac-gallagher/Shuffle.svg?branch=master"/></a>
-<a href="https://cocoapods.org/pods/Shuffle-iOS"><img alt="Platform" src="https://img.shields.io/cocoapods/p/Shuffle-iOS.svg"/></a>
 <a href="https://codecov.io/gh/mac-gallagher/Shuffle"><img alt="Code Coverage" src="https://codecov.io/gh/mac-gallagher/Shuffle/branch/master/graph/badge.svg"></a>
 <a href="https://github.com/mac-gallagher/Shuffle/blob/master/LICENSE"><img alt="LICENSE" src="https://img.shields.io/cocoapods/l/Shuffle-iOS"></a>
 </p>
@@ -25,9 +15,6 @@
 <p align="center">
 Made with ❤️ by <a href="https://github.com/mac-gallagher">Mac Gallagher</a>
 </p>
-
-</br>
-
 
 ## Features
 
@@ -43,6 +30,10 @@ Made with ❤️ by <a href="https://github.com/mac-gallagher">Mac Gallagher</a>
 
 ## Example
 To run the example project, clone the repo and run the `ShuffleExample` target.
+
+<p align="left">
+<img src="https://raw.githubusercontent.com/mac-gallagher/Shuffle/master/Images/swipe_example.gif" width="230">
+</p>
 
 ## Basic Usage
 
