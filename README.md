@@ -32,7 +32,7 @@ Made with ❤️ by <a href="https://github.com/mac-gallagher">Mac Gallagher</a>
 To run the example project, clone the repo and run the `ShuffleExample` target.
 
 <p align="left">
-<img src="https://raw.githubusercontent.com/mac-gallagher/Shuffle/master/Images/swipe_example.gif" width="230">
+<img src="https://raw.githubusercontent.com/mac-gallagher/Shuffle/master/Assets/swipe_example.gif" width="230">
 </p>
 
 ## Basic Usage
@@ -115,7 +115,7 @@ Performs a swipe programmatically in the given direction.
 func swipe(_ direction: SwipeDirection, animated: Bool)
 ```
 
-<img src="https://raw.githubusercontent.com/mac-gallagher/Shuffle/master/Images/swipe.gif" width="200">
+<img src="https://raw.githubusercontent.com/mac-gallagher/Shuffle/master/Assets/swipe.gif" width="200">
 
 ### Undo
 Restores the card stack to its state before the last swipe.
@@ -124,7 +124,7 @@ Restores the card stack to its state before the last swipe.
 func undoLastSwipe(animated: Bool)
 ```
 
-<img src="https://raw.githubusercontent.com/mac-gallagher/Shuffle/master/Images/undo.gif" width="200">
+<img src="https://raw.githubusercontent.com/mac-gallagher/Shuffle/master/Assets/undo.gif" width="200">
 
 ### Shift
 Shifts the card stack's cards by the given distance. Any swiped cards are skipped over.
@@ -133,7 +133,7 @@ Shifts the card stack's cards by the given distance. Any swiped cards are skippe
 func shift(withDistance distance: Int = 1, animated: Bool)
 ```
 
-<img src="https://raw.githubusercontent.com/mac-gallagher/Shuffle/master/Images/shift.gif" width="200">
+<img src="https://raw.githubusercontent.com/mac-gallagher/Shuffle/master/Assets/shift.gif" width="200">
 
 ## Advanced Usage
 For more advanced usage, including
@@ -178,13 +178,13 @@ Download and drop the `Shuffle` directory into your project.
 We love to hear about apps that use Shuffle - feel free to submit a pull request and share yours here!
 
 <p><a href="https://apps.apple.com/us/app/ovia-pregnancy-tracker/id719135369">
-<img src="https://raw.githubusercontent.com/mac-gallagher/Shuffle/master/Images/AppIcons/ovia_app_icon.png" title="Ovia Pregnancy Tracker" width="80" align="center"></a>
+<img src="https://raw.githubusercontent.com/mac-gallagher/Shuffle/master/Assets/AppIcons/ovia_app_icon.png" title="Ovia Pregnancy Tracker" width="80" align="center"></a>
 
 <a href="https://apps.apple.com/us/app/topface-dating-app-and-chat/id505446332">
-<img src="https://raw.githubusercontent.com/mac-gallagher/Shuffle/master/Images/AppIcons/topface_app_icon.png" title="Topface" width="80" align="center"></a>
+<img src="https://raw.githubusercontent.com/mac-gallagher/Shuffle/master/Assets/AppIcons/topface_app_icon.png" title="Topface" width="80" align="center"></a>
 
 <a href="https://apps.apple.com/bw/app/dankr/id1478419632">
-<img src="https://raw.githubusercontent.com/mac-gallagher/Shuffle/master/Images/AppIcons/dankr_app_icon.png" title="Dankr" width="80" align="center"></a>
+<img src="https://raw.githubusercontent.com/mac-gallagher/Shuffle/master/Assets/AppIcons/dankr_app_icon.png" title="Dankr" width="80" align="center"></a>
 </p>
 
 ---
