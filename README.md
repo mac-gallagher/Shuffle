@@ -4,10 +4,11 @@
 
 <p align="center">
 <a href="https://cocoapods.org/pods/Shuffle-iOS"><img alt="Platform" src="https://img.shields.io/cocoapods/p/Shuffle-iOS.svg"/></a>
+<a href="https://swift.org"><img alt="Swift Version" src="https://img.shields.io/badge/swift-5.x.x-223344.svg?logo=swift&labelColor=FA7343&logoColor=white"/></a>
 <a href="https://travis-ci.org/mac-gallagher/Shuffle"><img alt="Build Status" src="https://travis-ci.org/mac-gallagher/Shuffle.svg?branch=master"/></a>
-<a href="https://cocoapods.org/pods/Shuffle-iOS"><img alt="CocoaPods" src="https://img.shields.io/cocoapods/v/Shuffle-iOS.svg"/></a>
-<a href="https://github.com/Carthage/Carthage"><img alt="Carthage" src="https://img.shields.io/badge/carthage-compatible-4BC51D.svg?style=flat)"/></a>
 <a href="https://swift.org/package-manager"><img alt="Swift Package Manager" src="https://img.shields.io/badge/swift pm-compatible-yellow.svg"/></a>
+<a href="https://cocoapods.org/pods/Shuffle-iOS"><img alt="CocoaPods" src="https://img.shields.io/cocoapods/v/Shuffle-iOS.svg"/></a>
+<a href="https://github.com/Carthage/Carthage"><img alt="Carthage" src="https://img.shields.io/badge/carthage-compatible-blue.svg?style=flat)"/></a>
 <a href="https://codecov.io/gh/mac-gallagher/Shuffle"><img alt="Code Coverage" src="https://codecov.io/gh/mac-gallagher/Shuffle/branch/master/graph/badge.svg"></a>
 <a href="https://github.com/mac-gallagher/Shuffle/blob/master/LICENSE"><img alt="LICENSE" src="https://img.shields.io/cocoapods/l/Shuffle-iOS"></a>
 </p>
