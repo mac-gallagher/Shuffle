@@ -23,88 +23,76 @@
 ///
 
 
-import Quick
 import Nimble
-
+import Quick
 @testable import Shuffle
+import UIKit
 
 class CardStackAnimationOptionsSpec: QuickSpec {
 
   override func spec() {
-    describe("CardStackAnimationOptions") {
-      var subject: CardStackAnimationOptions!
+    var subject: CardStackAnimationOptions!
 
-      // MARK: - Initialization
+    // MARK: - Initialization
 
-      describe("Initialization") {
-        context("When initializing a CardStackAnimationOptions object") {
-          beforeEach {
-            subject = CardStackAnimationOptions()
-          }
-
-          it("should have the correct default properties") {
-            expect(subject.resetDuration).to(beNil())
-            expect(subject.shiftDuration).to(equal(0.1))
-            expect(subject.swipeDuration).to(beNil())
-            expect(subject.undoDuration).to(beNil())
-          }
-        }
+    describe("When initializing a CardStackAnimationOptions object") {
+      beforeEach {
+        subject = CardStackAnimationOptions()
       }
 
-      // MARK: - Reset Duration
+      it("should have the correct default properties") {
+        expect(subject.resetDuration).to(beNil())
+        expect(subject.shiftDuration).to(equal(0.1))
+        expect(subject.swipeDuration).to(beNil())
+        expect(subject.undoDuration).to(beNil())
+      }
+    }
 
-      describe("Reset Duration") {
-        context("When setting resetDuration to a value less than zero") {
-          beforeEach {
-            subject = CardStackAnimationOptions(resetDuration: -0.5)
-          }
+    // MARK: - Reset Duration
 
-          it("should return zero") {
-            expect(subject.resetDuration).to(equal(0))
-          }
-        }
+    describe("When setting resetDuration to a value less than zero") {
+      beforeEach {
+        subject = CardStackAnimationOptions(resetDuration: -0.5)
       }
 
-      // MARK: - Shift Duration
+      it("should return zero") {
+        expect(subject.resetDuration).to(equal(0))
+      }
+    }
 
-      describe("Shift Duration") {
-        context("When setting maximumRotationAngle to a value less than zero") {
-          beforeEach {
-            subject = CardStackAnimationOptions(shiftDuration: -0.5)
-          }
+    // MARK: - Shift Duration
 
-          it("should return zero") {
-            expect(subject.shiftDuration).to(equal(0))
-          }
-        }
+    describe("When setting maximumRotationAngle to a value less than zero") {
+      beforeEach {
+        subject = CardStackAnimationOptions(shiftDuration: -0.5)
       }
 
-      // MARK: - Swipe Duration
+      it("should return zero") {
+        expect(subject.shiftDuration).to(equal(0))
+      }
+    }
 
-      describe("Swipe Duration") {
-        context("When setting swipeDuration to a value less than zero") {
-          beforeEach {
-            subject = CardStackAnimationOptions(swipeDuration: -0.5)
-          }
+    // MARK: - Swipe Duration
 
-          it("should return zero") {
-            expect(subject.swipeDuration).to(equal(0))
-          }
-        }
+    describe("When setting swipeDuration to a value less than zero") {
+      beforeEach {
+        subject = CardStackAnimationOptions(swipeDuration: -0.5)
       }
 
-      // MARK: - Undo Duration
+      it("should return zero") {
+        expect(subject.swipeDuration).to(equal(0))
+      }
+    }
 
-      describe("Undo Duration") {
-        context("When setting undoDuration to a value less than zero") {
-          beforeEach {
-            subject = CardStackAnimationOptions(undoDuration: -0.5)
-          }
+    // MARK: - Undo Duration
 
-          it("should return zero") {
-            expect(subject.undoDuration).to(equal(0))
-          }
-        }
+    describe("When setting undoDuration to a value less than zero") {
+      beforeEach {
+        subject = CardStackAnimationOptions(undoDuration: -0.5)
+      }
+      
+      it("should return zero") {
+        expect(subject.undoDuration).to(equal(0))
       }
     }
   }

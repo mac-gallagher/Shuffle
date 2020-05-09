@@ -24,6 +24,7 @@
 
 
 @testable import Shuffle
+import UIKit
 
 class MockCardStackStateManager: CardStackStateManagable {
 
