@@ -1,6 +1,8 @@
 <p align="center">
-<img src="https://raw.githubusercontent.com/mac-gallagher/Shuffle/master/Assets/logo.png" width="520">
+<img src="https://raw.githubusercontent.com/mac-gallagher/Shuffle/master/Assets/logo.png" width="650">
 </p>
+
+</br>
 
 <p align="center">
 <a href="https://cocoapods.org/pods/Shuffle-iOS"><img alt="Platform" src="https://img.shields.io/cocoapods/p/Shuffle-iOS.svg"/></a>
