@@ -24,6 +24,7 @@
 
 
 import Shuffle
+import UIKit
 
 class MockSwipeCardStackDelegate: SwipeCardStackDelegate {
 

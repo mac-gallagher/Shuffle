@@ -28,7 +28,16 @@ import UIKit
 extension UIView {
 
   @discardableResult
-  func anchor(top: NSLayoutYAxisAnchor? = nil, left: NSLayoutXAxisAnchor? = nil, bottom: NSLayoutYAxisAnchor? = nil, right: NSLayoutXAxisAnchor? = nil, paddingTop: CGFloat = 0, paddingLeft: CGFloat = 0, paddingBottom: CGFloat = 0, paddingRight: CGFloat = 0, width: CGFloat = 0, height: CGFloat = 0) -> [NSLayoutConstraint] {
+  func anchor(top: NSLayoutYAxisAnchor? = nil,
+              left: NSLayoutXAxisAnchor? = nil,
+              bottom: NSLayoutYAxisAnchor? = nil,
+              right: NSLayoutXAxisAnchor? = nil,
+              paddingTop: CGFloat = 0,
+              paddingLeft: CGFloat = 0,
+              paddingBottom: CGFloat = 0,
+              paddingRight: CGFloat = 0,
+              width: CGFloat = 0,
+              height: CGFloat = 0) -> [NSLayoutConstraint] {
     translatesAutoresizingMaskIntoConstraints = false
 
     var anchors = [NSLayoutConstraint]()
@@ -65,7 +74,10 @@ extension UIView {
 
 extension UIView {
 
-  func applyShadow(radius: CGFloat, opacity: Float, offset: CGSize, color: UIColor = .black) {
+  func applyShadow(radius: CGFloat,
+                   opacity: Float,
+                   offset: CGSize,
+                   color: UIColor = .black) {
     layer.shadowRadius = radius
     layer.shadowOpacity = opacity
     layer.shadowOffset = offset

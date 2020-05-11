@@ -1,4 +1,3 @@
-
 ///
 /// MIT License
 ///
@@ -25,6 +24,7 @@
 
 
 @testable import Shuffle
+import UIKit
 
 class MockSwipeCardDelegate: SwipeCardDelegate {
 
