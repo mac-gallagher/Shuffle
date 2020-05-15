@@ -1,4 +1,4 @@
-platform :ios, '13.4'
+platform :ios, '13.0'
 
 target 'ShuffleExample' do
   use_frameworks!
