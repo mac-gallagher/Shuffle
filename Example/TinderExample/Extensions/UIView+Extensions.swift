@@ -68,7 +68,10 @@ extension UIView {
 
   @discardableResult
   func anchorToSuperview() -> [NSLayoutConstraint] {
-    return anchor(top: superview?.topAnchor, left: superview?.leftAnchor, bottom: superview?.bottomAnchor, right: superview?.rightAnchor)
+    return anchor(top: superview?.topAnchor,
+                  left: superview?.leftAnchor,
+                  bottom: superview?.bottomAnchor,
+                  right: superview?.rightAnchor)
   }
 }
 

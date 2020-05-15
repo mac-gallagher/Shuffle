@@ -32,4 +32,7 @@ protocol SwipeCardDelegate: class {
   func card(didReverseSwipe card: SwipeCard, from direction: SwipeDirection)
   func card(didSwipe card: SwipeCard, with direction: SwipeDirection, forced: Bool)
   func card(didTap card: SwipeCard)
+
+  func shouldRecognizeHorizontalDrag(on card: SwipeCard) -> Bool?
+  func shouldRecognizeVerticalDrag(on card: SwipeCard) -> Bool?
 }

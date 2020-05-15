@@ -29,5 +29,19 @@ import Foundation
   @objc optional func cardStack(_ cardStack: SwipeCardStack, didSelectCardAt index: Int)
   @objc optional func cardStack(_ cardStack: SwipeCardStack, didSwipeCardAt index: Int, with direction: SwipeDirection)
   @objc optional func cardStack(_ cardStack: SwipeCardStack, didUndoCardAt index: Int, from direction: SwipeDirection)
+
   @objc optional func didSwipeAllCards(_ cardStack: SwipeCardStack)
+
+  /// Implement this method and return `false` if you wish to ignore all horizontal gestures on the card stack.
+  ///
+  /// You may wish to implement this method if your card stack is embedded in a `UIScrollView`.
+  /// - Parameter cardStack: The card stack.
+  @objc optional func shouldRecognizeHorizontalDrag(on cardStack: SwipeCardStack) -> Bool
+
+
+  /// Implement this method and return `false` if you wish to ignore all vertical gestures on the card stack.
+  ///
+  /// You may wish to implement this method if your card stack is embedded in a `UIScrollView`.
+  /// - Parameter cardStack: The card stack.
+  @objc optional func shouldRecognizeVerticalDrag(on cardStack: SwipeCardStack) -> Bool
 }

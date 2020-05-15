@@ -88,7 +88,7 @@ open class SwipeCardStack: UIView, SwipeCardDelegate {
       self?.isUserInteractionEnabled = true
     }
   }
-  
+
   private var animator: CardStackAnimatable = CardStackAnimator.shared
   private var layoutProvider: CardStackLayoutProvidable = CardStackLayoutProvider.shared
   private var notificationCenter = NotificationCenter.default
@@ -274,5 +274,13 @@ open class SwipeCardStack: UIView, SwipeCardDelegate {
   func card(didReverseSwipe card: SwipeCard, from direction: SwipeDirection) {
     isUserInteractionEnabled = false
     animator.animateUndo(self, topCard: card)
+  }
+
+  func shouldRecognizeHorizontalDrag(on card: SwipeCard) -> Bool? {
+    return delegate?.shouldRecognizeHorizontalDrag?(on: self)
+  }
+
+  func shouldRecognizeVerticalDrag(on card: SwipeCard) -> Bool? {
+    return delegate?.shouldRecognizeVerticalDrag?(on: self)
   }
 }

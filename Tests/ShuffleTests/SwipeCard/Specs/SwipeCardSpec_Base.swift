@@ -36,6 +36,7 @@ class SwipeCardSpec_Base: QuickSpec {
     var mockCardTransformProvider: MockCardTransformProvider!
     var mockSwipeCardDelegate: MockSwipeCardDelegate!
     var mockNotificationCenter: TestableNotificationCenter!
+    var testPanGestureRecognizer: PanGestureRecognizer!
     var subject: TestableSwipeCard!
 
     beforeEach {
@@ -50,6 +51,8 @@ class SwipeCardSpec_Base: QuickSpec {
                                   notificationCenter: mockNotificationCenter,
                                   transformProvider: mockCardTransformProvider)
       subject.delegate = mockSwipeCardDelegate
+
+      testPanGestureRecognizer = subject.panGestureRecognizer as? PanGestureRecognizer
     }
 
     describe("Initialization") {
@@ -347,6 +350,60 @@ class SwipeCardSpec_Base: QuickSpec {
 
       it("should call the animator's reset method") {
         expect(mockCardAnimator.animateResetCalled).to(beTrue())
+      }
+    }
+
+    // MARK: Gesture Recognizer Should Begin
+
+    describe("When calling gestureRecognizerShouldBegin") {
+      context("and the gesture recognizer is not the card's panGestureRecognizer") {
+        it("should return the value from the superclass") {
+          let actualResult = subject.gestureRecognizerShouldBegin(UIGestureRecognizer())
+          expect(actualResult).to(beTrue())
+        }
+      }
+
+      context("and the swipe is horizontal") {
+        let recognizeHorizontalDrag: Bool = false
+
+        beforeEach {
+          mockSwipeCardDelegate.testShouldRecognizeHorizontalDrag = recognizeHorizontalDrag
+          testPanGestureRecognizer.performPan(withLocation: nil,
+                                              translation: nil,
+                                              velocity: CGPoint(x: 1, y: 0))
+        }
+
+        it("should return the value from the delegate") {
+          let actualResult = subject.gestureRecognizerShouldBegin(testPanGestureRecognizer)
+          expect(actualResult).to(equal(recognizeHorizontalDrag))
+        }
+      }
+
+      context("and the swipe is vertical") {
+        let recognizeVerticalDrag: Bool = false
+
+        beforeEach {
+          mockSwipeCardDelegate.testShouldRecognizeVerticalDrag = recognizeVerticalDrag
+          testPanGestureRecognizer.performPan(withLocation: nil,
+                                              translation: nil,
+                                              velocity: CGPoint(x: 0, y: 1))
+        }
+        
+        it("should return the value from the delegate") {
+          let actualResult = subject.gestureRecognizerShouldBegin(testPanGestureRecognizer)
+          expect(actualResult).to(equal(recognizeVerticalDrag))
+        }
+      }
+      
+      context("and the delegate is nil or the shouldDrag method has not been implemented") {
+        beforeEach {
+          subject.delegate = nil
+        }
+        
+        it("should return the value from the superclass") {
+          let actualResult = subject.gestureRecognizerShouldBegin(testPanGestureRecognizer)
+          expect(actualResult).to(beTrue())
+        }
       }
     }
   }

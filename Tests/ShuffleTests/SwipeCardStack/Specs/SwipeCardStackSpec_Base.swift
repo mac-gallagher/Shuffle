@@ -381,7 +381,7 @@ class SwipeCardStackSpec_Base: QuickSpec {
     }
 
     // MARK: Transform For Card
-    
+
     describe("When calling transformForCard") {
       let scaleFactor = CGPoint(x: 0.4, y: 0.7)
 
