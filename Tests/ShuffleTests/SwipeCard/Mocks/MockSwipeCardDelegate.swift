@@ -65,4 +65,14 @@ class MockSwipeCardDelegate: SwipeCardDelegate {
   func card(didTap card: SwipeCard) {
     didTapCalled = true
   }
+
+  var testShouldRecognizeHorizontalDrag: Bool?
+  func shouldRecognizeHorizontalDrag(on card: SwipeCard) -> Bool? {
+    return testShouldRecognizeHorizontalDrag
+  }
+
+  var testShouldRecognizeVerticalDrag: Bool?
+  func shouldRecognizeVerticalDrag(on card: SwipeCard) -> Bool? {
+    return testShouldRecognizeVerticalDrag
+  }
 }

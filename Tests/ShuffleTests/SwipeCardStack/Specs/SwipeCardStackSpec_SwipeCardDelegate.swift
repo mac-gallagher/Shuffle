@@ -278,5 +278,63 @@ class SwipeCardStackSpec_SwipeCardDelegate: QuickSpec {
         expect(mockAnimator.animateUndoCalled).to(beTrue())
       }
     }
+
+    // MARK: - Should Recognize Horizontal Drag
+
+    describe("When the calling shouldRecognizeHorizontalDrag") {
+      context("and the delegate is nil or the delegate method has not been implemented") {
+        beforeEach {
+          subject.delegate = nil
+        }
+
+        it("should return nil") {
+          let actualResult = subject.shouldRecognizeHorizontalDrag(on: SwipeCard())
+          expect(actualResult).to(beNil())
+        }
+      }
+
+      context("and the delegate is not nil") {
+        let shouldRecognizeDrag = false
+
+        beforeEach {
+          mockDelegate.testShouldRecognizeHorizontalDrag = shouldRecognizeDrag
+          subject.delegate = mockDelegate
+        }
+
+        it("should return the value from the delegate") {
+          let actualResult = subject.shouldRecognizeHorizontalDrag(on: SwipeCard())
+          expect(actualResult).to(equal(shouldRecognizeDrag))
+        }
+      }
+    }
+
+    // MARK: - Should Recognize Vertical Drag
+
+    describe("When the calling shouldRecognizeVerticalDrag") {
+      context("and the delegate is nil or the delegate method has not been implemented") {
+        beforeEach {
+          subject.delegate = nil
+        }
+
+        it("should return nil") {
+          let actualResult = subject.shouldRecognizeVerticalDrag(on: SwipeCard())
+          expect(actualResult).to(beNil())
+        }
+      }
+
+      context("and the delegate is not nil") {
+        let shouldRecognizeDrag = false
+
+        beforeEach {
+          mockDelegate.testShouldRecognizeVerticalDrag = shouldRecognizeDrag
+          subject.delegate = mockDelegate
+        }
+
+        it("should return the value from the delegate") {
+          let actualResult = subject.shouldRecognizeVerticalDrag(on: SwipeCard())
+          expect(actualResult).to(equal(shouldRecognizeDrag))
+        }
+      }
+    }
   }
 }

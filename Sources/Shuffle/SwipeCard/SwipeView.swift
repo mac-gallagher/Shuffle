@@ -54,7 +54,6 @@ open class SwipeView: UIView {
   // MARK: - Initialization
 
   /// Initializes the `SwipeView` with the required gesture recognizers.
-  ///
   /// - Parameter frame: The frame rectangle for the view, measured in points.
   public override init(frame: CGRect) {
     super.init(frame: frame)
@@ -62,7 +61,6 @@ open class SwipeView: UIView {
   }
 
   /// Initializes the `SwipeView` with the required gesture recognizers.
-  ///
   /// - Parameter aDecoder: An unarchiver object.
   required public init?(coder aDecoder: NSCoder) {
     super.init(coder: aDecoder)
@@ -77,7 +75,6 @@ open class SwipeView: UIView {
   // MARK: - Swipe Calulations
 
   /// The active swipe direction, if any.
-  ///
   /// - Returns: The member of `swipeDirections` which returns the highest `dragPercentage:`.
   public func activeDirection() -> SwipeDirection? {
     return swipeDirections
@@ -114,7 +111,6 @@ open class SwipeView: UIView {
 
   /// The minimum required speed on the intended direction to trigger a swipe. Subclasses can override
   /// this method for custom swipe behavior.
-  ///
   /// - Parameter direction: The swipe direction.
   /// - Returns: The minimum speed required to trigger a swipe in the indicated direction, measured in
   ///            points per second. Defaults to 1100 for each direction.
@@ -124,7 +120,6 @@ open class SwipeView: UIView {
 
   /// The minimum required drag distance on the intended direction to trigger a swipe, measured from the
   /// swipe's initial touch point. Subclasses can override this method for custom swipe behavior.
-  ///
   /// - Parameter direction: The swipe direction.
   /// - Returns: The minimum distance required to trigger a swipe in the indicated direction, measured in
   ///            points. Defaults to 1/4 of the minimum of the screen's width and height.
@@ -136,27 +131,23 @@ open class SwipeView: UIView {
 
   /// This function is called whenever the view is tapped. The default implementation does nothing;
   /// subclasses can override this method to perform whatever actions are necessary.
-  ///
   /// - Parameter recognizer: The gesture recognizer associated with the tap.
   @objc open func didTap(_ recognizer: UITapGestureRecognizer) {}
 
   /// This function is called whenever the view recognizes the beginning of a swipe. The default
   /// implementation does nothing; subclasses can override this method to perform whatever actions
   /// are necessary.
-  ///
   /// - Parameter recognizer: The gesture recognizer associated with the swipe.
   open func beginSwiping(_ recognizer: UIPanGestureRecognizer) {}
 
   /// This function is called whenever the view recognizes a change in the active swipe. The default
   /// implementation does nothing; subclasses can override this method to perform whatever actions are
   /// necessary.
-  ///
   /// - Parameter recognizer: The gesture recognizer associated with the swipe.
   open func continueSwiping(_ recognizer: UIPanGestureRecognizer) {}
 
   /// This function is called whenever the view recognizes the end of a swipe, regardless if the swipe
   /// was successful or cancelled.
-  ///
   /// - Parameter recognizer: The gesture recognizer associated with the swipe.
   open func endSwiping(_ recognizer: UIPanGestureRecognizer) {
     if let direction = activeDirection() {
@@ -171,7 +162,6 @@ open class SwipeView: UIView {
 
   /// This function is called whenever the view recognizes a swipe. The default implementation does
   /// nothing; subclasses can override this method to perform whatever actions are necessary.
-  ///
   /// - Parameters:
   ///   - recognizer: The gesture recognizer associated with the recognized swipe.
   ///   - direction: The direction of the swipe.
@@ -179,7 +169,6 @@ open class SwipeView: UIView {
 
   /// This function is called whenever the view recognizes a cancelled swipe. The default implementation
   /// does nothing; subclasses can override this method to perform whatever actions are necessary.
-  ///
   /// - Parameter recognizer: The gesture recognizer associated with the cancelled swipe.
   open func didCancelSwipe(_ recognizer: UIPanGestureRecognizer) {}
 

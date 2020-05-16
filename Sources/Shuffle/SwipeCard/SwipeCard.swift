@@ -175,6 +175,26 @@ open class SwipeCard: SwipeView {
     animator.animateReset(on: self)
   }
 
+  open override func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
+    if gestureRecognizer != panGestureRecognizer {
+      return super.gestureRecognizerShouldBegin(gestureRecognizer)
+    }
+
+    let velocity = panGestureRecognizer.velocity(in: superview)
+
+    if let shouldRecognizeHorizontalDrag = delegate?.shouldRecognizeHorizontalDrag(on: self),
+      abs(velocity.x) > abs(velocity.y) {
+      return shouldRecognizeHorizontalDrag
+    }
+
+    if let shouldRecognizeVerticalDrag = delegate?.shouldRecognizeVerticalDrag(on: self),
+      abs(velocity.x) < abs(velocity.y) {
+      return shouldRecognizeVerticalDrag
+    }
+
+    return super.gestureRecognizerShouldBegin(gestureRecognizer)
+  }
+
   // MARK: - Main Methods
 
   public func setOverlay(_ overlay: UIView?, forDirection direction: SwipeDirection) {
