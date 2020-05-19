@@ -258,7 +258,7 @@ class SwipeCardStackSpec_Base: QuickSpec {
       }
     }
 
-    // MARK: Undo Completion
+    // MARK: Undo Completion Block
 
     describe("When the undo completion block is called") {
       beforeEach {
@@ -271,7 +271,7 @@ class SwipeCardStackSpec_Base: QuickSpec {
       }
     }
 
-    // MARK: Shift Completion
+    // MARK: Shift Completion Block
 
     describe("When the shift completion block is called") {
       beforeEach {
@@ -389,7 +389,7 @@ class SwipeCardStackSpec_Base: QuickSpec {
         subject.testScaleFactor = scaleFactor
       }
 
-      it("should return the identity transform") {
+      it("should return the correct scaled transform") {
         let actualTransform = subject.transform(forCardAtIndex: 0)
         let expectedTransform = CGAffineTransform(scaleX: scaleFactor.x,
                                                   y: scaleFactor.y)

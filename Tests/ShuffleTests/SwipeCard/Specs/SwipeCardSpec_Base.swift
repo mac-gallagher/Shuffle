@@ -334,10 +334,14 @@ class SwipeCardSpec_Base: QuickSpec {
         subject.didSwipe(UIPanGestureRecognizer(), with: direction)
       }
 
+      it ("should call the delegate's didSwipe method") {
+        expect(mockSwipeCardDelegate.didSwipeCalled).to(beTrue())
+      }
+
       it("should call the swipeAction method with the correct parameters") {
+        expect(subject.swipeActionCalled).to(beTrue())
         expect(subject.swipeActionDirection).to(equal(direction))
         expect(subject.swipeActionForced).to(equal(false))
-        expect(subject.swipeActionAnimated).to(equal(true))
       }
     }
 
@@ -388,18 +392,18 @@ class SwipeCardSpec_Base: QuickSpec {
                                               translation: nil,
                                               velocity: CGPoint(x: 0, y: 1))
         }
-        
+
         it("should return the value from the delegate") {
           let actualResult = subject.gestureRecognizerShouldBegin(testPanGestureRecognizer)
           expect(actualResult).to(equal(recognizeVerticalDrag))
         }
       }
-      
+
       context("and the delegate is nil or the shouldDrag method has not been implemented") {
         beforeEach {
           subject.delegate = nil
         }
-        
+
         it("should return the value from the superclass") {
           let actualResult = subject.gestureRecognizerShouldBegin(testPanGestureRecognizer)
           expect(actualResult).to(beTrue())

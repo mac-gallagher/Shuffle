@@ -50,22 +50,28 @@ class TestableSwipeCardStack: SwipeCardStack {
 
   // MARK: - Completion Blocks
 
-  var swipeCompletionCalled: Bool = false
+  var swipeCompletionBlockCalled: Bool = false
+  var testSwipeCompletionBlock: (() -> Void)?
+
   override var swipeCompletionBlock: () -> Void {
-    swipeCompletionCalled = true
-    return super.swipeCompletionBlock
+    swipeCompletionBlockCalled = true
+    return testSwipeCompletionBlock ?? super.swipeCompletionBlock
   }
 
-  var undoCompletionCalled: Bool = false
+  var undoCompletionBlockCalled: Bool = false
+  var testUndoCompletionBlock: (() -> Void)?
+
   override var undoCompletionBlock: () -> Void {
-    undoCompletionCalled = true
-    return super.undoCompletionBlock
+    undoCompletionBlockCalled = true
+    return testUndoCompletionBlock ?? super.undoCompletionBlock
   }
 
-  var shiftCompletionCalled: Bool = false
+  var shiftCompletionBlockCalled: Bool = false
+  var testShiftCompletionBlock: (() -> Void)?
+
   override var shiftCompletionBlock: () -> Void {
-    shiftCompletionCalled = true
-    return super.shiftCompletionBlock
+    shiftCompletionBlockCalled = true
+    return testShiftCompletionBlock ?? super.shiftCompletionBlock
   }
 
   // MARK: - Lifecycle
@@ -85,6 +91,25 @@ class TestableSwipeCardStack: SwipeCardStack {
     layoutCardCalled = true
     layoutCardCards.append(card)
     layoutCardIndices.append(index)
+  }
+
+  var swipeActionCalled = false
+  var swipeActionDirection: SwipeDirection?
+  var swipeActionForced: Bool?
+  var swipeActionAnimated: Bool?
+
+  override func swipeAction(topCard: SwipeCard,
+                            direction: SwipeDirection,
+                            forced: Bool,
+                            animated: Bool) {
+    swipeActionCalled = true
+    swipeActionDirection = direction
+    swipeActionForced = forced
+    swipeActionAnimated = animated
+    super.swipeAction(topCard: topCard,
+                      direction: direction,
+                      forced: forced,
+                      animated: animated)
   }
 
   var testLoadCard: SwipeCard?

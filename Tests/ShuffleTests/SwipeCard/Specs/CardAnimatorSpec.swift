@@ -46,10 +46,6 @@ class CardAnimatorSpec: QuickSpec {
       card.frame = CGRect(x: 0, y: 0, width: cardWidth, height: cardHeight)
     }
 
-    afterEach {
-      UIView.setAnimationsEnabled(true)
-    }
-
     //MARK: - Main Methods
 
     //MARK: Animate Reset
@@ -58,8 +54,6 @@ class CardAnimatorSpec: QuickSpec {
       let overlay = UIView()
 
       beforeEach {
-        UIView.setAnimationsEnabled(false)
-
         card.transform = CGAffineTransform(a: 1, b: 2, c: 3, d: 4, tx: 5, ty: 6)
         card.testActiveDirection = .left
         card.setOverlay(overlay, forDirection: .left)
@@ -83,10 +77,14 @@ class CardAnimatorSpec: QuickSpec {
     describe("When calling animateReverseSwipe") {
       let overlay = UIView()
 
+      var completionCalled: Bool = false
+      let testCompletion: (Bool) -> Void = { _ in
+        completionCalled = true
+      }
+
       beforeEach {
-        UIView.setAnimationsEnabled(false)
         card.setOverlay(overlay, forDirection: .left)
-        subject.animateReverseSwipe(on: card, from: .left)
+        subject.animateReverseSwipe(on: card, from: .left, completion: testCompletion)
       }
 
       it("should remove all animations on the card") {
@@ -101,17 +99,27 @@ class CardAnimatorSpec: QuickSpec {
         expect(subject.addReverseSwipeAnimationKeyFramesCalled).to(beTrue())
       }
 
-      it("should call the card's reverse swipe completion block once the animation has completed") {
-        expect(card.reverseSwipeCompletionBlockCalled).toEventually(beTrue())
+      it("should call the completion block once the animation has completed") {
+        expect(completionCalled).toEventually(beTrue())
       }
     }
 
     // MARK: Animate Swipe
 
     describe("When calling animateSwipe") {
+      let direction = SwipeDirection.left
+      let forced: Bool = false
+
+      var completionCalled: Bool = false
+      let testCompletion: (Bool) -> Void = { _ in
+        completionCalled = true
+      }
+
       beforeEach {
-        UIView.setAnimationsEnabled(false)
-        subject.animateSwipe(on: card, direction: .left, forced: false)
+        subject.animateSwipe(on: card,
+                             direction: direction,
+                             forced: forced,
+                             completion: testCompletion)
       }
 
       it("should remove all animations on the card") {
@@ -122,8 +130,8 @@ class CardAnimatorSpec: QuickSpec {
         expect(subject.addSwipeAnimationKeyFramesCalled).to(beTrue())
       }
 
-      it("should call the card's swipe completion block once the animation has completed") {
-        expect(card.swipeCompletionBlockCalled).toEventually(beTrue())
+      it("should call completion block once the animation has completed") {
+        expect(completionCalled).toEventually(beTrue())
       }
     }
 
