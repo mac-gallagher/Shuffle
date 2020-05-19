@@ -112,6 +112,8 @@ open class SwipeCard: SwipeView {
   private func initialize() {
     addSubview(overlayContainer)
     overlayContainer.setUserInteraction(false)
+    layer.rasterizationScale = UIScreen.main.scale
+    layer.shouldRasterize = true
   }
 
   // MARK: - Layout

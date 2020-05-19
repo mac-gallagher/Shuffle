@@ -87,6 +87,8 @@ class SwipeCardSpec_Base: QuickSpec {
         expect(card.content).to(beNil())
         expect(card.footer).to(beNil())
         expect(card.touchLocation).to(beNil())
+        expect(card.layer.rasterizationScale).to(equal(UIScreen.main.scale))
+        expect(card.layer.shouldRasterize).to(beTrue())
 
         let overlayContainer = card.subviews.first
         expect(overlayContainer).toNot(beNil())
