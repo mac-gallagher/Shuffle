@@ -39,6 +39,7 @@ class CardStackTransformProvider: CardStackTransformProvidable {
   func backgroundCardDragTransform(for cardStack: SwipeCardStack,
                                    topCard: SwipeCard,
                                    topCardIndex: Int) -> CGAffineTransform {
+    print(#function)
     let percentage = backgroundCardTransformPercentage(for: cardStack, topCard: topCard)
 
     let currentScale = cardStack.scaleFactor(forCardAtIndex: topCardIndex)
@@ -47,12 +48,19 @@ class CardStackTransformProvider: CardStackTransformProvidable {
     let scaleX = (1 - percentage) * currentScale.x + percentage * nextScale.x
     let scaleY = (1 - percentage) * currentScale.y + percentage * nextScale.y
 
+    print(scaleX)
+    print(scaleY)
     return CGAffineTransform(scaleX: scaleX, y: scaleY)
   }
 
   func backgroundCardTransformPercentage(for cardStack: SwipeCardStack, topCard: SwipeCard) -> CGFloat {
+    print(#function)
     let panTranslation = topCard.panGestureRecognizer.translation(in: cardStack)
     let minimumSideLength = min(cardStack.bounds.width, cardStack.bounds.height)
+    
+    print(panTranslation)
+    print(minimumSideLength)
+    
     return max(min(2 * abs(panTranslation.x) / minimumSideLength, 1),
                min(2 * abs(panTranslation.y) / minimumSideLength, 1))
   }
