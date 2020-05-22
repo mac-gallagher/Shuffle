@@ -64,7 +64,7 @@ class CardTransformProvider: CardTransformProvidable {
     print(#function)
     let dragTranslation = card.panGestureRecognizer.translation(in: card)
     let translation = CGAffineTransform(translationX: dragTranslation.x,
-                                        y: dragTranslation.y)
+                                        y: 0)
     let rotation = CGAffineTransform(rotationAngle: rotationAngle(for: card))
     print("drag translation ", dragTranslation)
     print("translation ", translation)
