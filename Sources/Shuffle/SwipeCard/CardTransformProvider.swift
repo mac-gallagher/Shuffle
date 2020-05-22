@@ -61,14 +61,9 @@ class CardTransformProvider: CardTransformProvidable {
   }
 
   func transform(for card: SwipeCard) -> CGAffineTransform {
-    print(#function)
     let dragTranslation = card.panGestureRecognizer.translation(in: card)
-    let translation = CGAffineTransform(translationX: dragTranslation.x,
-                                        y: 0)
+    let translation = card.axis.translation(dragTranslation)
     let rotation = CGAffineTransform(rotationAngle: rotationAngle(for: card))
-    print("drag translation ", dragTranslation)
-    print("translation ", translation)
-    print("ROTATION ", rotation)
     return translation.concatenating(rotation)
   }
 }
