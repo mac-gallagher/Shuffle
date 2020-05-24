@@ -29,36 +29,57 @@ import UIKit
 class MockCardStackAnimator: CardStackAnimatable {
 
   var animateResetCalled: Bool = false
-  func animateReset(_ cardStack: SwipeCardStack, topCard: SwipeCard) {
+  func animateReset(_ cardStack: SwipeCardStack,
+                    topCard: SwipeCard) {
     animateResetCalled = true
   }
 
   var animateShiftCalled: Bool = false
   var animateShiftDistance: Int?
+  var animateShiftAnimated: Bool?
 
-  func animateShift(_ cardStack: SwipeCardStack, withDistance distance: Int) {
+  func animateShift(_ cardStack: SwipeCardStack,
+                    withDistance distance: Int,
+                    animated: Bool,
+                    completion: ((Bool) -> Void)?) {
     animateShiftCalled = true
     animateShiftDistance = distance
+    animateShiftAnimated = animated
+    completion?(true)
   }
 
   var animateSwipeCalled: Bool = false
-  var animateSwipeForced: Bool?
-  var animateSwipeDirection: SwipeDirection?
   var animateSwipeTopCard: SwipeCard?
+  var animateSwipeDirection: SwipeDirection?
+  var animateSwipeForced: Bool?
+  var animateSwipeAnimated: Bool?
 
   func animateSwipe(_ cardStack: SwipeCardStack,
                     topCard: SwipeCard,
                     direction: SwipeDirection,
-                    forced: Bool) {
+                    forced: Bool,
+                    animated: Bool,
+                    completion: ((Bool) -> Void)?) {
     animateSwipeCalled = true
-    animateSwipeForced = forced
-    animateSwipeDirection = direction
     animateSwipeTopCard = topCard
+    animateSwipeDirection = direction
+    animateSwipeForced = forced
+    animateSwipeAnimated = animated
+    completion?(true)
   }
 
   var animateUndoCalled: Bool = false
-  func animateUndo(_ cardStack: SwipeCardStack, topCard: SwipeCard) {
+  var animateUndoTopCard: SwipeCard?
+  var animateUndoAnimated: Bool?
+
+  func animateUndo(_ cardStack: SwipeCardStack,
+                   topCard: SwipeCard,
+                   animated: Bool,
+                   completion: ((Bool) -> Void)?) {
+    animateUndoTopCard = topCard
+    animateUndoAnimated = animated
     animateUndoCalled = true
+    completion?(true)
   }
 
   var removeBackgroundCardAnimationsCalled: Bool = false

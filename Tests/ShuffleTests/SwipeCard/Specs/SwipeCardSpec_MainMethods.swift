@@ -112,16 +112,15 @@ class SwipeCardSpec_MainMethods: QuickSpec {
 
     describe("When calling swipe") {
       let direction: SwipeDirection = .left
-      let animated: Bool = false
 
       beforeEach {
-        subject.swipe(direction: direction, animated: animated)
+        subject.swipe(direction: direction)
       }
 
       it("should call the swipeAction method with the correct parameters") {
+        expect(subject.swipeActionCalled).to(beTrue())
         expect(subject.swipeActionDirection).to(equal(direction))
         expect(subject.swipeActionForced).to(equal(true))
-        expect(subject.swipeActionAnimated).to(equal(animated))
       }
     }
 
@@ -131,54 +130,26 @@ class SwipeCardSpec_MainMethods: QuickSpec {
       let direction: SwipeDirection = .left
       let forced: Bool = false
 
-      context("and animated is true") {
-        beforeEach {
-          subject.swipeAction(direction: direction,
-                              forced: forced,
-                              animated: true)
-        }
-
-        it("should disable the user interaction on the card") {
-          expect(subject.isUserInteractionEnabled).to(beFalse())
-        }
-
-        it("should call the didSwipe delegate method with the correct parameters") {
-          expect(mockSwipeCardDelegate.didSwipeCalled).to(beTrue())
-          expect(mockSwipeCardDelegate.didSwipeDirection).to(equal(direction))
-          expect(mockSwipeCardDelegate.didSwipeForced).to(equal(forced))
-        }
-
-        it("call the animator's swipe method with the correct parameters") {
-          expect(mockCardAnimator.animateSwipeCalled).to(beTrue())
-          expect(mockCardAnimator.animateSwipeDirection).to(equal(direction))
-          expect(mockCardAnimator.animateSwipeForced).to(equal(forced))
-        }
+      beforeEach {
+        subject.swipeAction(direction: direction, forced: forced)
       }
 
-      context("and animated is false") {
-        beforeEach {
-          subject.swipeAction(direction: direction,
-                              forced: forced,
-                              animated: false)
-        }
+      it("should disable the user interaction on the card") {
+        expect(subject.isUserInteractionEnabled).to(beFalse())
+      }
 
-        it("should disable the user interaction on the card") {
-          expect(subject.isUserInteractionEnabled).to(beFalse())
-        }
+      it("should not call the didSwipe delegate method") {
+        expect(mockSwipeCardDelegate.didSwipeCalled).to(beFalse())
+      }
 
-        it("should call the didSwipe delegate method with the correct parameters") {
-          expect(mockSwipeCardDelegate.didSwipeCalled).to(beTrue())
-          expect(mockSwipeCardDelegate.didSwipeDirection).to(equal(direction))
-          expect(mockSwipeCardDelegate.didSwipeForced).to(equal(forced))
-        }
+      it("should call the animator's swipe method with the correct parameters") {
+        expect(mockCardAnimator.animateSwipeCalled).to(beTrue())
+        expect(mockCardAnimator.animateSwipeDirection).to(equal(direction))
+        expect(mockCardAnimator.animateSwipeForced).to(equal(forced))
+      }
 
-        it("should call the card's swipe completion block") {
-          expect(subject.swipeCompletionBlockCalled).to(beTrue())
-        }
-
-        it("should not call the animator's swipe") {
-          expect(mockCardAnimator.animateSwipeCalled).to(beFalse())
-        }
+      it("should invoke the swipe completion block once the animation has completed") {
+        expect(subject.swipeCompletionBlockCalled).to(beTrue())
       }
     }
 
@@ -187,43 +158,22 @@ class SwipeCardSpec_MainMethods: QuickSpec {
     describe("When calling reverseSwipe") {
       let direction: SwipeDirection = .left
 
-      context("and animated is true") {
-        beforeEach {
-          subject.reverseSwipe(from: direction, animated: true)
-        }
-
-        it("should disable user interaction on the card") {
-          expect(subject.isUserInteractionEnabled).to(beFalse())
-        }
-
-        it("should call the reverseSwipe delegate method with the correct parameters") {
-          expect(mockSwipeCardDelegate.didReverseSwipeCalled).to(beTrue())
-          expect(mockSwipeCardDelegate.didReverseSwipeDirection).to(equal(direction))
-        }
-
-        it("should call the animator's reverse swipe method with the correct direction") {
-          expect(mockCardAnimator.animateReverseSwipeCalled).to(beTrue())
-          expect(mockCardAnimator.animateReverseSwipeDirection).to(equal(direction))
-        }
+      beforeEach {
+        subject.testReverseSwipeCompletionBlock = {}
+        subject.reverseSwipe(from: direction)
       }
 
-      context("and animated is false") {
-        beforeEach {
-          subject.reverseSwipe(from: direction, animated: false)
-        }
+      it("should disable user interaction on the card") {
+        expect(subject.isUserInteractionEnabled).to(beFalse())
+      }
 
-        it("should call the reverseSwipe delegate method with the correct parameters") {
-          expect(mockSwipeCardDelegate.didReverseSwipeCalled).to(beTrue())
-          expect(mockSwipeCardDelegate.didReverseSwipeDirection).to(equal(direction))
-        }
+      it("should call the animator's reverse swipe method with the correct direction") {
+        expect(mockCardAnimator.animateReverseSwipeCalled).to(beTrue())
+        expect(mockCardAnimator.animateReverseSwipeDirection).to(equal(direction))
+      }
 
-        it("should not call the animator's reverse swipe method") {
-          expect(mockCardAnimator.animateReverseSwipeCalled).to(beFalse())
-        }
-
-        it("should call the card's reverse swipe completion block") {
-          expect(subject.reverseSwipeCompletionBlockCalled).to(beTrue())
-        }
+      it("should invoke the reverse swipe completion block once the animation has completed") {
+        expect(subject.reverseSwipeCompletionBlockCalled).to(beTrue())
       }
     }
 
@@ -231,7 +181,6 @@ class SwipeCardSpec_MainMethods: QuickSpec {
 
     describe("When calling removeAllAnimations") {
       beforeEach {
-
         // add animation key to card
         UIView.animate(withDuration: 100, animations: {
           subject.alpha = 0
