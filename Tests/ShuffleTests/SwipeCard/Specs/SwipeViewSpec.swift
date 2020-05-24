@@ -22,12 +22,12 @@
 /// SOFTWARE.
 ///
 
-
 import Nimble
 import Quick
 @testable import Shuffle
 import UIKit
 
+// swiftlint:disable closure_body_length function_body_length implicitly_unwrapped_optional
 class SwipeViewSpec: QuickSpec {
 
   override func spec() {
@@ -69,7 +69,7 @@ class SwipeViewSpec: QuickSpec {
       }
 
       func testDefaultProperties() {
-        expect(swipeView.swipeDirections).to(equal(SwipeDirection.allDirections))
+        expect(swipeView.swipeDirections) == SwipeDirection.allDirections
         expect(swipeView.tapGestureRecognizer).toNot(beNil())
         expect(swipeView.panGestureRecognizer).toNot(beNil())
       }
@@ -106,7 +106,7 @@ class SwipeViewSpec: QuickSpec {
         }
 
         it("should return the correct direction") {
-          expect(subject.activeDirection()).to(equal(direction))
+          expect(subject.activeDirection()) == direction
         }
       }
 
@@ -124,7 +124,7 @@ class SwipeViewSpec: QuickSpec {
         }
 
         it("should return the direction with the highest drag percentage") {
-          expect(subject.activeDirection()).to(equal(direction1))
+          expect(subject.activeDirection()) == direction1
         }
       }
     }
@@ -141,7 +141,7 @@ class SwipeViewSpec: QuickSpec {
         }
 
         it("should return a positive drag speed") {
-          expect(subject.dragSpeed(on: direction)).to(beGreaterThan(0))
+          expect(subject.dragSpeed(on: direction)) > 0
         }
       }
     }
@@ -163,7 +163,7 @@ class SwipeViewSpec: QuickSpec {
 
       it("should return the correct drag percentage") {
         let actualPercentage = subject.dragPercentage(on: direction)
-        expect(actualPercentage).to(equal(swipeFactor))
+        expect(actualPercentage) == swipeFactor
       }
     }
 
@@ -171,7 +171,7 @@ class SwipeViewSpec: QuickSpec {
 
     describe("When calling minimumSwipeSpeed") {
       it("should return 1100") {
-        expect(subject.minimumSwipeSpeed(on: .left)).to(equal(1100))
+        expect(subject.minimumSwipeSpeed(on: .left)) == 1100
       }
     }
 
@@ -180,7 +180,7 @@ class SwipeViewSpec: QuickSpec {
     describe("When calling minimumSwipeDistance") {
       it("should return UIScreen.main.bounds.width / 4") {
         let expectedDistance = subject.minimumSwipeDistance(on: .left)
-        expect(expectedDistance).to(equal(UIScreen.main.bounds.width / 4))
+        expect(expectedDistance) == UIScreen.main.bounds.width / 4
       }
     }
 
@@ -192,7 +192,7 @@ class SwipeViewSpec: QuickSpec {
       }
 
       it("should call the didTap method") {
-        expect(subject.didTapCalled).to(beTrue())
+        expect(subject.didTapCalled) == true
       }
     }
 
@@ -209,7 +209,7 @@ class SwipeViewSpec: QuickSpec {
           }
 
           it("should call the beginSwiping method") {
-            expect(subject.beginSwipingCalled).to(beTrue())
+            expect(subject.beginSwipingCalled) == true
           }
         }
       }
@@ -223,7 +223,7 @@ class SwipeViewSpec: QuickSpec {
         }
 
         it("should call the continueSwiping method") {
-          expect(subject.continueSwipingCalled).to(beTrue())
+          expect(subject.continueSwipingCalled) == true
         }
       }
 
@@ -237,7 +237,7 @@ class SwipeViewSpec: QuickSpec {
           }
 
           it("should call the endSwiping method") {
-            expect(subject.endSwipingCalled).to(beTrue())
+            expect(subject.endSwipingCalled) == true
           }
         }
       }
@@ -251,9 +251,9 @@ class SwipeViewSpec: QuickSpec {
         }
 
         it("should call not call any of the swipe methods") {
-          expect(subject.beginSwipingCalled).to(beFalse())
-          expect(subject.continueSwipingCalled).to(beFalse())
-          expect(subject.endSwipingCalled).to(beFalse())
+          expect(subject.beginSwipingCalled) == false
+          expect(subject.continueSwipingCalled) == false
+          expect(subject.endSwipingCalled) == false
         }
       }
     }
@@ -279,14 +279,14 @@ class SwipeViewSpec: QuickSpec {
         }
 
         it("should call the didCancelSwipe method and not the didSwipe method") {
-          expect(subject.didCancelSwipeCalled).to(beTrue())
-          expect(subject.didSwipeCalled).to(beFalse())
+          expect(subject.didCancelSwipeCalled) == true
+          expect(subject.didSwipeCalled) == false
         }
       }
 
       context("and the swipe translation is less than the minimum swipe distance") {
         beforeEach {
-          let translation: CGPoint = CGPoint((minimumSwipeDistance / 2) * direction.vector)
+          let translation = CGPoint((minimumSwipeDistance / 2) * direction.vector)
           testPanGestureRecognizer.performPan(withLocation: nil,
                                               translation: translation,
                                               velocity: nil)
@@ -294,14 +294,14 @@ class SwipeViewSpec: QuickSpec {
         }
 
         it("should call the didCancelSwipe method and not the didSwipe method") {
-          expect(subject.didCancelSwipeCalled).to(beTrue())
-          expect(subject.didSwipeCalled).to(beFalse())
+          expect(subject.didCancelSwipeCalled) == true
+          expect(subject.didSwipeCalled) == false
         }
       }
 
       context("and the swipe translation is at least the minimum swipe distance") {
         beforeEach {
-          let translation: CGPoint = CGPoint(minimumSwipeDistance * direction.vector)
+          let translation = CGPoint(minimumSwipeDistance * direction.vector)
           testPanGestureRecognizer.performPan(withLocation: nil,
                                               translation: translation,
                                               velocity: nil)
@@ -309,19 +309,19 @@ class SwipeViewSpec: QuickSpec {
         }
 
         it("should call the didSwipe method with the correct direction") {
-          expect(subject.didSwipeCalled).to(beTrue())
-          expect(subject.didSwipeDirection).to(equal(direction))
+          expect(subject.didSwipeCalled) == true
+          expect(subject.didSwipeDirection) == direction
         }
 
         it("should not call the didCancelSwipe method") {
-          expect(subject.didCancelSwipeCalled).to(beFalse())
+          expect(subject.didCancelSwipeCalled) == false
         }
       }
 
       context("and the swipe speed is less than the minimum swipe speed") {
         beforeEach {
-          let velocity: CGPoint = CGPoint(x: direction.vector.dx * (minimumSwipeSpeed - 1),
-                                          y: direction.vector.dy * (minimumSwipeSpeed - 1))
+          let velocity = CGPoint(x: direction.vector.dx * (minimumSwipeSpeed - 1),
+                                 y: direction.vector.dy * (minimumSwipeSpeed - 1))
           testPanGestureRecognizer.performPan(withLocation: nil,
                                               translation: CGPoint(direction.vector),
                                               velocity: velocity)
@@ -329,15 +329,15 @@ class SwipeViewSpec: QuickSpec {
         }
 
         it("should call the didCancelSwipe method and not the didSwipe method") {
-          expect(subject.didCancelSwipeCalled).to(beTrue())
-          expect(subject.didSwipeCalled).to(beFalse())
+          expect(subject.didCancelSwipeCalled) == true
+          expect(subject.didSwipeCalled) == false
         }
       }
 
       context("and the swipe speed is at least the minimum swipe speed") {
         beforeEach {
-          let velocity: CGPoint = CGPoint(x: direction.vector.dx * minimumSwipeSpeed,
-                                          y: direction.vector.dy * minimumSwipeSpeed)
+          let velocity = CGPoint(x: direction.vector.dx * minimumSwipeSpeed,
+                                 y: direction.vector.dy * minimumSwipeSpeed)
           testPanGestureRecognizer.performPan(withLocation: nil,
                                               translation: CGPoint(direction.vector),
                                               velocity: velocity)
@@ -345,14 +345,15 @@ class SwipeViewSpec: QuickSpec {
         }
 
         it("should call the didSwipe method with the correct direction") {
-          expect(subject.didSwipeCalled).to(beTrue())
-          expect(subject.didSwipeDirection).to(equal(direction))
+          expect(subject.didSwipeCalled) == true
+          expect(subject.didSwipeDirection) == direction
         }
 
         it("should not call the didCancelSwipe delegate method") {
-          expect(subject.didCancelSwipeCalled).to(beFalse())
+          expect(subject.didCancelSwipeCalled) == false
         }
       }
     }
   }
 }
+// swiftlint:enable closure_body_length function_body_length implicitly_unwrapped_optional

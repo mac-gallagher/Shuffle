@@ -22,7 +22,6 @@
 /// SOFTWARE.
 ///
 
-
 @testable import Shuffle
 import UIKit
 

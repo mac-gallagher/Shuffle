@@ -22,14 +22,16 @@
 /// SOFTWARE.
 ///
 
-
 import Nimble
 import Quick
 @testable import Shuffle
 import UIKit
 
+// swiftlint:disable closure_body_length implicitly_unwrapped_optional
+// swiftlint:disable:next type_body_length
 class SwipeCardStackSpec_MainMethods: QuickSpec {
 
+  // swiftlint:disable:next function_body_length
   override func spec() {
     var mockAnimator: MockCardStackAnimator!
     var mockDelegate: MockSwipeCardStackDelegate!
@@ -58,7 +60,7 @@ class SwipeCardStackSpec_MainMethods: QuickSpec {
         }
 
         it("should not call swipeAction") {
-          expect(subject.swipeActionCalled).to(beFalse())
+          expect(subject.swipeActionCalled) == false
         }
       }
 
@@ -77,8 +79,8 @@ class SwipeCardStackSpec_MainMethods: QuickSpec {
 
           if animated {
             it("should call the top card's swipe method with the correct direction") {
-              expect(topCard.swipeCalled).to(beTrue())
-              expect(topCard.swipeDirection).to(equal(direction))
+              expect(topCard.swipeCalled) == true
+              expect(topCard.swipeDirection) == direction
             }
           } else {
             it("remove the topCard from it's superview") {
@@ -87,9 +89,9 @@ class SwipeCardStackSpec_MainMethods: QuickSpec {
           }
 
           it("should call swipeAction with the correct parameters") {
-            expect(subject.swipeActionCalled).to(beTrue())
-            expect(subject.swipeActionDirection).to(equal(direction))
-            expect(subject.swipeActionForced).to(beTrue())
+            expect(subject.swipeActionCalled) == true
+            expect(subject.swipeActionDirection) == direction
+            expect(subject.swipeActionForced) == true
           }
         }
       }
@@ -114,11 +116,11 @@ class SwipeCardStackSpec_MainMethods: QuickSpec {
         }
 
         it("it should not call the didSwipeCardAtDelegate method") {
-          expect(mockDelegate.didSwipeCardAtCalled).to(beFalse())
+          expect(mockDelegate.didSwipeCardAtCalled) == false
         }
 
         it("it should not call the animator's animateSwipe method") {
-          expect(mockAnimator.animateSwipeCalled).to(beFalse())
+          expect(mockAnimator.animateSwipeCalled) == false
         }
       }
 
@@ -148,18 +150,18 @@ class SwipeCardStackSpec_MainMethods: QuickSpec {
           testSwipeAction()
 
           it("should not call the didSwipeAllCards delegate method") {
-            expect(mockDelegate.didSwipeAllCardsCalled).to(beFalse())
+            expect(mockDelegate.didSwipeAllCardsCalled) == false
           }
 
           it("should load the card from the correct data source index") {
-            expect(subject.loadCardCalled).to(beTrue())
-            expect(subject.loadCardCalledIndex).to(equal(remainingIndices[numberOfVisibleCards - 1]))
+            expect(subject.loadCardCalled) == true
+            expect(subject.loadCardCalledIndex) == remainingIndices[numberOfVisibleCards - 1]
           }
 
           it("should insert the loaded card at the correct index in the card stack") {
-            expect(subject.insertCardCalled).to(beTrue())
-            expect(subject.insertCardCard).to(equal(testLoadCard))
-            expect(subject.insertCardIndex).to(equal(numberOfVisibleCards - 1))
+            expect(subject.insertCardCalled) == true
+            expect(subject.insertCardCard) == testLoadCard
+            expect(subject.insertCardIndex) == numberOfVisibleCards - 1
           }
         }
 
@@ -177,11 +179,11 @@ class SwipeCardStackSpec_MainMethods: QuickSpec {
           testSwipeAction()
 
           it("should not call the didSwipeAllCards delegate method") {
-            expect(mockDelegate.didSwipeAllCardsCalled).to(beFalse())
+            expect(mockDelegate.didSwipeAllCardsCalled) == false
           }
 
           it("not load a new card") {
-            expect(subject.loadCardCalled).to(beFalse())
+            expect(subject.loadCardCalled) == false
           }
         }
 
@@ -197,40 +199,40 @@ class SwipeCardStackSpec_MainMethods: QuickSpec {
           }
 
           it("should call the didSwipeAllCards delegate method") {
-            expect(mockDelegate.didSwipeAllCardsCalled).to(beTrue())
+            expect(mockDelegate.didSwipeAllCardsCalled) == true
           }
         }
 
         func testSwipeAction() {
           it("should call the didSwipeCardAt delegate method with the correct parameters") {
-            expect(mockDelegate.didSwipeCardAtCalled).to(beTrue())
-            expect(mockDelegate.didSwipeCardAtIndex).to(equal(topCardIndex))
-            expect(mockDelegate.didSwipeCardAtDirection).to(equal(direction))
+            expect(mockDelegate.didSwipeCardAtCalled) == true
+            expect(mockDelegate.didSwipeCardAtIndex) == topCardIndex
+            expect(mockDelegate.didSwipeCardAtDirection) == direction
           }
 
           it("should call the state manager's swipe method with the correct direction") {
-            expect(mockStateManager.swipeCalled).to(beTrue())
-            expect(mockStateManager.swipeDirection).to(equal(direction))
+            expect(mockStateManager.swipeCalled) == true
+            expect(mockStateManager.swipeDirection) == direction
           }
 
           it("should remove the top card from visibleCards") {
-            expect(subject.visibleCards.contains(topCard)).to(beFalse())
+            expect(subject.visibleCards.contains(topCard)) == false
           }
 
           it("should disable user interaction") {
-            expect(subject.isUserInteractionEnabled).to(beFalse())
+            expect(subject.isUserInteractionEnabled) == false
           }
 
           it("should call the animator's swipe method with the correct parameters") {
-            expect(mockAnimator.animateSwipeCalled).to(beTrue())
-            expect(mockAnimator.animateSwipeTopCard).to(equal(topCard))
-            expect(mockAnimator.animateSwipeForced).to(equal(forced))
-            expect(mockAnimator.animateSwipeAnimated).to(equal(animated))
-            expect(mockAnimator.animateSwipeDirection).to(equal(direction))
+            expect(mockAnimator.animateSwipeCalled) == true
+            expect(mockAnimator.animateSwipeTopCard) == topCard
+            expect(mockAnimator.animateSwipeForced) == forced
+            expect(mockAnimator.animateSwipeAnimated) == animated
+            expect(mockAnimator.animateSwipeDirection) == direction
           }
 
           it("should call the swipeCompletionBlock once the animation has completed") {
-            expect(subject.swipeCompletionBlockCalled).to(beTrue())
+            expect(subject.swipeCompletionBlockCalled) == true
           }
         }
       }
@@ -285,33 +287,33 @@ class SwipeCardStackSpec_MainMethods: QuickSpec {
             }
 
             it("should disable user interaction") {
-              expect(subject.isUserInteractionEnabled).to(beFalse())
+              expect(subject.isUserInteractionEnabled) == false
             }
 
             it("should call the reloadVisibleCards method") {
-              expect(subject.reloadVisibleCardsCalled).to(beTrue())
+              expect(subject.reloadVisibleCardsCalled) == true
             }
 
             it("should call the didUndoCardAt delegate method with the correct parameters") {
-              expect(mockDelegate.didUndoCardAtCalled).to(beTrue())
-              expect(mockDelegate.didUndoCardAtIndex).to(equal(previousSwipeIndex))
-              expect(mockDelegate.didUndoCardAtDirection).to(equal(previousSwipeDirection))
+              expect(mockDelegate.didUndoCardAtCalled) == true
+              expect(mockDelegate.didUndoCardAtIndex) == previousSwipeIndex
+              expect(mockDelegate.didUndoCardAtDirection) == previousSwipeDirection
             }
 
             it("should call the animator's animateUndo method with the correct parameters") {
-              expect(mockAnimator.animateUndoCalled).to(beTrue())
-              expect(mockAnimator.animateUndoTopCard).to(equal(topCard))
-              expect(mockAnimator.animateUndoAnimated).to(equal(animated))
+              expect(mockAnimator.animateUndoCalled) == true
+              expect(mockAnimator.animateUndoTopCard) == topCard
+              expect(mockAnimator.animateUndoAnimated) == animated
             }
 
             if animated {
               it("should call the reverseSwipe method on the new topCard with the correct parameters") {
-                expect(topCard.reverseSwipeCalled).to(beTrue())
-                expect(topCard.reverseSwipeDirection).to(equal(previousSwipeDirection))
+                expect(topCard.reverseSwipeCalled) == true
+                expect(topCard.reverseSwipeDirection) == previousSwipeDirection
               }
 
               it("should invoke the undoCompletionBlock once the animation has completed") {
-                expect(subject.undoCompletionBlockCalled).to(beTrue())
+                expect(subject.undoCompletionBlockCalled) == true
               }
             }
           }
@@ -319,9 +321,9 @@ class SwipeCardStackSpec_MainMethods: QuickSpec {
       }
 
       func testNoUndoAction() {
-        expect(mockDelegate.didUndoCardAtCalled).to(beFalse())
-        expect(subject.reloadVisibleCardsCalled).to(beFalse())
-        expect(topCard.reverseSwipeCalled).to(beFalse())
+        expect(mockDelegate.didUndoCardAtCalled) == false
+        expect(subject.reloadVisibleCardsCalled) == false
+        expect(topCard.reverseSwipeCalled) == false
       }
     }
 
@@ -378,35 +380,35 @@ class SwipeCardStackSpec_MainMethods: QuickSpec {
             subject.shift(withDistance: distance, animated: animated)
           }
 
-          it ("should disable user interaction") {
-            expect(subject.isUserInteractionEnabled).to(beFalse())
+          it("should disable user interaction") {
+            expect(subject.isUserInteractionEnabled) == false
           }
 
           it("should call the state manager's shift method with the correct distance") {
-            expect(mockStateManager.shiftCalled).to(beTrue())
-            expect(mockStateManager.shiftDistance).to(equal(distance))
+            expect(mockStateManager.shiftCalled) == true
+            expect(mockStateManager.shiftDistance) == distance
           }
 
           it("it should call the reloadVisibleCards method") {
-            expect(subject.reloadVisibleCardsCalled).to(beTrue())
+            expect(subject.reloadVisibleCardsCalled) == true
           }
 
           it("should call the animator's shift method with the correct parameters") {
-            expect(mockAnimator.animateShiftCalled).to(beTrue())
-            expect(mockAnimator.animateShiftDistance).to(equal(distance))
-            expect(mockAnimator.animateShiftAnimated).to(equal(animated))
+            expect(mockAnimator.animateShiftCalled) == true
+            expect(mockAnimator.animateShiftDistance) == distance
+            expect(mockAnimator.animateShiftAnimated) == animated
           }
 
           it("should call the shiftCompletionBlock once the animation has completed") {
-            expect(subject.shiftCompletionBlockCalled).to(beTrue())
+            expect(subject.shiftCompletionBlockCalled) == true
           }
         }
       }
     }
 
     func testNoShiftAction() {
-      expect(subject.reloadVisibleCardsCalled).to(beFalse())
-      expect(mockAnimator.animateShiftCalled).to(beFalse())
+      expect(subject.reloadVisibleCardsCalled) == false
+      expect(mockAnimator.animateShiftCalled) == false
     }
 
     // MARK: - Data Source
@@ -424,11 +426,11 @@ class SwipeCardStackSpec_MainMethods: QuickSpec {
         }
 
         it("should not call the reloadVisibleCards method") {
-          expect(subject.reloadVisibleCardsCalled).to(beFalse())
+          expect(subject.reloadVisibleCardsCalled) == false
         }
 
         it("should not call the reset method on the state manager") {
-          expect(mockStateManager.resetCalled).to(beFalse())
+          expect(mockStateManager.resetCalled) == false
         }
       }
 
@@ -446,20 +448,20 @@ class SwipeCardStackSpec_MainMethods: QuickSpec {
         }
 
         it("should retrieve the number of cards from the dataSource") {
-          expect(mockDataSource.numberOfCardsCalled).to(beTrue())
+          expect(mockDataSource.numberOfCardsCalled) == true
         }
 
         it("should call the reset method on the state manager with the correct number cards") {
-          expect(mockStateManager.resetCalled).to(beTrue())
-          expect(mockStateManager.resetNumberOfCards).to(equal(numberOfCards))
+          expect(mockStateManager.resetCalled) == true
+          expect(mockStateManager.resetNumberOfCards) == numberOfCards
         }
 
         it("should call the reloadVisibleCards method") {
-          expect(subject.reloadVisibleCardsCalled).to(beTrue())
+          expect(subject.reloadVisibleCardsCalled) == true
         }
 
         it("should enable user interaction on the card stack") {
-          expect(subject.isUserInteractionEnabled).to(beTrue())
+          expect(subject.isUserInteractionEnabled) == true
         }
       }
     }
@@ -477,29 +479,29 @@ class SwipeCardStackSpec_MainMethods: QuickSpec {
       let card = SwipeCard()
       let index: Int = 3
 
-      var cardContainer: UIView!
+      var cardContainer: UIView?
 
       beforeEach {
-        cardContainer = subject.subviews.first!
+        cardContainer = subject.subviews.first
         for _ in 0..<numberOfCards {
-          cardContainer.addSubview(SwipeCard())
+          cardContainer?.addSubview(SwipeCard())
           subject.visibleCards.append(SwipeCard())
         }
         subject.insertCard(card, at: index)
       }
 
       it("should insert the card at the correct level in the card container's view hierarchy") {
-        expect(cardContainer.subviews[numberOfCards - index]).to(equal(card))
+        expect(cardContainer?.subviews[numberOfCards - index]) == card
       }
 
       it("should call layoutCard with the correct parameters") {
-        expect(subject.layoutCardCalled).to(beTrue())
-        expect(subject.layoutCardIndices).to(equal([index]))
-        expect(subject.layoutCardCards).to(equal([card]))
+        expect(subject.layoutCardCalled) == true
+        expect(subject.layoutCardIndices) == [index]
+        expect(subject.layoutCardCards) == [card]
       }
 
       it("should insert the card at the correct index of the visibleCard variable") {
-        expect(subject.visibleCards[index]).to(equal(card))
+        expect(subject.visibleCards[index]) == card
       }
     }
 
@@ -530,7 +532,7 @@ class SwipeCardStackSpec_MainMethods: QuickSpec {
           expect(actualCard?.delegate).to(be(subject))
 
           let expectedCard = dataSource.testCards[index]
-          expect(actualCard).to(equal(expectedCard))
+          expect(actualCard) == expectedCard
         }
       }
     }
@@ -569,3 +571,4 @@ class SwipeCardStackSpec_MainMethods: QuickSpec {
     }
   }
 }
+// swiftlint:enable closure_body_length implicitly_unwrapped_optional

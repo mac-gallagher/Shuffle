@@ -22,7 +22,6 @@
 /// SOFTWARE.
 ///
 
-
 import Shuffle
 import UIKit
 
@@ -49,26 +48,27 @@ class TinderCardOverlay: UIView {
   private func createLeftOverlay() {
     let leftTextView = TinderCardOverlayLabelView(withTitle: "NOPE",
                                                   color: .sampleRed,
-                                                  rotation: CGFloat.pi/10)
+                                                  rotation: CGFloat.pi / 10)
     addSubview(leftTextView)
     leftTextView.anchor(top: topAnchor,
                         right: rightAnchor,
-                        paddingTop: 30, paddingRight: 14)
+                        paddingTop: 30,
+                        paddingRight: 14)
   }
 
   private func createUpOverlay() {
     let upTextView = TinderCardOverlayLabelView(withTitle: "LOVE",
                                                 color: .sampleBlue,
-                                                rotation: -CGFloat.pi/20)
+                                                rotation: -CGFloat.pi / 20)
     addSubview(upTextView)
     upTextView.anchor(bottom: bottomAnchor, paddingBottom: 20)
     upTextView.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
   }
-  
+
   private func createRightOverlay() {
     let rightTextView = TinderCardOverlayLabelView(withTitle: "LIKE",
                                                    color: .sampleGreen,
-                                                   rotation: -CGFloat.pi/10)
+                                                   rotation: -CGFloat.pi / 10)
     addSubview(rightTextView)
     rightTextView.anchor(top: topAnchor,
                          left: leftAnchor,
@@ -78,7 +78,7 @@ class TinderCardOverlay: UIView {
 }
 
 private class TinderCardOverlayLabelView: UIView {
-  
+
   private let titleLabel: UILabel = {
     let label = UILabel()
     label.textAlignment = .center
@@ -112,13 +112,14 @@ private class TinderCardOverlayLabelView: UIView {
 extension NSAttributedString.Key {
 
   static var overlayAttributes: [NSAttributedString.Key: Any] = [
+    // swiftlint:disable:next force_unwrapping
     NSAttributedString.Key.font: UIFont(name: "HelveticaNeue-Bold", size: 42)!,
     NSAttributedString.Key.kern: 5.0
   ]
 }
 
 extension UIColor {
-  static var sampleRed = UIColor(red: 252/255, green: 70/255, blue: 93/255, alpha: 1)
-  static var sampleGreen = UIColor(red: 49/255, green: 193/255, blue: 109/255, alpha: 1)
-  static var sampleBlue = UIColor(red: 52/255, green: 154/255, blue: 254/255, alpha: 1)
+  static var sampleRed = UIColor(red: 252 / 255, green: 70 / 255, blue: 93 / 255, alpha: 1)
+  static var sampleGreen = UIColor(red: 49 / 255, green: 193 / 255, blue: 109 / 255, alpha: 1)
+  static var sampleBlue = UIColor(red: 52 / 255, green: 154 / 255, blue: 254 / 255, alpha: 1)
 }

@@ -22,7 +22,6 @@
 /// SOFTWARE.
 ///
 
-
 @testable import Shuffle
 import UIKit
 
@@ -38,6 +37,7 @@ class TestableSwipeCardStack: SwipeCardStack {
     return testTopCard ?? super.topCard
   }
 
+  // swiftlint:disable:next discouraged_optional_collection
   var testBackgroundCards: [SwipeCard]?
   override var backgroundCards: [SwipeCard] {
     return testBackgroundCards ?? super.backgroundCards

@@ -22,7 +22,6 @@
 /// SOFTWARE.
 ///
 
-
 import UIKit
 
 protocol CardTransformProvidable {
@@ -35,10 +34,10 @@ protocol CardTransformProvidable {
 class CardTransformProvider: CardTransformProvidable {
 
   static var shared = CardTransformProvider()
-  
+
   func overlayPercentage(for card: SwipeCard, direction: SwipeDirection) -> CGFloat {
     if direction != card.activeDirection() { return 0 }
-    let totalPercentage = card.swipeDirections.reduce(0) { (sum, direction) in
+    let totalPercentage = card.swipeDirections.reduce(0) { sum, direction in
       return sum + card.dragPercentage(on: direction)
     }
     let actualPercentage = 2 * card.dragPercentage(on: direction) - totalPercentage

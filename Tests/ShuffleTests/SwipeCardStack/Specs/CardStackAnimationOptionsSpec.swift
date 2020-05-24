@@ -22,12 +22,12 @@
 /// SOFTWARE.
 ///
 
-
 import Nimble
 import Quick
 @testable import Shuffle
 import UIKit
 
+// swiftlint:disable implicitly_unwrapped_optional
 class CardStackAnimationOptionsSpec: QuickSpec {
 
   override func spec() {
@@ -42,7 +42,7 @@ class CardStackAnimationOptionsSpec: QuickSpec {
 
       it("should have the correct default properties") {
         expect(subject.resetDuration).to(beNil())
-        expect(subject.shiftDuration).to(equal(0.1))
+        expect(subject.shiftDuration) == 0.1
         expect(subject.swipeDuration).to(beNil())
         expect(subject.undoDuration).to(beNil())
       }
@@ -56,7 +56,7 @@ class CardStackAnimationOptionsSpec: QuickSpec {
       }
 
       it("should return zero") {
-        expect(subject.resetDuration).to(equal(0))
+        expect(subject.resetDuration) == 0
       }
     }
 
@@ -68,7 +68,7 @@ class CardStackAnimationOptionsSpec: QuickSpec {
       }
 
       it("should return zero") {
-        expect(subject.shiftDuration).to(equal(0))
+        expect(subject.shiftDuration) == 0
       }
     }
 
@@ -80,7 +80,7 @@ class CardStackAnimationOptionsSpec: QuickSpec {
       }
 
       it("should return zero") {
-        expect(subject.swipeDuration).to(equal(0))
+        expect(subject.swipeDuration) == 0
       }
     }
 
@@ -90,10 +90,11 @@ class CardStackAnimationOptionsSpec: QuickSpec {
       beforeEach {
         subject = CardStackAnimationOptions(undoDuration: -0.5)
       }
-      
+
       it("should return zero") {
-        expect(subject.undoDuration).to(equal(0))
+        expect(subject.undoDuration) == 0
       }
     }
   }
 }
+// swiftlint:enable implicitly_unwrapped_optional

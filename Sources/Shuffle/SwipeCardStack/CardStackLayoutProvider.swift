@@ -22,7 +22,6 @@
 /// SOFTWARE.
 ///
 
-
 import UIKit
 
 protocol CardStackLayoutProvidable {
@@ -33,7 +32,7 @@ protocol CardStackLayoutProvidable {
 class CardStackLayoutProvider: CardStackLayoutProvidable {
 
   static let shared = CardStackLayoutProvider()
-  
+
   func createCardContainerFrame(for cardStack: SwipeCardStack) -> CGRect {
     let insets = cardStack.cardStackInsets
     let width = cardStack.bounds.width - (insets.left + insets.right)

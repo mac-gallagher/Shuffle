@@ -22,10 +22,9 @@
 /// SOFTWARE.
 ///
 
-
 import Foundation
 
-protocol SwipeCardDelegate: class {
+protocol SwipeCardDelegate: AnyObject {
   func card(didBeginSwipe card: SwipeCard)
   func card(didCancelSwipe card: SwipeCard)
   func card(didContinueSwipe card: SwipeCard)

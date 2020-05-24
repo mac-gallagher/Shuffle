@@ -22,11 +22,10 @@
 /// SOFTWARE.
 ///
 
-
 import UIKit
 
 /// A wrapper around the UIView animate methods.
-struct Animator {
+enum Animator {
 
   static func addKeyFrame(withRelativeStartTime relativeStartTime: Double = 0.0,
                           relativeDuration: Double = 1.0,

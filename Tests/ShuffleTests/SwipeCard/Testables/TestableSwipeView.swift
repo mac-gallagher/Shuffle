@@ -22,7 +22,6 @@
 /// SOFTWARE.
 ///
 
-
 @testable import Shuffle
 import UIKit
 
@@ -34,7 +33,7 @@ class TestableSwipeView: SwipeView {
   override func minimumSwipeSpeed(on direction: SwipeDirection) -> CGFloat {
     return minSwipeSpeed ?? super.minimumSwipeSpeed(on: direction)
   }
-  
+
   var minSwipeDistance: CGFloat?
   override func minimumSwipeDistance(on direction: SwipeDirection) -> CGFloat {
     return minSwipeDistance ?? super.minimumSwipeDistance(on: direction)

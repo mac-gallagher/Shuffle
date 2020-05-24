@@ -22,7 +22,6 @@
 /// SOFTWARE.
 ///
 
-
 @testable import Shuffle
 import UIKit
 
@@ -33,7 +32,7 @@ class TestableSwipeCard: SwipeCard {
     return testTouchLocation ?? super.touchLocation
   }
 
-  //MARK: - Completion Blocks
+  // MARK: - Completion Blocks
 
   var swipeCompletionBlockCalled: Bool = false
   override var swipeCompletionBlock: () -> Void {

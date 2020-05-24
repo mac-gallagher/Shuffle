@@ -22,7 +22,6 @@
 /// SOFTWARE.
 ///
 
-
 import CoreGraphics
 
 extension CGPoint {

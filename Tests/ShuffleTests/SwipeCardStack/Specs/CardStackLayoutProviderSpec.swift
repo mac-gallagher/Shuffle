@@ -22,12 +22,12 @@
 /// SOFTWARE.
 ///
 
-
 import Nimble
 import Quick
 @testable import Shuffle
 import UIKit
 
+// swiftlint:disable implicitly_unwrapped_optional
 class CardStackLayoutProviderSpec: QuickSpec {
 
   override func spec() {
@@ -45,9 +45,7 @@ class CardStackLayoutProviderSpec: QuickSpec {
                                  stateManager: MockCardStackStateManager(),
                                  transformProvider: MockCardStackTransformProvider())
       cardStack.cardStackInsets = insets
-      cardStack.frame = CGRect(x: 0, y: 0,
-                               width: cardStackWidth,
-                               height: cardStackHeight)
+      cardStack.frame = CGRect(x: 0, y: 0, width: cardStackWidth, height: cardStackHeight)
 
       subject = CardStackLayoutProvider()
     }
@@ -63,7 +61,7 @@ class CardStackLayoutProviderSpec: QuickSpec {
                                    width: expectedWidth,
                                    height: expectedHeight)
         let actualFrame = subject.createCardContainerFrame(for: cardStack)
-        expect(actualFrame).to(equal(expectedFrame))
+        expect(actualFrame) == expectedFrame
       }
     }
 
@@ -73,12 +71,14 @@ class CardStackLayoutProviderSpec: QuickSpec {
       it("should return the correct frame") {
         let expectedWidth = cardStackWidth - (insets.left + insets.right)
         let expectedHeight = cardStackHeight - (insets.top + insets.bottom)
-        let expectedFrame = CGRect(x: 0, y: 0,
+        let expectedFrame = CGRect(x: 0,
+                                   y: 0,
                                    width: expectedWidth,
                                    height: expectedHeight)
         let actualFrame = subject.createCardFrame(for: cardStack)
-        expect(actualFrame).to(equal(expectedFrame))
+        expect(actualFrame) == expectedFrame
       }
     }
   }
 }
+// swiftlint:enable implicitly_unwrapped_optional
