@@ -63,14 +63,4 @@ class MockSwipeCardStackDelegate: SwipeCardStackDelegate {
   func didSwipeAllCards(_ cardStack: SwipeCardStack) {
     didSwipeAllCardsCalled = true
   }
-
-  var testShouldRecognizeHorizontalDrag = true
-  func shouldRecognizeHorizontalDrag(on cardStack: SwipeCardStack) -> Bool {
-    return testShouldRecognizeHorizontalDrag
-  }
-
-  var testShouldRecognizeVerticalDrag = true
-  func shouldRecognizeVerticalDrag(on cardStack: SwipeCardStack) -> Bool {
-    return testShouldRecognizeVerticalDrag
-  }
 }
