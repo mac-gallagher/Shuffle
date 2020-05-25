@@ -68,28 +68,10 @@ open class SwipeCardStack: UIView, SwipeCardDelegate, UIGestureRecognizerDelegat
   }
 
   var isEnabled: Bool {
-    return isUserInteractionEnabled && (topCard?.isUserInteractionEnabled ?? true)
+    return !isAnimating && (topCard?.isUserInteractionEnabled ?? true)
   }
 
-  // MARK: - Completion Blocks
-
-  var swipeCompletionBlock: () -> Void {
-    return { [weak self] in
-      self?.isUserInteractionEnabled = true
-    }
-  }
-
-  var undoCompletionBlock: () -> Void {
-    return { [weak self] in
-      self?.isUserInteractionEnabled = true
-    }
-  }
-
-  var shiftCompletionBlock: () -> Void {
-    return { [weak self] in
-      self?.isUserInteractionEnabled = true
-    }
-  }
+  var isAnimating: Bool = false
 
   private var animator: CardStackAnimatable = CardStackAnimator.shared
   private var layoutProvider: CardStackLayoutProvidable = CardStackLayoutProvider.shared
@@ -205,13 +187,9 @@ open class SwipeCardStack: UIView, SwipeCardDelegate, UIGestureRecognizerDelegat
                    direction: SwipeDirection,
                    forced: Bool,
                    animated: Bool) {
-    guard let topCardIndex = topCardIndex else { return }
-
-    delegate?.cardStack?(self, didSwipeCardAt: topCardIndex, with: direction)
+    guard let swipedIndex = topCardIndex else { return }
     stateManager.swipe(direction)
     visibleCards.remove(at: 0)
-
-    isUserInteractionEnabled = false
 
     // insert new card if needed
     if (stateManager.remainingIndices.count - visibleCards.count) > 0 {
@@ -219,19 +197,23 @@ open class SwipeCardStack: UIView, SwipeCardDelegate, UIGestureRecognizerDelegat
       if let card = loadCard(at: bottomCardIndex) {
         insertCard(card, at: visibleCards.count)
       }
-    } else if stateManager.remainingIndices.isEmpty {
+    }
+
+    delegate?.cardStack?(self, didSwipeCardAt: swipedIndex, with: direction)
+
+    if stateManager.remainingIndices.isEmpty {
       delegate?.didSwipeAllCards?(self)
-      swipeCompletionBlock()
       return
     }
 
+    isAnimating = true
     animator.animateSwipe(self,
                           topCard: topCard,
                           direction: direction,
                           forced: forced,
                           animated: animated) { [weak self] finished in
                             if finished {
-                              self?.swipeCompletionBlock()
+                              self?.isAnimating = false
                             }
     }
   }
@@ -241,19 +223,19 @@ open class SwipeCardStack: UIView, SwipeCardDelegate, UIGestureRecognizerDelegat
     guard let previousSwipe = stateManager.undoSwipe() else { return }
 
     reloadVisibleCards()
-    isUserInteractionEnabled = false
     delegate?.cardStack?(self, didUndoCardAt: previousSwipe.index, from: previousSwipe.direction)
 
     if animated {
       topCard?.reverseSwipe(from: previousSwipe.direction)
     }
 
+    isAnimating = true
     if let topCard = topCard {
       animator.animateUndo(self,
                            topCard: topCard,
                            animated: animated) { [weak self] finished in
                             if finished {
-                              self?.undoCompletionBlock()
+                              self?.isAnimating = false
                             }
       }
     }
@@ -262,16 +244,15 @@ open class SwipeCardStack: UIView, SwipeCardDelegate, UIGestureRecognizerDelegat
   public func shift(withDistance distance: Int = 1, animated: Bool) {
     if !isEnabled || distance == 0 || visibleCards.count <= 1 { return }
 
-    isUserInteractionEnabled = false
-
     stateManager.shift(withDistance: distance)
     reloadVisibleCards()
 
+    isAnimating = true
     animator.animateShift(self,
                           withDistance: distance,
                           animated: animated) { [weak self] finished in
                             if finished {
-                              self?.shiftCompletionBlock()
+                              self?.isAnimating = false
                             }
     }
   }
@@ -283,7 +264,7 @@ open class SwipeCardStack: UIView, SwipeCardDelegate, UIGestureRecognizerDelegat
     let numberOfCards = dataSource.numberOfCards(in: self)
     stateManager.reset(withNumberOfCards: numberOfCards)
     reloadVisibleCards()
-    isUserInteractionEnabled = true
+    isAnimating = false
   }
 
   func reloadVisibleCards() {

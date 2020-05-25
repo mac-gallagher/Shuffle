@@ -189,10 +189,10 @@ class SwipeCardStackSpec_Base: QuickSpec {
 
     // MARK: Is Enabled
 
-    for isUserInteractionEnabled in [false, true] {
+    for isAnimating in [false, true] {
       describe("When getting isEnabled") {
         beforeEach {
-          subject.isUserInteractionEnabled = isUserInteractionEnabled
+          subject.isAnimating = isAnimating
         }
 
         context("and there is no top card") {
@@ -200,8 +200,8 @@ class SwipeCardStackSpec_Base: QuickSpec {
             subject.testTopCard = nil
           }
 
-          it("should return isUserInteractionEnabled") {
-            expect(subject.isEnabled) == isUserInteractionEnabled
+          it("should return !isAnimating") {
+            expect(subject.isEnabled) == !isAnimating
           }
         }
 
@@ -227,50 +227,11 @@ class SwipeCardStackSpec_Base: QuickSpec {
               topCard.isUserInteractionEnabled = true
             }
 
-            it("should return isUserInteractionEnabled") {
-              expect(subject.isEnabled) == isUserInteractionEnabled
+            it("should return !isAnimating") {
+              expect(subject.isEnabled) == !isAnimating
             }
           }
         }
-      }
-    }
-
-    // MARK: Swipe Completion Block
-
-    describe("When the swipe completion block is called") {
-      beforeEach {
-        subject.isUserInteractionEnabled = false
-        subject.swipeCompletionBlock()
-      }
-
-      it("should enable user interaction on the card stack") {
-        expect(subject.isUserInteractionEnabled) == true
-      }
-    }
-
-    // MARK: Undo Completion Block
-
-    describe("When the undo completion block is called") {
-      beforeEach {
-        subject.isUserInteractionEnabled = false
-        subject.undoCompletionBlock()
-      }
-
-      it("should enable user interaction on the card stack") {
-        expect(subject.isUserInteractionEnabled) == true
-      }
-    }
-
-    // MARK: Shift Completion Block
-
-    describe("When the shift completion block is called") {
-      beforeEach {
-        subject.isUserInteractionEnabled = false
-        subject.shiftCompletionBlock()
-      }
-
-      it("should enable user interaction on the card stack") {
-        expect(subject.isUserInteractionEnabled) == true
       }
     }
 
