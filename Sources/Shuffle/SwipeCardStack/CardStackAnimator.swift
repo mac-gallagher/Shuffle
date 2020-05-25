@@ -22,7 +22,6 @@
 /// SOFTWARE.
 ///
 
-
 import Foundation
 
 protocol CardStackAnimatable {
@@ -115,7 +114,7 @@ class CardStackAnimator: CardStackAnimatable {
                                  forced: forced)
 
     // no background cards left to animate, so we instead just delay calling the completion block
-    if cardStack.visibleCards.count == 0 {
+    if cardStack.visibleCards.isEmpty {
       DispatchQueue.main.asyncAfter(deadline: .now() + delay + duration) {
         completion?(true)
       }
@@ -165,21 +164,21 @@ class CardStackAnimator: CardStackAnimatable {
 
   // MARK: - Animation Keyframes
 
-  func addCancelSwipeAnimationKeyFrames(_ cardStack: SwipeCardStack) -> Void {
+  func addCancelSwipeAnimationKeyFrames(_ cardStack: SwipeCardStack) {
     for (index, card) in cardStack.backgroundCards.enumerated() {
       let transform = cardStack.transform(forCardAtIndex: index + 1)
       Animator.addTransformKeyFrame(to: card, transform: transform)
     }
   }
 
-  func addShiftAnimationKeyFrames(_ cardStack: SwipeCardStack) -> Void {
+  func addShiftAnimationKeyFrames(_ cardStack: SwipeCardStack) {
     for (index, card) in cardStack.visibleCards.enumerated() {
       let transform = cardStack.transform(forCardAtIndex: index)
       Animator.addTransformKeyFrame(to: card, transform: transform)
     }
   }
 
-  func addSwipeAnimationKeyFrames(_ cardStack: SwipeCardStack) -> Void {
+  func addSwipeAnimationKeyFrames(_ cardStack: SwipeCardStack) {
     for (index, card) in cardStack.visibleCards.enumerated() {
       Animator.addKeyFrame {
         cardStack.layoutCard(card, at: index)
@@ -187,7 +186,7 @@ class CardStackAnimator: CardStackAnimatable {
     }
   }
 
-  func addUndoAnimationKeyFrames(_ cardStack: SwipeCardStack) -> Void {
+  func addUndoAnimationKeyFrames(_ cardStack: SwipeCardStack) {
     for (index, card) in cardStack.backgroundCards.enumerated() {
       Animator.addKeyFrame {
         cardStack.layoutCard(card, at: index + 1)

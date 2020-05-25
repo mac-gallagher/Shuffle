@@ -22,22 +22,22 @@
 /// SOFTWARE.
 ///
 
-
 import Nimble
 import Quick
 @testable import Shuffle
 import UIKit
 
+// swiftlint:disable closure_body_length function_body_length implicitly_unwrapped_optional
 class CardLayoutProviderSpec: QuickSpec {
-  
+
   override func spec() {
     let cardWidth: CGFloat = 100
     let cardHeight: CGFloat = 200
     let footerHeight: CGFloat = 50
-    
+
     var card: SwipeCard!
     var subject: CardLayoutProvider!
-    
+
     beforeEach {
       subject = CardLayoutProvider()
       card = SwipeCard(animator: MockCardAnimator(),
@@ -47,101 +47,90 @@ class CardLayoutProviderSpec: QuickSpec {
       card.frame = CGRect(x: 0, y: 0, width: cardWidth, height: cardHeight)
       card.footerHeight = footerHeight
     }
-    
+
     // MARK: - Create Content Frame
-    
+
     describe("When calling createContentFrame") {
       context("and the card has an opaque footer") {
         let footer = UIView()
-        
+
         beforeEach {
           footer.isOpaque = true
           card.footer = footer
         }
-        
+
         it("should return the correct frame") {
           let actualFrame = subject.createContentFrame(for: card)
-          let expectedFrame = CGRect(x: 0, y: 0,
-                                     width: cardWidth,
-                                     height: cardHeight - footerHeight)
-          expect(actualFrame).to(equal(expectedFrame))
+          let expectedFrame = CGRect(x: 0, y: 0, width: cardWidth, height: cardHeight - footerHeight)
+          expect(actualFrame) == expectedFrame
         }
       }
-      
+
       context("and the card has a transparent footer") {
         let footer = UIView()
-        
+
         beforeEach {
           footer.isOpaque = false
           card.footer = footer
         }
-        
+
         it("should return the correct frame") {
           let actualFrame = subject.createContentFrame(for: card)
-          let expectedFrame = CGRect(x: 0, y: 0,
-                                     width: cardWidth,
-                                     height: cardHeight)
-          expect(actualFrame).to(equal(expectedFrame))
+          let expectedFrame = CGRect(x: 0, y: 0, width: cardWidth, height: cardHeight)
+          expect(actualFrame) == expectedFrame
         }
       }
-      
+
       context("and the card has no footer") {
         beforeEach {
           card.footer = nil
         }
-        
+
         it("should return the correct frame") {
           let actualFrame = subject.createContentFrame(for: card)
-          let expectedFrame = CGRect(x: 0, y: 0,
-                                     width: cardWidth,
-                                     height: cardHeight)
-          expect(actualFrame).to(equal(expectedFrame))
+          let expectedFrame = CGRect(x: 0, y: 0, width: cardWidth, height: cardHeight)
+          expect(actualFrame) == expectedFrame
         }
       }
     }
-    
+
     // MARK: - Create Footer Frame
-    
+
     describe("When calling createFooterFrame") {
       it("should return the correct frame") {
         let actualFrame = subject.createFooterFrame(for: card)
-        let expectedFrame = CGRect(x: 0, y: cardHeight - footerHeight,
-                                   width: cardWidth,
-                                   height: footerHeight)
-        expect(actualFrame).to(equal(expectedFrame))
+        let expectedFrame = CGRect(x: 0, y: cardHeight - footerHeight, width: cardWidth, height: footerHeight)
+        expect(actualFrame) == expectedFrame
       }
     }
-    
+
     // MARK: - Create Overlay Container Frame
-    
+
     describe("When calling createOverlayContainerFrame") {
       context("and the card has a footer") {
         beforeEach {
           card.footer = UIView()
         }
-        
+
         it("should return the correct frame") {
           let actualFrame = subject.createOverlayContainerFrame(for: card)
-          let expectedFrame = CGRect(x: 0, y: 0,
-                                     width: cardWidth,
-                                     height: cardHeight - footerHeight)
-          expect(actualFrame).to(equal(expectedFrame))
+          let expectedFrame = CGRect(x: 0, y: 0, width: cardWidth, height: cardHeight - footerHeight)
+          expect(actualFrame) == expectedFrame
         }
       }
-      
+
       context("and the card has no footer") {
         beforeEach {
           card.footer = nil
         }
-        
+
         it("should return the correct frame") {
           let actualFrame = subject.createOverlayContainerFrame(for: card)
-          let expectedFrame = CGRect(x: 0, y: 0,
-                                     width: cardWidth,
-                                     height: cardHeight)
-          expect(actualFrame).to(equal(expectedFrame))
+          let expectedFrame = CGRect(x: 0, y: 0, width: cardWidth, height: cardHeight)
+          expect(actualFrame) == expectedFrame
         }
       }
     }
   }
 }
+// swiftlint:enabled closure_body_length function_body_length implicitly_unwrapped_optional

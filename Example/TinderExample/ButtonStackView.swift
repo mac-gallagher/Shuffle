@@ -22,10 +22,9 @@
 /// SOFTWARE.
 ///
 
-
 import PopBounceButton
 
-protocol ButtonStackViewDelegate: class {
+protocol ButtonStackViewDelegate: AnyObject {
   func didTapButton(button: TinderButton)
 }
 
@@ -85,8 +84,8 @@ class ButtonStackView: UIStackView {
   }
 
   private func configureButtons() {
-    let largeMultiplier: CGFloat = 66/414 //based on width of iPhone 8+
-    let smallMultiplier: CGFloat = 54/414 //based on width of iPhone 8+
+    let largeMultiplier: CGFloat = 66 / 414 //based on width of iPhone 8+
+    let smallMultiplier: CGFloat = 54 / 414 //based on width of iPhone 8+
     addArrangedSubview(from: undoButton, diameterMultiplier: smallMultiplier)
     addArrangedSubview(from: passButton, diameterMultiplier: largeMultiplier)
     addArrangedSubview(from: superLikeButton, diameterMultiplier: smallMultiplier)
@@ -104,7 +103,8 @@ class ButtonStackView: UIStackView {
     container.heightAnchor.constraint(equalTo: button.widthAnchor).isActive = true
   }
 
-  @objc private func handleTap(_ button: TinderButton) {
+  @objc
+  private func handleTap(_ button: TinderButton) {
     delegate?.didTapButton(button: button)
   }
 }

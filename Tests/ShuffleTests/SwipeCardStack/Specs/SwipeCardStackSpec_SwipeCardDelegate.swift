@@ -22,12 +22,12 @@
 /// SOFTWARE.
 ///
 
-
 import Nimble
 import Quick
 @testable import Shuffle
 import UIKit
 
+// swiftlint:disable function_body_length implicitly_unwrapped_optional
 class SwipeCardStackSpec_SwipeCardDelegate: QuickSpec {
 
   override func spec() {
@@ -60,7 +60,7 @@ class SwipeCardStackSpec_SwipeCardDelegate: QuickSpec {
         }
 
         it("should not call the cardStack's didSelectCard delegate method") {
-          expect(mockDelegate.didSelectCardAtCalled).to(beFalse())
+          expect(mockDelegate.didSelectCardAtCalled) == false
         }
       }
 
@@ -73,8 +73,8 @@ class SwipeCardStackSpec_SwipeCardDelegate: QuickSpec {
         }
 
         it("should call the cardStack's didSelectCard delegate method with the correct index") {
-          expect(mockDelegate.didSelectCardAtCalled).to(beTrue())
-          expect(mockDelegate.didSelectCardAtIndex).to(equal(topIndex))
+          expect(mockDelegate.didSelectCardAtCalled) == true
+          expect(mockDelegate.didSelectCardAtIndex) == topIndex
         }
       }
     }
@@ -87,7 +87,7 @@ class SwipeCardStackSpec_SwipeCardDelegate: QuickSpec {
       }
 
       it("should call the animator's removeBackgroundCardAnimation method") {
-        expect(mockAnimator.removeBackgroundCardAnimationsCalled).to(beTrue())
+        expect(mockAnimator.removeBackgroundCardAnimationsCalled) == true
       }
     }
 
@@ -106,7 +106,7 @@ class SwipeCardStackSpec_SwipeCardDelegate: QuickSpec {
 
       it("should set the transforms on any of the background cards") {
         for card in backgroundCards {
-          expect(card.transform).to(equal(cardTransform))
+          expect(card.transform) == cardTransform
         }
       }
     }
@@ -119,7 +119,7 @@ class SwipeCardStackSpec_SwipeCardDelegate: QuickSpec {
       }
 
       it("should call the animator's reset method") {
-        expect(mockAnimator.animateResetCalled).to(beTrue())
+        expect(mockAnimator.animateResetCalled) == true
       }
     }
 
@@ -133,10 +133,10 @@ class SwipeCardStackSpec_SwipeCardDelegate: QuickSpec {
       }
 
       it("and should call swipeAction with the correct parameters") {
-        expect(subject.swipeActionCalled).to(beTrue())
-        expect(subject.swipeActionDirection).to(equal(direction))
-        expect(subject.swipeActionForced).to(beFalse())
-        expect(subject.swipeActionAnimated).to(beTrue())
+        expect(subject.swipeActionCalled) == true
+        expect(subject.swipeActionDirection) == direction
+        expect(subject.swipeActionForced) == false
+        expect(subject.swipeActionAnimated) == true
       }
     }
 
@@ -164,7 +164,7 @@ class SwipeCardStackSpec_SwipeCardDelegate: QuickSpec {
 
         it("should return the value from the delegate") {
           let actualResult = subject.shouldRecognizeHorizontalDrag(on: SwipeCard())
-          expect(actualResult).to(equal(shouldRecognizeDrag))
+          expect(actualResult) == shouldRecognizeDrag
         }
       }
     }
@@ -193,9 +193,10 @@ class SwipeCardStackSpec_SwipeCardDelegate: QuickSpec {
 
         it("should return the value from the delegate") {
           let actualResult = subject.shouldRecognizeVerticalDrag(on: SwipeCard())
-          expect(actualResult).to(equal(shouldRecognizeDrag))
+          expect(actualResult) == shouldRecognizeDrag
         }
       }
     }
   }
 }
+// swiftlint:enable function_body_length implicitly_unwrapped_optional

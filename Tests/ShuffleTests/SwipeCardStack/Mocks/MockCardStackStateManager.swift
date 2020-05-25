@@ -22,7 +22,6 @@
 /// SOFTWARE.
 ///
 
-
 @testable import Shuffle
 import UIKit
 
@@ -49,7 +48,7 @@ class MockCardStackStateManager: CardStackStateManagable {
   }
 
   var shiftCalled = false
-  var shiftDistance: Int? = nil
+  var shiftDistance: Int?
 
   func shift(withDistance distance: Int) {
     shiftCalled = true

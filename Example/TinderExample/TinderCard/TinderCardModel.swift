@@ -22,7 +22,6 @@
 /// SOFTWARE.
 ///
 
-
 import UIKit
 
 struct TinderCardModel {

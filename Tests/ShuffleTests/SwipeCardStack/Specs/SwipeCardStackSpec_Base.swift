@@ -22,12 +22,12 @@
 /// SOFTWARE.
 ///
 
-
 import Nimble
 import Quick
 @testable import Shuffle
 import UIKit
 
+// swiftlint:disable closure_body_length function_body_length implicitly_unwrapped_optional
 class SwipeCardStackSpec_Base: QuickSpec {
 
   override func spec() {
@@ -73,22 +73,21 @@ class SwipeCardStackSpec_Base: QuickSpec {
       }
 
       func testDefaultProperties() {
-        expect(cardStack.numberOfVisibleCards).to(equal(2))
+        expect(cardStack.numberOfVisibleCards) == 2
         expect(cardStack.animationOptions).to(be(CardStackAnimationOptions.default))
 
-        let expectedInsets = UIEdgeInsets(top: 10, left: 10,
-                                          bottom: 10, right: 10)
-        expect(cardStack.cardStackInsets).to(equal(expectedInsets))
+        let expectedInsets = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
+        expect(cardStack.cardStackInsets) == expectedInsets
 
         expect(cardStack.delegate).to(beNil())
         expect(cardStack.dataSource).to(beNil())
         expect(cardStack.topCardIndex).to(beNil())
 
         expect(cardStack.topCard).to(beNil())
-        expect(cardStack.visibleCards).to(equal([]))
-        expect(cardStack.backgroundCards).to(equal([]))
+        expect(cardStack.visibleCards) == []
+        expect(cardStack.backgroundCards) == []
 
-        expect(cardStack.subviews.count).to(equal(1))
+        expect(cardStack.subviews.count) == 1
       }
     }
 
@@ -102,7 +101,7 @@ class SwipeCardStackSpec_Base: QuickSpec {
       }
 
       it("should call reloadData") {
-        expect(subject.reloadDataCalled).to(beTrue())
+        expect(subject.reloadDataCalled) == true
       }
     }
 
@@ -114,7 +113,7 @@ class SwipeCardStackSpec_Base: QuickSpec {
       }
 
       it("should call reloadData") {
-        expect(subject.reloadDataCalled).to(beTrue())
+        expect(subject.reloadDataCalled) == true
       }
     }
 
@@ -126,7 +125,7 @@ class SwipeCardStackSpec_Base: QuickSpec {
       }
 
       it("should trigger a new layout cycle") {
-        expect(subject.setNeedsLayoutCalled).to(beTrue())
+        expect(subject.setNeedsLayoutCalled) == true
       }
     }
 
@@ -151,7 +150,7 @@ class SwipeCardStackSpec_Base: QuickSpec {
         }
 
         it("should return the first remaining index from the state manager") {
-          expect(subject.topCardIndex).to(equal(index))
+          expect(subject.topCardIndex) == index
         }
       }
     }
@@ -177,7 +176,7 @@ class SwipeCardStackSpec_Base: QuickSpec {
         }
 
         it("should return the first visible card") {
-          expect(subject.topCard).to(equal(firstCard))
+          expect(subject.topCard) == firstCard
         }
       }
     }
@@ -193,7 +192,7 @@ class SwipeCardStackSpec_Base: QuickSpec {
 
       it("should return the visible cards expect the first card") {
         let expectedCards = Array(visibleCards.dropFirst())
-        expect(subject.backgroundCards).to(equal(expectedCards))
+        expect(subject.backgroundCards) == expectedCards
       }
     }
 
@@ -211,7 +210,7 @@ class SwipeCardStackSpec_Base: QuickSpec {
           }
 
           it("should return isUserInteractionEnabled") {
-            expect(subject.isEnabled).to(equal(isUserInteractionEnabled))
+            expect(subject.isEnabled) == isUserInteractionEnabled
           }
         }
 
@@ -228,7 +227,7 @@ class SwipeCardStackSpec_Base: QuickSpec {
             }
 
             it("should return false") {
-              expect(subject.isEnabled).to(beFalse())
+              expect(subject.isEnabled) == false
             }
           }
 
@@ -238,7 +237,7 @@ class SwipeCardStackSpec_Base: QuickSpec {
             }
 
             it("should return isUserInteractionEnabled") {
-              expect(subject.isEnabled).to(equal(isUserInteractionEnabled))
+              expect(subject.isEnabled) == isUserInteractionEnabled
             }
           }
         }
@@ -254,7 +253,7 @@ class SwipeCardStackSpec_Base: QuickSpec {
       }
 
       it("should enable user interaction on the card stack") {
-        expect(subject.isUserInteractionEnabled).to(beTrue())
+        expect(subject.isUserInteractionEnabled) == true
       }
     }
 
@@ -267,7 +266,7 @@ class SwipeCardStackSpec_Base: QuickSpec {
       }
 
       it("should enable user interaction on the card stack") {
-        expect(subject.isUserInteractionEnabled).to(beTrue())
+        expect(subject.isUserInteractionEnabled) == true
       }
     }
 
@@ -280,7 +279,7 @@ class SwipeCardStackSpec_Base: QuickSpec {
       }
 
       it("should enable user interaction on the card stack") {
-        expect(subject.isUserInteractionEnabled).to(beTrue())
+        expect(subject.isUserInteractionEnabled) == true
       }
     }
 
@@ -301,13 +300,13 @@ class SwipeCardStackSpec_Base: QuickSpec {
 
       it("should correctly layout the card container") {
         let cardContainer = subject.subviews.first
-        expect(cardContainer?.frame).to(equal(cardContainerFrame))
+        expect(cardContainer?.frame) == cardContainerFrame
       }
 
       it("should call layoutCard for each card") {
-        expect(subject.layoutCardCalled).to(beTrue())
-        expect(subject.layoutCardIndices).to(equal(Array(0..<numberOfCards)))
-        expect(subject.visibleCards).to(equal(visibleCards))
+        expect(subject.layoutCardCalled) == true
+        expect(subject.layoutCardIndices) == Array(0..<numberOfCards)
+        expect(subject.visibleCards) == visibleCards
       }
     }
 
@@ -352,10 +351,9 @@ class SwipeCardStackSpec_Base: QuickSpec {
 
       func testLayoutCard(index: Int) {
         it("should correctly layout the card and disable user interaction") {
-          expect(card.frame).to(equal(transformedFrame))
-          expect(card.transform).to(equal(cardTransform))
-          expect(card.isUserInteractionEnabled).to(equal(index == 0))
-
+          expect(card.frame) == transformedFrame
+          expect(card.transform) == cardTransform
+          expect(card.isUserInteractionEnabled) == (index == 0)
         }
       }
     }
@@ -367,7 +365,7 @@ class SwipeCardStackSpec_Base: QuickSpec {
         it("should return a 100% scale") {
           let expectedScaleFactor = CGPoint(x: 1.0, y: 1.0)
           let actualScaleFactor = subject.scaleFactor(forCardAtIndex: 0)
-          expect(actualScaleFactor).to(equal(expectedScaleFactor))
+          expect(actualScaleFactor) == expectedScaleFactor
         }
       }
 
@@ -375,7 +373,7 @@ class SwipeCardStackSpec_Base: QuickSpec {
         it("should return a 95% scale") {
           let actualScaleFactor = subject.scaleFactor(forCardAtIndex: 1)
           let expectedScaleFactor = CGPoint(x: 0.95, y: 0.95)
-          expect(actualScaleFactor).to(equal(expectedScaleFactor))
+          expect(actualScaleFactor) == expectedScaleFactor
         }
       }
     }
@@ -393,8 +391,9 @@ class SwipeCardStackSpec_Base: QuickSpec {
         let actualTransform = subject.transform(forCardAtIndex: 0)
         let expectedTransform = CGAffineTransform(scaleX: scaleFactor.x,
                                                   y: scaleFactor.y)
-        expect(actualTransform).to(equal(expectedTransform))
+        expect(actualTransform) == expectedTransform
       }
     }
   }
 }
+// swiftlint:enable closure_body_length  function_body_length implicitly_unwrapped_optional

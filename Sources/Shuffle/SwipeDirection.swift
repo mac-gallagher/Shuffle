@@ -22,11 +22,12 @@
 /// SOFTWARE.
 ///
 
-
 import UIKit
 
 /// A type representing the direction of a physical drag.
-@objc public enum SwipeDirection: Int, CustomStringConvertible {
+@objc
+public enum SwipeDirection: Int, CustomStringConvertible {
+  // swiftlint:disable:next identifier_name
   case left, right, up, down
 
   /// A static array containing all `SwipeDirection`s.

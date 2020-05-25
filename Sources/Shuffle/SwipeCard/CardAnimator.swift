@@ -22,12 +22,12 @@
 /// SOFTWARE.
 ///
 
-
 import UIKit
 
 protocol CardAnimatable {
 
-  /// Calling this method triggers a spring-like animation on the card, eventually settling back to it's original position.
+  /// Calling this method triggers a spring-like animation on the card, eventually settling back to
+  ///  it's original position.
   /// - Parameter card: The card to animate.
   func animateReset(on card: SwipeCard)
 
@@ -73,7 +73,8 @@ class CardAnimator: CardAnimatable {
                               let overlay = card.overlay(forDirection: direction) {
                               overlay.alpha = 0
                             }
-                            card.transform = .identity })
+                            card.transform = .identity
+    })
   }
 
   func animateReverseSwipe(on card: SwipeCard,
@@ -86,7 +87,8 @@ class CardAnimator: CardAnimatable {
                               animations: { [weak self] in
                                 self?.addSwipeAnimationKeyFrames(card,
                                                                  direction: direction,
-                                                                 forced: true)} )
+                                                                 forced: true)
+    })
 
     // reverse swipe
     Animator.animateKeyFrames(withDuration: card.animationOptions.totalReverseSwipeDuration,

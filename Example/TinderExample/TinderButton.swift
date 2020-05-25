@@ -22,7 +22,6 @@
 /// SOFTWARE.
 ///
 
-
 import PopBounceButton
 
 class TinderButton: PopBounceButton {

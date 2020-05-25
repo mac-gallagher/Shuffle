@@ -22,7 +22,6 @@
 /// SOFTWARE.
 ///
 
-
 import UIKit
 
 /// A testable `UITapGestureRecognizer`
@@ -38,7 +37,7 @@ class TapGestureRecognizer: UITapGestureRecognizer {
     testAction = action
     super.init(target: target, action: action)
   }
-  
+
   override func location(in view: UIView?) -> CGPoint {
     return testLocation ?? super.location(in: view)
   }

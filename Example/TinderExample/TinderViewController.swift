@@ -22,9 +22,8 @@
 /// SOFTWARE.
 ///
 
-
-import Shuffle
 import PopBounceButton
+import Shuffle
 
 class TinderViewController: UIViewController {
 
@@ -64,6 +63,7 @@ class TinderViewController: UIViewController {
   ]
 
   override func viewDidLoad() {
+    super.viewDidLoad()
     cardStack.delegate = self
     cardStack.dataSource = self
     buttonStackView.delegate = self
@@ -93,9 +93,9 @@ class TinderViewController: UIViewController {
 
     navigationController?.navigationBar.layer.zPosition = -1
   }
-  
+
   private func configureBackgroundGradient() {
-    let backgroundGray = UIColor(red: 244/255, green: 247/255, blue: 250/255, alpha: 1)
+    let backgroundGray = UIColor(red: 244 / 255, green: 247 / 255, blue: 250 / 255, alpha: 1)
     let gradientLayer = CAGradientLayer()
     gradientLayer.colors = [UIColor.white.cgColor, backgroundGray.cgColor]
     gradientLayer.frame = view.bounds
@@ -104,7 +104,12 @@ class TinderViewController: UIViewController {
 
   private func layoutButtonStackView() {
     view.addSubview(buttonStackView)
-    buttonStackView.anchor(left: view.safeAreaLayoutGuide.leftAnchor, bottom: view.safeAreaLayoutGuide.bottomAnchor, right: view.safeAreaLayoutGuide.rightAnchor, paddingLeft: 24, paddingBottom: 12, paddingRight: 24)
+    buttonStackView.anchor(left: view.safeAreaLayoutGuide.leftAnchor,
+                           bottom: view.safeAreaLayoutGuide.bottomAnchor,
+                           right: view.safeAreaLayoutGuide.rightAnchor,
+                           paddingLeft: 24,
+                           paddingBottom: 12,
+                           paddingRight: 24)
   }
 
   private func layoutCardStackView() {
@@ -115,7 +120,8 @@ class TinderViewController: UIViewController {
                      right: view.safeAreaLayoutGuide.rightAnchor)
   }
 
-  @objc private func handleShift(_ sender: UIButton) {
+  @objc
+  private func handleShift(_ sender: UIButton) {
     cardStack.shift(withDistance: sender.tag == 1 ? -1 : 1, animated: true)
   }
 }

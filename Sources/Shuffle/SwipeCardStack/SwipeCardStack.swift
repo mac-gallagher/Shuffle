@@ -22,7 +22,6 @@
 /// SOFTWARE.
 ///
 
-
 import UIKit
 
 open class SwipeCardStack: UIView, SwipeCardDelegate {
@@ -99,12 +98,12 @@ open class SwipeCardStack: UIView, SwipeCardDelegate {
 
   // MARK: - Initialization
 
-  public override init(frame: CGRect) {
+   override public init(frame: CGRect) {
     super.init(frame: frame)
     initialize()
   }
 
-  required public init?(coder aDecoder: NSCoder) {
+  public required init?(coder aDecoder: NSCoder) {
     super.init(coder: aDecoder)
     initialize()
   }
@@ -132,7 +131,7 @@ open class SwipeCardStack: UIView, SwipeCardDelegate {
 
   // MARK: - Layout
 
-  open override func layoutSubviews() {
+  override open func layoutSubviews() {
     super.layoutSubviews()
     cardContainer.frame = layoutProvider.createCardContainerFrame(for: self)
     for (index, card) in visibleCards.enumerated() {
@@ -161,7 +160,8 @@ open class SwipeCardStack: UIView, SwipeCardDelegate {
   /// Calling this method triggers a swipe on the card stack.
   /// - Parameters:
   ///   - direction: The direction to swipe the top card.
-  ///   - animated: A boolean indicating whether the reverse swipe should be animated. Setting this to `false` will immediately
+  ///   - animated: A boolean indicating whether the reverse swipe should be animated. Setting this
+  ///    to `false` will immediately
   ///   position the card at end state of the animation when the method is called.
   public func swipe(_ direction: SwipeDirection, animated: Bool) {
     if !isEnabled { return }
@@ -193,12 +193,12 @@ open class SwipeCardStack: UIView, SwipeCardDelegate {
     isUserInteractionEnabled = false
 
     // insert new card if needed
-    if stateManager.remainingIndices.count - visibleCards.count > 0 {
+    if (stateManager.remainingIndices.count - visibleCards.count) > 0 {
       let bottomCardIndex = stateManager.remainingIndices[visibleCards.count]
       if let card = loadCard(at: bottomCardIndex) {
         insertCard(card, at: visibleCards.count)
       }
-    } else if stateManager.remainingIndices.count == 0 {
+    } else if stateManager.remainingIndices.isEmpty {
       delegate?.didSwipeAllCards?(self)
       swipeCompletionBlock()
       return
@@ -208,11 +208,10 @@ open class SwipeCardStack: UIView, SwipeCardDelegate {
                           topCard: topCard,
                           direction: direction,
                           forced: forced,
-                          animated: animated)
-    { [weak self] finished in
-      if finished {
-        self?.swipeCompletionBlock()
-      }
+                          animated: animated) { [weak self] finished in
+                            if finished {
+                              self?.swipeCompletionBlock()
+                            }
     }
   }
 
@@ -231,9 +230,10 @@ open class SwipeCardStack: UIView, SwipeCardDelegate {
     if let topCard = topCard {
       animator.animateUndo(self,
                            topCard: topCard,
-                           animated: animated)
-      { [weak self] finished in
-        self?.undoCompletionBlock()
+                           animated: animated) { [weak self] finished in
+                            if finished {
+                              self?.undoCompletionBlock()
+                            }
       }
     }
   }
@@ -248,11 +248,10 @@ open class SwipeCardStack: UIView, SwipeCardDelegate {
 
     animator.animateShift(self,
                           withDistance: distance,
-                          animated: animated)
-    { [weak self] finished in
-      if finished {
-        self?.shiftCompletionBlock()
-      }
+                          animated: animated) { [weak self] finished in
+                            if finished {
+                              self?.shiftCompletionBlock()
+                            }
     }
   }
 
@@ -292,7 +291,8 @@ open class SwipeCardStack: UIView, SwipeCardDelegate {
 
   // MARK: - Notifications
 
-  @objc func didFinishSwipeAnimation(_ notification: NSNotification) {
+  @objc
+  func didFinishSwipeAnimation(_ notification: NSNotification) {
     guard let card = notification.object as? SwipeCard else { return }
     card.removeFromSuperview()
   }

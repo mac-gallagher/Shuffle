@@ -22,12 +22,12 @@
 /// SOFTWARE.
 ///
 
-
 import Nimble
 import Quick
 import Shuffle
 import UIKit
 
+// swiftlint:disable function_body_length implicitly_unwrapped_optional
 class CardAnimationOptionsSpec: QuickSpec {
 
   override func spec() {
@@ -41,13 +41,13 @@ class CardAnimationOptionsSpec: QuickSpec {
       }
 
       it("should have the correct default properties") {
-        expect(subject.maximumRotationAngle).to(equal(CGFloat.pi / 10))
-        expect(subject.relativeSwipeOverlayFadeDuration).to(equal(0.15))
-        expect(subject.relativeReverseSwipeOverlayFadeDuration).to(equal(0.15))
-        expect(subject.resetSpringDamping).to(equal(0.5))
-        expect(subject.totalResetDuration).to(equal(0.6))
-        expect(subject.totalReverseSwipeDuration).to(equal(0.25))
-        expect(subject.totalSwipeDuration).to(equal(0.7))
+        expect(subject.maximumRotationAngle) == CGFloat.pi / 10
+        expect(subject.relativeSwipeOverlayFadeDuration) == 0.15
+        expect(subject.relativeReverseSwipeOverlayFadeDuration) == 0.15
+        expect(subject.resetSpringDamping) == 0.5
+        expect(subject.totalResetDuration) == 0.6
+        expect(subject.totalReverseSwipeDuration) == 0.25
+        expect(subject.totalSwipeDuration) == 0.7
       }
     }
 
@@ -60,7 +60,7 @@ class CardAnimationOptionsSpec: QuickSpec {
         }
 
         it("should return -.pi/2") {
-          expect(subject.maximumRotationAngle).to(equal(-.pi / 2))
+          expect(subject.maximumRotationAngle) == -.pi / 2
         }
       }
 
@@ -70,7 +70,7 @@ class CardAnimationOptionsSpec: QuickSpec {
         }
 
         it("should return CGFloat.pi/2") {
-          expect(subject.maximumRotationAngle).to(equal(.pi / 2))
+          expect(subject.maximumRotationAngle) == .pi / 2
         }
       }
     }
@@ -84,7 +84,7 @@ class CardAnimationOptionsSpec: QuickSpec {
         }
 
         it("should return zero") {
-          expect(subject.relativeSwipeOverlayFadeDuration).to(equal(0))
+          expect(subject.relativeSwipeOverlayFadeDuration) == 0
         }
       }
 
@@ -94,7 +94,7 @@ class CardAnimationOptionsSpec: QuickSpec {
         }
 
         it("should return 1") {
-          expect(subject.relativeSwipeOverlayFadeDuration).to(equal(1))
+          expect(subject.relativeSwipeOverlayFadeDuration) == 1
         }
       }
     }
@@ -108,7 +108,7 @@ class CardAnimationOptionsSpec: QuickSpec {
         }
 
         it("should return zero") {
-          expect(subject.relativeReverseSwipeOverlayFadeDuration).to(equal(0))
+          expect(subject.relativeReverseSwipeOverlayFadeDuration) == 0
         }
       }
 
@@ -118,7 +118,7 @@ class CardAnimationOptionsSpec: QuickSpec {
         }
 
         it("should return 1") {
-          expect(subject.relativeReverseSwipeOverlayFadeDuration).to(equal(1))
+          expect(subject.relativeReverseSwipeOverlayFadeDuration) == 1
         }
       }
     }
@@ -132,7 +132,7 @@ class CardAnimationOptionsSpec: QuickSpec {
         }
 
         it("should return zero") {
-          expect(subject.resetSpringDamping).to(equal(0))
+          expect(subject.resetSpringDamping) == 0
         }
       }
 
@@ -142,7 +142,7 @@ class CardAnimationOptionsSpec: QuickSpec {
         }
 
         it("should return 1") {
-          expect(subject.resetSpringDamping).to(equal(1))
+          expect(subject.resetSpringDamping) == 1
         }
       }
     }
@@ -155,7 +155,7 @@ class CardAnimationOptionsSpec: QuickSpec {
       }
 
       it("should return zero") {
-        expect(subject.totalResetDuration).to(equal(0))
+        expect(subject.totalResetDuration) == 0
       }
     }
 
@@ -167,7 +167,7 @@ class CardAnimationOptionsSpec: QuickSpec {
       }
 
       it("should return zero") {
-        expect(subject.totalReverseSwipeDuration).to(equal(0))
+        expect(subject.totalReverseSwipeDuration) == 0
       }
     }
 
@@ -179,8 +179,9 @@ class CardAnimationOptionsSpec: QuickSpec {
       }
 
       it("should return zero") {
-        expect(subject.totalSwipeDuration).to(equal(0))
+        expect(subject.totalSwipeDuration) == 0
       }
     }
   }
 }
+// swiftlint:enable function_body_length implicitly_unwrapped_optional

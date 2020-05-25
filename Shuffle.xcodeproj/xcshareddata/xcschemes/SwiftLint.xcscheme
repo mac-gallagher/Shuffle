@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "1140"
+   LastUpgradeVersion = "1150"
    version = "1.3">
    <BuildAction
       parallelizeBuildables = "YES"
@@ -14,10 +14,10 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "CFC4E89E220B0CDD0D54D035D98BCF83"
-               BuildableName = "PopBounceButton.framework"
-               BlueprintName = "PopBounceButton"
-               ReferencedContainer = "container:Pods.xcodeproj">
+               BlueprintIdentifier = "ADF02863247B35A6002E483A"
+               BuildableName = "SwiftLint"
+               BlueprintName = "SwiftLint"
+               ReferencedContainer = "container:Shuffle.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -50,10 +50,10 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "CFC4E89E220B0CDD0D54D035D98BCF83"
-            BuildableName = "PopBounceButton.framework"
-            BlueprintName = "PopBounceButton"
-            ReferencedContainer = "container:Pods.xcodeproj">
+            BlueprintIdentifier = "ADF02863247B35A6002E483A"
+            BuildableName = "SwiftLint"
+            BlueprintName = "SwiftLint"
+            ReferencedContainer = "container:Shuffle.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
    </ProfileAction>

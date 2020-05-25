@@ -22,7 +22,6 @@
 /// SOFTWARE.
 ///
 
-
 import Foundation
 
 extension Array {

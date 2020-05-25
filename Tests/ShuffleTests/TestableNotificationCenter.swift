@@ -22,7 +22,6 @@
 /// SOFTWARE.
 ///
 
-
 import Foundation
 
 class TestableNotificationCenter: NotificationCenter {
