@@ -74,7 +74,7 @@ class SwipeCardStackSpec_Base: QuickSpec {
 
       func testDefaultProperties() {
         expect(cardStack.numberOfVisibleCards) == 2
-        expect(cardStack.animationOptions).to(be(CardStackAnimationOptions.default))
+        expect(cardStack.animationOptions) === CardStackAnimationOptions.default
 
         let expectedInsets = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
         expect(cardStack.cardStackInsets) == expectedInsets
@@ -82,6 +82,9 @@ class SwipeCardStackSpec_Base: QuickSpec {
         expect(cardStack.delegate).to(beNil())
         expect(cardStack.dataSource).to(beNil())
         expect(cardStack.topCardIndex).to(beNil())
+
+        expect(cardStack.shouldRecognizeHorizontalDrag) == true
+        expect(cardStack.shouldRecognizeVerticalDrag) == true
 
         expect(cardStack.topCard).to(beNil())
         expect(cardStack.visibleCards) == []
@@ -98,18 +101,6 @@ class SwipeCardStackSpec_Base: QuickSpec {
     describe("When setting dataSource") {
       beforeEach {
         subject.dataSource = nil
-      }
-
-      it("should call reloadData") {
-        expect(subject.reloadDataCalled) == true
-      }
-    }
-
-    // MARK: Number Of Visible Cards
-
-    describe("When setting numberOfVisibleCards") {
-      beforeEach {
-        subject.numberOfVisibleCards = 0
       }
 
       it("should call reloadData") {
@@ -392,6 +383,72 @@ class SwipeCardStackSpec_Base: QuickSpec {
         let expectedTransform = CGAffineTransform(scaleX: scaleFactor.x,
                                                   y: scaleFactor.y)
         expect(actualTransform) == expectedTransform
+      }
+    }
+
+    // MARK: Gesture Recognizer Should Begin
+
+    describe("When calling gestureRecognizerShouldBegin") {
+      context("and the gesture recognizer is not the top card's panGestureRecognizer") {
+        it("should return the value from the card stack's superclass") {
+          let actualResult = subject.gestureRecognizerShouldBegin(UIGestureRecognizer())
+          expect(actualResult) == true
+        }
+      }
+
+      context("and the gesture recognizer is the top card's pan gesture recognizer") {
+        let topCard = SwipeCard()
+        var topCardPanGestureRecognizer: PanGestureRecognizer!
+
+        beforeEach {
+          subject.testTopCard = topCard
+          topCardPanGestureRecognizer = topCard.panGestureRecognizer as? PanGestureRecognizer
+        }
+
+        context("and the drag is horizontal") {
+          let shouldRecognizeHorizontalDrag: Bool = false
+
+          beforeEach {
+            subject.shouldRecognizeHorizontalDrag = shouldRecognizeHorizontalDrag
+            topCardPanGestureRecognizer.performPan(withLocation: nil,
+                                                   translation: nil,
+                                                   velocity: CGPoint(x: 1, y: 0))
+          }
+
+          it("should return recognizeHorizontalDrag") {
+            let actualResult = subject.gestureRecognizerShouldBegin(topCardPanGestureRecognizer)
+            expect(actualResult) == shouldRecognizeHorizontalDrag
+          }
+        }
+
+        context("and the drag is vertical") {
+          let shouldRecognizeVerticalDrag: Bool = false
+
+          beforeEach {
+            subject.shouldRecognizeVerticalDrag = shouldRecognizeVerticalDrag
+            topCardPanGestureRecognizer.performPan(withLocation: nil,
+                                                   translation: nil,
+                                                   velocity: CGPoint(x: 0, y: 1))
+          }
+
+          it("should return recognizeHorizontalDrag") {
+            let actualResult = subject.gestureRecognizerShouldBegin(topCardPanGestureRecognizer)
+            expect(actualResult) == shouldRecognizeVerticalDrag
+          }
+        }
+
+        context("and the drag has no direction") {
+          beforeEach {
+            topCardPanGestureRecognizer.performPan(withLocation: nil,
+                                                   translation: nil,
+                                                   velocity: CGPoint(x: 0, y: 0))
+          }
+
+          it("should return the value from the card's superclass") {
+            let actualResult = subject.gestureRecognizerShouldBegin(topCardPanGestureRecognizer)
+            expect(actualResult) == true
+          }
+        }
       }
     }
   }

@@ -29,7 +29,7 @@ let CardDidFinishSwipeAnimationNotification = NSNotification.Name(rawValue: "car
 
 open class SwipeCard: SwipeView {
 
-  public var animationOptions: CardAnimatableOptions = CardAnimationOptions.default
+  open var animationOptions: CardAnimatableOptions = CardAnimationOptions.default
 
   /// The the main content view.
   public var content: UIView? {
@@ -88,7 +88,7 @@ open class SwipeCard: SwipeView {
 
   // MARK: - Initialization
 
-   override public init(frame: CGRect) {
+  override public init(frame: CGRect) {
     super.init(frame: frame)
     initialize()
   }
@@ -172,26 +172,6 @@ open class SwipeCard: SwipeView {
     super.didCancelSwipe(recognizer)
     delegate?.card(didCancelSwipe: self)
     animator.animateReset(on: self)
-  }
-
-  override open func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
-    if gestureRecognizer != panGestureRecognizer {
-      return super.gestureRecognizerShouldBegin(gestureRecognizer)
-    }
-
-    let velocity = panGestureRecognizer.velocity(in: superview)
-
-    if let shouldRecognizeHorizontalDrag = delegate?.shouldRecognizeHorizontalDrag(on: self),
-      abs(velocity.x) > abs(velocity.y) {
-      return shouldRecognizeHorizontalDrag
-    }
-
-    if let shouldRecognizeVerticalDrag = delegate?.shouldRecognizeVerticalDrag(on: self),
-      abs(velocity.x) < abs(velocity.y) {
-      return shouldRecognizeVerticalDrag
-    }
-
-    return super.gestureRecognizerShouldBegin(gestureRecognizer)
   }
 
   // MARK: - Main Methods

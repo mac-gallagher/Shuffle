@@ -355,60 +355,6 @@ class SwipeCardSpec_Base: QuickSpec {
         expect(mockCardAnimator.animateResetCalled) == true
       }
     }
-
-    // MARK: Gesture Recognizer Should Begin
-
-    describe("When calling gestureRecognizerShouldBegin") {
-      context("and the gesture recognizer is not the card's panGestureRecognizer") {
-        it("should return the value from the superclass") {
-          let actualResult = subject.gestureRecognizerShouldBegin(UIGestureRecognizer())
-          expect(actualResult) == true
-        }
-      }
-
-      context("and the swipe is horizontal") {
-        let recognizeHorizontalDrag: Bool = false
-
-        beforeEach {
-          mockSwipeCardDelegate.testShouldRecognizeHorizontalDrag = recognizeHorizontalDrag
-          testPanGestureRecognizer.performPan(withLocation: nil,
-                                              translation: nil,
-                                              velocity: CGPoint(x: 1, y: 0))
-        }
-
-        it("should return the value from the delegate") {
-          let actualResult = subject.gestureRecognizerShouldBegin(testPanGestureRecognizer)
-          expect(actualResult) == recognizeHorizontalDrag
-        }
-      }
-
-      context("and the swipe is vertical") {
-        let recognizeVerticalDrag: Bool = false
-
-        beforeEach {
-          mockSwipeCardDelegate.testShouldRecognizeVerticalDrag = recognizeVerticalDrag
-          testPanGestureRecognizer.performPan(withLocation: nil,
-                                              translation: nil,
-                                              velocity: CGPoint(x: 0, y: 1))
-        }
-
-        it("should return the value from the delegate") {
-          let actualResult = subject.gestureRecognizerShouldBegin(testPanGestureRecognizer)
-          expect(actualResult) == recognizeVerticalDrag
-        }
-      }
-
-      context("and the delegate is nil or the shouldDrag method has not been implemented") {
-        beforeEach {
-          subject.delegate = nil
-        }
-
-        it("should return the value from the superclass") {
-          let actualResult = subject.gestureRecognizerShouldBegin(testPanGestureRecognizer)
-          expect(actualResult) == true
-        }
-      }
-    }
   }
 }
 // swiftlint:enable closure_body_length function_body_length implicitly_unwrapped_optional

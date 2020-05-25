@@ -24,19 +24,23 @@
 
 import UIKit
 
-open class SwipeCardStack: UIView, SwipeCardDelegate {
+open class SwipeCardStack: UIView, SwipeCardDelegate, UIGestureRecognizerDelegate {
 
-  public var animationOptions: CardStackAnimatableOptions = CardStackAnimationOptions.default
+  open var animationOptions: CardStackAnimatableOptions = CardStackAnimationOptions.default
+
+  /// Return `false` if you wish to ignore all horizontal gestures on the card stack.
+  ///
+  /// You may wish to modify this property if your card stack is embedded in a `UIScrollView`.
+  open var shouldRecognizeHorizontalDrag: Bool = true
+
+  /// Return `false` if you wish to ignore all vertical gestures on the card stack.
+  ///
+  /// You may wish to modify this property if your card stack is embedded in a `UIScrollView`.
+  open var shouldRecognizeVerticalDrag: Bool = true
 
   public weak var delegate: SwipeCardStackDelegate?
 
   public weak var dataSource: SwipeCardStackDataSource? {
-    didSet {
-      reloadData()
-    }
-  }
-
-  public var numberOfVisibleCards: Int = 2 {
     didSet {
       reloadData()
     }
@@ -48,12 +52,11 @@ open class SwipeCardStack: UIView, SwipeCardDelegate {
     }
   }
 
-  // MARK: - Card Variables
-
   public var topCardIndex: Int? {
     return stateManager.remainingIndices.first
   }
 
+  var numberOfVisibleCards: Int = 2
   var visibleCards: [SwipeCard] = []
 
   var topCard: SwipeCard? {
@@ -98,7 +101,7 @@ open class SwipeCardStack: UIView, SwipeCardDelegate {
 
   // MARK: - Initialization
 
-   override public init(frame: CGRect) {
+  override public init(frame: CGRect) {
     super.init(frame: frame)
     initialize()
   }
@@ -153,6 +156,24 @@ open class SwipeCardStack: UIView, SwipeCardDelegate {
   func transform(forCardAtIndex index: Int) -> CGAffineTransform {
     let cardScaleFactor = scaleFactor(forCardAtIndex: index)
     return CGAffineTransform(scaleX: cardScaleFactor.x, y: cardScaleFactor.y)
+  }
+
+  override open func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
+    guard let topCard = topCard, topCard.panGestureRecognizer == gestureRecognizer else {
+      return super.gestureRecognizerShouldBegin(gestureRecognizer)
+    }
+
+    let velocity = topCard.panGestureRecognizer.velocity(in: self)
+
+    if abs(velocity.x) > abs(velocity.y) {
+      return shouldRecognizeHorizontalDrag
+    }
+
+    if abs(velocity.x) < abs(velocity.y) {
+      return shouldRecognizeVerticalDrag
+    }
+
+    return topCard.gestureRecognizerShouldBegin(gestureRecognizer)
   }
 
   // MARK: - Main Methods
@@ -286,6 +307,7 @@ open class SwipeCardStack: UIView, SwipeCardDelegate {
   func loadCard(at index: Int) -> SwipeCard? {
     let card = dataSource?.cardStack(self, cardForIndexAt: index)
     card?.delegate = self
+    card?.panGestureRecognizer.delegate = self
     return card
   }
 
@@ -323,13 +345,5 @@ open class SwipeCardStack: UIView, SwipeCardDelegate {
   func card(didSwipe card: SwipeCard,
             with direction: SwipeDirection) {
     swipeAction(topCard: card, direction: direction, forced: false, animated: true)
-  }
-
-  func shouldRecognizeHorizontalDrag(on card: SwipeCard) -> Bool? {
-    return delegate?.shouldRecognizeHorizontalDrag?(on: self)
-  }
-
-  func shouldRecognizeVerticalDrag(on card: SwipeCard) -> Bool? {
-    return delegate?.shouldRecognizeVerticalDrag?(on: self)
   }
 }
