@@ -28,7 +28,6 @@ import Quick
 import UIKit
 
 // swiftlint:disable closure_body_length implicitly_unwrapped_optional
-// swiftlint:disable:next type_body_length
 class SwipeCardStackSpec_MainMethods: QuickSpec {
 
   // swiftlint:disable:next function_body_length
@@ -138,7 +137,6 @@ class SwipeCardStackSpec_MainMethods: QuickSpec {
 
           beforeEach {
             mockStateManager.remainingIndices = remainingIndices
-            subject.testSwipeCompletionBlock = {}
             subject.visibleCards = [topCard, SwipeCard()]
             subject.testLoadCard = testLoadCard
             subject.swipeAction(topCard: topCard,
@@ -168,7 +166,6 @@ class SwipeCardStackSpec_MainMethods: QuickSpec {
         context("and there are no more cards to load") {
           beforeEach {
             mockStateManager.remainingIndices = [1, 2]
-            subject.testSwipeCompletionBlock = {}
             subject.visibleCards = [topCard, SwipeCard(), SwipeCard()]
             subject.swipeAction(topCard: topCard,
                                 direction: direction,
@@ -190,7 +187,6 @@ class SwipeCardStackSpec_MainMethods: QuickSpec {
         context("and there are no more cards to swipe") {
           beforeEach {
             mockStateManager.remainingIndices = []
-            subject.testSwipeCompletionBlock = {}
             subject.visibleCards = [topCard]
             subject.swipeAction(topCard: topCard,
                                 direction: direction,
@@ -219,20 +215,12 @@ class SwipeCardStackSpec_MainMethods: QuickSpec {
             expect(subject.visibleCards.contains(topCard)) == false
           }
 
-          it("should disable user interaction") {
-            expect(subject.isUserInteractionEnabled) == false
-          }
-
           it("should call the animator's swipe method with the correct parameters") {
             expect(mockAnimator.animateSwipeCalled) == true
             expect(mockAnimator.animateSwipeTopCard) == topCard
             expect(mockAnimator.animateSwipeForced) == forced
             expect(mockAnimator.animateSwipeAnimated) == animated
             expect(mockAnimator.animateSwipeDirection) == direction
-          }
-
-          it("should call the swipeCompletionBlock once the animation has completed") {
-            expect(subject.swipeCompletionBlockCalled) == true
           }
         }
       }
@@ -282,12 +270,7 @@ class SwipeCardStackSpec_MainMethods: QuickSpec {
 
             beforeEach {
               mockStateManager.undoSwipeSwipe = Swipe(previousSwipeIndex, previousSwipeDirection)
-              subject.testUndoCompletionBlock = {}
               subject.undoLastSwipe(animated: animated)
-            }
-
-            it("should disable user interaction") {
-              expect(subject.isUserInteractionEnabled) == false
             }
 
             it("should call the reloadVisibleCards method") {
@@ -310,10 +293,6 @@ class SwipeCardStackSpec_MainMethods: QuickSpec {
               it("should call the reverseSwipe method on the new topCard with the correct parameters") {
                 expect(topCard.reverseSwipeCalled) == true
                 expect(topCard.reverseSwipeDirection) == previousSwipeDirection
-              }
-
-              it("should invoke the undoCompletionBlock once the animation has completed") {
-                expect(subject.undoCompletionBlockCalled) == true
               }
             }
           }
@@ -375,13 +354,8 @@ class SwipeCardStackSpec_MainMethods: QuickSpec {
 
           beforeEach {
             mockStateManager.remainingIndices = [1, 2, 3]
-            subject.testShiftCompletionBlock = {}
             subject.visibleCards = [SwipeCard(), SwipeCard()]
             subject.shift(withDistance: distance, animated: animated)
-          }
-
-          it("should disable user interaction") {
-            expect(subject.isUserInteractionEnabled) == false
           }
 
           it("should call the state manager's shift method with the correct distance") {
@@ -397,10 +371,6 @@ class SwipeCardStackSpec_MainMethods: QuickSpec {
             expect(mockAnimator.animateShiftCalled) == true
             expect(mockAnimator.animateShiftDistance) == distance
             expect(mockAnimator.animateShiftAnimated) == animated
-          }
-
-          it("should call the shiftCompletionBlock once the animation has completed") {
-            expect(subject.shiftCompletionBlockCalled) == true
           }
         }
       }
@@ -443,7 +413,7 @@ class SwipeCardStackSpec_MainMethods: QuickSpec {
           mockDataSource.testNumberOfCards = numberOfCards
 
           subject.dataSource = mockDataSource
-          subject.isUserInteractionEnabled = false
+          subject.isAnimating = true
           subject.reloadData()
         }
 
@@ -460,8 +430,8 @@ class SwipeCardStackSpec_MainMethods: QuickSpec {
           expect(subject.reloadVisibleCardsCalled) == true
         }
 
-        it("should enable user interaction on the card stack") {
-          expect(subject.isUserInteractionEnabled) == true
+        it("should set isAnimating to false") {
+          expect(subject.isAnimating) == false
         }
       }
     }

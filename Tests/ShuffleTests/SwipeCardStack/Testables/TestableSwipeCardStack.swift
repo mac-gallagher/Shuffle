@@ -48,32 +48,6 @@ class TestableSwipeCardStack: SwipeCardStack {
     return testIsEnabled ?? super.isEnabled
   }
 
-  // MARK: - Completion Blocks
-
-  var swipeCompletionBlockCalled: Bool = false
-  var testSwipeCompletionBlock: (() -> Void)?
-
-  override var swipeCompletionBlock: () -> Void {
-    swipeCompletionBlockCalled = true
-    return testSwipeCompletionBlock ?? super.swipeCompletionBlock
-  }
-
-  var undoCompletionBlockCalled: Bool = false
-  var testUndoCompletionBlock: (() -> Void)?
-
-  override var undoCompletionBlock: () -> Void {
-    undoCompletionBlockCalled = true
-    return testUndoCompletionBlock ?? super.undoCompletionBlock
-  }
-
-  var shiftCompletionBlockCalled: Bool = false
-  var testShiftCompletionBlock: (() -> Void)?
-
-  override var shiftCompletionBlock: () -> Void {
-    shiftCompletionBlockCalled = true
-    return testShiftCompletionBlock ?? super.shiftCompletionBlock
-  }
-
   // MARK: - Lifecycle
 
   var setNeedsLayoutCalled: Bool = false
