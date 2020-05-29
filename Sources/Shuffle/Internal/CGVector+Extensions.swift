@@ -22,87 +22,91 @@
 /// SOFTWARE.
 ///
 
-
 import CoreGraphics
 
 extension CGVector {
 
   // MARK: - Operators
 
-  static prefix func +(vector: CGVector) -> CGVector {
+  static prefix func + (vector: CGVector) -> CGVector {
     return vector
   }
 
-  static prefix func -(vector: CGVector) -> CGVector {
+  static prefix func - (vector: CGVector) -> CGVector {
     return CGVector(dx: -vector.dx, dy: -vector.dy)
   }
 
-  static func +(lhs: CGVector, rhs: CGVector) -> CGVector {
+  static func + (lhs: CGVector, rhs: CGVector) -> CGVector {
     return CGVector(dx: lhs.dx + rhs.dx, dy: lhs.dy + rhs.dy)
   }
 
-  static func -(lhs: CGVector, rhs: CGVector) -> CGVector {
+  static func - (lhs: CGVector, rhs: CGVector) -> CGVector {
     return CGVector(dx: lhs.dx - rhs.dx, dy: lhs.dy - rhs.dy)
   }
 
-  static func *(scalar: CGFloat, vector: CGVector) -> CGVector {
+  static func * (scalar: CGFloat, vector: CGVector) -> CGVector {
     return CGVector(dx: vector.dx * scalar, dy: vector.dy * scalar)
   }
 
-  static func *(scalar: Int, vector: CGVector) -> CGVector {
+  static func * (scalar: Int, vector: CGVector) -> CGVector {
     return vector * CGFloat(scalar)
   }
 
-  static func *(vector: CGVector, scalar: CGFloat) -> CGVector {
+  static func * (vector: CGVector, scalar: CGFloat) -> CGVector {
     return CGVector(dx: vector.dx * scalar, dy: vector.dy * scalar)
   }
 
-  static func *(vector: CGVector, scalar: Int) -> CGVector {
+  static func * (vector: CGVector, scalar: Int) -> CGVector {
     return vector * CGFloat(scalar)
   }
 
-  static func /(vector: CGVector, scalar: CGFloat) -> CGVector {
+  static func / (vector: CGVector, scalar: CGFloat) -> CGVector {
     return CGVector(dx: vector.dx / scalar, dy: vector.dy / scalar)
   }
 
-  static func /(vector: CGVector, scalar: Int) -> CGVector {
+  static func / (vector: CGVector, scalar: Int) -> CGVector {
     return vector / CGFloat(scalar)
   }
 
-  static func +=(lhs: inout CGVector, rhs: CGVector) {
+  static func += (lhs: inout CGVector, rhs: CGVector) {
+    // swiftlint:disable:next shorthand_operator
     lhs = lhs + rhs
   }
 
-  static func -=(lhs: inout CGVector, rhs: CGVector) {
+  static func -= (lhs: inout CGVector, rhs: CGVector) {
+    // swiftlint:disable:next shorthand_operator
     lhs = lhs - rhs
   }
 
-  static func *=(vector: inout CGVector, scalar: CGFloat) {
+  static func *= (vector: inout CGVector, scalar: CGFloat) {
+    // swiftlint:disable:next shorthand_operator
     vector = vector * scalar
   }
 
-  static func *=(vector: inout CGVector, scalar: Int) {
+  static func *= (vector: inout CGVector, scalar: Int) {
+    // swiftlint:disable:next shorthand_operator
     vector = vector * scalar
   }
 
-  static func /=(vector: inout CGVector, scalar: CGFloat) {
+  static func /= (vector: inout CGVector, scalar: CGFloat) {
+    // swiftlint:disable:next shorthand_operator
     vector = vector / scalar
   }
 
-  static func /=(vector: inout CGVector, scalar: Int) {
+  static func /= (vector: inout CGVector, scalar: Int) {
+    // swiftlint:disable:next shorthand_operator
     vector = vector / scalar
   }
 
-  static func *(lhs: CGVector, rhs: CGVector) -> CGFloat {
+  static func * (lhs: CGVector, rhs: CGVector) -> CGFloat {
     return lhs.dx * rhs.dx + lhs.dy * rhs.dy
   }
 
   // MARK: - Miscellaneous
 
   init(from origin: CGPoint = .zero, to target: CGPoint) {
-    let dx = target.x - origin.x
-    let dy = target.y - origin.y
-    self = CGVector(dx: dx, dy: dy)
+    self = CGVector(dx: target.x - origin.x,
+                    dy: target.y - origin.y)
   }
 
   init(_ size: CGSize) {

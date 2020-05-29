@@ -22,14 +22,14 @@
 /// SOFTWARE.
 ///
 
-
 import UIKit
 
+// swiftlint:disable:next identifier_name
 let CardDidFinishSwipeAnimationNotification = NSNotification.Name(rawValue: "cardDidFinishSwipeAnimation")
 
 open class SwipeCard: SwipeView {
 
-  public var animationOptions: CardAnimatableOptions = CardAnimationOptions.default
+  open var animationOptions: CardAnimatableOptions = CardAnimationOptions.default
 
   /// The the main content view.
   public var content: UIView? {
@@ -88,7 +88,7 @@ open class SwipeCard: SwipeView {
 
   // MARK: - Initialization
 
-  public override init(frame: CGRect) {
+  override public init(frame: CGRect) {
     super.init(frame: frame)
     initialize()
   }
@@ -116,7 +116,7 @@ open class SwipeCard: SwipeView {
 
   // MARK: - Layout
 
-  open override func layoutSubviews() {
+  override open func layoutSubviews() {
     super.layoutSubviews()
     footer?.frame = layoutProvider.createFooterFrame(for: self)
     layoutContentView()
@@ -132,9 +132,7 @@ open class SwipeCard: SwipeView {
   private func layoutOverlays() {
     overlayContainer.frame = layoutProvider.createOverlayContainerFrame(for: self)
     bringSubviewToFront(overlayContainer)
-    for overlay in overlays.values {
-      overlay.frame = overlayContainer.bounds
-    }
+    overlays.values.forEach { $0.frame = overlayContainer.bounds }
   }
 
   // MARK: - Overrides
@@ -166,33 +164,14 @@ open class SwipeCard: SwipeView {
   override open func didSwipe(_ recognizer: UIPanGestureRecognizer,
                               with direction: SwipeDirection) {
     super.didSwipe(recognizer, with: direction)
-    swipeAction(direction: direction, forced: false, animated: true)
+    delegate?.card(didSwipe: self, with: direction)
+    swipeAction(direction: direction, forced: false)
   }
 
   override open func didCancelSwipe(_ recognizer: UIPanGestureRecognizer) {
     super.didCancelSwipe(recognizer)
     delegate?.card(didCancelSwipe: self)
     animator.animateReset(on: self)
-  }
-
-  open override func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
-    if gestureRecognizer != panGestureRecognizer {
-      return super.gestureRecognizerShouldBegin(gestureRecognizer)
-    }
-
-    let velocity = panGestureRecognizer.velocity(in: superview)
-
-    if let shouldRecognizeHorizontalDrag = delegate?.shouldRecognizeHorizontalDrag(on: self),
-      abs(velocity.x) > abs(velocity.y) {
-      return shouldRecognizeHorizontalDrag
-    }
-
-    if let shouldRecognizeVerticalDrag = delegate?.shouldRecognizeVerticalDrag(on: self),
-      abs(velocity.x) < abs(velocity.y) {
-      return shouldRecognizeVerticalDrag
-    }
-
-    return super.gestureRecognizerShouldBegin(gestureRecognizer)
   }
 
   // MARK: - Main Methods
@@ -218,27 +197,31 @@ open class SwipeCard: SwipeView {
     return overlays[direction]
   }
 
-  public func swipe(direction: SwipeDirection, animated: Bool) {
-    swipeAction(direction: direction, forced: true, animated: animated)
+  /// Calling this method triggers a swipe animation.
+  /// - Parameter direction: The direction to which the card will swipe off-screen.
+  public func swipe(direction: SwipeDirection) {
+    swipeAction(direction: direction, forced: true)
   }
 
-  func swipeAction(direction: SwipeDirection, forced: Bool, animated: Bool) {
+  func swipeAction(direction: SwipeDirection, forced: Bool) {
     isUserInteractionEnabled = false
-    delegate?.card(didSwipe: self, with: direction, forced: forced)
-    if animated {
-      animator.animateSwipe(on: self, direction: direction, forced: forced)
-    } else {
-      swipeCompletionBlock()
+    animator.animateSwipe(on: self,
+                          direction: direction,
+                          forced: forced) { [weak self] finished in
+                            if finished {
+                              self?.swipeCompletionBlock()
+                            }
     }
   }
 
-  public func reverseSwipe(from direction: SwipeDirection, animated: Bool) {
+  /// Calling this method triggers a reverse swipe (undo) animation.
+  /// - Parameter direction: The direction from which the card will be coming off-screen.
+  public func reverseSwipe(from direction: SwipeDirection) {
     isUserInteractionEnabled = false
-    delegate?.card(didReverseSwipe: self, from: direction)
-    if animated {
-      animator.animateReverseSwipe(on: self, from: direction)
-    } else {
-      reverseSwipeCompletionBlock()
+    animator.animateReverseSwipe(on: self, from: direction) { [weak self] finished in
+      if finished {
+        self?.reverseSwipeCompletionBlock()
+      }
     }
   }
 

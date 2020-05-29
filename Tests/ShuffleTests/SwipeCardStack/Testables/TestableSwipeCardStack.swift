@@ -22,7 +22,6 @@
 /// SOFTWARE.
 ///
 
-
 @testable import Shuffle
 import UIKit
 
@@ -38,6 +37,7 @@ class TestableSwipeCardStack: SwipeCardStack {
     return testTopCard ?? super.topCard
   }
 
+  // swiftlint:disable:next discouraged_optional_collection
   var testBackgroundCards: [SwipeCard]?
   override var backgroundCards: [SwipeCard] {
     return testBackgroundCards ?? super.backgroundCards
@@ -46,26 +46,6 @@ class TestableSwipeCardStack: SwipeCardStack {
   var testIsEnabled: Bool?
   override var isEnabled: Bool {
     return testIsEnabled ?? super.isEnabled
-  }
-
-  // MARK: - Completion Blocks
-
-  var swipeCompletionCalled: Bool = false
-  override var swipeCompletionBlock: () -> Void {
-    swipeCompletionCalled = true
-    return super.swipeCompletionBlock
-  }
-
-  var undoCompletionCalled: Bool = false
-  override var undoCompletionBlock: () -> Void {
-    undoCompletionCalled = true
-    return super.undoCompletionBlock
-  }
-
-  var shiftCompletionCalled: Bool = false
-  override var shiftCompletionBlock: () -> Void {
-    shiftCompletionCalled = true
-    return super.shiftCompletionBlock
   }
 
   // MARK: - Lifecycle
@@ -85,6 +65,25 @@ class TestableSwipeCardStack: SwipeCardStack {
     layoutCardCalled = true
     layoutCardCards.append(card)
     layoutCardIndices.append(index)
+  }
+
+  var swipeActionCalled = false
+  var swipeActionDirection: SwipeDirection?
+  var swipeActionForced: Bool?
+  var swipeActionAnimated: Bool?
+
+  override func swipeAction(topCard: SwipeCard,
+                            direction: SwipeDirection,
+                            forced: Bool,
+                            animated: Bool) {
+    swipeActionCalled = true
+    swipeActionDirection = direction
+    swipeActionForced = forced
+    swipeActionAnimated = animated
+    super.swipeAction(topCard: topCard,
+                      direction: direction,
+                      forced: forced,
+                      animated: animated)
   }
 
   var testLoadCard: SwipeCard?

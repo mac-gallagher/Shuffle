@@ -22,7 +22,6 @@
 /// SOFTWARE.
 ///
 
-
 import UIKit
 
 protocol CardLayoutProvidable {
@@ -37,7 +36,8 @@ class CardLayoutProvider: CardLayoutProvidable {
 
   func createContentFrame(for card: SwipeCard) -> CGRect {
     if let footer = card.footer, footer.isOpaque {
-      return CGRect(x: 0, y: 0,
+      return CGRect(x: 0,
+                    y: 0,
                     width: card.bounds.width,
                     height: card.bounds.height - card.footerHeight)
     }
@@ -45,14 +45,16 @@ class CardLayoutProvider: CardLayoutProvidable {
   }
 
   func createFooterFrame(for card: SwipeCard) -> CGRect {
-    return CGRect(x: 0, y: card.bounds.height - card.footerHeight,
+    return CGRect(x: 0,
+                  y: card.bounds.height - card.footerHeight,
                   width: card.bounds.width,
                   height: card.footerHeight)
   }
 
   func createOverlayContainerFrame(for card: SwipeCard) -> CGRect {
     if card.footer != nil {
-      return CGRect(x: 0, y: 0,
+      return CGRect(x: 0,
+                    y: 0,
                     width: card.bounds.width,
                     height: card.bounds.height - card.footerHeight)
     }

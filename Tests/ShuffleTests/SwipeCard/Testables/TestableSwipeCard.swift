@@ -22,7 +22,6 @@
 /// SOFTWARE.
 ///
 
-
 @testable import Shuffle
 import UIKit
 
@@ -33,7 +32,7 @@ class TestableSwipeCard: SwipeCard {
     return testTouchLocation ?? super.touchLocation
   }
 
-  //MARK: - Completion Blocks
+  // MARK: - Completion Blocks
 
   var swipeCompletionBlockCalled: Bool = false
   override var swipeCompletionBlock: () -> Void {
@@ -42,9 +41,11 @@ class TestableSwipeCard: SwipeCard {
   }
 
   var reverseSwipeCompletionBlockCalled: Bool = false
+  var testReverseSwipeCompletionBlock: (() -> Void)?
+
   override var reverseSwipeCompletionBlock: () -> Void {
     reverseSwipeCompletionBlockCalled = true
-    return super.reverseSwipeCompletionBlock
+    return testReverseSwipeCompletionBlock ?? super.reverseSwipeCompletionBlock
   }
 
   // MARK: - Swipe Calculations
@@ -77,53 +78,47 @@ class TestableSwipeCard: SwipeCard {
 
   // MARK: - Main Methods
 
-  var setOverlayCalled: Bool = false
   var setOverlayOverlays = [SwipeDirection: UIView]()
 
   override func setOverlay(_ overlay: UIView?, forDirection direction: SwipeDirection) {
-    super.setOverlay(overlay, forDirection: direction)
     setOverlayOverlays[direction] = overlay
-    setOverlayCalled = true
+    super.setOverlay(overlay, forDirection: direction)
   }
 
+  var swipeActionCalled: Bool = false
   var swipeActionDirection: SwipeDirection?
   var swipeActionForced: Bool?
-  var swipeActionAnimated: Bool?
 
-  override func swipeAction(direction: SwipeDirection, forced: Bool, animated: Bool) {
-    super.swipeAction(direction: direction, forced: forced, animated: animated)
+  override func swipeAction(direction: SwipeDirection, forced: Bool) {
+    swipeActionCalled = true
     swipeActionDirection = direction
     swipeActionForced = forced
-    swipeActionAnimated = animated
+    super.swipeAction(direction: direction, forced: forced)
   }
 
   var swipeCalled: Bool = false
   var swipeDirection: SwipeDirection?
-  var swipeAnimated: Bool?
 
-  override func swipe(direction: SwipeDirection, animated: Bool) {
-    super.swipe(direction: direction, animated: animated)
+  override func swipe(direction: SwipeDirection) {
     swipeCalled = true
     swipeDirection = direction
-    swipeAnimated = animated
+    super.swipe(direction: direction)
   }
 
   var reverseSwipeCalled: Bool = false
   var reverseSwipeDirection: SwipeDirection?
-  var reverseSwipeAnimated: Bool?
 
-  override func reverseSwipe(from direction: SwipeDirection, animated: Bool) {
-    super.reverseSwipe(from: direction, animated: animated)
+  override func reverseSwipe(from direction: SwipeDirection) {
     reverseSwipeCalled = true
     reverseSwipeDirection = direction
-    reverseSwipeAnimated = animated
+    super.reverseSwipe(from: direction)
   }
 
   // MARK: - Lifecycle
 
   var setNeedsLayoutCalled: Bool = false
   override func setNeedsLayout() {
-    super.setNeedsLayout()
     setNeedsLayoutCalled = true
+    super.setNeedsLayout()
   }
 }

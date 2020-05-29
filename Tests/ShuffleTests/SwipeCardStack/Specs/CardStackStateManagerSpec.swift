@@ -22,12 +22,12 @@
 /// SOFTWARE.
 ///
 
-
 import Nimble
 import Quick
 @testable import Shuffle
 import UIKit
 
+// swiftlint:disable function_body_length closure_body_length implicitly_unwrapped_optional
 class CardStackStateManagerSpec: QuickSpec {
 
   override func spec() {
@@ -76,7 +76,7 @@ class CardStackStateManagerSpec: QuickSpec {
 
         it("should remove the first index of remainingIndices") {
           let expectedRemainingIndices = Array(remainingIndices.dropFirst())
-          expect(subject.remainingIndices).to(equal(expectedRemainingIndices))
+          expect(subject.remainingIndices) == expectedRemainingIndices
         }
       }
     }
@@ -99,7 +99,7 @@ class CardStackStateManagerSpec: QuickSpec {
         }
 
         it("should not update the remaining indices") {
-          expect(subject.remainingIndices).to(equal(remainingIndices))
+          expect(subject.remainingIndices) == remainingIndices
         }
       }
 
@@ -113,13 +113,13 @@ class CardStackStateManagerSpec: QuickSpec {
         }
 
         it("should return the correct swipe") {
-          expect(actualSwipe?.index).to(equal(swipe.index))
-          expect(actualSwipe?.direction).to(equal(swipe.direction))
+          expect(actualSwipe?.index) == swipe.index
+          expect(actualSwipe?.direction) == swipe.direction
         }
 
         it("should add the swiped index to remaining indices") {
-          let expectedRemainingIndices =  [swipe.index] + remainingIndices
-          expect(subject.remainingIndices).to(equal(expectedRemainingIndices))
+          let expectedRemainingIndices = [swipe.index] + remainingIndices
+          expect(subject.remainingIndices) == expectedRemainingIndices
         }
       }
     }
@@ -136,7 +136,7 @@ class CardStackStateManagerSpec: QuickSpec {
 
       it("it should correctly shift the remaining indices") {
         let expectedRemainingIndices: [Int] = [2, 3, 0, 1]
-        expect(subject.remainingIndices).to(equal(expectedRemainingIndices))
+        expect(subject.remainingIndices) == expectedRemainingIndices
       }
     }
 
@@ -152,9 +152,10 @@ class CardStackStateManagerSpec: QuickSpec {
       }
 
       it("should correctly reset the remaining indices and swipes") {
-        expect(subject.remainingIndices).to(equal(Array(0..<numberOfCards)))
+        expect(subject.remainingIndices) == Array(0..<numberOfCards)
         expect(subject.swipes).to(beEmpty())
       }
     }
   }
 }
+// swiftlint:enable function_body_length closure_body_length implicitly_unwrapped_optional

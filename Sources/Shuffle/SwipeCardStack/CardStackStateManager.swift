@@ -22,7 +22,6 @@
 /// SOFTWARE.
 ///
 
-
 import Foundation
 
 typealias Swipe = (index: Int, direction: SwipeDirection)

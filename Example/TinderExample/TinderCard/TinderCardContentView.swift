@@ -22,7 +22,6 @@
 /// SOFTWARE.
 ///
 
-
 import UIKit
 
 class TinderCardContentView: UIView {
@@ -71,7 +70,8 @@ class TinderCardContentView: UIView {
   override func draw(_ rect: CGRect) {
     super.draw(rect)
     let heightFactor: CGFloat = 0.35
-    gradientLayer.frame = CGRect(x: 0, y: (1 - heightFactor) * bounds.height,
+    gradientLayer.frame = CGRect(x: 0,
+                                 y: (1 - heightFactor) * bounds.height,
                                  width: bounds.width,
                                  height: heightFactor * bounds.height)
   }

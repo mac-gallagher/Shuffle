@@ -22,7 +22,6 @@
 /// SOFTWARE.
 ///
 
-
 import UIKit
 
 extension UIView {
@@ -61,7 +60,7 @@ extension UIView {
       anchors.append(heightAnchor.constraint(equalToConstant: height))
     }
 
-    anchors.forEach({$0.isActive = true})
+    anchors.forEach { $0.isActive = true }
 
     return anchors
   }

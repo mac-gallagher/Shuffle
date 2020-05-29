@@ -14,7 +14,6 @@ s.documentation_url = "https://github.com/mac-gallagher/Shuffle/tree/master/READ
 s.license      = { :type => 'MIT', :file => 'LICENSE' }
 s.author       = { "Mac Gallagher" => "jmgallagher36@gmail.com" }
 s.source       = { :git => "https://github.com/mac-gallagher/Shuffle.git", :tag => "v0.3.0" }
-
 s.swift_version = "5.0"
 s.source_files = "Sources/**/*.{h,swift}"
 

@@ -22,9 +22,9 @@
 /// SOFTWARE.
 ///
 
-
 import UIKit
 
+// swiftlint:disable discouraged_optional_collection
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
@@ -41,3 +41,4 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     return true
   }
 }
+// swiftlint:enable discouraged_optional_collection

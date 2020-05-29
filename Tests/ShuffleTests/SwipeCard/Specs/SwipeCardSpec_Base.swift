@@ -22,12 +22,12 @@
 /// SOFTWARE.
 ///
 
-
 import Nimble
 import Quick
 @testable import Shuffle
 import UIKit
 
+// swiftlint:disable closure_body_length function_body_length implicitly_unwrapped_optional
 class SwipeCardSpec_Base: QuickSpec {
 
   override func spec() {
@@ -83,14 +83,14 @@ class SwipeCardSpec_Base: QuickSpec {
       func testDefaultProperties() {
         expect(card.delegate).to(beNil())
         expect(card.animationOptions).to(be(CardAnimationOptions.default))
-        expect(card.footerHeight).to(equal(100))
+        expect(card.footerHeight) == 100
         expect(card.content).to(beNil())
         expect(card.footer).to(beNil())
         expect(card.touchLocation).to(beNil())
 
         let overlayContainer = card.subviews.first
         expect(overlayContainer).toNot(beNil())
-        expect(overlayContainer?.isUserInteractionEnabled).to(beFalse())
+        expect(overlayContainer?.isUserInteractionEnabled) == false
       }
     }
 
@@ -126,8 +126,8 @@ class SwipeCardSpec_Base: QuickSpec {
         }
 
         it("should remove the old content from the view hierarchy and add the new content") {
-          expect(subject.subviews.filter{ $0.tag == oldContentTag }.count).to(equal(0))
-          expect(subject.subviews.filter{ $0.tag == newContentTag }.count).to(equal(1))
+          expect(subject.subviews.filter { $0.tag == oldContentTag }.count) == 0
+          expect(subject.subviews.filter { $0.tag == newContentTag }.count) == 1
         }
       }
     }
@@ -164,8 +164,8 @@ class SwipeCardSpec_Base: QuickSpec {
         }
 
         it("should remove the old footer from the view hierarchy and add the new footer") {
-          expect(subject.subviews.filter{ $0.tag == oldFooterTag }.count).to(equal(0))
-          expect(subject.subviews.filter{ $0.tag == newFooterTag }.count).to(equal(1))
+          expect(subject.subviews.filter { $0.tag == oldFooterTag }.count) == 0
+          expect(subject.subviews.filter { $0.tag == newFooterTag }.count) == 1
         }
       }
     }
@@ -190,8 +190,7 @@ class SwipeCardSpec_Base: QuickSpec {
       }
 
       it("should post the correct notification to the notification center") {
-        expect(mockNotificationCenter.postedNotificationName)
-          .to(equal(CardDidFinishSwipeAnimationNotification))
+        expect(mockNotificationCenter.postedNotificationName) == CardDidFinishSwipeAnimationNotification
         expect(mockNotificationCenter.postedNotificationObject).to(be(subject))
       }
     }
@@ -205,7 +204,7 @@ class SwipeCardSpec_Base: QuickSpec {
       }
 
       it("should enable user interaction on the card") {
-        expect(subject.isUserInteractionEnabled).to(beTrue())
+        expect(subject.isUserInteractionEnabled) == true
       }
     }
 
@@ -232,16 +231,16 @@ class SwipeCardSpec_Base: QuickSpec {
       }
 
       it("should correctly layout the footer and the content") {
-        expect(footer.frame).to(equal(footerFrame))
-        expect(content.frame).to(equal(contentFrame))
+        expect(footer.frame) == footerFrame
+        expect(content.frame) == contentFrame
       }
 
       it("should correctly layout the overlay container and its overlays") {
         let overlayContainer = subject.subviews.last
-        expect(overlayContainer?.frame).to(equal(overlayContainerFrame))
+        expect(overlayContainer?.frame) == overlayContainerFrame
 
         let expectedOverlayFrame = CGRect(origin: .zero, size: overlayContainerFrame.size)
-        expect(overlay.frame).to(equal(expectedOverlayFrame))
+        expect(overlay.frame) == expectedOverlayFrame
       }
     }
 
@@ -259,11 +258,11 @@ class SwipeCardSpec_Base: QuickSpec {
       }
 
       it("should set the correct touch location") {
-        expect(subject.touchLocation).to(equal(touchPoint))
+        expect(subject.touchLocation) == touchPoint
       }
 
       it("should call the didTap delegate method") {
-        expect(mockSwipeCardDelegate.didTapCalled).to(beTrue())
+        expect(mockSwipeCardDelegate.didTapCalled) == true
       }
     }
 
@@ -281,15 +280,15 @@ class SwipeCardSpec_Base: QuickSpec {
       }
 
       it("should set the correct touch location") {
-        expect(subject.touchLocation).to(equal(touchPoint))
+        expect(subject.touchLocation) == touchPoint
       }
 
       it("should call the didBeginSwipe delegate method") {
-        expect(mockSwipeCardDelegate.didBeginSwipeCalled).to(beTrue())
+        expect(mockSwipeCardDelegate.didBeginSwipeCalled) == true
       }
 
       it("should remove all animations on the card") {
-        expect(mockCardAnimator.removeAllAnimationsCalled).to(beTrue())
+        expect(mockCardAnimator.removeAllAnimationsCalled) == true
       }
     }
 
@@ -313,15 +312,15 @@ class SwipeCardSpec_Base: QuickSpec {
       }
 
       it("should call the didContinueSwipe delegate method") {
-        expect(mockSwipeCardDelegate.didContinueSwipeCalled).to(beTrue())
+        expect(mockSwipeCardDelegate.didContinueSwipeCalled) == true
       }
 
       it("should apply the proper transformation to the card") {
-        expect(subject.transform).to(equal(transform))
+        expect(subject.transform) == transform
       }
 
       it("should apply the proper overlay alpha values") {
-        expect(overlay.alpha).to(equal(overlayPercentage))
+        expect(overlay.alpha) == overlayPercentage
       }
     }
 
@@ -334,10 +333,14 @@ class SwipeCardSpec_Base: QuickSpec {
         subject.didSwipe(UIPanGestureRecognizer(), with: direction)
       }
 
+      it("should call the delegate's didSwipe method") {
+        expect(mockSwipeCardDelegate.didSwipeCalled) == true
+      }
+
       it("should call the swipeAction method with the correct parameters") {
-        expect(subject.swipeActionDirection).to(equal(direction))
-        expect(subject.swipeActionForced).to(equal(false))
-        expect(subject.swipeActionAnimated).to(equal(true))
+        expect(subject.swipeActionCalled) == true
+        expect(subject.swipeActionDirection) == direction
+        expect(subject.swipeActionForced) == false
       }
     }
 
@@ -349,62 +352,9 @@ class SwipeCardSpec_Base: QuickSpec {
       }
 
       it("should call the animator's reset method") {
-        expect(mockCardAnimator.animateResetCalled).to(beTrue())
-      }
-    }
-
-    // MARK: Gesture Recognizer Should Begin
-
-    describe("When calling gestureRecognizerShouldBegin") {
-      context("and the gesture recognizer is not the card's panGestureRecognizer") {
-        it("should return the value from the superclass") {
-          let actualResult = subject.gestureRecognizerShouldBegin(UIGestureRecognizer())
-          expect(actualResult).to(beTrue())
-        }
-      }
-
-      context("and the swipe is horizontal") {
-        let recognizeHorizontalDrag: Bool = false
-
-        beforeEach {
-          mockSwipeCardDelegate.testShouldRecognizeHorizontalDrag = recognizeHorizontalDrag
-          testPanGestureRecognizer.performPan(withLocation: nil,
-                                              translation: nil,
-                                              velocity: CGPoint(x: 1, y: 0))
-        }
-
-        it("should return the value from the delegate") {
-          let actualResult = subject.gestureRecognizerShouldBegin(testPanGestureRecognizer)
-          expect(actualResult).to(equal(recognizeHorizontalDrag))
-        }
-      }
-
-      context("and the swipe is vertical") {
-        let recognizeVerticalDrag: Bool = false
-
-        beforeEach {
-          mockSwipeCardDelegate.testShouldRecognizeVerticalDrag = recognizeVerticalDrag
-          testPanGestureRecognizer.performPan(withLocation: nil,
-                                              translation: nil,
-                                              velocity: CGPoint(x: 0, y: 1))
-        }
-        
-        it("should return the value from the delegate") {
-          let actualResult = subject.gestureRecognizerShouldBegin(testPanGestureRecognizer)
-          expect(actualResult).to(equal(recognizeVerticalDrag))
-        }
-      }
-      
-      context("and the delegate is nil or the shouldDrag method has not been implemented") {
-        beforeEach {
-          subject.delegate = nil
-        }
-        
-        it("should return the value from the superclass") {
-          let actualResult = subject.gestureRecognizerShouldBegin(testPanGestureRecognizer)
-          expect(actualResult).to(beTrue())
-        }
+        expect(mockCardAnimator.animateResetCalled) == true
       }
     }
   }
 }
+// swiftlint:enable closure_body_length function_body_length implicitly_unwrapped_optional

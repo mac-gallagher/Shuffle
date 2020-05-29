@@ -22,7 +22,6 @@
 /// SOFTWARE.
 ///
 
-
 import UIKit
 
 class TinderCardFooterView: UIView {
@@ -40,19 +39,22 @@ class TinderCardFooterView: UIView {
     isOpaque = false
     initialize(title: title, subtitle: subtitle)
   }
-  
+
   required init?(coder aDecoder: NSCoder) {
     return nil
   }
 
   private func initialize(title: String?, subtitle: String?) {
-    let attributedText = NSMutableAttributedString(string: (title ?? "") + "\n", attributes: NSAttributedString.Key.titleAttributes)
+    let attributedText = NSMutableAttributedString(string: (title ?? "") + "\n",
+                                                   attributes: NSAttributedString.Key.titleAttributes)
     if let subtitle = subtitle, !subtitle.isEmpty {
-      attributedText.append(NSMutableAttributedString(string: subtitle, attributes: NSAttributedString.Key.subtitleAttributes))
+      attributedText.append(NSMutableAttributedString(string: subtitle,
+                                                      attributes: NSAttributedString.Key.subtitleAttributes))
       let paragraphStyle = NSMutableParagraphStyle()
       paragraphStyle.lineSpacing = 4
       paragraphStyle.lineBreakMode = .byTruncatingTail
-      attributedText.addAttributes([NSAttributedString.Key.paragraphStyle: paragraphStyle], range: NSRange(location: 0, length: attributedText.length))
+      attributedText.addAttributes([NSAttributedString.Key.paragraphStyle: paragraphStyle],
+                                   range: NSRange(location: 0, length: attributedText.length))
       label.numberOfLines = 2
     }
 
@@ -80,12 +82,14 @@ extension NSAttributedString.Key {
   }()
 
   static var titleAttributes: [NSAttributedString.Key: Any] = [
+    // swiftlint:disable:next force_unwrapping
     NSAttributedString.Key.font: UIFont(name: "ArialRoundedMTBold", size: 24)!,
     NSAttributedString.Key.foregroundColor: UIColor.white,
     NSAttributedString.Key.shadow: NSAttributedString.Key.shadowAttribute
   ]
 
   static var subtitleAttributes: [NSAttributedString.Key: Any] = [
+    // swiftlint:disable:next force_unwrapping
     NSAttributedString.Key.font: UIFont(name: "Arial", size: 17)!,
     NSAttributedString.Key.foregroundColor: UIColor.white,
     NSAttributedString.Key.shadow: NSAttributedString.Key.shadowAttribute

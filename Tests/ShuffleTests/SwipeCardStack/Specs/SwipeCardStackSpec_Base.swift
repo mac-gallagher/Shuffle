@@ -22,12 +22,12 @@
 /// SOFTWARE.
 ///
 
-
 import Nimble
 import Quick
 @testable import Shuffle
 import UIKit
 
+// swiftlint:disable closure_body_length function_body_length implicitly_unwrapped_optional
 class SwipeCardStackSpec_Base: QuickSpec {
 
   override func spec() {
@@ -73,22 +73,24 @@ class SwipeCardStackSpec_Base: QuickSpec {
       }
 
       func testDefaultProperties() {
-        expect(cardStack.numberOfVisibleCards).to(equal(2))
-        expect(cardStack.animationOptions).to(be(CardStackAnimationOptions.default))
+        expect(cardStack.numberOfVisibleCards) == 2
+        expect(cardStack.animationOptions) === CardStackAnimationOptions.default
 
-        let expectedInsets = UIEdgeInsets(top: 10, left: 10,
-                                          bottom: 10, right: 10)
-        expect(cardStack.cardStackInsets).to(equal(expectedInsets))
+        let expectedInsets = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
+        expect(cardStack.cardStackInsets) == expectedInsets
 
         expect(cardStack.delegate).to(beNil())
         expect(cardStack.dataSource).to(beNil())
         expect(cardStack.topCardIndex).to(beNil())
 
-        expect(cardStack.topCard).to(beNil())
-        expect(cardStack.visibleCards).to(equal([]))
-        expect(cardStack.backgroundCards).to(equal([]))
+        expect(cardStack.shouldRecognizeHorizontalDrag) == true
+        expect(cardStack.shouldRecognizeVerticalDrag) == true
 
-        expect(cardStack.subviews.count).to(equal(1))
+        expect(cardStack.topCard).to(beNil())
+        expect(cardStack.visibleCards) == []
+        expect(cardStack.backgroundCards) == []
+
+        expect(cardStack.subviews.count) == 1
       }
     }
 
@@ -102,19 +104,7 @@ class SwipeCardStackSpec_Base: QuickSpec {
       }
 
       it("should call reloadData") {
-        expect(subject.reloadDataCalled).to(beTrue())
-      }
-    }
-
-    // MARK: Number Of Visible Cards
-
-    describe("When setting numberOfVisibleCards") {
-      beforeEach {
-        subject.numberOfVisibleCards = 0
-      }
-
-      it("should call reloadData") {
-        expect(subject.reloadDataCalled).to(beTrue())
+        expect(subject.reloadDataCalled) == true
       }
     }
 
@@ -126,7 +116,7 @@ class SwipeCardStackSpec_Base: QuickSpec {
       }
 
       it("should trigger a new layout cycle") {
-        expect(subject.setNeedsLayoutCalled).to(beTrue())
+        expect(subject.setNeedsLayoutCalled) == true
       }
     }
 
@@ -151,7 +141,7 @@ class SwipeCardStackSpec_Base: QuickSpec {
         }
 
         it("should return the first remaining index from the state manager") {
-          expect(subject.topCardIndex).to(equal(index))
+          expect(subject.topCardIndex) == index
         }
       }
     }
@@ -177,7 +167,7 @@ class SwipeCardStackSpec_Base: QuickSpec {
         }
 
         it("should return the first visible card") {
-          expect(subject.topCard).to(equal(firstCard))
+          expect(subject.topCard) == firstCard
         }
       }
     }
@@ -193,16 +183,16 @@ class SwipeCardStackSpec_Base: QuickSpec {
 
       it("should return the visible cards expect the first card") {
         let expectedCards = Array(visibleCards.dropFirst())
-        expect(subject.backgroundCards).to(equal(expectedCards))
+        expect(subject.backgroundCards) == expectedCards
       }
     }
 
     // MARK: Is Enabled
 
-    for isUserInteractionEnabled in [false, true] {
+    for isAnimating in [false, true] {
       describe("When getting isEnabled") {
         beforeEach {
-          subject.isUserInteractionEnabled = isUserInteractionEnabled
+          subject.isAnimating = isAnimating
         }
 
         context("and there is no top card") {
@@ -210,8 +200,8 @@ class SwipeCardStackSpec_Base: QuickSpec {
             subject.testTopCard = nil
           }
 
-          it("should return isUserInteractionEnabled") {
-            expect(subject.isEnabled).to(equal(isUserInteractionEnabled))
+          it("should return !isAnimating") {
+            expect(subject.isEnabled) == !isAnimating
           }
         }
 
@@ -228,7 +218,7 @@ class SwipeCardStackSpec_Base: QuickSpec {
             }
 
             it("should return false") {
-              expect(subject.isEnabled).to(beFalse())
+              expect(subject.isEnabled) == false
             }
           }
 
@@ -237,50 +227,11 @@ class SwipeCardStackSpec_Base: QuickSpec {
               topCard.isUserInteractionEnabled = true
             }
 
-            it("should return isUserInteractionEnabled") {
-              expect(subject.isEnabled).to(equal(isUserInteractionEnabled))
+            it("should return !isAnimating") {
+              expect(subject.isEnabled) == !isAnimating
             }
           }
         }
-      }
-    }
-
-    // MARK: Swipe Completion Block
-
-    describe("When the swipe completion block is called") {
-      beforeEach {
-        subject.isUserInteractionEnabled = false
-        subject.swipeCompletionBlock()
-      }
-
-      it("should enable user interaction on the card stack") {
-        expect(subject.isUserInteractionEnabled).to(beTrue())
-      }
-    }
-
-    // MARK: Undo Completion
-
-    describe("When the undo completion block is called") {
-      beforeEach {
-        subject.isUserInteractionEnabled = false
-        subject.undoCompletionBlock()
-      }
-
-      it("should enable user interaction on the card stack") {
-        expect(subject.isUserInteractionEnabled).to(beTrue())
-      }
-    }
-
-    // MARK: Shift Completion
-
-    describe("When the shift completion block is called") {
-      beforeEach {
-        subject.isUserInteractionEnabled = false
-        subject.shiftCompletionBlock()
-      }
-
-      it("should enable user interaction on the card stack") {
-        expect(subject.isUserInteractionEnabled).to(beTrue())
       }
     }
 
@@ -301,13 +252,13 @@ class SwipeCardStackSpec_Base: QuickSpec {
 
       it("should correctly layout the card container") {
         let cardContainer = subject.subviews.first
-        expect(cardContainer?.frame).to(equal(cardContainerFrame))
+        expect(cardContainer?.frame) == cardContainerFrame
       }
 
       it("should call layoutCard for each card") {
-        expect(subject.layoutCardCalled).to(beTrue())
-        expect(subject.layoutCardIndices).to(equal(Array(0..<numberOfCards)))
-        expect(subject.visibleCards).to(equal(visibleCards))
+        expect(subject.layoutCardCalled) == true
+        expect(subject.layoutCardIndices) == Array(0..<numberOfCards)
+        expect(subject.visibleCards) == visibleCards
       }
     }
 
@@ -352,10 +303,9 @@ class SwipeCardStackSpec_Base: QuickSpec {
 
       func testLayoutCard(index: Int) {
         it("should correctly layout the card and disable user interaction") {
-          expect(card.frame).to(equal(transformedFrame))
-          expect(card.transform).to(equal(cardTransform))
-          expect(card.isUserInteractionEnabled).to(equal(index == 0))
-
+          expect(card.frame) == transformedFrame
+          expect(card.transform) == cardTransform
+          expect(card.isUserInteractionEnabled) == (index == 0)
         }
       }
     }
@@ -367,7 +317,7 @@ class SwipeCardStackSpec_Base: QuickSpec {
         it("should return a 100% scale") {
           let expectedScaleFactor = CGPoint(x: 1.0, y: 1.0)
           let actualScaleFactor = subject.scaleFactor(forCardAtIndex: 0)
-          expect(actualScaleFactor).to(equal(expectedScaleFactor))
+          expect(actualScaleFactor) == expectedScaleFactor
         }
       }
 
@@ -375,7 +325,7 @@ class SwipeCardStackSpec_Base: QuickSpec {
         it("should return a 95% scale") {
           let actualScaleFactor = subject.scaleFactor(forCardAtIndex: 1)
           let expectedScaleFactor = CGPoint(x: 0.95, y: 0.95)
-          expect(actualScaleFactor).to(equal(expectedScaleFactor))
+          expect(actualScaleFactor) == expectedScaleFactor
         }
       }
     }
@@ -389,12 +339,79 @@ class SwipeCardStackSpec_Base: QuickSpec {
         subject.testScaleFactor = scaleFactor
       }
 
-      it("should return the identity transform") {
+      it("should return the correct scaled transform") {
         let actualTransform = subject.transform(forCardAtIndex: 0)
         let expectedTransform = CGAffineTransform(scaleX: scaleFactor.x,
                                                   y: scaleFactor.y)
-        expect(actualTransform).to(equal(expectedTransform))
+        expect(actualTransform) == expectedTransform
+      }
+    }
+
+    // MARK: Gesture Recognizer Should Begin
+
+    describe("When calling gestureRecognizerShouldBegin") {
+      context("and the gesture recognizer is not the top card's panGestureRecognizer") {
+        it("should return the value from the card stack's superclass") {
+          let actualResult = subject.gestureRecognizerShouldBegin(UIGestureRecognizer())
+          expect(actualResult) == true
+        }
+      }
+
+      context("and the gesture recognizer is the top card's pan gesture recognizer") {
+        let topCard = SwipeCard()
+        var topCardPanGestureRecognizer: PanGestureRecognizer!
+
+        beforeEach {
+          subject.testTopCard = topCard
+          topCardPanGestureRecognizer = topCard.panGestureRecognizer as? PanGestureRecognizer
+        }
+
+        context("and the drag is horizontal") {
+          let shouldRecognizeHorizontalDrag: Bool = false
+
+          beforeEach {
+            subject.shouldRecognizeHorizontalDrag = shouldRecognizeHorizontalDrag
+            topCardPanGestureRecognizer.performPan(withLocation: nil,
+                                                   translation: nil,
+                                                   velocity: CGPoint(x: 1, y: 0))
+          }
+
+          it("should return recognizeHorizontalDrag") {
+            let actualResult = subject.gestureRecognizerShouldBegin(topCardPanGestureRecognizer)
+            expect(actualResult) == shouldRecognizeHorizontalDrag
+          }
+        }
+
+        context("and the drag is vertical") {
+          let shouldRecognizeVerticalDrag: Bool = false
+
+          beforeEach {
+            subject.shouldRecognizeVerticalDrag = shouldRecognizeVerticalDrag
+            topCardPanGestureRecognizer.performPan(withLocation: nil,
+                                                   translation: nil,
+                                                   velocity: CGPoint(x: 0, y: 1))
+          }
+
+          it("should return recognizeHorizontalDrag") {
+            let actualResult = subject.gestureRecognizerShouldBegin(topCardPanGestureRecognizer)
+            expect(actualResult) == shouldRecognizeVerticalDrag
+          }
+        }
+
+        context("and the drag has no direction") {
+          beforeEach {
+            topCardPanGestureRecognizer.performPan(withLocation: nil,
+                                                   translation: nil,
+                                                   velocity: CGPoint(x: 0, y: 0))
+          }
+
+          it("should return the value from the card's superclass") {
+            let actualResult = subject.gestureRecognizerShouldBegin(topCardPanGestureRecognizer)
+            expect(actualResult) == true
+          }
+        }
       }
     }
   }
 }
+// swiftlint:enable closure_body_length  function_body_length implicitly_unwrapped_optional

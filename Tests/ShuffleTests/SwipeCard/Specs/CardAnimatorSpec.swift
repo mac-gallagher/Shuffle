@@ -22,12 +22,12 @@
 /// SOFTWARE.
 ///
 
-
 import Nimble
 import Quick
 @testable import Shuffle
 import UIKit
 
+// swiftlint:disable closure_body_length function_body_length implicitly_unwrapped_optional
 class CardAnimatorSpec: QuickSpec {
 
   override func spec() {
@@ -46,20 +46,14 @@ class CardAnimatorSpec: QuickSpec {
       card.frame = CGRect(x: 0, y: 0, width: cardWidth, height: cardHeight)
     }
 
-    afterEach {
-      UIView.setAnimationsEnabled(true)
-    }
+    // MARK: - Main Methods
 
-    //MARK: - Main Methods
-
-    //MARK: Animate Reset
+    // MARK: Animate Reset
 
     describe("When calling animateReset") {
       let overlay = UIView()
 
       beforeEach {
-        UIView.setAnimationsEnabled(false)
-
         card.transform = CGAffineTransform(a: 1, b: 2, c: 3, d: 4, tx: 5, ty: 6)
         card.testActiveDirection = .left
         card.setOverlay(overlay, forDirection: .left)
@@ -69,12 +63,12 @@ class CardAnimatorSpec: QuickSpec {
       }
 
       it("should remove all animations on the card") {
-        expect(subject.removeAllAnimationsCalled).to(beTrue())
+        expect(subject.removeAllAnimationsCalled) == true
       }
 
       it("should reset the card's transform and set the active direction's overlay alpha to zero") {
-        expect(card.transform).to(equal(.identity))
-        expect(overlay.alpha).to(equal(0))
+        expect(card.transform) == .identity
+        expect(overlay.alpha) == 0
       }
     }
 
@@ -83,47 +77,61 @@ class CardAnimatorSpec: QuickSpec {
     describe("When calling animateReverseSwipe") {
       let overlay = UIView()
 
+      var completionCalled: Bool = false
+      let testCompletion: (Bool) -> Void = { _ in
+        completionCalled = true
+      }
+
       beforeEach {
-        UIView.setAnimationsEnabled(false)
         card.setOverlay(overlay, forDirection: .left)
-        subject.animateReverseSwipe(on: card, from: .left)
+        subject.animateReverseSwipe(on: card, from: .left, completion: testCompletion)
       }
 
       it("should remove all animations on the card") {
-        expect(subject.removeAllAnimationsCalled).to(beTrue())
+        expect(subject.removeAllAnimationsCalled) == true
       }
 
       it("should recreate the swipe") {
-        expect(subject.addSwipeAnimationKeyFramesCalled).to(beTrue())
+        expect(subject.addSwipeAnimationKeyFramesCalled) == true
       }
 
       it("should add the reverse swipe animation key frames") {
-        expect(subject.addReverseSwipeAnimationKeyFramesCalled).to(beTrue())
+        expect(subject.addReverseSwipeAnimationKeyFramesCalled) == true
       }
 
-      it("should call the card's reverse swipe completion block once the animation has completed") {
-        expect(card.reverseSwipeCompletionBlockCalled).toEventually(beTrue())
+      it("should call the completion block once the animation has completed") {
+        expect(completionCalled).toEventually(beTrue())
       }
     }
 
     // MARK: Animate Swipe
 
     describe("When calling animateSwipe") {
+      let direction = SwipeDirection.left
+      let forced: Bool = false
+
+      var completionCalled: Bool = false
+      let testCompletion: (Bool) -> Void = { _ in
+        completionCalled = true
+      }
+
       beforeEach {
-        UIView.setAnimationsEnabled(false)
-        subject.animateSwipe(on: card, direction: .left, forced: false)
+        subject.animateSwipe(on: card,
+                             direction: direction,
+                             forced: forced,
+                             completion: testCompletion)
       }
 
       it("should remove all animations on the card") {
-        expect(subject.removeAllAnimationsCalled).to(beTrue())
+        expect(subject.removeAllAnimationsCalled) == true
       }
 
       it("should add the swipe animation key frames") {
-        expect(subject.addSwipeAnimationKeyFramesCalled).to(beTrue())
+        expect(subject.addSwipeAnimationKeyFramesCalled) == true
       }
 
-      it("should call the card's swipe completion block once the animation has completed") {
-        expect(card.swipeCompletionBlockCalled).toEventually(beTrue())
+      it("should call completion block once the animation has completed") {
+        expect(completionCalled).toEventually(beTrue())
       }
     }
 
@@ -136,11 +144,10 @@ class CardAnimatorSpec: QuickSpec {
         card.setOverlay(overlay, forDirection: .left)
 
         // add animation key to overlay
-        UIView.animate(withDuration: 100, animations: {
+        UIView.animate(withDuration: 100) {
           card.alpha = 0
-          overlay.transform = CGAffineTransform(a: 1, b: 2, c: 3,
-                                                d: 4, tx: 5, ty: 6)
-        })
+          overlay.transform = CGAffineTransform(a: 1, b: 2, c: 3, d: 4, tx: 5, ty: 6)
+        }
 
         subject.removeAllAnimations(on: card)
       }
@@ -170,7 +177,7 @@ class CardAnimatorSpec: QuickSpec {
           let actualDuration = subject.relativeSwipeOverlayFadeDuration(card,
                                                                         direction: direction,
                                                                         forced: true)
-          expect(actualDuration).to(equal(0.0))
+          expect(actualDuration) == 0.0
         }
       }
 
@@ -189,7 +196,7 @@ class CardAnimatorSpec: QuickSpec {
             let actualDuration = subject.relativeSwipeOverlayFadeDuration(card,
                                                                           direction: direction,
                                                                           forced: true)
-            expect(actualDuration).to(equal(relativeDuration))
+            expect(actualDuration) == relativeDuration
           }
         }
 
@@ -198,7 +205,7 @@ class CardAnimatorSpec: QuickSpec {
             let actualDuration = subject.relativeSwipeOverlayFadeDuration(card,
                                                                           direction: direction,
                                                                           forced: false)
-            expect(actualDuration).to(equal(0))
+            expect(actualDuration) == 0
           }
         }
       }
@@ -216,7 +223,7 @@ class CardAnimatorSpec: QuickSpec {
 
         it("should return zero") {
           let actualDuration = subject.relativeReverseSwipeOverlayFadeDuration(card, direction: direction)
-          expect(actualDuration).to(equal(0.0))
+          expect(actualDuration) == 0.0
         }
       }
 
@@ -232,7 +239,7 @@ class CardAnimatorSpec: QuickSpec {
 
         it("should return the correct duration") {
           let actualDuration = subject.relativeReverseSwipeOverlayFadeDuration(card, direction: direction)
-          expect(actualDuration).to(equal(relativeDuration))
+          expect(actualDuration) == relativeDuration
         }
       }
     }
@@ -252,7 +259,7 @@ class CardAnimatorSpec: QuickSpec {
       context("and forced is true") {
         it("should return totalSwipeDuration from card.animationOptions") {
           let actualDuration = subject.swipeDuration(card, direction: direction, forced: true)
-          expect(actualDuration).to(equal(totalDuration))
+          expect(actualDuration) == totalDuration
         }
       }
 
@@ -266,7 +273,7 @@ class CardAnimatorSpec: QuickSpec {
 
           it("should return the correct relative swipe duration") {
             let actualDuration = subject.swipeDuration(card, direction: direction, forced: false)
-            expect(actualDuration).to(equal(1 / TimeInterval(swipeFactor)))
+            expect(actualDuration) == 1 / TimeInterval(swipeFactor)
           }
         }
 
@@ -277,7 +284,7 @@ class CardAnimatorSpec: QuickSpec {
 
           it("should return totalSwipeDuration from card.animationOptions") {
             let actualDuration = subject.swipeDuration(card, direction: direction, forced: false)
-            expect(actualDuration).to(equal(totalDuration))
+            expect(actualDuration) == totalDuration
           }
         }
       }
@@ -289,13 +296,13 @@ class CardAnimatorSpec: QuickSpec {
       context("and the direction is vertical") {
         it("should return zero") {
           let actualRotation = subject.swipeRotationAngle(card, direction: .up, forced: false)
-          expect(actualRotation).to(equal(0.0))
+          expect(actualRotation) == 0.0
         }
       }
 
       for direction in [SwipeDirection.left, SwipeDirection.right] {
         context("and the direction is horizontal") {
-          let maximumRotationAngle: CGFloat = CGFloat.pi / 4
+          let maximumRotationAngle = CGFloat.pi / 4
 
           beforeEach {
             card.animationOptions = CardAnimationOptions(maximumRotationAngle: maximumRotationAngle)
@@ -305,7 +312,7 @@ class CardAnimatorSpec: QuickSpec {
             it("should return the twice the maximum rotation angle") {
               let actualRotation = subject.swipeRotationAngle(card, direction: direction, forced: true)
               let expectedRotation = 2 * (direction == .left ? -1 : 1) * maximumRotationAngle
-              expect(actualRotation).to(equal(expectedRotation))
+              expect(actualRotation) == expectedRotation
             }
           }
 
@@ -321,7 +328,7 @@ class CardAnimatorSpec: QuickSpec {
               it("should return the twice the maximum rotation angle") {
                 let actualRotation = subject.swipeRotationAngle(card, direction: direction, forced: false)
                 let expectedRotation = 2 * (direction == .left ? -1 : 1) * maximumRotationAngle
-                expect(actualRotation).to(equal(expectedRotation))
+                expect(actualRotation) == expectedRotation
               }
             }
 
@@ -333,7 +340,7 @@ class CardAnimatorSpec: QuickSpec {
               it("should return the correct rotation angle") {
                 let actualRotation = subject.swipeRotationAngle(card, direction: direction, forced: false)
                 let expectedRotation = 2 * (direction == .left ? -1 : 1) * maximumRotationAngle
-                expect(actualRotation).to(equal(expectedRotation))
+                expect(actualRotation) == expectedRotation
               }
             }
 
@@ -345,7 +352,7 @@ class CardAnimatorSpec: QuickSpec {
               it("should return the correct rotation angle") {
                 let actualRotation = subject.swipeRotationAngle(card, direction: direction, forced: false)
                 let expectedRotation = 2 * (direction == .left ? -1 : 1) * maximumRotationAngle
-                expect(actualRotation).to(equal(expectedRotation))
+                expect(actualRotation) == expectedRotation
               }
             }
 
@@ -357,7 +364,7 @@ class CardAnimatorSpec: QuickSpec {
               it("should return the correct rotation angle") {
                 let actualRotation = subject.swipeRotationAngle(card, direction: direction, forced: false)
                 let expectedRotation = 2 * (direction == .right ? -1 : 1) * maximumRotationAngle
-                expect(actualRotation).to(equal(expectedRotation))
+                expect(actualRotation) == expectedRotation
               }
             }
 
@@ -369,7 +376,7 @@ class CardAnimatorSpec: QuickSpec {
               it("should return the correct rotation angle") {
                 let actualRotation = subject.swipeRotationAngle(card, direction: direction, forced: false)
                 let expectedRotation = 2 * (direction == .right ? -1 : 1) * maximumRotationAngle
-                expect(actualRotation).to(equal(expectedRotation))
+                expect(actualRotation) == expectedRotation
               }
             }
           }
@@ -380,8 +387,8 @@ class CardAnimatorSpec: QuickSpec {
     // MARK: Swipe Transform
 
     describe("When calling swipeTransform") {
-      let testRotationAngle: CGFloat = CGFloat.pi / 4
-      let testTranslation: CGVector = CGVector(dx: 100, dy: 200)
+      let testRotationAngle = CGFloat.pi / 4
+      let testTranslation = CGVector(dx: 100, dy: 200)
 
       let testTransform: CGAffineTransform = {
         let rotation = CGAffineTransform(rotationAngle: testRotationAngle)
@@ -396,8 +403,7 @@ class CardAnimatorSpec: QuickSpec {
 
       it("should return a transform with the proper rotation and translation") {
         let actualTranslation = subject.swipeTransform(card, direction: .left, forced: false)
-        expect(actualTranslation).to(equal(testTransform))
-
+        expect(actualTranslation) == testTransform
       }
     }
 
@@ -418,12 +424,15 @@ class CardAnimatorSpec: QuickSpec {
 
         it("should return a translation far enough to swipe the card off screen") {
           let direction: SwipeDirection = .left
-          let actualTranslation = subject.swipeTranslation(card, direction: direction, directionVector: direction.vector)
+          let actualTranslation = subject.swipeTranslation(card,
+                                                           direction: direction,
+                                                           directionVector:
+            direction.vector)
           let translatedCardBounds = CGRect(x: actualTranslation.dx,
                                             y: actualTranslation.dy,
                                             width: cardWidth,
                                             height: cardHeight)
-          expect(screenBounds.intersects(translatedCardBounds)).to(beFalse())
+          expect(screenBounds.intersects(translatedCardBounds)) == false
         }
       }
 
@@ -434,14 +443,17 @@ class CardAnimatorSpec: QuickSpec {
 
         it("should return a translation far enough to swipe the card off screen") {
           let direction: SwipeDirection = .left
-          let actualTranslation = subject.swipeTranslation(card, direction: direction, directionVector: direction.vector)
+          let actualTranslation = subject.swipeTranslation(card,
+                                                           direction: direction,
+                                                           directionVector: direction.vector)
           let translatedCardBounds = CGRect(x: actualTranslation.dx,
                                             y: actualTranslation.dy,
                                             width: cardWidth,
                                             height: cardHeight)
-          expect(screenBounds.intersects(translatedCardBounds)).to(beFalse())
+          expect(screenBounds.intersects(translatedCardBounds)) == false
         }
       }
     }
   }
 }
+// swiftlint:enable closure_body_length function_body_length implicitly_unwrapped_optional

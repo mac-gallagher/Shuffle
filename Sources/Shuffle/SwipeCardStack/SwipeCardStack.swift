@@ -22,22 +22,25 @@
 /// SOFTWARE.
 ///
 
-
 import UIKit
 
-open class SwipeCardStack: UIView, SwipeCardDelegate {
+open class SwipeCardStack: UIView, SwipeCardDelegate, UIGestureRecognizerDelegate {
 
-  public var animationOptions: CardStackAnimatableOptions = CardStackAnimationOptions.default
+  open var animationOptions: CardStackAnimatableOptions = CardStackAnimationOptions.default
+
+  /// Return `false` if you wish to ignore all horizontal gestures on the card stack.
+  ///
+  /// You may wish to modify this property if your card stack is embedded in a `UIScrollView`.
+  open var shouldRecognizeHorizontalDrag: Bool = true
+
+  /// Return `false` if you wish to ignore all vertical gestures on the card stack.
+  ///
+  /// You may wish to modify this property if your card stack is embedded in a `UIScrollView`.
+  open var shouldRecognizeVerticalDrag: Bool = true
 
   public weak var delegate: SwipeCardStackDelegate?
 
   public weak var dataSource: SwipeCardStackDataSource? {
-    didSet {
-      reloadData()
-    }
-  }
-
-  public var numberOfVisibleCards: Int = 2 {
     didSet {
       reloadData()
     }
@@ -49,12 +52,11 @@ open class SwipeCardStack: UIView, SwipeCardDelegate {
     }
   }
 
-  // MARK: - Card Variables
-
   public var topCardIndex: Int? {
     return stateManager.remainingIndices.first
   }
 
+  var numberOfVisibleCards: Int = 2
   var visibleCards: [SwipeCard] = []
 
   var topCard: SwipeCard? {
@@ -66,28 +68,10 @@ open class SwipeCardStack: UIView, SwipeCardDelegate {
   }
 
   var isEnabled: Bool {
-    return isUserInteractionEnabled && (topCard?.isUserInteractionEnabled ?? true)
+    return !isAnimating && (topCard?.isUserInteractionEnabled ?? true)
   }
 
-  // MARK: - Completion Handlers
-
-  var swipeCompletionBlock: () -> Void {
-    return { [weak self] in
-      self?.isUserInteractionEnabled = true
-    }
-  }
-
-  var undoCompletionBlock: () -> Void {
-    return { [weak self] in
-      self?.isUserInteractionEnabled = true
-    }
-  }
-
-  var shiftCompletionBlock: () -> Void {
-    return { [weak self] in
-      self?.isUserInteractionEnabled = true
-    }
-  }
+  var isAnimating: Bool = false
 
   private var animator: CardStackAnimatable = CardStackAnimator.shared
   private var layoutProvider: CardStackLayoutProvidable = CardStackLayoutProvider.shared
@@ -99,12 +83,12 @@ open class SwipeCardStack: UIView, SwipeCardDelegate {
 
   // MARK: - Initialization
 
-  public override init(frame: CGRect) {
+  override public init(frame: CGRect) {
     super.init(frame: frame)
     initialize()
   }
 
-  required public init?(coder aDecoder: NSCoder) {
+  public required init?(coder aDecoder: NSCoder) {
     super.init(coder: aDecoder)
     initialize()
   }
@@ -132,7 +116,7 @@ open class SwipeCardStack: UIView, SwipeCardDelegate {
 
   // MARK: - Layout
 
-  open override func layoutSubviews() {
+  override open func layoutSubviews() {
     super.layoutSubviews()
     cardContainer.frame = layoutProvider.createCardContainerFrame(for: self)
     for (index, card) in visibleCards.enumerated() {
@@ -156,11 +140,82 @@ open class SwipeCardStack: UIView, SwipeCardDelegate {
     return CGAffineTransform(scaleX: cardScaleFactor.x, y: cardScaleFactor.y)
   }
 
+  override open func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
+    guard let topCard = topCard, topCard.panGestureRecognizer == gestureRecognizer else {
+      return super.gestureRecognizerShouldBegin(gestureRecognizer)
+    }
+
+    let velocity = topCard.panGestureRecognizer.velocity(in: self)
+
+    if abs(velocity.x) > abs(velocity.y) {
+      return shouldRecognizeHorizontalDrag
+    }
+
+    if abs(velocity.x) < abs(velocity.y) {
+      return shouldRecognizeVerticalDrag
+    }
+
+    return topCard.gestureRecognizerShouldBegin(gestureRecognizer)
+  }
+
   // MARK: - Main Methods
 
+  /// Calling this method triggers a swipe on the card stack.
+  /// - Parameters:
+  ///   - direction: The direction to swipe the top card.
+  ///   - animated: A boolean indicating whether the reverse swipe should be animated. Setting this
+  ///    to `false` will immediately
+  ///   position the card at end state of the animation when the method is called.
   public func swipe(_ direction: SwipeDirection, animated: Bool) {
     if !isEnabled { return }
-    topCard?.swipe(direction: direction, animated: animated)
+
+    if animated {
+      topCard?.swipe(direction: direction)
+    } else {
+      topCard?.removeFromSuperview()
+    }
+
+    if let topCard = topCard {
+      swipeAction(topCard: topCard,
+                  direction: direction,
+                  forced: true,
+                  animated: animated)
+    }
+  }
+
+  func swipeAction(topCard: SwipeCard,
+                   direction: SwipeDirection,
+                   forced: Bool,
+                   animated: Bool) {
+    guard let swipedIndex = topCardIndex else { return }
+    stateManager.swipe(direction)
+    visibleCards.remove(at: 0)
+
+    // insert new card if needed
+    if (stateManager.remainingIndices.count - visibleCards.count) > 0 {
+      let bottomCardIndex = stateManager.remainingIndices[visibleCards.count]
+      if let card = loadCard(at: bottomCardIndex) {
+        insertCard(card, at: visibleCards.count)
+      }
+    }
+
+    delegate?.cardStack?(self, didSwipeCardAt: swipedIndex, with: direction)
+
+    if stateManager.remainingIndices.isEmpty {
+      delegate?.didSwipeAllCards?(self)
+      return
+    }
+
+    isAnimating = true
+    animator.animateSwipe(self,
+                          topCard: topCard,
+                          direction: direction,
+                          forced: forced,
+                          animated: animated) { [weak self] finished in
+                            if finished {
+                              self?.isAnimating = false
+                            }
+    }
   }
 
   public func undoLastSwipe(animated: Bool) {
@@ -169,7 +224,21 @@ open class SwipeCardStack: UIView, SwipeCardDelegate {
 
     reloadVisibleCards()
     delegate?.cardStack?(self, didUndoCardAt: previousSwipe.index, from: previousSwipe.direction)
-    topCard?.reverseSwipe(from: previousSwipe.direction, animated: animated)
+
+    if animated {
+      topCard?.reverseSwipe(from: previousSwipe.direction)
+    }
+
+    isAnimating = true
+    if let topCard = topCard {
+      animator.animateUndo(self,
+                           topCard: topCard,
+                           animated: animated) { [weak self] finished in
+                            if finished {
+                              self?.isAnimating = false
+                            }
+      }
+    }
   }
 
   public func shift(withDistance distance: Int = 1, animated: Bool) {
@@ -178,9 +247,13 @@ open class SwipeCardStack: UIView, SwipeCardDelegate {
     stateManager.shift(withDistance: distance)
     reloadVisibleCards()
 
-    if animated {
-      isUserInteractionEnabled = false
-      animator.animateShift(self, withDistance: distance)
+    isAnimating = true
+    animator.animateShift(self,
+                          withDistance: distance,
+                          animated: animated) { [weak self] finished in
+                            if finished {
+                              self?.isAnimating = false
+                            }
     }
   }
 
@@ -191,13 +264,11 @@ open class SwipeCardStack: UIView, SwipeCardDelegate {
     let numberOfCards = dataSource.numberOfCards(in: self)
     stateManager.reset(withNumberOfCards: numberOfCards)
     reloadVisibleCards()
-    isUserInteractionEnabled = true
+    isAnimating = false
   }
 
   func reloadVisibleCards() {
-    visibleCards.forEach { card in
-      card.removeFromSuperview()
-    }
+    visibleCards.forEach { $0.removeFromSuperview() }
     visibleCards.removeAll()
 
     let numberOfCards = min(stateManager.remainingIndices.count, numberOfVisibleCards)
@@ -217,12 +288,14 @@ open class SwipeCardStack: UIView, SwipeCardDelegate {
   func loadCard(at index: Int) -> SwipeCard? {
     let card = dataSource?.cardStack(self, cardForIndexAt: index)
     card?.delegate = self
+    card?.panGestureRecognizer.delegate = self
     return card
   }
 
   // MARK: - Notifications
 
-  @objc func didFinishSwipeAnimation(_ notification: NSNotification) {
+  @objc
+  func didFinishSwipeAnimation(_ notification: NSNotification) {
     guard let card = notification.object as? SwipeCard else { return }
     card.removeFromSuperview()
   }
@@ -239,9 +312,10 @@ open class SwipeCardStack: UIView, SwipeCardDelegate {
   }
 
   func card(didContinueSwipe card: SwipeCard) {
-    guard let topCard = topCard else { return }
-    for (index, card) in backgroundCards.enumerated() {
-      card.transform = transformProvider.backgroundCardDragTransform(for: self, topCard: topCard, topCardIndex: index + 1)
+    for (index, backgroundCard) in backgroundCards.enumerated() {
+      backgroundCard.transform = transformProvider.backgroundCardDragTransform(for: self,
+                                                                               topCard: card,
+                                                                               topCardIndex: index + 1)
     }
   }
 
@@ -249,38 +323,8 @@ open class SwipeCardStack: UIView, SwipeCardDelegate {
     animator.animateReset(self, topCard: card)
   }
 
-  func card(didSwipe card: SwipeCard, with direction: SwipeDirection, forced: Bool) {
-    if let topCardIndex = topCardIndex {
-      delegate?.cardStack?(self, didSwipeCardAt: topCardIndex, with: direction)
-    }
-
-    stateManager.swipe(direction)
-    visibleCards.remove(at: 0)
-
-    // insert new card if needed
-    if stateManager.remainingIndices.count - visibleCards.count > 0 {
-      let bottomCardIndex = stateManager.remainingIndices[visibleCards.count]
-      if let card = loadCard(at: bottomCardIndex) {
-        insertCard(card, at: visibleCards.count)
-      }
-    } else if stateManager.remainingIndices.count == 0 {
-      delegate?.didSwipeAllCards?(self)
-    }
-
-    isUserInteractionEnabled = false
-    animator.animateSwipe(self, topCard: card, direction: direction, forced: forced)
-  }
-
-  func card(didReverseSwipe card: SwipeCard, from direction: SwipeDirection) {
-    isUserInteractionEnabled = false
-    animator.animateUndo(self, topCard: card)
-  }
-
-  func shouldRecognizeHorizontalDrag(on card: SwipeCard) -> Bool? {
-    return delegate?.shouldRecognizeHorizontalDrag?(on: self)
-  }
-
-  func shouldRecognizeVerticalDrag(on card: SwipeCard) -> Bool? {
-    return delegate?.shouldRecognizeVerticalDrag?(on: self)
+  func card(didSwipe card: SwipeCard,
+            with direction: SwipeDirection) {
+    swipeAction(topCard: card, direction: direction, forced: false, animated: true)
   }
 }

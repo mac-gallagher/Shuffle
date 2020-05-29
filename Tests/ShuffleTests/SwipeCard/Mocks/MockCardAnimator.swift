@@ -22,7 +22,6 @@
 /// SOFTWARE.
 ///
 
-
 @testable import Shuffle
 import UIKit
 
@@ -36,19 +35,21 @@ class MockCardAnimator: CardAnimatable {
   var animateReverseSwipeCalled: Bool = false
   var animateReverseSwipeDirection: SwipeDirection?
 
-  func animateReverseSwipe(on card: SwipeCard, from direction: SwipeDirection) {
+  func animateReverseSwipe(on card: SwipeCard, from direction: SwipeDirection, completion: ((Bool) -> Void)?) {
     animateReverseSwipeCalled = true
     animateReverseSwipeDirection = direction
+    completion?(true)
   }
 
   var animateSwipeCalled: Bool = false
   var animateSwipeDirection: SwipeDirection?
   var animateSwipeForced: Bool?
 
-  func animateSwipe(on card: SwipeCard, direction: SwipeDirection, forced: Bool) {
+  func animateSwipe(on card: SwipeCard, direction: SwipeDirection, forced: Bool, completion: ((Bool) -> Void)?) {
     animateSwipeCalled = true
     animateSwipeDirection = direction
     animateSwipeForced = forced
+    completion?(true)
   }
 
   var removeAllAnimationsCalled: Bool = false
