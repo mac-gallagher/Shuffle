@@ -128,6 +128,7 @@ extension TinderViewController: ButtonStackViewDelegate, SwipeCardStackDataSourc
     let card = SwipeCard()
     card.footerHeight = 80
     card.swipeDirections = [.left, .up, .right]
+    card.axis = .all
     for direction in card.swipeDirections {
       card.setOverlay(TinderCardOverlay(direction: direction), forDirection: direction)
     }
