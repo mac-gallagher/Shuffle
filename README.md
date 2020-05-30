@@ -47,7 +47,6 @@ To run the example project, clone the repo and run the `ShuffleExample` target.
     func card(fromImage image: UIImage) -> SwipeCard {
         let card = SwipeCard()
         card.swipeDirections = [.left, .right]
-        card.axis = .horizontal
         card.content = UIImageView(image: image)
         
         let leftOverlay = UIView()

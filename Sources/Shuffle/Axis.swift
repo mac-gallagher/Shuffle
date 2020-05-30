@@ -25,7 +25,7 @@
 import UIKit
 
 /// A type representing the axis of a physical drag animation.
-@objc public enum Axis: Int, CustomStringConvertible {
+@objc public enum Axis: Int {
     
   case vertical, horizontal, all
     
@@ -41,7 +41,6 @@ import UIKit
      }
   }
     
-    /// A textual representation of the `Axis`.
   public var description: String {
     switch self {
     case .vertical:
