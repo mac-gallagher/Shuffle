@@ -35,7 +35,7 @@ Made with ❤️ by <a href="https://github.com/mac-gallagher">Mac Gallagher</a>
 To run the example project, clone the repo and run the `ShuffleExample` target.
 
 <p align="left">
-<img src="https://raw.githubusercontent.com/mac-gallagher/Shuffle/master/Assets/swipe_example.gif" width="230">
+<img src="https://raw.githubusercontent.com/mac-gallagher/Shuffle/master/Assets/swipe_example.gif" width="280">
 </p>
 
 ## Basic Usage
@@ -106,9 +106,9 @@ To run the example project, clone the repo and run the `ShuffleExample` target.
     func didSwipeAllCards(_ cardStack: SwipeCardStack)
    ```
    
-   **Note**:  `didSwipeCardAt` and `didSwipeAllCards`  are called regardless if a card is swiped programmatically or by the user.
+   **Note**: `didSwipeCardAt` and `didSwipeAllCards`  are called regardless if a card is swiped programmatically or by the user.
 
-## Card Actions
+## Card Stack Actions
 The following methods are available on `SwipeCardStack`.
 
 ### Swipe
@@ -138,11 +138,40 @@ func shift(withDistance distance: Int = 1, animated: Bool)
 
 <img src="https://raw.githubusercontent.com/mac-gallagher/Shuffle/master/Assets/shift.gif" width="200">
 
+## Card Layout
+Each `SwipeCard` consists of three UI components: its *content*, *footer*, and *overlay(s)*.
+
+### Content
+The content is the card's primary view. You can include your own card template here.
+
+```swift
+var content: UIView? { get set }
+```
+
+### Footer
+The footer is an axuilliary view on the bottom of the card. It is laid out above the content in the view hierarchy if the footer is transparent. Otherwise, the footer is drawn just below the content.
+
+<p align="center">
+<img src="https://raw.githubusercontent.com/mac-gallagher/Shuffle/master/Assets/footer_layout.png" width="700">
+</p>
+
+```swift
+var footer: UIView? { get set }
+var footerHeight: CGFloat { get set }
+```
+
+### Overlays
+An overlay is a view whose alpha value reacts to the user's dragging. The overlays are laid out above the footer, regardless if the footer is transparent or not. 
+
+```swift
+func setOverlay(_ overlay: UIView?, forDirection direction: SwipeDirection)
+func setOverlays(_ overlays: [SwipeDirection: UIView])
+```
+
 ## Advanced Usage
 For more advanced usage, including
 
 * [Animations](Documentation/AdvancedUsage.md#animations)
-* [Card Layout](Documentation/AdvancedUsage.md#card-layout)
 * [Swipe Recognition](Documentation/AdvancedUsage.md#swipe-recognition)
 
 visit the document [here](Documentation/AdvancedUsage.md).
