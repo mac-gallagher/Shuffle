@@ -164,6 +164,7 @@ var footerHeight: CGFloat { get set }
 An overlay is a view whose alpha value reacts to the user's dragging. The overlays are laid out above the footer, regardless if the footer is transparent or not. 
 
 ```swift
+func overlay(forDirection direction: SwipeDirection) -> UIView?
 func setOverlay(_ overlay: UIView?, forDirection direction: SwipeDirection)
 func setOverlays(_ overlays: [SwipeDirection: UIView])
 ```
