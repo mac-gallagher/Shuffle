@@ -59,7 +59,7 @@ open class SwipeCardStack: UIView, SwipeCardDelegate, UIGestureRecognizerDelegat
   var numberOfVisibleCards: Int = 2
   var visibleCards: [SwipeCard] = []
 
-  var topCard: SwipeCard? {
+  public var topCard: SwipeCard? {
     return visibleCards.first
   }
 
