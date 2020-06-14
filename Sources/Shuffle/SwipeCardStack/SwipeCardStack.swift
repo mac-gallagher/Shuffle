@@ -76,7 +76,7 @@ open class SwipeCardStack: UIView, SwipeCardDelegate, UIGestureRecognizerDelegat
   private var animator: CardStackAnimatable = CardStackAnimator.shared
   private var layoutProvider: CardStackLayoutProvidable = CardStackLayoutProvider.shared
   private var notificationCenter = NotificationCenter.default
-  private var stateManager: CardStackStateManagable = CardStackStateManager.shared
+  private var stateManager: CardStackStateManagable = CardStackStateManager()
   private var transformProvider: CardStackTransformProvidable = CardStackTransformProvider.shared
 
   private let cardContainer = UIView()
