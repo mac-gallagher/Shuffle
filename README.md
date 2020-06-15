@@ -210,7 +210,11 @@ Download and drop the `Shuffle` directory into your project.
 ## Apps Using Shuffle
 We love to hear about apps that use Shuffle - feel free to submit a pull request and share yours here!
 
-<p><a href="https://apps.apple.com/us/app/ovia-pregnancy-tracker/id719135369">
+<p>
+<a href="https://www.dropinapp.net">
+<img src="https://raw.githubusercontent.com/mac-gallagher/Shuffle/master/Assets/AppIcons/drop_in_app_icon.png" title="Drop In for Fortnite" width="80" align="center"></a>
+
+<a href="https://apps.apple.com/us/app/ovia-pregnancy-tracker/id719135369">
 <img src="https://raw.githubusercontent.com/mac-gallagher/Shuffle/master/Assets/AppIcons/ovia_app_icon.png" title="Ovia Pregnancy Tracker" width="80" align="center"></a>
 
 <a href="https://apps.apple.com/us/app/topface-dating-app-and-chat/id505446332">
