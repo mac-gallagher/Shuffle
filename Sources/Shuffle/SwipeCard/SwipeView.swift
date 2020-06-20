@@ -34,6 +34,10 @@ open class SwipeView: UIView {
   /// Defaults to `SwipeDirection.allDirections`.
   open var swipeDirections = SwipeDirection.allDirections
 
+  /// The axis to be animate card in all axis. Set this variable to ignore certain axis.
+  /// Defaults to `Axis.all`.
+    open var axis = Axis.all
+    
   /// The pan gesture recognizer attached to the view.
   public var panGestureRecognizer: UIPanGestureRecognizer {
     return internalPanGestureRecognizer

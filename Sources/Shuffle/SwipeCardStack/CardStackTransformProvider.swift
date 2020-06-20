@@ -45,7 +45,7 @@ class CardStackTransformProvider: CardStackTransformProvidable {
 
     let scaleX = (1 - percentage) * currentScale.x + percentage * nextScale.x
     let scaleY = (1 - percentage) * currentScale.y + percentage * nextScale.y
-
+    
     return CGAffineTransform(scaleX: scaleX, y: scaleY)
   }
 

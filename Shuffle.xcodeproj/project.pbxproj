@@ -21,6 +21,7 @@
 /* End PBXAggregateTarget section */
 
 /* Begin PBXBuildFile section */
+		65AD978A2481B093008D3A79 /* Axis.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65AD97892481B093008D3A79 /* Axis.swift */; };
 		387D5E42FEF4A017C5407B1F /* Pods_ShuffleTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AD73382D22D7142EE1082545 /* Pods_ShuffleTests.framework */; };
 		881FD28C231B78FB003ACA43 /* CardStackAnimationOptionsSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 881FD28B231B78FB003ACA43 /* CardStackAnimationOptionsSpec.swift */; };
 		904ADE5B4A83DD023287EB73 /* Pods_ShuffleExample.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 91AB74E2E12D2E4C970B6743 /* Pods_ShuffleExample.framework */; };
@@ -124,6 +125,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		65AD97892481B093008D3A79 /* Axis.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Axis.swift; sourceTree = "<group>"; };
 		1070E8CB25529479CB067AD3 /* Pods-ShuffleTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ShuffleTests.release.xcconfig"; path = "Target Support Files/Pods-ShuffleTests/Pods-ShuffleTests.release.xcconfig"; sourceTree = "<group>"; };
 		29C7C2F3D3AC996FDD3FFF70 /* Pods-ShuffleTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ShuffleTests.debug.xcconfig"; path = "Target Support Files/Pods-ShuffleTests/Pods-ShuffleTests.debug.xcconfig"; sourceTree = "<group>"; };
 		604684987DE74002FE435206 /* Pods-ShuffleExample.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ShuffleExample.debug.xcconfig"; path = "Target Support Files/Pods-ShuffleExample/Pods-ShuffleExample.debug.xcconfig"; sourceTree = "<group>"; };
@@ -318,6 +320,7 @@
 		AD18F0DE22B9F874007BACE9 /* Shuffle */ = {
 			isa = PBXGroup;
 			children = (
+				65AD97892481B093008D3A79 /* Axis.swift */,
 				AD72AC6F2270E6380083E735 /* SwipeDirection.swift */,
 				AD10982222879C42008CB197 /* SwipeCard */,
 				ADA444D522AC651B00AFAFFE /* SwipeCardStack */,
@@ -821,6 +824,7 @@
 				AD52EF8122E5088B0063AE5D /* CardTransformProvider.swift in Sources */,
 				AD514C5B22A08D5600BD8F3E /* CardLayoutProvider.swift in Sources */,
 				AD72AC9A2270FCCE0083E735 /* SwipeDirection.swift in Sources */,
+				65AD978A2481B093008D3A79 /* Axis.swift in Sources */,
 				ADA444D922AC658E00AFAFFE /* SwipeCardStackDataSource.swift in Sources */,
 				AD52EF8722E523020063AE5D /* CardStackTransformProvider.swift in Sources */,
 				ADEE86D722ACE5AA00AAE7A1 /* Array+Extensions.swift in Sources */,
