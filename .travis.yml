@@ -1,13 +1,15 @@
-osx_image: xcode10.2
-language: swift
-xcode_workspace: Shuffle.xcworkspace
-xcode_scheme: Shuffle
-xcode_destination: platform=iOS Simulator,OS=9.0,name=iPhone 6
-
-# run tests
-script:
-  - xcodebuild test -workspace Shuffle.xcworkspace -scheme Shuffle -sdk iphonesimulator -destination 'platform=iOS Simulator,name=iPhone X,OS=12.2'
+language: objective-c
+os: osx
+osx_image: xcode11.5
+jobs:
+  include:
+    - stage: "Build & Test"
+      script: xcodebuild -workspace Shuffle.xcworkspace -scheme SwiftLint -sdk iphonesimulator -destination platform="iOS Simulator,name=iPhone 11 Pro Max,OS=13.5"
+      name: "Run SwiftLint"
+    - script: xcodebuild test -workspace Shuffle.xcworkspace -scheme Shuffle -sdk iphonesimulator -destination platform="iOS Simulator,name=iPhone 11 Pro Max,OS=13.5"
+      name: "Run Unit Tests"
+    - script: xcodebuild -workspace Shuffle.xcworkspace -scheme ShuffleExample -sdk iphonesimulator -destination platform="iOS Simulator,name=iPhone 11 Pro Max,OS=13.5"
+      name: "Build Example Project"
 
 # upload codecov report
-after_success:
-  - bash <(curl -s https://codecov.io/bash) -J 'Shuffle'
+after_success: bash <(curl -s https://codecov.io/bash) -J 'Shuffle'

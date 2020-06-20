@@ -39,8 +39,6 @@ protocol CardStackStateManagable {
 /// An internal class to manage the current state of the card stack.
 class CardStackStateManager: CardStackStateManagable {
 
-  static let shared = CardStackStateManager()
-
   /// The indices of the data source which have yet to be swiped.
   ///
   /// This array reflects the current order of the card stack, with the first element equal
