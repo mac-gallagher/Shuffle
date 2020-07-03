@@ -165,7 +165,7 @@ open class SwipeCardStack: UIView, SwipeCardDelegate, UIGestureRecognizerDelegat
     ///   - animated: A boolean indicating whether the reverse swipe should be animated. Setting this
     ///    to `false` will immediately
     ///   position the card at end state of the animation when the method is called.
-    public func swipe(direction: SwipeDirection, animated: Bool) {
+    public func swipe(_ direction: SwipeDirection, animated: Bool) {
         if !isEnabled { return }
 
         if animated {
@@ -182,10 +182,10 @@ open class SwipeCardStack: UIView, SwipeCardDelegate, UIGestureRecognizerDelegat
         }
     }
 
-    public func silentSwipe(countOfCard count: Int) {
+    public func silentSwipe(countOfCard count: Int, direction: SwipeDirection) {
         guard isEnabled, count != .zero else { return }
 
-        stateManager.silentSwipe(countOfCard: count)
+        stateManager.silentSwipe(countOfCard: count, direction: direction)
         reloadVisibleCards()
     }
 

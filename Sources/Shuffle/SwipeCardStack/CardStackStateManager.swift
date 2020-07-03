@@ -35,7 +35,7 @@ protocol CardStackStateManagable {
     func shift(withDistance distance: Int)
     func reset(withNumberOfCards numberOfCards: Int)
 
-    func silentSwipe(countOfCard count: Int)
+    func silentSwipe(countOfCard count: Int, direction: SwipeDirection)
     func silentUndoSwipe(countOfCard count: Int)
 }
 
@@ -76,11 +76,11 @@ class CardStackStateManager: CardStackStateManagable {
         swipes = []
     }
 
-    func silentSwipe(countOfCard count: Int) {
+    func silentSwipe(countOfCard count: Int, direction: SwipeDirection) {
         guard !remainingIndices.isEmpty else { return }
 
         let indexes = remainingIndices[..<count]
-        swipes.append(contentsOf: indexes.compactMap { Swipe(direction: .right, index: $0) })
+        swipes.append(contentsOf: indexes.compactMap { Swipe(direction: direction, index: $0) })
         remainingIndices.removeAll(where: { indexes.contains($0) })
     }
 
