@@ -27,50 +27,69 @@ import Foundation
 typealias Swipe = (index: Int, direction: SwipeDirection)
 
 protocol CardStackStateManagable {
-  var remainingIndices: [Int] { get }
-  var swipes: [Swipe] { get }
+    var remainingIndices: [Int] { get }
+    var swipes: [Swipe] { get }
 
-  func swipe(_ direction: SwipeDirection)
-  func undoSwipe() -> Swipe?
-  func shift(withDistance distance: Int)
-  func reset(withNumberOfCards numberOfCards: Int)
+    func swipe(_ direction: SwipeDirection)
+    func undoSwipe() -> Swipe?
+    func shift(withDistance distance: Int)
+    func reset(withNumberOfCards numberOfCards: Int)
+
+    func silentSwipe(countOfCard count: Int)
+    func silentUndoSwipe(countOfCard count: Int)
 }
 
 /// An internal class to manage the current state of the card stack.
 class CardStackStateManager: CardStackStateManagable {
+    static let shared = CardStackStateManager()
 
-  static let shared = CardStackStateManager()
+    /// The indices of the data source which have yet to be swiped.
+    ///
+    /// This array reflects the current order of the card stack, with the first element equal
+    /// to the index of the top card in the data source. The order of this array accounts
+    /// for both swiped and shifted cards in the stack.
+    var remainingIndices: [Int] = []
 
-  /// The indices of the data source which have yet to be swiped.
-  ///
-  /// This array reflects the current order of the card stack, with the first element equal
-  /// to the index of the top card in the data source. The order of this array accounts
-  /// for both swiped and shifted cards in the stack.
-  var remainingIndices: [Int] = []
+    /// An array containing the swipe history of the card stack.
+    var swipes: [Swipe] = []
 
-  /// An array containing the swipe history of the card stack.
-  var swipes: [Swipe] = []
+    func swipe(_ direction: SwipeDirection) {
+        if remainingIndices.isEmpty { return }
+        let firstIndex = remainingIndices.removeFirst()
+        let swipe = Swipe(direction: direction, index: firstIndex)
+        swipes.append(swipe)
+    }
 
-  func swipe(_ direction: SwipeDirection) {
-    if remainingIndices.isEmpty { return }
-    let firstIndex = remainingIndices.removeFirst()
-    let swipe = Swipe(direction: direction, index: firstIndex)
-    swipes.append(swipe)
-  }
+    func undoSwipe() -> Swipe? {
+        if swipes.isEmpty { return nil }
+        let lastSwipe = swipes.removeLast()
+        remainingIndices.insert(lastSwipe.index, at: 0)
+        return lastSwipe
+    }
 
-  func undoSwipe() -> Swipe? {
-    if swipes.isEmpty { return nil }
-    let lastSwipe = swipes.removeLast()
-    remainingIndices.insert(lastSwipe.index, at: 0)
-    return lastSwipe
-  }
+    func shift(withDistance distance: Int) {
+        remainingIndices.shift(withDistance: distance)
+    }
 
-  func shift(withDistance distance: Int) {
-    remainingIndices.shift(withDistance: distance)
-  }
+    func reset(withNumberOfCards numberOfCards: Int) {
+        remainingIndices = Array(0 ..< numberOfCards)
+        swipes = []
+    }
 
-  func reset(withNumberOfCards numberOfCards: Int) {
-    self.remainingIndices = Array(0..<numberOfCards)
-    self.swipes = []
-  }
+    func silentSwipe(countOfCard count: Int) {
+        guard !remainingIndices.isEmpty else { return }
+
+        let indexes = remainingIndices[..<count]
+        swipes.append(contentsOf: indexes.compactMap { Swipe(direction: .right, index: $0) })
+        remainingIndices.removeAll(where: { indexes.contains($0) })
+    }
+
+    func silentUndoSwipe(countOfCard count: Int) {
+        guard !swipes.isEmpty else { return }
+
+        let startIndex = swipes.count - count
+        let indexes = swipes[startIndex...].compactMap { $0.index }
+        swipes.removeAll(where: { indexes.contains($0.index) })
+        remainingIndices.insert(contentsOf: indexes, at: 0)
+    }
 }
