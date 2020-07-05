@@ -40,7 +40,7 @@ To run the example project, clone the repo and run the `ShuffleExample` target.
 
 ## Basic Usage
 
-1.  Create your own card by either subclassing `SwipeCard` or creating a `SwipeCard` and setting its properties directly:
+1.  Create your own card by either subclassing `SwipeCard` or setting its properties directly:
 
     
     ```swift
@@ -120,15 +120,6 @@ func swipe(_ direction: SwipeDirection, animated: Bool)
 
 <img src="https://raw.githubusercontent.com/mac-gallagher/Shuffle/master/Assets/swipe.gif" width="200">
 
-### Undo
-Restores the card stack to its state before the last swipe.
-
-```swift
-func undoLastSwipe(animated: Bool)
-```
-
-<img src="https://raw.githubusercontent.com/mac-gallagher/Shuffle/master/Assets/undo.gif" width="200">
-
 ### Shift
 Shifts the card stack's cards by the given distance. Any swiped cards are skipped over.
 
@@ -137,6 +128,15 @@ func shift(withDistance distance: Int = 1, animated: Bool)
 ```
 
 <img src="https://raw.githubusercontent.com/mac-gallagher/Shuffle/master/Assets/shift.gif" width="200">
+
+### Undo
+Returns the most recently swiped card to the top of the card stack.
+
+```swift
+func undoLastSwipe(animated: Bool)
+```
+
+<img src="https://raw.githubusercontent.com/mac-gallagher/Shuffle/master/Assets/undo.gif" width="200">
 
 ## Card Layout
 Each `SwipeCard` consists of three UI components: its *content*, *footer*, and *overlay(s)*.
