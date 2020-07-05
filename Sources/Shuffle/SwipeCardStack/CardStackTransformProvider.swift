@@ -27,7 +27,7 @@ import UIKit
 protocol CardStackTransformProvidable {
   func backgroundCardDragTransform(for cardStack: SwipeCardStack,
                                    topCard: SwipeCard,
-                                   topCardIndex: Int) -> CGAffineTransform
+                                   currentPosition: Int) -> CGAffineTransform
   func backgroundCardTransformPercentage(for cardStack: SwipeCardStack, topCard: SwipeCard) -> CGFloat
 }
 
@@ -37,11 +37,11 @@ class CardStackTransformProvider: CardStackTransformProvidable {
 
   func backgroundCardDragTransform(for cardStack: SwipeCardStack,
                                    topCard: SwipeCard,
-                                   topCardIndex: Int) -> CGAffineTransform {
+                                   currentPosition: Int) -> CGAffineTransform {
     let percentage = backgroundCardTransformPercentage(for: cardStack, topCard: topCard)
 
-    let currentScale = cardStack.scaleFactor(forCardAtIndex: topCardIndex)
-    let nextScale = cardStack.scaleFactor(forCardAtIndex: topCardIndex - 1)
+    let currentScale = cardStack.scaleFactor(forCardAtPosition: currentPosition)
+    let nextScale = cardStack.scaleFactor(forCardAtPosition: currentPosition - 1)
 
     let scaleX = (1 - percentage) * currentScale.x + percentage * nextScale.x
     let scaleY = (1 - percentage) * currentScale.y + percentage * nextScale.y

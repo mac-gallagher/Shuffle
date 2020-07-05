@@ -58,13 +58,13 @@ class TestableSwipeCardStack: SwipeCardStack {
 
   var layoutCardCalled: Bool = false
   var layoutCardCards: [SwipeCard] = []
-  var layoutCardIndices: [Int] = []
+  var layoutCardPositions: [Int] = []
 
-  override func layoutCard(_ card: SwipeCard, at index: Int) {
-    super.layoutCard(card, at: index)
+  override func layoutCard(_ card: SwipeCard, at position: Int) {
+    super.layoutCard(card, at: position)
     layoutCardCalled = true
     layoutCardCards.append(card)
-    layoutCardIndices.append(index)
+    layoutCardPositions.append(position)
   }
 
   var swipeActionCalled = false
@@ -98,13 +98,13 @@ class TestableSwipeCardStack: SwipeCardStack {
 
   var insertCardCalled: Bool = false
   var insertCardCard: SwipeCard?
-  var insertCardIndex: Int?
+  var insertCardPosition: Int?
 
-  override func insertCard(_ card: SwipeCard, at index: Int) {
-    super.insertCard(card, at: index)
+  override func insertCard(_ value: Card, at position: Int) {
+    super.insertCard(value, at: position)
     insertCardCalled = true
-    insertCardCard = card
-    insertCardIndex = index
+    insertCardCard = value.card
+    insertCardPosition = position
   }
 
   var reloadDataCalled: Bool = false
@@ -114,13 +114,13 @@ class TestableSwipeCardStack: SwipeCardStack {
   }
 
   var testScaleFactor: CGPoint?
-  override func scaleFactor(forCardAtIndex index: Int) -> CGPoint {
-    return testScaleFactor ?? super.scaleFactor(forCardAtIndex: index)
+  override func scaleFactor(forCardAtPosition position: Int) -> CGPoint {
+    return testScaleFactor ?? super.scaleFactor(forCardAtPosition: position)
   }
 
   var testTransformForCard: CGAffineTransform?
-  override func transform(forCardAtIndex index: Int) -> CGAffineTransform {
-    return testTransformForCard ?? super.transform(forCardAtIndex: index)
+  override func transform(forCardAtPosition position: Int) -> CGAffineTransform {
+    return testTransformForCard ?? super.transform(forCardAtPosition: position)
   }
 
   var reloadVisibleCardsCalled: Bool = false
@@ -137,6 +137,6 @@ class TestableSwipeCardStack: SwipeCardStack {
 
     layoutCardCalled = false
     layoutCardCards = []
-    layoutCardIndices = []
+    layoutCardPositions = []
   }
 }

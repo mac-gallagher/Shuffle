@@ -87,7 +87,7 @@ class SwipeCardStackSpec_Base: QuickSpec {
         expect(cardStack.shouldRecognizeVerticalDrag) == true
 
         expect(cardStack.topCard).to(beNil())
-        expect(cardStack.visibleCards) == []
+        expect(cardStack.visibleCards.isEmpty) == true
         expect(cardStack.backgroundCards) == []
 
         expect(cardStack.subviews.count) == 1
@@ -123,9 +123,9 @@ class SwipeCardStackSpec_Base: QuickSpec {
     // MARK: Top Card Index
 
     describe("When getting topCardIndex") {
-      context("and there are no remaining indices in the state manager") {
+      context("and there are no visible cards") {
         beforeEach {
-          mockStateManager.remainingIndices = []
+          subject.visibleCards = []
         }
 
         it("should return nil") {
@@ -133,14 +133,14 @@ class SwipeCardStackSpec_Base: QuickSpec {
         }
       }
 
-      context("and there is at least one remaining index in the state manager") {
+      context("and there is at least one visible card") {
         let index: Int = 2
 
         beforeEach {
-          mockStateManager.remainingIndices = [index]
+          subject.visibleCards = [Card(index, SwipeCard())]
         }
 
-        it("should return the first remaining index from the state manager") {
+        it("should return the first index from visibleCards") {
           expect(subject.topCardIndex) == index
         }
       }
@@ -163,7 +163,9 @@ class SwipeCardStackSpec_Base: QuickSpec {
         let firstCard = SwipeCard()
 
         beforeEach {
-          subject.visibleCards = [firstCard, SwipeCard(), SwipeCard()]
+          subject.visibleCards = [Card(0, firstCard),
+                                  Card(1, SwipeCard()),
+                                  Card(2, SwipeCard())]
         }
 
         it("should return the first visible card") {
@@ -178,7 +180,9 @@ class SwipeCardStackSpec_Base: QuickSpec {
       let visibleCards = [SwipeCard(), SwipeCard(), SwipeCard()]
 
       beforeEach {
-        subject.visibleCards = visibleCards
+        subject.visibleCards = [Card(0, visibleCards[0]),
+                                Card(1, visibleCards[1]),
+                                Card(2, visibleCards[2])]
       }
 
       it("should return the visible cards expect the first card") {
@@ -242,11 +246,13 @@ class SwipeCardStackSpec_Base: QuickSpec {
     describe("When calling layoutSubviews") {
       let cardContainerFrame = CGRect(x: 1, y: 2, width: 3, height: 4)
       let numberOfCards: Int = 3
-      let visibleCards: [SwipeCard] = [SwipeCard(), SwipeCard(), SwipeCard()]
+      let visibleCards = [SwipeCard(), SwipeCard(), SwipeCard()]
 
       beforeEach {
         mockLayoutProvider.testCardContainerFrame = cardContainerFrame
-        subject.visibleCards = visibleCards
+        subject.visibleCards = [Card(0, visibleCards[0]),
+                                Card(1, visibleCards[1]),
+                                Card(2, visibleCards[2])]
         subject.layoutSubviews()
       }
 
@@ -257,8 +263,7 @@ class SwipeCardStackSpec_Base: QuickSpec {
 
       it("should call layoutCard for each card") {
         expect(subject.layoutCardCalled) == true
-        expect(subject.layoutCardIndices) == Array(0..<numberOfCards)
-        expect(subject.visibleCards) == visibleCards
+        expect(subject.layoutCardPositions) == Array(0..<numberOfCards)
       }
     }
 
@@ -279,51 +284,51 @@ class SwipeCardStackSpec_Base: QuickSpec {
         mockLayoutProvider.testCardFrame = cardFrame
       }
 
-      context("and index is zero") {
-        let index = 0
+      context("and position is zero") {
+        let position = 0
 
         beforeEach {
           subject.testTransformForCard = cardTransform
-          subject.layoutCard(card, at: index)
+          subject.layoutCard(card, at: position)
         }
 
-        testLayoutCard(index: index)
+        testLayoutCard(position: position)
       }
 
-      context("and index is greater than zero") {
-        let index = 1
+      context("and position is greater than zero") {
+        let position = 1
 
         beforeEach {
           subject.testTransformForCard = cardTransform
-          subject.layoutCard(card, at: index)
+          subject.layoutCard(card, at: position)
         }
 
-        testLayoutCard(index: index)
+        testLayoutCard(position: position)
       }
 
-      func testLayoutCard(index: Int) {
+      func testLayoutCard(position: Int) {
         it("should correctly layout the card and disable user interaction") {
           expect(card.frame) == transformedFrame
           expect(card.transform) == cardTransform
-          expect(card.isUserInteractionEnabled) == (index == 0)
+          expect(card.isUserInteractionEnabled) == (position == 0)
         }
       }
     }
 
     // MARK: Scale Factor For Card
 
-    describe("When calling scaleFactorForCardAtIndex") {
-      context("and the index is equal to zero") {
+    describe("When calling scaleFactorForCardAtPosition") {
+      context("and the position is equal to zero") {
         it("should return a 100% scale") {
           let expectedScaleFactor = CGPoint(x: 1.0, y: 1.0)
-          let actualScaleFactor = subject.scaleFactor(forCardAtIndex: 0)
+          let actualScaleFactor = subject.scaleFactor(forCardAtPosition: 0)
           expect(actualScaleFactor) == expectedScaleFactor
         }
       }
 
-      context("and the index is greater than zero") {
+      context("and the position is greater than zero") {
         it("should return a 95% scale") {
-          let actualScaleFactor = subject.scaleFactor(forCardAtIndex: 1)
+          let actualScaleFactor = subject.scaleFactor(forCardAtPosition: 1)
           let expectedScaleFactor = CGPoint(x: 0.95, y: 0.95)
           expect(actualScaleFactor) == expectedScaleFactor
         }
@@ -340,7 +345,7 @@ class SwipeCardStackSpec_Base: QuickSpec {
       }
 
       it("should return the correct scaled transform") {
-        let actualTransform = subject.transform(forCardAtIndex: 0)
+        let actualTransform = subject.transform(forCardAtPosition: 0)
         let expectedTransform = CGAffineTransform(scaleX: scaleFactor.x,
                                                   y: scaleFactor.y)
         expect(actualTransform) == expectedTransform

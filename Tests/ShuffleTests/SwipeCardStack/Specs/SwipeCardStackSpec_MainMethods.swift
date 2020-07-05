@@ -27,7 +27,7 @@ import Quick
 @testable import Shuffle
 import UIKit
 
-// swiftlint:disable closure_body_length implicitly_unwrapped_optional
+// swiftlint:disable type_body_length closure_body_length implicitly_unwrapped_optional
 class SwipeCardStackSpec_MainMethods: QuickSpec {
 
   // swiftlint:disable:next function_body_length
@@ -100,15 +100,14 @@ class SwipeCardStackSpec_MainMethods: QuickSpec {
 
     describe("When calling swipeAction") {
       let direction: SwipeDirection = .left
-      let topCard = SwipeCard()
+      let topCard = Card(0, SwipeCard())
       let forced = false
       let animated = false
 
       context("and topIndex is nil") {
         beforeEach {
           subject.testTopCardIndex = nil
-          subject.visibleCards = [topCard]
-          subject.swipeAction(topCard: topCard,
+          subject.swipeAction(topCard: topCard.card,
                               direction: direction,
                               forced: forced,
                               animated: animated)
@@ -137,9 +136,9 @@ class SwipeCardStackSpec_MainMethods: QuickSpec {
 
           beforeEach {
             mockStateManager.remainingIndices = remainingIndices
-            subject.visibleCards = [topCard, SwipeCard()]
+            subject.visibleCards = [topCard, Card(1, SwipeCard())]
             subject.testLoadCard = testLoadCard
-            subject.swipeAction(topCard: topCard,
+            subject.swipeAction(topCard: topCard.card,
                                 direction: direction,
                                 forced: forced,
                                 animated: animated)
@@ -159,15 +158,15 @@ class SwipeCardStackSpec_MainMethods: QuickSpec {
           it("should insert the loaded card at the correct index in the card stack") {
             expect(subject.insertCardCalled) == true
             expect(subject.insertCardCard) == testLoadCard
-            expect(subject.insertCardIndex) == numberOfVisibleCards - 1
+            expect(subject.insertCardPosition) == numberOfVisibleCards - 1
           }
         }
 
         context("and there are no more cards to load") {
           beforeEach {
             mockStateManager.remainingIndices = [1, 2]
-            subject.visibleCards = [topCard, SwipeCard(), SwipeCard()]
-            subject.swipeAction(topCard: topCard,
+            subject.visibleCards = [topCard, Card(1, SwipeCard()), Card(2, SwipeCard())]
+            subject.swipeAction(topCard: topCard.card,
                                 direction: direction,
                                 forced: forced,
                                 animated: animated)
@@ -188,7 +187,7 @@ class SwipeCardStackSpec_MainMethods: QuickSpec {
           beforeEach {
             mockStateManager.remainingIndices = []
             subject.visibleCards = [topCard]
-            subject.swipeAction(topCard: topCard,
+            subject.swipeAction(topCard: topCard.card,
                                 direction: direction,
                                 forced: forced,
                                 animated: animated)
@@ -212,12 +211,13 @@ class SwipeCardStackSpec_MainMethods: QuickSpec {
           }
 
           it("should remove the top card from visibleCards") {
-            expect(subject.visibleCards.contains(topCard)) == false
+            expect(subject.visibleCards[0].index) != topCard.index
+            expect(subject.visibleCards[0].card) != topCard.card
           }
 
           it("should call the animator's swipe method with the correct parameters") {
             expect(mockAnimator.animateSwipeCalled) == true
-            expect(mockAnimator.animateSwipeTopCard) == topCard
+            expect(mockAnimator.animateSwipeTopCard) == topCard.card
             expect(mockAnimator.animateSwipeForced) == forced
             expect(mockAnimator.animateSwipeAnimated) == animated
             expect(mockAnimator.animateSwipeDirection) == direction
@@ -338,7 +338,7 @@ class SwipeCardStackSpec_MainMethods: QuickSpec {
         context("and the distance is greater than zero") {
           context("and there are less than two visible cards") {
             beforeEach {
-              subject.visibleCards = [SwipeCard()]
+              subject.visibleCards = [Card(0, SwipeCard())]
               subject.shift(withDistance: 1, animated: false)
             }
 
@@ -354,7 +354,7 @@ class SwipeCardStackSpec_MainMethods: QuickSpec {
 
           beforeEach {
             mockStateManager.remainingIndices = [1, 2, 3]
-            subject.visibleCards = [SwipeCard(), SwipeCard()]
+            subject.visibleCards = [Card(0, SwipeCard()), Card(0, SwipeCard())]
             subject.shift(withDistance: distance, animated: animated)
           }
 
@@ -436,6 +436,56 @@ class SwipeCardStackSpec_MainMethods: QuickSpec {
       }
     }
 
+    // MARK: Card For Index At
+
+    describe("When calling cardForIndexAt") {
+      let visibleCards = [Card(0, SwipeCard()), Card(1, SwipeCard())]
+
+      beforeEach {
+        subject.visibleCards = visibleCards
+      }
+
+      context("and the index does not correspond to a visible card") {
+        it("should return nil") {
+          let actualCard = subject.card(forIndexAt: 2)
+          expect(actualCard).to(beNil())
+        }
+      }
+
+      context("and the index corresponds to a visible card") {
+        it("should return the corresponding visible card") {
+          let actualCard = subject.card(forIndexAt: 0)
+          expect(actualCard) == visibleCards[0].card
+        }
+      }
+    }
+
+    // MARK: Position For Card At Index
+
+    describe("When calling positionForCardAtIndex") {
+      beforeEach {
+        mockStateManager.remainingIndices = [3, 4, 5, 4]
+      }
+
+      context("and the index is not contained in the state manager's remaining indices") {
+        let index: Int = 2
+
+        it("should return nil") {
+          let actualPosition = subject.position(forCardAtIndex: index)
+          expect(actualPosition).to(beNil())
+        }
+      }
+
+      context("and the index is contained in the state manager's remaining indices") {
+        let index: Int = 4
+
+        it("should return the first index of the specified position in the state manager's remaining indices") {
+          let actualPosition = subject.position(forCardAtIndex: index)
+          expect(actualPosition) == 1
+        }
+      }
+    }
+
     // MARK: Reload Visible Cards
 
     describe("When calling reloadVisibleCards") {
@@ -446,32 +496,34 @@ class SwipeCardStackSpec_MainMethods: QuickSpec {
 
     describe("When calling insertCard") {
       let numberOfCards: Int = 5
-      let card = SwipeCard()
-      let index: Int = 3
+      let card = Card(0, SwipeCard())
+      let position: Int = 3
 
       var cardContainer: UIView?
 
       beforeEach {
         cardContainer = subject.subviews.first
-        for _ in 0..<numberOfCards {
-          cardContainer?.addSubview(SwipeCard())
-          subject.visibleCards.append(SwipeCard())
+        for position in 0..<numberOfCards {
+          let pair = Card(position, SwipeCard())
+          cardContainer?.addSubview(pair.card)
+          subject.visibleCards.append(pair)
         }
-        subject.insertCard(card, at: index)
+        subject.insertCard(card, at: position)
       }
 
       it("should insert the card at the correct level in the card container's view hierarchy") {
-        expect(cardContainer?.subviews[numberOfCards - index]) == card
+        expect(cardContainer?.subviews[numberOfCards - position]) == card.card
       }
 
       it("should call layoutCard with the correct parameters") {
         expect(subject.layoutCardCalled) == true
-        expect(subject.layoutCardIndices) == [index]
-        expect(subject.layoutCardCards) == [card]
+        expect(subject.layoutCardPositions) == [position]
+        expect(subject.layoutCardCards) == [card.card]
       }
 
-      it("should insert the card at the correct index of the visibleCard variable") {
-        expect(subject.visibleCards[index]) == card
+      it("should insert the card at the correct position of the visibleCard variable") {
+        expect(subject.visibleCards[position].index) == card.index
+        expect(subject.visibleCards[position].card) == card.card
       }
     }
 
@@ -541,4 +593,4 @@ class SwipeCardStackSpec_MainMethods: QuickSpec {
     }
   }
 }
-// swiftlint:enable closure_body_length implicitly_unwrapped_optional
+// swiftlint:enable type_body_length closure_body_length implicitly_unwrapped_optional

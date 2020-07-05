@@ -175,6 +175,8 @@ extension TinderViewController: ButtonStackViewDelegate, SwipeCardStackDataSourc
       cardStack.swipe(.up, animated: true)
     case 4:
       cardStack.swipe(.right, animated: true)
+    case 5:
+      cardStack.reloadData()
     default:
       break
     }

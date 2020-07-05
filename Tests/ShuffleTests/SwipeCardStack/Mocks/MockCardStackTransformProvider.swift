@@ -29,13 +29,13 @@ class MockCardStackTransformProvider: CardStackTransformProvidable {
 
   var testBackgroundCardDragTransform: CGAffineTransform = .identity
   var backgroundCardDragTransformCard: SwipeCard?
-  var backgroundCardDragTransformIndex: Int?
+  var backgroundCardDragTransformPosition: Int?
 
   func backgroundCardDragTransform(for cardStack: SwipeCardStack,
                                    topCard: SwipeCard,
-                                   topCardIndex: Int) -> CGAffineTransform {
+                                   currentPosition: Int) -> CGAffineTransform {
     backgroundCardDragTransformCard = topCard
-    backgroundCardDragTransformIndex = topCardIndex
+    backgroundCardDragTransformPosition = currentPosition
     return testBackgroundCardDragTransform
   }
 
