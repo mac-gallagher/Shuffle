@@ -72,16 +72,16 @@ class CardStackAnimator: CardStackAnimatable {
     removeAllCardAnimations(cardStack)
 
     if !animated {
-      for (index, card) in cardStack.visibleCards.enumerated() {
-        card.transform = cardStack.transform(forCardAtIndex: index)
+      for (position, value) in cardStack.visibleCards.enumerated() {
+        value.card.transform = cardStack.transform(forCardAtPosition: position)
       }
       completion?(true)
       return
     }
 
     // place background cards in old positions
-    for (index, card) in cardStack.visibleCards.enumerated() {
-      card.transform = cardStack.transform(forCardAtIndex: index + distance)
+    for (position, value) in cardStack.visibleCards.enumerated() {
+      value.card.transform = cardStack.transform(forCardAtPosition: position + distance)
     }
 
     // animate background cards to new positions
@@ -100,8 +100,8 @@ class CardStackAnimator: CardStackAnimatable {
     removeBackgroundCardAnimations(cardStack)
 
     if !animated {
-      for (index, card) in cardStack.visibleCards.enumerated() {
-        cardStack.layoutCard(card, at: index)
+      for (position, value) in cardStack.visibleCards.enumerated() {
+        cardStack.layoutCard(value.card, at: position)
       }
       completion?(true)
       return
@@ -135,16 +135,16 @@ class CardStackAnimator: CardStackAnimatable {
     removeBackgroundCardAnimations(cardStack)
 
     if !animated {
-      for (index, card) in cardStack.backgroundCards.enumerated() {
-        cardStack.layoutCard(card, at: index + 1)
+      for (position, card) in cardStack.backgroundCards.enumerated() {
+        cardStack.layoutCard(card, at: position + 1)
       }
       completion?(true)
       return
     }
 
     // place background cards in old positions
-    for (index, card) in cardStack.backgroundCards.enumerated() {
-      card.transform = cardStack.transform(forCardAtIndex: index)
+    for (position, card) in cardStack.backgroundCards.enumerated() {
+      card.transform = cardStack.transform(forCardAtPosition: position)
     }
 
     // animate background cards to new positions
@@ -159,37 +159,37 @@ class CardStackAnimator: CardStackAnimatable {
   }
 
   func removeAllCardAnimations(_ cardStack: SwipeCardStack) {
-    cardStack.visibleCards.forEach { $0.removeAllAnimations() }
+    cardStack.visibleCards.forEach { $0.card.removeAllAnimations() }
   }
 
   // MARK: - Animation Keyframes
 
   func addCancelSwipeAnimationKeyFrames(_ cardStack: SwipeCardStack) {
-    for (index, card) in cardStack.backgroundCards.enumerated() {
-      let transform = cardStack.transform(forCardAtIndex: index + 1)
+    for (position, card) in cardStack.backgroundCards.enumerated() {
+      let transform = cardStack.transform(forCardAtPosition: position + 1)
       Animator.addTransformKeyFrame(to: card, transform: transform)
     }
   }
 
   func addShiftAnimationKeyFrames(_ cardStack: SwipeCardStack) {
-    for (index, card) in cardStack.visibleCards.enumerated() {
-      let transform = cardStack.transform(forCardAtIndex: index)
-      Animator.addTransformKeyFrame(to: card, transform: transform)
+    for (position, value) in cardStack.visibleCards.enumerated() {
+      let transform = cardStack.transform(forCardAtPosition: position)
+      Animator.addTransformKeyFrame(to: value.card, transform: transform)
     }
   }
 
   func addSwipeAnimationKeyFrames(_ cardStack: SwipeCardStack) {
-    for (index, card) in cardStack.visibleCards.enumerated() {
+    for (position, value) in cardStack.visibleCards.enumerated() {
       Animator.addKeyFrame {
-        cardStack.layoutCard(card, at: index)
+        cardStack.layoutCard(value.card, at: position)
       }
     }
   }
 
   func addUndoAnimationKeyFrames(_ cardStack: SwipeCardStack) {
-    for (index, card) in cardStack.backgroundCards.enumerated() {
+    for (position, card) in cardStack.backgroundCards.enumerated() {
       Animator.addKeyFrame {
-        cardStack.layoutCard(card, at: index + 1)
+        cardStack.layoutCard(card, at: position + 1)
       }
     }
   }

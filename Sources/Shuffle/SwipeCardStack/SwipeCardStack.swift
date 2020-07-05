@@ -24,6 +24,9 @@
 
 import UIKit
 
+/// A typealias for a `SwipeCard` and it's corresponding index in the card stack's `dataSource`.
+typealias Card = (index: Int, card: SwipeCard)
+
 open class SwipeCardStack: UIView, SwipeCardDelegate, UIGestureRecognizerDelegate {
 
   open var animationOptions: CardStackAnimatableOptions = CardStackAnimationOptions.default
@@ -53,18 +56,22 @@ open class SwipeCardStack: UIView, SwipeCardDelegate, UIGestureRecognizerDelegat
   }
 
   public var topCardIndex: Int? {
-    return stateManager.remainingIndices.first
+    return visibleCards.first?.index
   }
 
   var numberOfVisibleCards: Int = 2
-  var visibleCards: [SwipeCard] = []
+
+  /// An ordered array containing all pairs of currently visible cards.
+  ///
+  /// The `Card` at the first position is the topmost `SwipeCard` in the view hierarchy.
+  var visibleCards: [Card] = []
 
   var topCard: SwipeCard? {
-    return visibleCards.first
+    return visibleCards.first?.card
   }
 
   var backgroundCards: [SwipeCard] {
-    return Array(visibleCards.dropFirst())
+    return Array(visibleCards.dropFirst()).map { $0.card }
   }
 
   var isEnabled: Bool {
@@ -119,24 +126,24 @@ open class SwipeCardStack: UIView, SwipeCardDelegate, UIGestureRecognizerDelegat
   override open func layoutSubviews() {
     super.layoutSubviews()
     cardContainer.frame = layoutProvider.createCardContainerFrame(for: self)
-    for (index, card) in visibleCards.enumerated() {
-      layoutCard(card, at: index)
+    for (position, value) in visibleCards.enumerated() {
+      layoutCard(value.card, at: position)
     }
   }
 
-  func layoutCard(_ card: SwipeCard, at index: Int) {
+  func layoutCard(_ card: SwipeCard, at position: Int) {
     card.transform = .identity
     card.frame = layoutProvider.createCardFrame(for: self)
-    card.transform = transform(forCardAtIndex: index)
-    card.isUserInteractionEnabled = index == 0
+    card.transform = transform(forCardAtPosition: position)
+    card.isUserInteractionEnabled = position == 0
   }
 
-  func scaleFactor(forCardAtIndex index: Int) -> CGPoint {
-    return index == 0 ? CGPoint(x: 1, y: 1) : CGPoint(x: 0.95, y: 0.95)
+  func scaleFactor(forCardAtPosition position: Int) -> CGPoint {
+    return position == 0 ? CGPoint(x: 1, y: 1) : CGPoint(x: 0.95, y: 0.95)
   }
 
-  func transform(forCardAtIndex index: Int) -> CGAffineTransform {
-    let cardScaleFactor = scaleFactor(forCardAtIndex: index)
+  func transform(forCardAtPosition position: Int) -> CGAffineTransform {
+    let cardScaleFactor = scaleFactor(forCardAtPosition: position)
     return CGAffineTransform(scaleX: cardScaleFactor.x, y: cardScaleFactor.y)
   }
 
@@ -195,7 +202,7 @@ open class SwipeCardStack: UIView, SwipeCardDelegate, UIGestureRecognizerDelegat
     if (stateManager.remainingIndices.count - visibleCards.count) > 0 {
       let bottomCardIndex = stateManager.remainingIndices[visibleCards.count]
       if let card = loadCard(at: bottomCardIndex) {
-        insertCard(card, at: visibleCards.count)
+        insertCard(Card(bottomCardIndex, card), at: visibleCards.count)
       }
     }
 
@@ -267,22 +274,45 @@ open class SwipeCardStack: UIView, SwipeCardDelegate, UIGestureRecognizerDelegat
     isAnimating = false
   }
 
+  /// Returns the `SwipeCard` at the specified index.
+  ///
+  /// - Parameter index: The index of the card in the data source.
+  /// - Returns: The `SwipeCard` at the specified index, or `nil` if the card is not visible or the index is
+  /// out of range.
+  public func card(forIndexAt index: Int) -> SwipeCard? {
+    for value in visibleCards where value.index == index {
+      return value.card
+    }
+    return nil
+  }
+
+  /// Returns the current position of the card at the specified index.
+  ///
+  /// A returned value of `0` indicates that the card is the topmost card in the stack.
+  /// - Parameter index: The index of the card in the data source.
+  /// - Returns: The current position of the card at the specified index, or `nil` if the index if out of range or the
+  /// card has been swiped.
+  public func position(forCardAtIndex index: Int) -> Int? {
+    return stateManager.remainingIndices.firstIndex(of: index)
+  }
+
   func reloadVisibleCards() {
-    visibleCards.forEach { $0.removeFromSuperview() }
+    visibleCards.forEach { $0.card.removeFromSuperview() }
     visibleCards.removeAll()
 
     let numberOfCards = min(stateManager.remainingIndices.count, numberOfVisibleCards)
-    for index in 0..<numberOfCards {
-      if let card = loadCard(at: stateManager.remainingIndices[index]) {
-        insertCard(card, at: index)
+    for position in 0..<numberOfCards {
+      let index = stateManager.remainingIndices[position]
+      if let card = loadCard(at: index) {
+        insertCard(Card(index, card), at: position)
       }
     }
   }
 
-  func insertCard(_ card: SwipeCard, at index: Int) {
-    cardContainer.insertSubview(card, at: visibleCards.count - index)
-    layoutCard(card, at: index)
-    visibleCards.insert(card, at: index)
+  func insertCard(_ value: Card, at position: Int) {
+    cardContainer.insertSubview(value.card, at: visibleCards.count - position)
+    layoutCard(value.card, at: position)
+    visibleCards.insert(value, at: position)
   }
 
   func loadCard(at index: Int) -> SwipeCard? {
@@ -312,10 +342,10 @@ open class SwipeCardStack: UIView, SwipeCardDelegate, UIGestureRecognizerDelegat
   }
 
   func card(didContinueSwipe card: SwipeCard) {
-    for (index, backgroundCard) in backgroundCards.enumerated() {
+    for (position, backgroundCard) in backgroundCards.enumerated() {
       backgroundCard.transform = transformProvider.backgroundCardDragTransform(for: self,
                                                                                topCard: card,
-                                                                               topCardIndex: index + 1)
+                                                                               currentPosition: position + 1)
     }
   }
 
