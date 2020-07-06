@@ -31,6 +31,16 @@ class MockCardStackStateManager: CardStackStateManagable {
 
   var swipes: [Swipe] = []
 
+  var insertCalled: Bool = false
+  var insertIndices: [Int] = []
+  var insertPositions: [Int] = []
+
+  func insert(_ index: Int, at position: Int) {
+    insertCalled = true
+    insertIndices.append(index)
+    insertPositions.append(position)
+  }
+
   var swipeCalled = false
   var swipeDirection: SwipeDirection?
 

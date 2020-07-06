@@ -30,6 +30,8 @@ protocol CardStackStateManagable {
   var remainingIndices: [Int] { get }
   var swipes: [Swipe] { get }
 
+  func insert(_ index: Int, at position: Int)
+
   func swipe(_ direction: SwipeDirection)
   func undoSwipe() -> Swipe?
   func shift(withDistance distance: Int)
@@ -48,6 +50,32 @@ class CardStackStateManager: CardStackStateManagable {
 
   /// An array containing the swipe history of the card stack.
   var swipes: [Swipe] = []
+
+  func insert(_ index: Int, at position: Int) {
+    if position < 0 {
+      fatalError("Attempt to insert card at position \(position)")
+    }
+
+    if position > remainingIndices.count {
+      //swiftlint:disable:next line_length
+      fatalError("Attempt to insert card at position \(position), but there are only \(remainingIndices.count + 1) cards remaining in the stack after the update")
+    }
+
+    if index < 0 {
+      fatalError("Attempt to insert card at data source index \(index)")
+    }
+
+    if index > remainingIndices.count + swipes.count {
+      //swiftlint:disable:next line_length
+      fatalError("Attempt to insert card at index \(index), but there are only \(remainingIndices.count + swipes.count + 1) cards after the update")
+    }
+
+    // Increment all stored indices in the range [0, index] by 1
+    remainingIndices = remainingIndices.map { $0 >= index ? $0 + 1 : $0 }
+    swipes = swipes.map { $0.index >= index ? Swipe($0.index + 1, $0.direction) : $0 }
+
+    remainingIndices.insert(index, at: position)
+  }
 
   func swipe(_ direction: SwipeDirection) {
     if remainingIndices.isEmpty { return }
