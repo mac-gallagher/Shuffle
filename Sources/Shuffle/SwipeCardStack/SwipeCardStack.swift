@@ -33,12 +33,12 @@ open class SwipeCardStack: UIView, SwipeCardDelegate, UIGestureRecognizerDelegat
 
   /// Return `false` if you wish to ignore all horizontal gestures on the card stack.
   ///
-  /// You may wish to modify this property if your card stack is embedded in a `UIScrollView`.
+  /// You may wish to modify this property if your card stack is embedded in a `UIScrollView`, for example.
   open var shouldRecognizeHorizontalDrag: Bool = true
 
   /// Return `false` if you wish to ignore all vertical gestures on the card stack.
   ///
-  /// You may wish to modify this property if your card stack is embedded in a `UIScrollView`.
+  /// You may wish to modify this property if your card stack is embedded in a `UIScrollView`, for example.
   open var shouldRecognizeVerticalDrag: Bool = true
 
   public weak var delegate: SwipeCardStackDelegate?
@@ -55,6 +55,7 @@ open class SwipeCardStack: UIView, SwipeCardDelegate, UIGestureRecognizerDelegat
     }
   }
 
+  /// The data source index corresponding to the topmost card in the stack.
   public var topCardIndex: Int? {
     return visibleCards.first?.index
   }
@@ -167,12 +168,10 @@ open class SwipeCardStack: UIView, SwipeCardDelegate, UIGestureRecognizerDelegat
 
   // MARK: - Main Methods
 
-  /// Calling this method triggers a swipe on the card stack.
+  /// Triggers a swipe on the card stack in the specified direction.
   /// - Parameters:
   ///   - direction: The direction to swipe the top card.
-  ///   - animated: A boolean indicating whether the reverse swipe should be animated. Setting this
-  ///    to `false` will immediately
-  ///   position the card at end state of the animation when the method is called.
+  ///   - animated: A boolean indicating whether the swipe action should be animated.
   public func swipe(_ direction: SwipeDirection, animated: Bool) {
     if !isEnabled { return }
 
@@ -225,6 +224,8 @@ open class SwipeCardStack: UIView, SwipeCardDelegate, UIGestureRecognizerDelegat
     }
   }
 
+  /// Returns the most recently swiped card to the top of the card stack.
+  /// - Parameter animated: A boolean indicating whether the undo action should be animated.
   public func undoLastSwipe(animated: Bool) {
     if !isEnabled { return }
     guard let previousSwipe = stateManager.undoSwipe() else { return }
@@ -248,6 +249,10 @@ open class SwipeCardStack: UIView, SwipeCardDelegate, UIGestureRecognizerDelegat
     }
   }
 
+  /// Shifts the remaining cards in the card stack by the specified distance. Any swiped cards are ignored.
+  /// - Parameters:
+  ///   - distance: The distance to shift the remaining cards by.
+  ///   - animated: A boolean indicating whether the undo action should be animated.
   public func shift(withDistance distance: Int = 1, animated: Bool) {
     if !isEnabled || distance == 0 || visibleCards.count <= 1 { return }
 
@@ -275,7 +280,6 @@ open class SwipeCardStack: UIView, SwipeCardDelegate, UIGestureRecognizerDelegat
   }
 
   /// Returns the `SwipeCard` at the specified index.
-  ///
   /// - Parameter index: The index of the card in the data source.
   /// - Returns: The `SwipeCard` at the specified index, or `nil` if the card is not visible or the index is
   /// out of range.
@@ -292,8 +296,33 @@ open class SwipeCardStack: UIView, SwipeCardDelegate, UIGestureRecognizerDelegat
   /// - Parameter index: The index of the card in the data source.
   /// - Returns: The current position of the card at the specified index, or `nil` if the index if out of range or the
   /// card has been swiped.
-  public func position(forCardAtIndex index: Int) -> Int? {
+  public func positionforCard(at index: Int) -> Int? {
     return stateManager.remainingIndices.firstIndex(of: index)
+  }
+
+  /// Returns the remaining number of cards in the card stack.
+  /// - Returns: The number of cards in the card stack which have not yet been swiped.
+  public func numberOfRemainingCards() -> Int {
+    return stateManager.remainingIndices.count
+  }
+
+  /// Inserts a new card with the given index at the specified position.
+  /// - Parameters:
+  ///   - index: The index of the card in the data source.
+  ///   - position: The position of the new card in the card stack. This position should be determined on
+  ///   the returned value of `numberOfRemainingCards`.
+  public func insertCard(atIndex index: Int, position: Int) {
+    stateManager.insert(index, at: position)
+    reloadVisibleCards()
+  }
+
+  /// Appends a collection of new cards with the specifed indices to the bottom of the card stack.
+  /// - Parameter indices: The indices of the cards in the data source.
+  public func appendCards(atIndices indices: [Int]) {
+    for index in indices {
+      stateManager.insert(index, at: numberOfRemainingCards())
+    }
+    reloadVisibleCards()
   }
 
   func reloadVisibleCards() {
