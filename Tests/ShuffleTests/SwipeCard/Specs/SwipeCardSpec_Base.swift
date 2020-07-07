@@ -36,7 +36,6 @@ class SwipeCardSpec_Base: QuickSpec {
     var mockCardTransformProvider: MockCardTransformProvider!
     var mockSwipeCardDelegate: MockSwipeCardDelegate!
     var mockNotificationCenter: TestableNotificationCenter!
-    var testPanGestureRecognizer: PanGestureRecognizer!
     var subject: TestableSwipeCard!
 
     beforeEach {
@@ -51,8 +50,6 @@ class SwipeCardSpec_Base: QuickSpec {
                                   notificationCenter: mockNotificationCenter,
                                   transformProvider: mockCardTransformProvider)
       subject.delegate = mockSwipeCardDelegate
-
-      testPanGestureRecognizer = subject.panGestureRecognizer as? PanGestureRecognizer
     }
 
     describe("Initialization") {

@@ -1,4 +1,4 @@
-///
+/// 
 /// MIT License
 ///
 /// Copyright (c) 2020 Mac Gallagher
@@ -22,54 +22,16 @@
 /// SOFTWARE.
 ///
 
-@testable import Shuffle
-import UIKit
+import Foundation
 
-class MockCardStackStateManager: CardStackStateManagable {
+//swiftlint:disable line_length
+enum StringUtils {
 
-  var remainingIndices: [Int] = []
-  var swipes: [Swipe] = []
-  var totalIndexCount: Int = 0
-
-  var insertCalled: Bool = false
-  var insertIndices: [Int] = []
-  var insertPositions: [Int] = []
-
-  func insert(_ index: Int, at position: Int) {
-    insertCalled = true
-    insertIndices.append(index)
-    insertPositions.append(position)
-  }
-
-  var swipeCalled = false
-  var swipeDirection: SwipeDirection?
-
-  func swipe(_ direction: SwipeDirection) {
-    swipeCalled = true
-    swipeDirection = direction
-  }
-
-  var undoSwipeCalled = false
-  var undoSwipeSwipe: Swipe?
-
-  func undoSwipe() -> Swipe? {
-    undoSwipeCalled = true
-    return undoSwipeSwipe
-  }
-
-  var shiftCalled = false
-  var shiftDistance: Int?
-
-  func shift(withDistance distance: Int) {
-    shiftCalled = true
-    shiftDistance = distance
-  }
-
-  var resetCalled: Bool = false
-  var resetNumberOfCards: Int?
-
-  func reset(withNumberOfCards numberOfCards: Int) {
-    resetCalled = true
-    resetNumberOfCards = numberOfCards
+  static func createInvalidUpdateErrorString(newCount: Int,
+                                             oldCount: Int,
+                                             insertedCount: Int = 0,
+                                             deletedCount: Int = 0) -> String {
+    return "Invalid update: invalid number of cards. The number of cards contained in the card stack after the update (\(newCount)) must be equal to the number of cards contained in the card stack before the update (\(oldCount)), plus or minus the number of cards inserted or deleted (\(insertedCount) inserted, \(deletedCount) deleted)"
   }
 }
+//swiftlint:enable line_length

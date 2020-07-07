@@ -29,6 +29,7 @@ typealias Swipe = (index: Int, direction: SwipeDirection)
 protocol CardStackStateManagable {
   var remainingIndices: [Int] { get }
   var swipes: [Swipe] { get }
+  var totalIndexCount: Int { get }
 
   func insert(_ index: Int, at position: Int)
 
@@ -51,6 +52,10 @@ class CardStackStateManager: CardStackStateManagable {
   /// An array containing the swipe history of the card stack.
   var swipes: [Swipe] = []
 
+  var totalIndexCount: Int {
+    return remainingIndices.count + swipes.count
+  }
+
   func insert(_ index: Int, at position: Int) {
     if position < 0 {
       fatalError("Attempt to insert card at position \(position)")
@@ -65,9 +70,9 @@ class CardStackStateManager: CardStackStateManagable {
       fatalError("Attempt to insert card at data source index \(index)")
     }
 
-    if index > remainingIndices.count + swipes.count {
+    if index > totalIndexCount {
       //swiftlint:disable:next line_length
-      fatalError("Attempt to insert card at index \(index), but there are only \(remainingIndices.count + swipes.count + 1) cards after the update")
+      fatalError("Attempt to insert card at index \(index), but there are only \(totalIndexCount + 1) cards after the update")
     }
 
     // Increment all stored indices in the range [0, index] by 1
