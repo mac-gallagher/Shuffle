@@ -75,6 +75,7 @@
 		ADA444D922AC658E00AFAFFE /* SwipeCardStackDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADA444D822AC658E00AFAFFE /* SwipeCardStackDataSource.swift */; };
 		ADA444DB22AC662C00AFAFFE /* CardStackAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADA444DA22AC662C00AFAFFE /* CardStackAnimator.swift */; };
 		ADA444DF22AC682400AFAFFE /* CardStackLayoutProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADA444DE22AC682400AFAFFE /* CardStackLayoutProvider.swift */; };
+		ADAC94E224B558EC00F5D52E /* StringUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADAC94E124B558EC00F5D52E /* StringUtils.swift */; };
 		ADC3622D2466B23E00FB9F1C /* SwipeCardSpec_Base.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADC3622C2466B23E00FB9F1C /* SwipeCardSpec_Base.swift */; };
 		ADCEAE2022A1B80B002A5F82 /* CardAnimatorSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADCEAE1F22A1B80B002A5F82 /* CardAnimatorSpec.swift */; };
 		ADCEAE2222A1B88D002A5F82 /* TestableCardAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADCEAE2122A1B88D002A5F82 /* TestableCardAnimator.swift */; };
@@ -185,6 +186,7 @@
 		ADA444D822AC658E00AFAFFE /* SwipeCardStackDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwipeCardStackDataSource.swift; sourceTree = "<group>"; };
 		ADA444DA22AC662C00AFAFFE /* CardStackAnimator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardStackAnimator.swift; sourceTree = "<group>"; };
 		ADA444DE22AC682400AFAFFE /* CardStackLayoutProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardStackLayoutProvider.swift; sourceTree = "<group>"; };
+		ADAC94E124B558EC00F5D52E /* StringUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringUtils.swift; sourceTree = "<group>"; };
 		ADB8EED122F174BB004F8633 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		ADC3622C2466B23E00FB9F1C /* SwipeCardSpec_Base.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwipeCardSpec_Base.swift; sourceTree = "<group>"; };
 		ADCEAE1F22A1B80B002A5F82 /* CardAnimatorSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardAnimatorSpec.swift; sourceTree = "<group>"; };
@@ -425,6 +427,7 @@
 				ADDF5F832277FA2C00274C09 /* CGPoint+Extensions.swift */,
 				AD72AC752270F4130083E735 /* CGVector+Extensions.swift */,
 				AD2E1C8F245E176F00A520A3 /* PanGestureRecognizer.swift */,
+				ADAC94E124B558EC00F5D52E /* StringUtils.swift */,
 				AD439DF72285FB7E009DE2F7 /* TapGestureRecognizer.swift */,
 				AD4AACA2231C61FC008EC632 /* UIView+Extensions.swift */,
 			);
@@ -821,6 +824,7 @@
 				AD52EF8122E5088B0063AE5D /* CardTransformProvider.swift in Sources */,
 				AD514C5B22A08D5600BD8F3E /* CardLayoutProvider.swift in Sources */,
 				AD72AC9A2270FCCE0083E735 /* SwipeDirection.swift in Sources */,
+				ADAC94E224B558EC00F5D52E /* StringUtils.swift in Sources */,
 				ADA444D922AC658E00AFAFFE /* SwipeCardStackDataSource.swift in Sources */,
 				AD52EF8722E523020063AE5D /* CardStackTransformProvider.swift in Sources */,
 				ADEE86D722ACE5AA00AAE7A1 /* Array+Extensions.swift in Sources */,

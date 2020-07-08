@@ -504,18 +504,53 @@ class SwipeCardStackSpec_MainMethods: QuickSpec {
       let index: Int = 1
       let position: Int = 2
 
-      beforeEach {
-        subject.insertCard(atIndex: index, position: position)
+      context("and there is no data source") {
+        beforeEach {
+          subject.insertCard(atIndex: index, position: position)
+        }
+
+        it("should not call the stateManager's insert method or reloadVisibleCards") {
+          expect(mockStateManager.insertCalled) == false
+          expect(subject.reloadVisibleCardsCalled) == false
+        }
       }
 
-      it("should call the stateManager's insert method with the correct parameters") {
-        expect(mockStateManager.insertCalled) == true
-        expect(mockStateManager.insertIndices) == [index]
-        expect(mockStateManager.insertPositions) == [position]
-      }
+      context("and there is a data source") {
+        let newNumberOfCards: Int = 10
+        var dataSource: MockSwipeCardStackDataSource!
 
-      it("should call reloadVisibleCards") {
-        expect(subject.reloadVisibleCardsCalled) == true
+        beforeEach {
+          dataSource = MockSwipeCardStackDataSource()
+          dataSource.testNumberOfCards = newNumberOfCards
+          subject.dataSource = dataSource
+        }
+
+        context("and the new number of cards is not equal to the old number of cards plus one") {
+          beforeEach {
+            mockStateManager.totalIndexCount = newNumberOfCards - 2
+          }
+
+          it("should throw a fatal error") {
+            expect(subject.insertCard(atIndex: index, position: position)).to(throwAssertion())
+          }
+        }
+
+        context("and the new number of cards is not equal to the old number of cards plus one") {
+          beforeEach {
+            mockStateManager.totalIndexCount = newNumberOfCards - 1
+            subject.insertCard(atIndex: index, position: position)
+          }
+
+          it("should call the stateManager's insert method with the correct parameters") {
+            expect(mockStateManager.insertCalled) == true
+            expect(mockStateManager.insertIndices) == [index]
+            expect(mockStateManager.insertPositions) == [position]
+          }
+
+          it("should call reloadVisibleCards") {
+            expect(subject.reloadVisibleCardsCalled) == true
+          }
+        }
       }
     }
 
@@ -527,18 +562,56 @@ class SwipeCardStackSpec_MainMethods: QuickSpec {
 
       beforeEach {
         mockStateManager.remainingIndices = remainingIndices
-        subject.appendCards(atIndices: indices)
       }
 
-      it("should call the stateManager's insert method with the correct parameters") {
-        expect(mockStateManager.insertCalled) == true
-        expect(mockStateManager.insertIndices) == indices
-        expect(mockStateManager.insertPositions) == Array(repeating: remainingIndices.count,
-                                                          count: indices.count)
+      context("and there is no data source") {
+        beforeEach {
+          subject.appendCards(atIndices: indices)
+        }
+
+        it("should not call the stateManager's insert method or reloadVisibleCards") {
+          expect(mockStateManager.insertCalled) == false
+          expect(subject.reloadVisibleCardsCalled) == false
+        }
       }
 
-      it("should call reloadVisibleCards") {
-        expect(subject.reloadVisibleCardsCalled) == true
+      context("and there is a data source") {
+        let newNumberOfCards: Int = 8
+        var dataSource: MockSwipeCardStackDataSource!
+
+        beforeEach {
+          dataSource = MockSwipeCardStackDataSource()
+          dataSource.testNumberOfCards = newNumberOfCards
+          subject.dataSource = dataSource
+        }
+
+        context("and the new number of cards is not equal to the old number of cards plus the number of new cards") {
+          beforeEach {
+            mockStateManager.totalIndexCount = newNumberOfCards - 2
+          }
+
+          it("should throw a fatal error") {
+            expect(subject.appendCards(atIndices: indices)).to(throwAssertion())
+          }
+        }
+
+        context("and the new number of cards is equal to the old number of cards plus the number of new cards") {
+          beforeEach {
+            mockStateManager.totalIndexCount = newNumberOfCards - indices.count
+            subject.appendCards(atIndices: indices)
+          }
+
+          it("should call the stateManager's insert method with the correct parameters") {
+            expect(mockStateManager.insertCalled) == true
+            expect(mockStateManager.insertIndices) == indices
+            expect(mockStateManager.insertPositions) == Array(repeating: remainingIndices.count,
+                                                              count: indices.count)
+          }
+
+          it("should call reloadVisibleCards") {
+            expect(subject.reloadVisibleCardsCalled) == true
+          }
+        }
       }
     }
 

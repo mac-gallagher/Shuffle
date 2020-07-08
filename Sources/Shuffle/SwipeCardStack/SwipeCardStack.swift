@@ -312,16 +312,42 @@ open class SwipeCardStack: UIView, SwipeCardDelegate, UIGestureRecognizerDelegat
   ///   - position: The position of the new card in the card stack. This position should be determined on
   ///   the returned value of `numberOfRemainingCards`.
   public func insertCard(atIndex index: Int, position: Int) {
+    guard let dataSource = dataSource else { return }
+
+    let oldNumberOfCards = stateManager.totalIndexCount
+    let newNumberOfCards = dataSource.numberOfCards(in: self)
+
     stateManager.insert(index, at: position)
+
+    if newNumberOfCards != oldNumberOfCards + 1 {
+      let errorString = StringUtils.createInvalidUpdateErrorString(newCount: newNumberOfCards,
+                                                                   oldCount: oldNumberOfCards,
+                                                                   insertedCount: 1)
+      fatalError(errorString)
+    }
+
     reloadVisibleCards()
   }
 
   /// Appends a collection of new cards with the specifed indices to the bottom of the card stack.
   /// - Parameter indices: The indices of the cards in the data source.
   public func appendCards(atIndices indices: [Int]) {
+    guard let dataSource = dataSource else { return }
+
+    let oldNumberOfCards = stateManager.totalIndexCount
+    let newNumberOfCards = dataSource.numberOfCards(in: self)
+
     for index in indices {
       stateManager.insert(index, at: numberOfRemainingCards())
     }
+
+    if newNumberOfCards != oldNumberOfCards + indices.count {
+      let errorString = StringUtils.createInvalidUpdateErrorString(newCount: newNumberOfCards,
+                                                                   oldCount: oldNumberOfCards,
+                                                                   insertedCount: indices.count)
+      fatalError(errorString)
+    }
+
     reloadVisibleCards()
   }
 
