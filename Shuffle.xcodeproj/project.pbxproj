@@ -91,6 +91,7 @@
 		ADEE86E822ADF3C200AAE7A1 /* CardStackLayoutProviderSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADEE86E722ADF3C200AAE7A1 /* CardStackLayoutProviderSpec.swift */; };
 		ADFAAC0A23FA66540084323B /* CardStackStateManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADFAAC0923FA66540084323B /* CardStackStateManager.swift */; };
 		ADFAAC0C23FB75D30084323B /* MockCardStackStateManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADFAAC0B23FB75D30084323B /* MockCardStackStateManager.swift */; };
+		ADFDBA0524B9B94C0069E256 /* SwipeCardStackSpec_StateManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADFDBA0424B9B94C0069E256 /* SwipeCardStackSpec_StateManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -203,6 +204,7 @@
 		ADEE86E722ADF3C200AAE7A1 /* CardStackLayoutProviderSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardStackLayoutProviderSpec.swift; sourceTree = "<group>"; };
 		ADFAAC0923FA66540084323B /* CardStackStateManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardStackStateManager.swift; sourceTree = "<group>"; };
 		ADFAAC0B23FB75D30084323B /* MockCardStackStateManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockCardStackStateManager.swift; sourceTree = "<group>"; };
+		ADFDBA0424B9B94C0069E256 /* SwipeCardStackSpec_StateManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwipeCardStackSpec_StateManager.swift; sourceTree = "<group>"; };
 		CF2ADEA1F05DDE3996336C1F /* Pods-ShuffleExample.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ShuffleExample.release.xcconfig"; path = "Target Support Files/Pods-ShuffleExample/Pods-ShuffleExample.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -507,6 +509,7 @@
 				AD4170A724034D4200BD40C8 /* CardStackStateManagerSpec.swift */,
 				ADEE86DE22ADED3600AAE7A1 /* SwipeCardStackSpec_Base.swift */,
 				AD9F44BB2468D04600725A8D /* SwipeCardStackSpec_MainMethods.swift */,
+				ADFDBA0424B9B94C0069E256 /* SwipeCardStackSpec_StateManager.swift */,
 				AD9F44BD2468D08B00725A8D /* SwipeCardStackSpec_SwipeCardDelegate.swift */,
 			);
 			path = Specs;
@@ -796,6 +799,7 @@
 				AD439DF92285FB7E009DE2F7 /* TestableSwipeView.swift in Sources */,
 				AD4170A824034D4200BD40C8 /* CardStackStateManagerSpec.swift in Sources */,
 				ADC3622D2466B23E00FB9F1C /* SwipeCardSpec_Base.swift in Sources */,
+				ADFDBA0524B9B94C0069E256 /* SwipeCardStackSpec_StateManager.swift in Sources */,
 				AD9F44BC2468D04600725A8D /* SwipeCardStackSpec_MainMethods.swift in Sources */,
 				AD52EF8B22E532B90063AE5D /* TestableNotificationCenter.swift in Sources */,
 				AD1098382287CAD4008CB197 /* TestableSwipeCard.swift in Sources */,

@@ -32,6 +32,7 @@ protocol CardStackStateManagable {
   var totalIndexCount: Int { get }
 
   func insert(_ index: Int, at position: Int)
+  func delete(_ index: Int)
 
   func swipe(_ direction: SwipeDirection)
   func undoSwipe() -> Swipe?
@@ -57,29 +58,34 @@ class CardStackStateManager: CardStackStateManagable {
   }
 
   func insert(_ index: Int, at position: Int) {
-    if position < 0 {
-      fatalError("Attempt to insert card at position \(position)")
-    }
+    precondition(index >= 0, "Attempt to insert card at index \(index)")
+    //swiftlint:disable:next line_length
+    precondition(index <= totalIndexCount, "Attempt to insert card at index \(index), but there are only \(totalIndexCount + 1) cards after the update")
+    precondition(position >= 0, "Attempt to insert card at position \(position)")
+    //swiftlint:disable:next line_length
+    precondition(position <= remainingIndices.count, "Attempt to insert card at position \(position), but there are only \(remainingIndices.count + 1) cards remaining in the stack after the update")
 
-    if position > remainingIndices.count {
-      //swiftlint:disable:next line_length
-      fatalError("Attempt to insert card at position \(position), but there are only \(remainingIndices.count + 1) cards remaining in the stack after the update")
-    }
-
-    if index < 0 {
-      fatalError("Attempt to insert card at data source index \(index)")
-    }
-
-    if index > totalIndexCount {
-      //swiftlint:disable:next line_length
-      fatalError("Attempt to insert card at index \(index), but there are only \(totalIndexCount + 1) cards after the update")
-    }
-
-    // Increment all stored indices in the range [0, index] by 1
+    // Increment all stored indices greater than or equal to index by 1
     remainingIndices = remainingIndices.map { $0 >= index ? $0 + 1 : $0 }
     swipes = swipes.map { $0.index >= index ? Swipe($0.index + 1, $0.direction) : $0 }
 
     remainingIndices.insert(index, at: position)
+  }
+
+  func delete(_ index: Int) {
+    precondition(index >= 0, "Attempt to delete card at index \(index)")
+    //swiftlint:disable:next line_length
+    precondition(index < totalIndexCount, "Attempt to delete card at index \(index), but there are only \(totalIndexCount) cards before the update")
+
+    swipes.removeAll { return $0.index == index }
+
+    if let position = remainingIndices.firstIndex(of: index) {
+      remainingIndices.remove(at: position)
+    }
+
+    // Decrement all stored indices greater than or equal to index by 1
+    remainingIndices = remainingIndices.map { $0 >= index ? $0 - 1 : $0 }
+    swipes = swipes.map { $0.index >= index ? Swipe($0.index - 1, $0.direction) : $0 }
   }
 
   func swipe(_ direction: SwipeDirection) {
