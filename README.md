@@ -172,6 +172,7 @@ func setOverlays(_ overlays: [SwipeDirection: UIView])
 ## Advanced Usage
 For more advanced usage, including
 
+* [Adding New Cards](Documentation/AdvancedUsage.md#adding-new-cards)
 * [Animations](Documentation/AdvancedUsage.md#animations)
 * [Swipe Recognition](Documentation/AdvancedUsage.md#swipe-recognition)
 
