@@ -45,19 +45,19 @@ To run the example project, clone the repo and run the `ShuffleExample` target.
     
     ```swift
     func card(fromImage image: UIImage) -> SwipeCard {
-        let card = SwipeCard()
-        card.swipeDirections = [.left, .right]
-        card.content = UIImageView(image: image)
-        
-        let leftOverlay = UIView()
-        leftoverlay.backgroundColor = .green
-       
-        let rightOverlay = UIView()
-        rightOverlay.backgroundColor = .red
-       
-        card.setOverlays([.left: leftOverlay, .right: rightOverlay])
-       
-        return card
+      let card = SwipeCard()
+      card.swipeDirections = [.left, .right]
+      card.content = UIImageView(image: image)
+      
+      let leftOverlay = UIView()
+      leftoverlay.backgroundColor = .green
+      
+      let rightOverlay = UIView()
+      rightOverlay.backgroundColor = .red
+      
+      card.setOverlays([.left: leftOverlay, .right: rightOverlay])
+      
+      return card
     }
     ```
     The card returned from `card(fromImage:)` displays an image, can be swiped left or right, and has overlay views for both directions.
@@ -66,19 +66,19 @@ To run the example project, clone the repo and run the `ShuffleExample` target.
 
     ```swift
     class ViewController: UIViewController {
-        let cardStack = SwipeCardStack()
-        
-        let cardImages = [
-            UIImage(named: "cardImage1"),
-            UIImage(named: "cardImage2"),
-            UIImage(named: "cardImage3")
-        ]
-        
-        override func viewDidLoad() {
-            super.viewDidLoad()
-            view.addSubview(cardStack)
-            cardStack.frame = view.safeAreaLayoutGuide.bounds
-        }
+      let cardStack = SwipeCardStack()
+      
+      let cardImages = [
+          UIImage(named: "cardImage1"),
+          UIImage(named: "cardImage2"),
+          UIImage(named: "cardImage3")
+      ]
+      
+      override func viewDidLoad() {
+        super.viewDidLoad()
+        view.addSubview(cardStack)
+        cardStack.frame = view.safeAreaLayoutGuide.bounds
+      }
     }
     ```
     
@@ -86,11 +86,11 @@ To run the example project, clone the repo and run the `ShuffleExample` target.
     
     ```swift
     func cardStack(_ cardStack: SwipeCardStack, cardForIndexAt index: Int) -> SwipeCard {
-       return card(fromImage: cardImages[index])
+      return card(fromImage: cardImages[index])
     }
     
     func numberOfCards(in cardStack: SwipeCardStack) -> Int {
-       return cardImages.count
+      return cardImages.count
     }
     ```
     ```swift
