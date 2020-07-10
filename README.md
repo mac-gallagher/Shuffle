@@ -222,6 +222,9 @@ We love to hear about apps that use Shuffle - feel free to submit a pull request
 
 <a href="https://apps.apple.com/bw/app/dankr/id1478419632">
 <img src="https://raw.githubusercontent.com/mac-gallagher/Shuffle/master/Assets/AppIcons/dankr_app_icon.png" title="Dankr" width="80" align="center"></a>
+
+<a href="https://apps.apple.com/us/app/id1516742129">
+<img src="https://raw.githubusercontent.com/mac-gallagher/Shuffle/master/Assets/AppIcons/eternal_app_icon.png" title="Eternal" width="80" align="center"></a>
 </p>
 
 ---
