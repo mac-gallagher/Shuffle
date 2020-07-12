@@ -41,6 +41,14 @@ class MockCardStackStateManager: CardStackStateManagable {
     insertPositions.append(position)
   }
 
+  var deleteCalled: Bool = false
+  var deleteIndex: Int?
+
+  func delete(_ index: Int) {
+    deleteCalled = true
+    deleteIndex = index
+  }
+
   var swipeCalled = false
   var swipeDirection: SwipeDirection?
 

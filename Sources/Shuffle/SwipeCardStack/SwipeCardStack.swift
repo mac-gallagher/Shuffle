@@ -83,7 +83,7 @@ open class SwipeCardStack: UIView, SwipeCardDelegate, UIGestureRecognizerDelegat
 
   private var animator: CardStackAnimatable = CardStackAnimator.shared
   private var layoutProvider: CardStackLayoutProvidable = CardStackLayoutProvider.shared
-  private var notificationCenter = NotificationCenter.default
+  private var notificationCenter = NotificationCenter()
   private var stateManager: CardStackStateManagable = CardStackStateManager()
   private var transformProvider: CardStackTransformProvidable = CardStackTransformProvider.shared
 
@@ -345,6 +345,26 @@ open class SwipeCardStack: UIView, SwipeCardDelegate, UIGestureRecognizerDelegat
       let errorString = StringUtils.createInvalidUpdateErrorString(newCount: newNumberOfCards,
                                                                    oldCount: oldNumberOfCards,
                                                                    insertedCount: indices.count)
+      fatalError(errorString)
+    }
+
+    reloadVisibleCards()
+  }
+
+  /// Deletes the card at the specified index. Removes swipes
+  /// - Parameter index: The index of the card in the data source
+  public func deleteCard(atIndex index: Int) {
+    guard let dataSource = dataSource else { return }
+
+    let oldNumberOfCards = stateManager.totalIndexCount
+    let newNumberOfCards = dataSource.numberOfCards(in: self)
+
+    stateManager.delete(index)
+
+    if newNumberOfCards != oldNumberOfCards - 1 {
+      let errorString = StringUtils.createInvalidUpdateErrorString(newCount: newNumberOfCards,
+                                                                   oldCount: oldNumberOfCards,
+                                                                   deletedCount: 1)
       fatalError(errorString)
     }
 
