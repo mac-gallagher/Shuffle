@@ -30,6 +30,8 @@ import UIKit
 // swiftlint:disable closure_body_length function_body_length implicitly_unwrapped_optional
 class SwipeCardStackSpec_Base: QuickSpec {
 
+  typealias Card = SwipeCardStack.Card
+
   override func spec() {
     var mockLayoutProvider: MockCardStackLayoutProvider!
     var mockStateManager: MockCardStackStateManager!
@@ -137,7 +139,7 @@ class SwipeCardStackSpec_Base: QuickSpec {
         let index: Int = 2
 
         beforeEach {
-          subject.visibleCards = [Card(index, SwipeCard())]
+          subject.visibleCards = [Card(index: index, card: SwipeCard())]
         }
 
         it("should return the first index from visibleCards") {
@@ -163,9 +165,9 @@ class SwipeCardStackSpec_Base: QuickSpec {
         let firstCard = SwipeCard()
 
         beforeEach {
-          subject.visibleCards = [Card(0, firstCard),
-                                  Card(1, SwipeCard()),
-                                  Card(2, SwipeCard())]
+          subject.visibleCards = [Card(index: 0, card: firstCard),
+                                  Card(index: 1, card: SwipeCard()),
+                                  Card(index: 2, card: SwipeCard())]
         }
 
         it("should return the first visible card") {
@@ -180,9 +182,9 @@ class SwipeCardStackSpec_Base: QuickSpec {
       let visibleCards = [SwipeCard(), SwipeCard(), SwipeCard()]
 
       beforeEach {
-        subject.visibleCards = [Card(0, visibleCards[0]),
-                                Card(1, visibleCards[1]),
-                                Card(2, visibleCards[2])]
+        subject.visibleCards = [Card(index: 0, card: visibleCards[0]),
+                                Card(index: 1, card: visibleCards[1]),
+                                Card(index: 2, card: visibleCards[2])]
       }
 
       it("should return the visible cards expect the first card") {
@@ -250,9 +252,9 @@ class SwipeCardStackSpec_Base: QuickSpec {
 
       beforeEach {
         mockLayoutProvider.testCardContainerFrame = cardContainerFrame
-        subject.visibleCards = [Card(0, visibleCards[0]),
-                                Card(1, visibleCards[1]),
-                                Card(2, visibleCards[2])]
+        subject.visibleCards = [Card(index: 0, card: visibleCards[0]),
+                                Card(index: 1, card: visibleCards[1]),
+                                Card(index: 2, card: visibleCards[2])]
         subject.layoutSubviews()
       }
 

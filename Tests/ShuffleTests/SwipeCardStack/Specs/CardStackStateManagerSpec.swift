@@ -53,12 +53,30 @@ class CardStackStateManagerSpec: QuickSpec {
     // MARK: - Insert
 
     describe("When calling insert") {
-      context("and position is less than zero") {
-        let position: Int = -1
+      context("and index is less than zero") {
+        let index: Int = -1
+
+        it("should throw a fatal error") {
+          expect(subject.insert(index, at: 0)).to(throwAssertion())
+        }
+      }
+
+      context("and index is greater than totalIndexCount") {
+        let index: Int = 5
 
         beforeEach {
-          subject.remainingIndices = [1, 2, 3]
+          subject.swipes = [Swipe(index: 0, direction: .left),
+                            Swipe(index: 1, direction: .left)]
+          subject.remainingIndices = [2, 3]
         }
+
+        it("should throw a fatal error") {
+          expect(subject.insert(index, at: 0)).to(throwAssertion())
+        }
+      }
+
+      context("and position is less than zero") {
+        let position: Int = -1
 
         it("should throw a fatal error") {
           expect(subject.insert(0, at: position)).to(throwAssertion())
@@ -77,34 +95,11 @@ class CardStackStateManagerSpec: QuickSpec {
         }
       }
 
-      context("and index is less than zero") {
-        let index: Int = -1
-
-        beforeEach {
-          subject.remainingIndices = [1, 2, 3]
-        }
-
-        it("should throw a fatal error") {
-          expect(subject.insert(index, at: 0)).to(throwAssertion())
-        }
-      }
-
-      context("and index is greater than the number of remaining indices + swiped count") {
-        let index: Int = 5
-
-        beforeEach {
-          subject.swipes = [Swipe(0, .left), Swipe(1, .left)]
-          subject.remainingIndices = [2, 3]
-        }
-
-        it("should throw a fatal error") {
-          expect(subject.insert(index, at: 0)).to(throwAssertion())
-        }
-      }
-
-      context("and position is at least zero and at most the number of remaining indices") {
+      context("and position and index are within the expected ranges") {
         let oldRemainingIndices: [Int] = [3, 2, 5, 6, 0]
-        let oldSwipes = [Swipe(1, .left), Swipe(4, .left), Swipe(7, .left)]
+        let oldSwipes = [Swipe(index: 1, direction: .left),
+                         Swipe(index: 4, direction: .left),
+                         Swipe(index: 7, direction: .left)]
         let index: Int = 4
         let position: Int = 2
 
@@ -114,15 +109,14 @@ class CardStackStateManagerSpec: QuickSpec {
           subject.insert(index, at: position)
         }
 
-        it("should insert the index at the correct position in remainingIndices") {
-          expect(subject.remainingIndices[position]) == index
-        }
+        it("should correctly update the swipes and remaining indices") {
+          let expectedSwipes = [Swipe(index: 1, direction: .left),
+                                Swipe(index: 5, direction: .left),
+                                Swipe(index: 8, direction: .left)]
+          expect(subject.swipes) == expectedSwipes
 
-        it("should increment all stored indices greater than or equal to index by one") {
-          expect(subject.remainingIndices[3]) == oldRemainingIndices[2] + 1
-          expect(subject.remainingIndices[4]) == oldRemainingIndices[3] + 1
-          expect(subject.swipes[1].index) == oldSwipes[1].index + 1
-          expect(subject.swipes[2].index) == oldSwipes[2].index + 1
+          let expectedRemainingIndices = [3, 2, 4, 6, 7, 0]
+          expect(subject.remainingIndices) == expectedRemainingIndices
         }
       }
     }
@@ -138,10 +132,11 @@ class CardStackStateManagerSpec: QuickSpec {
         }
       }
 
-      context("and index is greater than the number of remaining indices - 1") {
-        let index: Int = 3
+      context("and index is greater than the totalIndexCount - 1") {
+        let index: Int = 4
 
         beforeEach {
+          subject.swipes = [Swipe(index: 0, direction: .left)]
           subject.remainingIndices = [1, 2, 3]
         }
 
@@ -150,31 +145,31 @@ class CardStackStateManagerSpec: QuickSpec {
         }
       }
 
-      context("and index is at least zero and at most the number of remaining indices - 1") {
+      context("and index is in the expect range") {
         let oldRemainingIndices: [Int] = [3, 2, 5, 6, 0]
-        let oldSwipes = [Swipe(1, .left), Swipe(4, .left), Swipe(7, .left)]
+        let oldSwipes = [Swipe(index: 1, direction: .left),
+                         Swipe(index: 4, direction: .left),
+                         Swipe(index: 7, direction: .left)]
 
         beforeEach {
           subject.remainingIndices = oldRemainingIndices
           subject.swipes = oldSwipes
         }
 
-        context("and the index has already been swiped") {
+        context("and the index has been swiped") {
           let index: Int = 4
 
           beforeEach {
             subject.delete(index)
           }
 
-          it("should remove any swipes with the index") {
-            expect(subject.swipes.contains { $0.index == index }) == false
-            expect(subject.swipes.count) == oldSwipes.count - 1
-          }
+          it("should correctly update the swipes and remaining indices") {
+            let expectedSwipes = [Swipe(index: 1, direction: .left),
+                                  Swipe(index: 6, direction: .left)]
+            expect(subject.swipes) == expectedSwipes
 
-          it("should decrement all stored indices greater than or equal to index by one") {
-            expect(subject.remainingIndices[2]) == oldRemainingIndices[2] - 1
-            expect(subject.remainingIndices[3]) == oldRemainingIndices[3] - 1
-            expect(subject.swipes[1].index) == oldSwipes[2].index - 1
+            let expectedRemainingIndices = [3, 2, 4, 5, 0]
+            expect(subject.remainingIndices) == expectedRemainingIndices
           }
         }
 
@@ -185,22 +180,61 @@ class CardStackStateManagerSpec: QuickSpec {
             subject.delete(index)
           }
 
-          it("should remove the index from remainingIndiecs") {
-            expect(subject.remainingIndices.count) == oldRemainingIndices.count - 1
-          }
+          it("should correctly update the swipes and remaining indices") {
+            let expectedSwipes =  [Swipe(index: 1, direction: .left),
+                                   Swipe(index: 3, direction: .left),
+                                   Swipe(index: 6, direction: .left)]
+            expect(subject.swipes) == expectedSwipes
 
-          it("should decrement all stored indices greater than or equal to index by one") {
-            expect(subject.remainingIndices[0]) == oldRemainingIndices[0] - 1
-            expect(subject.remainingIndices[1]) == oldRemainingIndices[2] - 1
-            expect(subject.remainingIndices[2]) == oldRemainingIndices[3] - 1
-            expect(subject.swipes[1].index) == oldSwipes[1].index - 1
-            expect(subject.swipes[2].index) == oldSwipes[2].index - 1
+            let expectedRemainingIndices = [2, 4, 5, 0]
+            expect(subject.remainingIndices) == expectedRemainingIndices
           }
         }
       }
     }
 
-      // MARK: - Delete At Position
+      // MARK: - Delete Index At Position
+
+    describe("When calling delete:indexAtPosition") {
+      context("and position is less than zero") {
+        let position: Int = -1
+
+        it("should throw a fatal error") {
+          expect(subject.delete(indexAtPosition: position)).to(throwAssertion())
+        }
+      }
+
+      context("and position is greater than the number of remaining indices - 1") {
+        let position: Int = 3
+
+        beforeEach {
+          subject.remainingIndices = [1, 2, 3]
+        }
+
+        it("should throw a fatal error") {
+          expect(subject.delete(indexAtPosition: position)).to(throwAssertion())
+        }
+      }
+
+      context("and index is within the expect range") {
+        let oldRemainingIndices: [Int] = [3, 2, 5, 6, 0]
+        let position: Int = 2
+
+        beforeEach {
+          subject.remainingIndices = oldRemainingIndices
+          subject.delete(indexAtPosition: position)
+        }
+
+        it("should remove the index at the position from remainingIndiecs") {
+          expect(subject.remainingIndices.count) == oldRemainingIndices.count - 1
+        }
+
+        it("should correctly update the remaining indices") {
+          let expectedRemainingIndices = [3, 2, 5, 0]
+          expect(subject.remainingIndices) == expectedRemainingIndices
+        }
+      }
+    }
 
     // MARK: - Swipe
 
@@ -256,7 +290,7 @@ class CardStackStateManagerSpec: QuickSpec {
       }
 
       context("and there is at least one swipe") {
-        let swipe = Swipe(5, .left)
+        let swipe = Swipe(index: 5, direction: .left)
 
         beforeEach {
           subject.swipes = [swipe]
@@ -299,7 +333,8 @@ class CardStackStateManagerSpec: QuickSpec {
 
       beforeEach {
         subject.remainingIndices = [2, 3, 4]
-        subject.swipes = [Swipe(0, .left), Swipe(1, .up)]
+        subject.swipes = [Swipe(index: 0, direction: .left),
+                          Swipe(index: 1, direction: .up)]
         subject.reset(withNumberOfCards: numberOfCards)
       }
 

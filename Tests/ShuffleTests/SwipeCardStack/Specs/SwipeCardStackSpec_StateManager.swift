@@ -30,6 +30,8 @@ import UIKit
 // swiftlint:disable closure_body_length implicitly_unwrapped_optional
 class SwipeCardStackSpec_StateManager: QuickSpec {
 
+  typealias Card = SwipeCardStack.Card
+
   // swiftlint:disable:next function_body_length
   override func spec() {
     var mockStateManager: MockCardStackStateManager!
@@ -47,7 +49,8 @@ class SwipeCardStackSpec_StateManager: QuickSpec {
     // MARK: - Card For Index At
 
     describe("When calling cardForIndexAt") {
-      let visibleCards = [Card(0, SwipeCard()), Card(1, SwipeCard())]
+      let visibleCards = [Card(index: 0, card: SwipeCard()),
+                          Card(index: 1, card: SwipeCard())]
 
       beforeEach {
         subject.visibleCards = visibleCards
@@ -223,9 +226,9 @@ class SwipeCardStackSpec_StateManager: QuickSpec {
       }
     }
 
-    // MARK: - Delete Card
+    // MARK: - Delete Card At Index
 
-    describe("When calling deleteCard") {
+    describe("When calling deleteCard:atIndex") {
       let index: Int = 2
       let remainingIndices: [Int] = [1, 2, 3]
 
@@ -239,7 +242,7 @@ class SwipeCardStackSpec_StateManager: QuickSpec {
         }
 
         it("should not call the stateManager's delete method or reloadVisibleCards") {
-          expect(mockStateManager.deleteCalled) == false
+          expect(mockStateManager.deleteAtIndexCalled) == false
           expect(subject.reloadVisibleCardsCalled) == false
         }
       }
@@ -271,8 +274,65 @@ class SwipeCardStackSpec_StateManager: QuickSpec {
           }
 
           it("should call the stateManager's delete method with the correct index") {
-            expect(mockStateManager.deleteCalled) == true
-            expect(mockStateManager.deleteIndex) == index
+            expect(mockStateManager.deleteAtIndexCalled) == true
+            expect(mockStateManager.deleteAtIndexIndex) == index
+          }
+
+          it("should call reloadVisibleCards") {
+            expect(subject.reloadVisibleCardsCalled) == true
+          }
+        }
+      }
+    }
+
+    describe("When calling deleteCard:atPosition") {
+      let position: Int = 1
+      let remainingIndices: [Int] = [1, 2, 3]
+
+      beforeEach {
+        mockStateManager.remainingIndices = remainingIndices
+      }
+
+      context("and there is no data source") {
+        beforeEach {
+          subject.deleteCard(atPosition: position)
+        }
+
+        it("should not call the stateManager's delete method or reloadVisibleCards") {
+          expect(mockStateManager.deleteAtPositionCalled) == false
+          expect(subject.reloadVisibleCardsCalled) == false
+        }
+      }
+
+      context("and there is a data source") {
+        let newNumberOfCards: Int = 8
+        var dataSource: MockSwipeCardStackDataSource!
+
+        beforeEach {
+          dataSource = MockSwipeCardStackDataSource()
+          dataSource.testNumberOfCards = newNumberOfCards
+          subject.dataSource = dataSource
+        }
+
+        context("and the new number of cards is not equal to the old number of cards minus one") {
+          beforeEach {
+            mockStateManager.totalIndexCount = newNumberOfCards + 2
+          }
+
+          it("should throw a fatal error") {
+            expect(subject.deleteCard(atPosition: position)).to(throwAssertion())
+          }
+        }
+
+        context("and the new number of cards is equal to the old number of cards minus one") {
+          beforeEach {
+            mockStateManager.totalIndexCount = newNumberOfCards + 1
+            subject.deleteCard(atPosition: position)
+          }
+
+          it("should call the stateManager's delete method with the correct position") {
+            expect(mockStateManager.deleteAtPositionCalled) == true
+            expect(mockStateManager.deleteAtPositionPosition) == position
           }
 
           it("should call reloadVisibleCards") {

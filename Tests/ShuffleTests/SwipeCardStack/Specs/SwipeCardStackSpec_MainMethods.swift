@@ -30,6 +30,8 @@ import UIKit
 // swiftlint:disable type_body_length closure_body_length implicitly_unwrapped_optional
 class SwipeCardStackSpec_MainMethods: QuickSpec {
 
+  typealias Card = SwipeCardStack.Card
+
   // swiftlint:disable:next function_body_length
   override func spec() {
     var mockAnimator: MockCardStackAnimator!
@@ -100,7 +102,7 @@ class SwipeCardStackSpec_MainMethods: QuickSpec {
 
     describe("When calling swipeAction") {
       let direction: SwipeDirection = .left
-      let topCard = Card(0, SwipeCard())
+      let topCard = Card(index: 0, card: SwipeCard())
       let forced = false
       let animated = false
 
@@ -136,7 +138,7 @@ class SwipeCardStackSpec_MainMethods: QuickSpec {
 
           beforeEach {
             mockStateManager.remainingIndices = remainingIndices
-            subject.visibleCards = [topCard, Card(1, SwipeCard())]
+            subject.visibleCards = [topCard, Card(index: 1, card: SwipeCard())]
             subject.testLoadCard = testLoadCard
             subject.swipeAction(topCard: topCard.card,
                                 direction: direction,
@@ -165,7 +167,9 @@ class SwipeCardStackSpec_MainMethods: QuickSpec {
         context("and there are no more cards to load") {
           beforeEach {
             mockStateManager.remainingIndices = [1, 2]
-            subject.visibleCards = [topCard, Card(1, SwipeCard()), Card(2, SwipeCard())]
+            subject.visibleCards = [topCard,
+                                    Card(index: 1, card: SwipeCard()),
+                                    Card(index: 2, card: SwipeCard())]
             subject.swipeAction(topCard: topCard.card,
                                 direction: direction,
                                 forced: forced,
@@ -269,7 +273,8 @@ class SwipeCardStackSpec_MainMethods: QuickSpec {
             let previousSwipeDirection: SwipeDirection = .left
 
             beforeEach {
-              mockStateManager.undoSwipeSwipe = Swipe(previousSwipeIndex, previousSwipeDirection)
+              mockStateManager.undoSwipeSwipe = Swipe(index: previousSwipeIndex,
+                                                      direction: previousSwipeDirection)
               subject.undoLastSwipe(animated: animated)
             }
 
@@ -338,7 +343,7 @@ class SwipeCardStackSpec_MainMethods: QuickSpec {
         context("and the distance is greater than zero") {
           context("and there are less than two visible cards") {
             beforeEach {
-              subject.visibleCards = [Card(0, SwipeCard())]
+              subject.visibleCards = [Card(index: 0, card: SwipeCard())]
               subject.shift(withDistance: 1, animated: false)
             }
 
@@ -354,7 +359,8 @@ class SwipeCardStackSpec_MainMethods: QuickSpec {
 
           beforeEach {
             mockStateManager.remainingIndices = [1, 2, 3]
-            subject.visibleCards = [Card(0, SwipeCard()), Card(0, SwipeCard())]
+            subject.visibleCards = [Card(index: 0, card: SwipeCard()),
+                                    Card(index: 0, card: SwipeCard())]
             subject.shift(withDistance: distance, animated: animated)
           }
 
@@ -472,7 +478,7 @@ class SwipeCardStackSpec_MainMethods: QuickSpec {
 
     describe("When calling insertCard") {
       let numberOfCards: Int = 5
-      let card = Card(0, SwipeCard())
+      let card = Card(index: 0, card: SwipeCard())
       let position: Int = 3
 
       var cardContainer: UIView?
@@ -480,7 +486,7 @@ class SwipeCardStackSpec_MainMethods: QuickSpec {
       beforeEach {
         cardContainer = subject.subviews.first
         for position in 0..<numberOfCards {
-          let pair = Card(position, SwipeCard())
+          let pair = Card(index: position, card: SwipeCard())
           cardContainer?.addSubview(pair.card)
           subject.visibleCards.append(pair)
         }

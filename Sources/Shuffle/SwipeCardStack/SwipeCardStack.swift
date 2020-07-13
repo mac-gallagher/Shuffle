@@ -24,10 +24,13 @@
 
 import UIKit
 
-/// A typealias for a `SwipeCard` and it's corresponding index in the card stack's `dataSource`.
-typealias Card = (index: Int, card: SwipeCard)
-
 open class SwipeCardStack: UIView, SwipeCardDelegate, UIGestureRecognizerDelegate {
+
+  /// A internal structure for a `SwipeCard` and it's corresponding index in the card stack's `dataSource`.
+  struct Card {
+    var index: Int
+    var card: SwipeCard
+  }
 
   open var animationOptions: CardStackAnimatableOptions = CardStackAnimationOptions.default
 
@@ -201,7 +204,7 @@ open class SwipeCardStack: UIView, SwipeCardDelegate, UIGestureRecognizerDelegat
     if (stateManager.remainingIndices.count - visibleCards.count) > 0 {
       let bottomCardIndex = stateManager.remainingIndices[visibleCards.count]
       if let card = loadCard(at: bottomCardIndex) {
-        insertCard(Card(bottomCardIndex, card), at: visibleCards.count)
+        insertCard(Card(index: bottomCardIndex, card: card), at: visibleCards.count)
       }
     }
 
@@ -290,6 +293,34 @@ open class SwipeCardStack: UIView, SwipeCardDelegate, UIGestureRecognizerDelegat
     return nil
   }
 
+  func reloadVisibleCards() {
+    visibleCards.forEach { $0.card.removeFromSuperview() }
+    visibleCards.removeAll()
+
+    let numberOfCards = min(stateManager.remainingIndices.count, numberOfVisibleCards)
+    for position in 0..<numberOfCards {
+      let index = stateManager.remainingIndices[position]
+      if let card = loadCard(at: index) {
+        insertCard(Card(index: index, card: card), at: position)
+      }
+    }
+  }
+
+  func insertCard(_ value: Card, at position: Int) {
+    cardContainer.insertSubview(value.card, at: visibleCards.count - position)
+    layoutCard(value.card, at: position)
+    visibleCards.insert(value, at: position)
+  }
+
+  func loadCard(at index: Int) -> SwipeCard? {
+    let card = dataSource?.cardStack(self, cardForIndexAt: index)
+    card?.delegate = self
+    card?.panGestureRecognizer.delegate = self
+    return card
+  }
+
+  // MARK: - State Management
+
   /// Returns the current position of the card at the specified index.
   ///
   /// A returned value of `0` indicates that the card is the topmost card in the stack.
@@ -309,8 +340,7 @@ open class SwipeCardStack: UIView, SwipeCardDelegate, UIGestureRecognizerDelegat
   /// Inserts a new card with the given index at the specified position.
   /// - Parameters:
   ///   - index: The index of the card in the data source.
-  ///   - position: The position of the new card in the card stack. This position should be determined on
-  ///   the returned value of `numberOfRemainingCards`.
+  ///   - position: The position of the new card in the card stack.
   public func insertCard(atIndex index: Int, position: Int) {
     guard let dataSource = dataSource else { return }
 
@@ -351,8 +381,8 @@ open class SwipeCardStack: UIView, SwipeCardDelegate, UIGestureRecognizerDelegat
     reloadVisibleCards()
   }
 
-  /// Deletes the card at the specified index. Removes swipes
-  /// - Parameter index: The index of the card in the data source
+  /// Deletes the card at the specified index.
+  /// - Parameter index: The index of the card in the data source.
   public func deleteCard(atIndex index: Int) {
     guard let dataSource = dataSource else { return }
 
@@ -371,30 +401,24 @@ open class SwipeCardStack: UIView, SwipeCardDelegate, UIGestureRecognizerDelegat
     reloadVisibleCards()
   }
 
-  func reloadVisibleCards() {
-    visibleCards.forEach { $0.card.removeFromSuperview() }
-    visibleCards.removeAll()
+  /// Deletes the card at the specified position in the card stack.
+  /// - Parameter position: The position of the card to delete in the card stack.
+  public func deleteCard(atPosition position: Int) {
+    guard let dataSource = dataSource else { return }
 
-    let numberOfCards = min(stateManager.remainingIndices.count, numberOfVisibleCards)
-    for position in 0..<numberOfCards {
-      let index = stateManager.remainingIndices[position]
-      if let card = loadCard(at: index) {
-        insertCard(Card(index, card), at: position)
-      }
+    let oldNumberOfCards = stateManager.totalIndexCount
+    let newNumberOfCards = dataSource.numberOfCards(in: self)
+
+    stateManager.delete(indexAtPosition: position)
+
+    if newNumberOfCards != oldNumberOfCards - 1 {
+      let errorString = StringUtils.createInvalidUpdateErrorString(newCount: newNumberOfCards,
+                                                                   oldCount: oldNumberOfCards,
+                                                                   deletedCount: 1)
+      fatalError(errorString)
     }
-  }
 
-  func insertCard(_ value: Card, at position: Int) {
-    cardContainer.insertSubview(value.card, at: visibleCards.count - position)
-    layoutCard(value.card, at: position)
-    visibleCards.insert(value, at: position)
-  }
-
-  func loadCard(at index: Int) -> SwipeCard? {
-    let card = dataSource?.cardStack(self, cardForIndexAt: index)
-    card?.delegate = self
-    card?.panGestureRecognizer.delegate = self
-    return card
+    reloadVisibleCards()
   }
 
   // MARK: - Notifications
