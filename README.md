@@ -77,7 +77,7 @@ To run the example project, clone the repo and run the `ShuffleExample` target.
       override func viewDidLoad() {
         super.viewDidLoad()
         view.addSubview(cardStack)
-        cardStack.frame = view.safeAreaLayoutGuide.bounds
+        cardStack.frame = view.safeAreaLayoutGuide.layoutFrame
       }
     }
     ```
