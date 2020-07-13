@@ -24,7 +24,10 @@
 
 import Foundation
 
-typealias Swipe = (index: Int, direction: SwipeDirection)
+struct Swipe: Equatable {
+  var index: Int
+  var direction: SwipeDirection
+}
 
 protocol CardStackStateManagable {
   var remainingIndices: [Int] { get }
@@ -33,6 +36,7 @@ protocol CardStackStateManagable {
 
   func insert(_ index: Int, at position: Int)
   func delete(_ index: Int)
+  func delete(indexAtPosition position: Int)
 
   func swipe(_ direction: SwipeDirection)
   func undoSwipe() -> Swipe?
@@ -67,7 +71,7 @@ class CardStackStateManager: CardStackStateManagable {
 
     // Increment all stored indices greater than or equal to index by 1
     remainingIndices = remainingIndices.map { $0 >= index ? $0 + 1 : $0 }
-    swipes = swipes.map { $0.index >= index ? Swipe($0.index + 1, $0.direction) : $0 }
+    swipes = swipes.map { $0.index >= index ? Swipe(index: $0.index + 1, direction: $0.direction) : $0 }
 
     remainingIndices.insert(index, at: position)
   }
@@ -85,13 +89,23 @@ class CardStackStateManager: CardStackStateManagable {
 
     // Decrement all stored indices greater than or equal to index by 1
     remainingIndices = remainingIndices.map { $0 >= index ? $0 - 1 : $0 }
-    swipes = swipes.map { $0.index >= index ? Swipe($0.index - 1, $0.direction) : $0 }
+    swipes = swipes.map { $0.index >= index ? Swipe(index: $0.index - 1, direction: $0.direction) : $0 }
+  }
+
+  func delete(indexAtPosition position: Int) {
+    precondition(position >= 0, "Attempt to delete card at position \(position)")
+    //swiftlint:disable:next line_length
+    precondition(position < remainingIndices.count, "Attempt to delete card at position \(position), but there are only \(remainingIndices.count) cards remaining in the stack before the update")
+
+    // Decrement all stored indices greater than or equal to index by 1
+    let index = remainingIndices.remove(at: position)
+    remainingIndices = remainingIndices.map { $0 >= index ? $0 - 1 : $0 }
   }
 
   func swipe(_ direction: SwipeDirection) {
     if remainingIndices.isEmpty { return }
     let firstIndex = remainingIndices.removeFirst()
-    let swipe = Swipe(direction: direction, index: firstIndex)
+    let swipe = Swipe(index: firstIndex, direction: direction)
     swipes.append(swipe)
   }
 
