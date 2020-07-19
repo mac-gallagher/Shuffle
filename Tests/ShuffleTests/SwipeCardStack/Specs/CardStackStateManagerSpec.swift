@@ -31,17 +31,17 @@ import UIKit
 class CardStackStateManagerSpec: QuickSpec {
 
   override func spec() {
-    var subject: CardStackStateManager!
+    var subject: TestableCardStackStateManager!
 
     beforeEach {
-      subject = CardStackStateManager()
+      subject = TestableCardStackStateManager()
     }
 
     // MARK: - Initialization
 
     describe("When initializaing a CardStackStateManager object") {
       beforeEach {
-        subject = CardStackStateManager()
+        subject = TestableCardStackStateManager()
       }
 
       it("should have the correct default properties") {
@@ -121,9 +121,9 @@ class CardStackStateManagerSpec: QuickSpec {
       }
     }
 
-    // MARK: - Delete
+    // MARK: - Delete Index
 
-    describe("When calling delete") {
+    describe("When calling delete:index") {
       context("and index is less than zero") {
         let index: Int = -1
 
@@ -193,7 +193,27 @@ class CardStackStateManagerSpec: QuickSpec {
       }
     }
 
-      // MARK: - Delete Index At Position
+    // MARK: - Delete Indices
+
+    describe("When calling delete:indices") {
+      let indices: [Int] = [2, 2, 1, 3]
+
+      beforeEach {
+        subject.remainingIndices = [3, 2, 4, 0, 1]
+        subject.delete(indices)
+      }
+
+      it("should remove all duplicate indices") {
+        expect(subject.deleteIndices.count) == indices.removingDuplicates().count
+      }
+
+      it("should call delete:index with the correct adjusted indices") {
+        let expectedDeleteIndices: [Int] = [2, 1, 1]
+        expect(subject.deleteIndices) == expectedDeleteIndices
+      }
+    }
+
+    // MARK: - Delete Index At Position
 
     describe("When calling delete:indexAtPosition") {
       context("and position is less than zero") {
@@ -216,23 +236,49 @@ class CardStackStateManagerSpec: QuickSpec {
         }
       }
 
-      context("and index is within the expect range") {
+      context("and position is within the expect range") {
         let oldRemainingIndices: [Int] = [3, 2, 5, 6, 0]
+        let oldSwipes = [Swipe(index: 1, direction: .left),
+                         Swipe(index: 4, direction: .left),
+                         Swipe(index: 7, direction: .left)]
         let position: Int = 2
 
         beforeEach {
           subject.remainingIndices = oldRemainingIndices
+          subject.swipes = oldSwipes
           subject.delete(indexAtPosition: position)
         }
 
-        it("should remove the index at the position from remainingIndiecs") {
-          expect(subject.remainingIndices.count) == oldRemainingIndices.count - 1
-        }
+        it("should correctly update the swipes and remaining indices") {
+          let expectedSwipes = [Swipe(index: 1, direction: .left),
+                                Swipe(index: 4, direction: .left),
+                                Swipe(index: 6, direction: .left)]
+          expect(subject.swipes) == expectedSwipes
 
-        it("should correctly update the remaining indices") {
           let expectedRemainingIndices = [3, 2, 5, 0]
           expect(subject.remainingIndices) == expectedRemainingIndices
+          expect(subject.remainingIndices.count) == oldRemainingIndices.count - 1
         }
+      }
+    }
+
+    // MARK: - Delete Indices At Positions
+
+    describe("When calling delete:indicesAtPositions") {
+      let positions = [2, 2, 0, 3]
+
+      beforeEach {
+        subject.remainingIndices = [3, 2, 5, 6, 0]
+        subject.delete(indicesAtPositions: positions)
+      }
+
+      it("should remove all duplicate positions") {
+        expect(subject.deletePositions.count) == positions.removingDuplicates().count
+      }
+
+      it("should call delete:indexAtPosition with the correct adjusted positions") {
+        let expectedDeletePositions: [Int] = [2, 0, 1]
+        expect(subject.deletePositions) == expectedDeletePositions
       }
     }
 

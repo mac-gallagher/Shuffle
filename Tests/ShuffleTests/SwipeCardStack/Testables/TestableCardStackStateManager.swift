@@ -1,4 +1,4 @@
-///
+/// 
 /// MIT License
 ///
 /// Copyright (c) 2020 Mac Gallagher
@@ -22,27 +22,20 @@
 /// SOFTWARE.
 ///
 
-import Foundation
+@testable import Shuffle
+import UIKit
 
-extension Array {
+class TestableCardStackStateManager: CardStackStateManager {
 
-  mutating func shift(withDistance distance: Int = 1) {
-    let offsetIndex = distance >= 0
-      ? index(startIndex, offsetBy: distance, limitedBy: endIndex)
-      : index(endIndex, offsetBy: distance, limitedBy: startIndex)
-    guard let index = offsetIndex else { return }
-    self = Array(self[index ..< endIndex] + self[startIndex ..< index])
+  var deleteIndices: [Int] = []
+  override func delete(_ index: Int) {
+    super.delete(index)
+    deleteIndices.append(index)
   }
-}
 
-extension Array where Element: Hashable {
-
-    func removingDuplicates() -> [Element] {
-        var dict = [Element: Bool]()
-        return filter { dict.updateValue(true, forKey: $0) == nil }
-    }
-
-    mutating func removeDuplicates() {
-        self = self.removingDuplicates()
-    }
+  var deletePositions: [Int] = []
+  override func delete(indexAtPosition position: Int) {
+    super.delete(indexAtPosition: position)
+    deletePositions.append(position)
+  }
 }

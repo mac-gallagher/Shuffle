@@ -200,7 +200,7 @@ open class SwipeCardStack: UIView, SwipeCardDelegate, UIGestureRecognizerDelegat
     stateManager.swipe(direction)
     visibleCards.remove(at: 0)
 
-    // insert new card if needed
+    // Insert new card if needed
     if (stateManager.remainingIndices.count - visibleCards.count) > 0 {
       let bottomCardIndex = stateManager.remainingIndices[visibleCards.count]
       if let card = loadCard(at: bottomCardIndex) {
@@ -337,7 +337,15 @@ open class SwipeCardStack: UIView, SwipeCardDelegate, UIGestureRecognizerDelegat
     return stateManager.remainingIndices.count
   }
 
+  /// Returns the indices of the swiped cards in the order they were swiped.
+  /// - Returns: The indices of the swiped cards in the data source.
+  public func swipedCards() -> [Int] {
+    return stateManager.swipes.map { $0.index }
+  }
+
   /// Inserts a new card with the given index at the specified position.
+  ///
+  /// Calling this method will not clear the swipe history nor trigger a reload of the data source.
   /// - Parameters:
   ///   - index: The index of the card in the data source.
   ///   - position: The position of the new card in the card stack.
@@ -360,6 +368,8 @@ open class SwipeCardStack: UIView, SwipeCardDelegate, UIGestureRecognizerDelegat
   }
 
   /// Appends a collection of new cards with the specifed indices to the bottom of the card stack.
+  ///
+  /// Calling this method will not clear the swipe history nor trigger a reload of the data source.
   /// - Parameter indices: The indices of the cards in the data source.
   public func appendCards(atIndices indices: [Int]) {
     guard let dataSource = dataSource else { return }
@@ -381,43 +391,46 @@ open class SwipeCardStack: UIView, SwipeCardDelegate, UIGestureRecognizerDelegat
     reloadVisibleCards()
   }
 
-  /// Deletes the card at the specified index.
-  /// - Parameter index: The index of the card in the data source.
-  public func deleteCard(atIndex index: Int) {
+  /// Deletes the cards at the specified indices. If an index corresponds to a card that has been swiped,
+  /// it is removed from the swipe history.
+  ///
+  /// Calling this method will not clear the swipe history nor trigger a reload of the data source.
+  /// - Parameter indices: The indices of the cards in the data source to delete.
+  public func deleteCards(atIndices indices: [Int]) {
     guard let dataSource = dataSource else { return }
 
     let oldNumberOfCards = stateManager.totalIndexCount
     let newNumberOfCards = dataSource.numberOfCards(in: self)
 
-    stateManager.delete(index)
-
-    if newNumberOfCards != oldNumberOfCards - 1 {
+    if newNumberOfCards != oldNumberOfCards - indices.count {
       let errorString = StringUtils.createInvalidUpdateErrorString(newCount: newNumberOfCards,
                                                                    oldCount: oldNumberOfCards,
-                                                                   deletedCount: 1)
+                                                                   deletedCount: indices.count)
       fatalError(errorString)
     }
 
+    stateManager.delete(indices)
     reloadVisibleCards()
   }
 
-  /// Deletes the card at the specified position in the card stack.
-  /// - Parameter position: The position of the card to delete in the card stack.
-  public func deleteCard(atPosition position: Int) {
+  /// Deletes the cards at the specified positions in the card stack.
+  ///
+  /// Calling this method will not clear the swipe history nor trigger a reload of the data source.
+  /// - Parameter positions: The positions of the cards to delete in the card stack.
+  public func deleteCards(atPositions positions: [Int]) {
     guard let dataSource = dataSource else { return }
 
     let oldNumberOfCards = stateManager.totalIndexCount
     let newNumberOfCards = dataSource.numberOfCards(in: self)
 
-    stateManager.delete(indexAtPosition: position)
-
-    if newNumberOfCards != oldNumberOfCards - 1 {
+    if newNumberOfCards != oldNumberOfCards - positions.count {
       let errorString = StringUtils.createInvalidUpdateErrorString(newCount: newNumberOfCards,
                                                                    oldCount: oldNumberOfCards,
-                                                                   deletedCount: 1)
+                                                                   deletedCount: positions.count)
       fatalError(errorString)
     }
 
+    stateManager.delete(indicesAtPositions: positions)
     reloadVisibleCards()
   }
 
