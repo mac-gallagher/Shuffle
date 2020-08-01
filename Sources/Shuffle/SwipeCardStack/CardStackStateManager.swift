@@ -35,8 +35,11 @@ protocol CardStackStateManagable {
   var totalIndexCount: Int { get }
 
   func insert(_ index: Int, at position: Int)
+
   func delete(_ index: Int)
+  func delete(_ indices: [Int])
   func delete(indexAtPosition position: Int)
+  func delete(indicesAtPositions positions: [Int])
 
   func swipe(_ direction: SwipeDirection)
   func undoSwipe() -> Swipe?
@@ -61,6 +64,8 @@ class CardStackStateManager: CardStackStateManagable {
     return remainingIndices.count + swipes.count
   }
 
+  // MARK: - Insertion
+
   func insert(_ index: Int, at position: Int) {
     precondition(index >= 0, "Attempt to insert card at index \(index)")
     //swiftlint:disable:next line_length
@@ -75,6 +80,8 @@ class CardStackStateManager: CardStackStateManagable {
 
     remainingIndices.insert(index, at: position)
   }
+
+  // MARK: - Deletion
 
   func delete(_ index: Int) {
     precondition(index >= 0, "Attempt to delete card at index \(index)")
@@ -92,6 +99,20 @@ class CardStackStateManager: CardStackStateManagable {
     swipes = swipes.map { $0.index >= index ? Swipe(index: $0.index - 1, direction: $0.direction) : $0 }
   }
 
+  func delete(_ indices: [Int]) {
+    var remainingIndices = indices.removingDuplicates()
+
+    while !remainingIndices.isEmpty {
+      let index = remainingIndices[0]
+      delete(index)
+
+      remainingIndices.remove(at: 0)
+
+      // Decrement all remaining indices greater than or equal to index by 1
+      remainingIndices = remainingIndices.map { $0 >= index ? $0 - 1 : $0 }
+    }
+  }
+
   func delete(indexAtPosition position: Int) {
     precondition(position >= 0, "Attempt to delete card at position \(position)")
     //swiftlint:disable:next line_length
@@ -100,7 +121,24 @@ class CardStackStateManager: CardStackStateManagable {
     // Decrement all stored indices greater than or equal to index by 1
     let index = remainingIndices.remove(at: position)
     remainingIndices = remainingIndices.map { $0 >= index ? $0 - 1 : $0 }
+    swipes = swipes.map { $0.index >= index ? Swipe(index: $0.index - 1, direction: $0.direction) : $0 }
   }
+
+  func delete(indicesAtPositions positions: [Int]) {
+    var remainingPositions = positions.removingDuplicates()
+
+    while !remainingPositions.isEmpty {
+      let position = remainingPositions[0]
+      delete(indexAtPosition: position)
+
+      remainingPositions.remove(at: 0)
+
+      // Decrement all remaining positions greater than or equal to position by 1
+      remainingPositions = remainingPositions.map { $0 >= position ? $0 - 1 : $0 }
+    }
+  }
+
+  // MARK: - Main Methods
 
   func swipe(_ direction: SwipeDirection) {
     if remainingIndices.isEmpty { return }

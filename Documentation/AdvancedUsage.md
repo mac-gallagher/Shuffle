@@ -1,21 +1,26 @@
 # Advanced Usage
 
-* [Adding New Cards](#adding-new-cards)
 * [Animations](#animations)
+* [Inserting and Deleting Cards](#inserting-and-deleting-cards)
 * [Swipe Recognition](#swipe-recognition)
 
-## Adding New Cards
+## Animations
+// TODO
 
-If you're using an external API to retrieve your `SwipeCard` data models, chances are you'll need to update the card stack occasionally as new models come in. As of version [3.0.1](https://github.com/mac-gallagher/Shuffle/releases/tag/v0.3.1), Shuffle includes the following methods on `SwipeCardStack` to make this possible:
+## Inserting and Deleting Cards
+
+If you're using an external API to retrieve your `SwipeCard` data models, chances are you'll need to update the card stack occasionally as new models come in. As of version [0.4.0](https://github.com/mac-gallagher/Shuffle/releases/tag/v0.4.0), Shuffle includes the following methods on `SwipeCardStack`:
 
 ```swift
 func insertCard(atIndex index: Int, position: Int)
+func appendCards(atIndices indices: [Int]) // Index refers to the index of the card in the data source
 ```
 ```swift
-func appendCards(atIndices indices: [Int])
+func deleteCards(atIndices indices: [Int])
+func deleteCards(atPositions positions: [Int]) // Position refers to the position of the card in the stack
 ```
 
-With these methods, we can give the iullusion of an "infinite" card stack. Let's look at an example.
+Using the insert methods in particular, we can give the illusion of an "infinite" card stack. Let's look at an example.
 
 ### External API Example
 Suppose we have a utility which fetches raw data models and decodes them into an array of `CardModels`:
@@ -42,7 +47,7 @@ class ViewController: UIViewController: SwipeCardStackDataSource, SwipeCardStack
     cardStack.dataSource = self
     cardStack.delegate = self
     
-    // layout cardStack on view
+    // Layout cardStack on view
     
     addCards()
   }
@@ -93,7 +98,7 @@ NetworkUtility.fetchNewCardModels { [weak self] newModels in
   guard let strongSelf = self else { return }
 	
   DispatchQueue.main.async {
-    // insert in reverse order so that newModels.first is the model for the topmost card
+    // Insert in reverse order so that newModels.first is the model for the topmost card
     for model in newModels.reversed() {
       strongSelf.cardModels.insert(model, at: 0)
       strongSelf.cardStack.insertCard(atIndex: 0, position: 0)
@@ -118,9 +123,6 @@ func insertCard(atIndex: Int, position: Int)
 The `insertCard` method has an additional `position` parameter which represents the inserted position in the card stack, whereas the `index` parameter represents the index of the card/model in the data source. The `position` is dynamic based on the number of cards remaining (not swiped) in the stack. **Note**: For a `UITableView`, the `indexPath` and `index/position` parameters are equavalent.
 
 Since the number of remaining cards is subject to change, be sure to calculate the `position` based on the value returned from the `numberOfRemainingCards:` method on `SwipeCardStack`.
-
-## Animations
-// TODO
 
 ## Swipe Recognition
 // TODO
