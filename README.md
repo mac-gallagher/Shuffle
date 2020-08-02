@@ -185,6 +185,12 @@ Shuffle is available through [CocoaPods](<https://cocoapods.org/>). To install i
 
 	pod 'Shuffle-iOS'
 
+The import statement in this case will be
+
+```swift
+import Shuffle_iOS
+```
+
 ### Carthage
 
 Shuffle is available through [Carthage](<https://github.com/Carthage/Carthage>). To install it, simply add the following line to your Cartfile:
