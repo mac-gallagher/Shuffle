@@ -58,7 +58,7 @@ class ViewController: UIViewController: SwipeCardStackDataSource, SwipeCardStack
     return cardModels.count
   }
 	
-  func cardStack(_ cardStack: SwipeCardStack, didSwipeCardAt index: Int, with direction: SwipeDirection) {
+  func cardStack(_ cardStack: SwipeCardStack, cardForIndexAt index: Int) -> SwipeCard {
     let card = SwipeCard()
     card.model = cardModels[index]
     return card
