@@ -50,7 +50,7 @@ To run the example project, clone the repo and run the `ShuffleExample` target.
       card.content = UIImageView(image: image)
       
       let leftOverlay = UIView()
-      leftoverlay.backgroundColor = .green
+      leftOverlay.backgroundColor = .green
       
       let rightOverlay = UIView()
       rightOverlay.backgroundColor = .red
