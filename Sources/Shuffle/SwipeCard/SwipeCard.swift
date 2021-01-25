@@ -60,7 +60,7 @@ open class SwipeCard: SwipeView {
 
   weak var delegate: SwipeCardDelegate?
 
-  var touchLocation: CGPoint? {
+  public var touchLocation: CGPoint? {
     return internalTouchLocation
   }
 
@@ -98,15 +98,15 @@ open class SwipeCard: SwipeView {
     initialize()
   }
 
-  convenience init(animator: CardAnimatable,
-                   layoutProvider: CardLayoutProvidable,
-                   notificationCenter: NotificationCenter,
-                   transformProvider: CardTransformProvidable) {
+  public convenience init(animator: CardAnimatable? = nil,
+                          layoutProvider: CardLayoutProvidable? = nil,
+                          notificationCenter: NotificationCenter? = nil,
+                          transformProvider: CardTransformProvidable? = nil) {
     self.init(frame: .zero)
-    self.animator = animator
-    self.layoutProvider = layoutProvider
-    self.notificationCenter = notificationCenter
-    self.transformProvider = transformProvider
+    self.animator = animator ?? CardAnimator.shared
+    self.layoutProvider = layoutProvider ?? CardLayoutProvider.shared
+    self.notificationCenter = notificationCenter ?? NotificationCenter.default
+    self.transformProvider = transformProvider ?? CardTransformProvider.shared
   }
 
   private func initialize() {

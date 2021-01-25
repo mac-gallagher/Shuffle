@@ -24,7 +24,7 @@
 
 import UIKit
 
-protocol CardLayoutProvidable {
+public protocol CardLayoutProvidable {
   func createContentFrame(for card: SwipeCard) -> CGRect
   func createFooterFrame(for card: SwipeCard) -> CGRect
   func createOverlayContainerFrame(for card: SwipeCard) -> CGRect

@@ -24,7 +24,7 @@
 
 import UIKit
 
-protocol CardAnimatable {
+public protocol CardAnimatable {
 
   /// Calling this method triggers a spring-like animation on the card, eventually settling back to
   ///  it's original position.

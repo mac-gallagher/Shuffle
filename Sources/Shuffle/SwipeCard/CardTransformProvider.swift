@@ -24,7 +24,7 @@
 
 import UIKit
 
-protocol CardTransformProvidable {
+public protocol CardTransformProvidable {
   func overlayPercentage(for card: SwipeCard, direction: SwipeDirection) -> CGFloat
   func rotationAngle(for card: SwipeCard) -> CGFloat
   func rotationDirectionY(for card: SwipeCard) -> CGFloat
