@@ -198,6 +198,9 @@ open class SwipeCardStack: UIView, SwipeCardDelegate, UIGestureRecognizerDelegat
                    animated: Bool) {
     guard let swipedIndex = topCardIndex else { return }
     stateManager.swipe(direction)
+    
+    delegate?.cardStack?(self, didSwipeCardAt: swipedIndex, with: direction)
+    
     visibleCards.remove(at: 0)
 
     // Insert new card if needed
@@ -207,8 +210,6 @@ open class SwipeCardStack: UIView, SwipeCardDelegate, UIGestureRecognizerDelegat
         insertCard(Card(index: bottomCardIndex, card: card), at: visibleCards.count)
       }
     }
-
-    delegate?.cardStack?(self, didSwipeCardAt: swipedIndex, with: direction)
 
     if stateManager.remainingIndices.isEmpty {
       delegate?.didSwipeAllCards?(self)
