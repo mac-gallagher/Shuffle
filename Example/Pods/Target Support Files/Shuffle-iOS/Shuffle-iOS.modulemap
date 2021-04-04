@@ -1,0 +1,6 @@
+framework module Shuffle_iOS {
+  umbrella header "Shuffle-iOS-umbrella.h"
+
+  export *
+  module * { export * }
+}
