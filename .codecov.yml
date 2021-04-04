@@ -27,6 +27,5 @@ comment: # configure github pull request comment
   require_changes: no # comments post regardless if there is a coverage change or not
 
 ignore: # ignore these files when measuring absolute coverage (reported in the Github badge)
-  - "Pods/"
-  - "Sources/Shuffle/Internal"
-  - "Tests/"
+  - "Example/"
+  - "Sources/Shuffle/Classes/Internal"

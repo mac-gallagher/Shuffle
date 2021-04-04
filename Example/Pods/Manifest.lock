@@ -1,0 +1,35 @@
+PODS:
+  - Nimble (8.0.9)
+  - pop (1.0.12)
+  - PopBounceButton (1.2.2):
+    - pop (~> 1.0)
+  - Quick (2.2.1)
+  - Shuffle-iOS (0.4.0)
+
+DEPENDENCIES:
+  - Nimble
+  - PopBounceButton
+  - Quick
+  - Shuffle-iOS (from `../`)
+
+SPEC REPOS:
+  trunk:
+    - Nimble
+    - pop
+    - PopBounceButton
+    - Quick
+
+EXTERNAL SOURCES:
+  Shuffle-iOS:
+    :path: "../"
+
+SPEC CHECKSUMS:
+  Nimble: 98b888285a615fd34f20e61753cf58ea1402bde4
+  pop: d582054913807fd11fd50bfe6a539d91c7e1a55a
+  PopBounceButton: 34105a012678222f058f8d2621672724a3d5c9fb
+  Quick: f5754d69b7013f5864c29aab9ae6f0c79c5bc200
+  Shuffle-iOS: 6614f087f323da1164735a6e1c5b9a723ac8fcd0
+
+PODFILE CHECKSUM: f1c123b227b9b7503226150362bd2af781c1069d
+
+COCOAPODS: 1.9.1

@@ -207,7 +207,7 @@ dependencies: [
 ```
 
 ### Manual
-Download and drop the `Shuffle` directory into your project.
+Download and drop the `Sources` directory into your project.
 
 ## Requirements
 * iOS 9.0+
