@@ -43,7 +43,6 @@ class CardTransformProviderTest: QuickSpec {
     beforeEach {
       subject = TestableCardTransformProvider()
       card = TestableSwipeCard(animator: MockCardAnimator(),
-                               layoutProvider: MockCardLayoutProvider(),
                                notificationCenter: NotificationCenter.default,
                                transformProvider: MockCardTransformProvider())
       card.frame = CGRect(x: 0, y: 0, width: cardWidth, height: cardHeight)

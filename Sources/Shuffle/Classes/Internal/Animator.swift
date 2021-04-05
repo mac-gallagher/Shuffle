@@ -41,7 +41,7 @@ enum Animator {
                               alpha: CGFloat) {
     UIView.addKeyframe(withRelativeStartTime: relativeStartTime,
                        relativeDuration: relativeDuration) {
-                        view?.alpha = alpha
+      view?.alpha = alpha
     }
   }
 
@@ -51,7 +51,7 @@ enum Animator {
                                    transform: CGAffineTransform) {
     UIView.addKeyframe(withRelativeStartTime: relativeStartTime,
                        relativeDuration: relativeDuration) {
-                        view?.transform = transform
+      view?.transform = transform
     }
   }
 

@@ -84,13 +84,12 @@ open class SwipeCardStack: UIView, SwipeCardDelegate, UIGestureRecognizerDelegat
 
   var isAnimating: Bool = false
 
+  let cardContainer = UIView()
+
   private var animator: CardStackAnimatable = CardStackAnimator.shared
-  private var layoutProvider: CardStackLayoutProvidable = CardStackLayoutProvider.shared
   private var notificationCenter = NotificationCenter()
   private var stateManager: CardStackStateManagable = CardStackStateManager()
   private var transformProvider: CardStackTransformProvidable = CardStackTransformProvider.shared
-
-  private let cardContainer = UIView()
 
   // MARK: - Initialization
 
@@ -105,13 +104,11 @@ open class SwipeCardStack: UIView, SwipeCardDelegate, UIGestureRecognizerDelegat
   }
 
   convenience init(animator: CardStackAnimatable,
-                   layoutProvider: CardStackLayoutProvidable,
                    notificationCenter: NotificationCenter,
                    stateManager: CardStackStateManagable,
                    transformProvider: CardStackTransformProvidable) {
     self.init(frame: .zero)
     self.animator = animator
-    self.layoutProvider = layoutProvider
     self.notificationCenter = notificationCenter
     self.stateManager = stateManager
     self.transformProvider = transformProvider
@@ -129,7 +126,10 @@ open class SwipeCardStack: UIView, SwipeCardDelegate, UIGestureRecognizerDelegat
 
   override open func layoutSubviews() {
     super.layoutSubviews()
-    cardContainer.frame = layoutProvider.createCardContainerFrame(for: self)
+    let width = bounds.width - (cardStackInsets.left + cardStackInsets.right)
+    let height = bounds.height - (cardStackInsets.top + cardStackInsets.bottom)
+    cardContainer.frame = CGRect(x: cardStackInsets.left, y: cardStackInsets.top, width: width, height: height)
+
     for (position, value) in visibleCards.enumerated() {
       layoutCard(value.card, at: position)
     }
@@ -137,7 +137,7 @@ open class SwipeCardStack: UIView, SwipeCardDelegate, UIGestureRecognizerDelegat
 
   func layoutCard(_ card: SwipeCard, at position: Int) {
     card.transform = .identity
-    card.frame = layoutProvider.createCardFrame(for: self)
+    card.frame = CGRect(origin: .zero, size: cardContainer.frame.size)
     card.transform = transform(forCardAtPosition: position)
     card.isUserInteractionEnabled = position == 0
   }

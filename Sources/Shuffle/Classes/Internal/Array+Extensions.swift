@@ -37,12 +37,12 @@ extension Array {
 
 extension Array where Element: Hashable {
 
-    func removingDuplicates() -> [Element] {
-        var dict = [Element: Bool]()
-        return filter { dict.updateValue(true, forKey: $0) == nil }
-    }
+  func removingDuplicates() -> [Element] {
+    var dict = [Element: Bool]()
+    return filter { dict.updateValue(true, forKey: $0) == nil }
+  }
 
-    mutating func removeDuplicates() {
-        self = self.removingDuplicates()
-    }
+  mutating func removeDuplicates() {
+    self = self.removingDuplicates()
+  }
 }

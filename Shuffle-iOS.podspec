@@ -1,7 +1,7 @@
 Pod::Spec.new do |s|
 
 s.name         = "Shuffle-iOS"
-s.version      = "0.4.1"
+s.version      = "0.4.2"
 s.platform     = :ios, "9.0"
 s.summary      = "A multi-directional card swiping library inspired by Tinder"
 

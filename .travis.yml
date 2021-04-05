@@ -6,9 +6,9 @@ matrix:
     - name: "Run SwiftLint"
       script: xcodebuild -workspace Example/Shuffle.xcworkspace -scheme SwiftLint -sdk iphonesimulator -destination platform="iOS Simulator,name=iPhone 11 Pro Max,OS=14.4"
     - name: "Build Framework & Example Project"
-      script: xcodebuild -workspace Example/Shuffle.xcworkspace -scheme ShuffleExample -sdk iphonesimulator -destination platform="iOS Simulator,name=iPhone 11 Pro Max,OS=14.4"
+      script: cd Example/ && pod install && xcodebuild -workspace Shuffle.xcworkspace -scheme ShuffleExample -sdk iphonesimulator -destination platform="iOS Simulator,name=iPhone 11 Pro Max,OS=14.4"
     - name: "Run Unit Tests"
-      script: xcodebuild test -workspace Example/Shuffle.xcworkspace -scheme ShuffleTests -sdk iphonesimulator -destination platform="iOS Simulator,name=iPhone 11 Pro Max,OS=14.4"
+      script: cd Example/ && pod install && xcodebuild test -workspace Shuffle.xcworkspace -scheme ShuffleTests -sdk iphonesimulator -destination platform="iOS Simulator,name=iPhone 11 Pro Max,OS=14.4"
 
 # upload codecov report
 after_success: bash <(curl -s https://codecov.io/bash) -J 'Shuffle'

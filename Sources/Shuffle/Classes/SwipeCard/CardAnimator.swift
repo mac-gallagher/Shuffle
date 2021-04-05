@@ -67,14 +67,13 @@ class CardAnimator: CardAnimatable {
 
     Animator.animateSpring(withDuration: card.animationOptions.totalResetDuration,
                            usingSpringWithDamping: card.animationOptions.resetSpringDamping,
-                           options: [.curveLinear, .allowUserInteraction],
-                           animations: {
-                            if let direction = card.activeDirection(),
-                               let overlay = card.overlay(forDirection: direction) {
-                              overlay.alpha = 0
-                            }
-                            card.transform = .identity
-                           })
+                           options: [.curveLinear, .allowUserInteraction]) {
+      if let direction = card.activeDirection(),
+         let overlay = card.overlay(forDirection: direction) {
+        overlay.alpha = 0
+      }
+      card.transform = .identity
+    }
   }
 
   func animateReverseSwipe(on card: SwipeCard,
@@ -82,15 +81,14 @@ class CardAnimator: CardAnimatable {
                            completion: ((Bool) -> Void)?) {
     removeAllAnimations(on: card)
 
-    // recreate swipe
-    Animator.animateKeyFrames(withDuration: 0.0,
-                              animations: { [weak self] in
-                                self?.addSwipeAnimationKeyFrames(card,
-                                                                 direction: direction,
-                                                                 forced: true)
-                              })
+    // Recreate swipe
+    Animator.animateKeyFrames(withDuration: 0.0) { [weak self] in
+      self?.addSwipeAnimationKeyFrames(card,
+                                       direction: direction,
+                                       forced: true)
+    }
 
-    // reverse swipe
+    // Reverse swipe
     Animator.animateKeyFrames(withDuration: card.animationOptions.totalReverseSwipeDuration,
                               options: .calculationModeLinear,
                               animations: { [weak self] in
@@ -126,12 +124,12 @@ class CardAnimator: CardAnimatable {
   func addReverseSwipeAnimationKeyFrames(_ card: SwipeCard, direction: SwipeDirection) {
     let relativeOverlayDuration = relativeReverseSwipeOverlayFadeDuration(card, direction: direction)
 
-    // transform
+    // Transform
     Animator.addTransformKeyFrame(to: card,
                                   relativeDuration: 1 - relativeOverlayDuration,
                                   transform: .identity)
 
-    // overlays
+    // Overlays
     for swipeDirection in card.swipeDirections {
       card.overlay(forDirection: direction)?.alpha = swipeDirection == direction ? 1.0 : 0.0
     }
@@ -148,7 +146,7 @@ class CardAnimator: CardAnimatable {
                                                                    direction: direction,
                                                                    forced: forced)
 
-    // overlays
+    // Overlays
     for swipeDirection in card.swipeDirections.filter({ $0 != direction }) {
       card.overlay(forDirection: swipeDirection)?.alpha = 0.0
     }
@@ -158,7 +156,7 @@ class CardAnimator: CardAnimatable {
                              relativeDuration: relativeOverlayDuration,
                              alpha: 1.0)
 
-    // transform
+    // Transform
     let transform = swipeTransform(card, direction: direction, forced: forced)
     Animator.addTransformKeyFrame(to: card,
                                   withRelativeStartTime: relativeOverlayDuration,
@@ -194,12 +192,12 @@ class CardAnimator: CardAnimatable {
 
     let velocityFactor = card.dragSpeed(on: direction) / card.minimumSwipeSpeed(on: direction)
 
-    // card swiped below the minimum swipe speed
+    // Card swiped below the minimum swipe speed
     if velocityFactor < 1.0 {
       return card.animationOptions.totalSwipeDuration
     }
 
-    // card swiped at least the minimum swipe speed -> return relative duration
+    // Card swiped at least the minimum swipe speed -> return relative duration
     return 1.0 / TimeInterval(velocityFactor)
   }
 

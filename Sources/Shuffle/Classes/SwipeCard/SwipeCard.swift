@@ -66,23 +66,10 @@ open class SwipeCard: SwipeView {
 
   private var internalTouchLocation: CGPoint?
 
-  var swipeCompletionBlock: () -> Void {
-    return { [weak self] in
-      self?.notificationCenter.post(name: CardDidFinishSwipeAnimationNotification, object: self)
-    }
-  }
-
-  var reverseSwipeCompletionBlock: () -> Void {
-    return { [weak self] in
-      self?.isUserInteractionEnabled = true
-    }
-  }
-
   private let overlayContainer = UIView()
   private var overlays = [SwipeDirection: UIView]()
 
   private var animator: CardAnimatable = CardAnimator.shared
-  private var layoutProvider: CardLayoutProvidable = CardLayoutProvider.shared
   private var notificationCenter = NotificationCenter.default
   private var transformProvider: CardTransformProvidable = CardTransformProvider.shared
 
@@ -99,12 +86,10 @@ open class SwipeCard: SwipeView {
   }
 
   convenience init(animator: CardAnimatable,
-                   layoutProvider: CardLayoutProvidable,
                    notificationCenter: NotificationCenter,
                    transformProvider: CardTransformProvidable) {
     self.init(frame: .zero)
     self.animator = animator
-    self.layoutProvider = layoutProvider
     self.notificationCenter = notificationCenter
     self.transformProvider = transformProvider
   }
@@ -118,19 +103,24 @@ open class SwipeCard: SwipeView {
 
   override open func layoutSubviews() {
     super.layoutSubviews()
-    footer?.frame = layoutProvider.createFooterFrame(for: self)
-    layoutContentView()
-    layoutOverlays()
-  }
+    footer?.frame = CGRect(x: 0, y: bounds.height - footerHeight, width: bounds.width, height: footerHeight)
 
-  private func layoutContentView() {
-    guard let content = content else { return }
-    content.frame = layoutProvider.createContentFrame(for: self)
-    sendSubviewToBack(content)
-  }
+    // Content
+    if let content = content {
+      if let footer = footer, footer.isOpaque {
+        content.frame = CGRect(x: 0, y: 0, width: bounds.width, height: bounds.height - footerHeight)
+      } else {
+        content.frame = bounds
+      }
+      sendSubviewToBack(content)
+    }
 
-  private func layoutOverlays() {
-    overlayContainer.frame = layoutProvider.createOverlayContainerFrame(for: self)
+    // Overlays
+    if footer != nil {
+      overlayContainer.frame = CGRect(x: 0, y: 0, width: bounds.width, height: bounds.height - footerHeight)
+    } else {
+      overlayContainer.frame = bounds
+    }
     bringSubviewToFront(overlayContainer)
     overlays.values.forEach { $0.frame = overlayContainer.bounds }
   }
@@ -209,7 +199,7 @@ open class SwipeCard: SwipeView {
                           direction: direction,
                           forced: forced) { [weak self] finished in
       if finished {
-        self?.swipeCompletionBlock()
+        self?.notificationCenter.post(name: CardDidFinishSwipeAnimationNotification, object: self)
       }
     }
   }
@@ -220,7 +210,7 @@ open class SwipeCard: SwipeView {
     isUserInteractionEnabled = false
     animator.animateReverseSwipe(on: self, from: direction) { [weak self] finished in
       if finished {
-        self?.reverseSwipeCompletionBlock()
+        self?.isUserInteractionEnabled = true
       }
     }
   }
