@@ -70,11 +70,11 @@ class CardAnimator: CardAnimatable {
                            options: [.curveLinear, .allowUserInteraction],
                            animations: {
                             if let direction = card.activeDirection(),
-                              let overlay = card.overlay(forDirection: direction) {
+                               let overlay = card.overlay(forDirection: direction) {
                               overlay.alpha = 0
                             }
                             card.transform = .identity
-    })
+                           })
   }
 
   func animateReverseSwipe(on card: SwipeCard,
@@ -88,7 +88,7 @@ class CardAnimator: CardAnimatable {
                                 self?.addSwipeAnimationKeyFrames(card,
                                                                  direction: direction,
                                                                  forced: true)
-    })
+                              })
 
     // reverse swipe
     Animator.animateKeyFrames(withDuration: card.animationOptions.totalReverseSwipeDuration,
@@ -217,7 +217,7 @@ class CardAnimator: CardAnimatable {
     }
 
     if (direction == .left && touchPoint.y < card.bounds.height / 2)
-      || (direction == .right && touchPoint.y >= card.bounds.height / 2) {
+        || (direction == .right && touchPoint.y >= card.bounds.height / 2) {
       return -2 * card.animationOptions.maximumRotationAngle
     }
 

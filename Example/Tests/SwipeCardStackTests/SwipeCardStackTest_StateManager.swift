@@ -28,7 +28,7 @@ import Quick
 import UIKit
 
 // swiftlint:disable closure_body_length implicitly_unwrapped_optional
-class SwipeCardStackSpec_StateManager: QuickSpec {
+class SwipeCardStackTest_StateManager: QuickSpec {
 
   typealias Card = SwipeCardStack.Card
 

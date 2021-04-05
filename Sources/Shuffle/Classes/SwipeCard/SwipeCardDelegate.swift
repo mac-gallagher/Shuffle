@@ -22,7 +22,7 @@
 /// SOFTWARE.
 ///
 
-import Foundation
+import UIKit
 
 protocol SwipeCardDelegate: AnyObject {
   func card(didBeginSwipe card: SwipeCard)

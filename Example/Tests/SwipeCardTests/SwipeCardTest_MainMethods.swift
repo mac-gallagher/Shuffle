@@ -28,7 +28,7 @@ import Quick
 import UIKit
 
 // swiftlint:disable function_body_length implicitly_unwrapped_optional
-class SwipeCardSpec_MainMethods: QuickSpec {
+class SwipeCardTest_MainMethods: QuickSpec {
 
   override func spec() {
     var mockCardAnimator: MockCardAnimator!

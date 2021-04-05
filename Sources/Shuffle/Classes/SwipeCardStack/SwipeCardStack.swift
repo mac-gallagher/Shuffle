@@ -221,9 +221,9 @@ open class SwipeCardStack: UIView, SwipeCardDelegate, UIGestureRecognizerDelegat
                           direction: direction,
                           forced: forced,
                           animated: animated) { [weak self] finished in
-                            if finished {
-                              self?.isAnimating = false
-                            }
+      if finished {
+        self?.isAnimating = false
+      }
     }
   }
 
@@ -245,9 +245,9 @@ open class SwipeCardStack: UIView, SwipeCardDelegate, UIGestureRecognizerDelegat
       animator.animateUndo(self,
                            topCard: topCard,
                            animated: animated) { [weak self] finished in
-                            if finished {
-                              self?.isAnimating = false
-                            }
+        if finished {
+          self?.isAnimating = false
+        }
       }
     }
   }
@@ -266,9 +266,9 @@ open class SwipeCardStack: UIView, SwipeCardDelegate, UIGestureRecognizerDelegat
     animator.animateShift(self,
                           withDistance: distance,
                           animated: animated) { [weak self] finished in
-                            if finished {
-                              self?.isAnimating = false
-                            }
+      if finished {
+        self?.isAnimating = false
+      }
     }
   }
 

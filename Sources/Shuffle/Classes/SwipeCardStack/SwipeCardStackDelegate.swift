@@ -22,7 +22,7 @@
 /// SOFTWARE.
 ///
 
-import Foundation
+import UIKit
 
 @objc public protocol SwipeCardStackDelegate: AnyObject {
 

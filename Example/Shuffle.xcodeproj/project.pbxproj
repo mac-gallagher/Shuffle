@@ -39,13 +39,13 @@
 		ADF6476F261A62D000FE6BA3 /* MockSwipeCardDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADF64749261A62D000FE6BA3 /* MockSwipeCardDelegate.swift */; };
 		ADF64770261A62D000FE6BA3 /* MockCardLayoutProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADF6474A261A62D000FE6BA3 /* MockCardLayoutProvider.swift */; };
 		ADF64771261A62D000FE6BA3 /* MockCardTransformProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADF6474B261A62D000FE6BA3 /* MockCardTransformProvider.swift */; };
-		ADF64772261A62D000FE6BA3 /* CardTransformProviderSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADF6474D261A62D000FE6BA3 /* CardTransformProviderSpec.swift */; };
-		ADF64773261A62D000FE6BA3 /* CardLayoutProviderSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADF6474E261A62D000FE6BA3 /* CardLayoutProviderSpec.swift */; };
-		ADF64774261A62D000FE6BA3 /* CardAnimatorSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADF6474F261A62D000FE6BA3 /* CardAnimatorSpec.swift */; };
-		ADF64775261A62D000FE6BA3 /* SwipeViewSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADF64750261A62D000FE6BA3 /* SwipeViewSpec.swift */; };
-		ADF64776261A62D000FE6BA3 /* CardAnimationOptionsSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADF64751261A62D000FE6BA3 /* CardAnimationOptionsSpec.swift */; };
-		ADF64777261A62D000FE6BA3 /* SwipeCardSpec_Base.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADF64752261A62D000FE6BA3 /* SwipeCardSpec_Base.swift */; };
-		ADF64778261A62D000FE6BA3 /* SwipeCardSpec_MainMethods.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADF64753261A62D000FE6BA3 /* SwipeCardSpec_MainMethods.swift */; };
+		ADF64772261A62D000FE6BA3 /* CardTransformProviderTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADF6474D261A62D000FE6BA3 /* CardTransformProviderTest.swift */; };
+		ADF64773261A62D000FE6BA3 /* CardLayoutProviderTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADF6474E261A62D000FE6BA3 /* CardLayoutProviderTest.swift */; };
+		ADF64774261A62D000FE6BA3 /* CardAnimatorTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADF6474F261A62D000FE6BA3 /* CardAnimatorTest.swift */; };
+		ADF64775261A62D000FE6BA3 /* SwipeViewTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADF64750261A62D000FE6BA3 /* SwipeViewTest.swift */; };
+		ADF64776261A62D000FE6BA3 /* CardAnimationOptionsTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADF64751261A62D000FE6BA3 /* CardAnimationOptionsTest.swift */; };
+		ADF64777261A62D000FE6BA3 /* SwipeCardTest_Base.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADF64752261A62D000FE6BA3 /* SwipeCardTest_Base.swift */; };
+		ADF64778261A62D000FE6BA3 /* SwipeCardTest_MainMethods.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADF64753261A62D000FE6BA3 /* SwipeCardTest_MainMethods.swift */; };
 		ADF64779261A62D000FE6BA3 /* TestableSwipeCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADF64755261A62D000FE6BA3 /* TestableSwipeCard.swift */; };
 		ADF6477A261A62D000FE6BA3 /* TestableSwipeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADF64756261A62D000FE6BA3 /* TestableSwipeView.swift */; };
 		ADF6477B261A62D000FE6BA3 /* TestableCardTransformProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADF64757261A62D000FE6BA3 /* TestableCardTransformProvider.swift */; };
@@ -56,13 +56,13 @@
 		ADF64780261A62D000FE6BA3 /* MockSwipeCardStackDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADF6475E261A62D000FE6BA3 /* MockSwipeCardStackDelegate.swift */; };
 		ADF64781261A62D000FE6BA3 /* MockCardStackAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADF6475F261A62D000FE6BA3 /* MockCardStackAnimator.swift */; };
 		ADF64782261A62D000FE6BA3 /* MockCardStackTransformProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADF64760261A62D000FE6BA3 /* MockCardStackTransformProvider.swift */; };
-		ADF64783261A62D000FE6BA3 /* SwipeCardStackSpec_MainMethods.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADF64762261A62D000FE6BA3 /* SwipeCardStackSpec_MainMethods.swift */; };
-		ADF64784261A62D000FE6BA3 /* CardStackStateManagerSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADF64763261A62D000FE6BA3 /* CardStackStateManagerSpec.swift */; };
-		ADF64785261A62D000FE6BA3 /* CardStackLayoutProviderSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADF64764261A62D000FE6BA3 /* CardStackLayoutProviderSpec.swift */; };
-		ADF64786261A62D000FE6BA3 /* SwipeCardStackSpec_SwipeCardDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADF64765261A62D000FE6BA3 /* SwipeCardStackSpec_SwipeCardDelegate.swift */; };
-		ADF64787261A62D000FE6BA3 /* CardStackAnimationOptionsSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADF64766261A62D000FE6BA3 /* CardStackAnimationOptionsSpec.swift */; };
-		ADF64788261A62D000FE6BA3 /* SwipeCardStackSpec_StateManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADF64767261A62D000FE6BA3 /* SwipeCardStackSpec_StateManager.swift */; };
-		ADF64789261A62D000FE6BA3 /* SwipeCardStackSpec_Base.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADF64768261A62D000FE6BA3 /* SwipeCardStackSpec_Base.swift */; };
+		ADF64783261A62D000FE6BA3 /* SwipeCardStackTest_MainMethods.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADF64762261A62D000FE6BA3 /* SwipeCardStackTest_MainMethods.swift */; };
+		ADF64784261A62D000FE6BA3 /* CardStackStateManagerTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADF64763261A62D000FE6BA3 /* CardStackStateManagerTest.swift */; };
+		ADF64785261A62D000FE6BA3 /* CardStackLayoutProviderTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADF64764261A62D000FE6BA3 /* CardStackLayoutProviderTest.swift */; };
+		ADF64786261A62D000FE6BA3 /* SwipeCardStackTest_SwipeCardDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADF64765261A62D000FE6BA3 /* SwipeCardStackTest_SwipeCardDelegate.swift */; };
+		ADF64787261A62D000FE6BA3 /* CardStackAnimationOptionsTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADF64766261A62D000FE6BA3 /* CardStackAnimationOptionsTest.swift */; };
+		ADF64788261A62D000FE6BA3 /* SwipeCardStackTest_StateManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADF64767261A62D000FE6BA3 /* SwipeCardStackTest_StateManager.swift */; };
+		ADF64789261A62D000FE6BA3 /* SwipeCardStackTest_Base.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADF64768261A62D000FE6BA3 /* SwipeCardStackTest_Base.swift */; };
 		ADF6478A261A62D000FE6BA3 /* TestableSwipeCardStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADF6476A261A62D000FE6BA3 /* TestableSwipeCardStack.swift */; };
 		ADF6478B261A62D000FE6BA3 /* TestableCardStackStateManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADF6476B261A62D000FE6BA3 /* TestableCardStackStateManager.swift */; };
 /* End PBXBuildFile section */
@@ -104,13 +104,13 @@
 		ADF64749261A62D000FE6BA3 /* MockSwipeCardDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockSwipeCardDelegate.swift; sourceTree = "<group>"; };
 		ADF6474A261A62D000FE6BA3 /* MockCardLayoutProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockCardLayoutProvider.swift; sourceTree = "<group>"; };
 		ADF6474B261A62D000FE6BA3 /* MockCardTransformProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockCardTransformProvider.swift; sourceTree = "<group>"; };
-		ADF6474D261A62D000FE6BA3 /* CardTransformProviderSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardTransformProviderSpec.swift; sourceTree = "<group>"; };
-		ADF6474E261A62D000FE6BA3 /* CardLayoutProviderSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardLayoutProviderSpec.swift; sourceTree = "<group>"; };
-		ADF6474F261A62D000FE6BA3 /* CardAnimatorSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardAnimatorSpec.swift; sourceTree = "<group>"; };
-		ADF64750261A62D000FE6BA3 /* SwipeViewSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwipeViewSpec.swift; sourceTree = "<group>"; };
-		ADF64751261A62D000FE6BA3 /* CardAnimationOptionsSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardAnimationOptionsSpec.swift; sourceTree = "<group>"; };
-		ADF64752261A62D000FE6BA3 /* SwipeCardSpec_Base.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwipeCardSpec_Base.swift; sourceTree = "<group>"; };
-		ADF64753261A62D000FE6BA3 /* SwipeCardSpec_MainMethods.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwipeCardSpec_MainMethods.swift; sourceTree = "<group>"; };
+		ADF6474D261A62D000FE6BA3 /* CardTransformProviderTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardTransformProviderTest.swift; sourceTree = "<group>"; };
+		ADF6474E261A62D000FE6BA3 /* CardLayoutProviderTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardLayoutProviderTest.swift; sourceTree = "<group>"; };
+		ADF6474F261A62D000FE6BA3 /* CardAnimatorTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardAnimatorTest.swift; sourceTree = "<group>"; };
+		ADF64750261A62D000FE6BA3 /* SwipeViewTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwipeViewTest.swift; sourceTree = "<group>"; };
+		ADF64751261A62D000FE6BA3 /* CardAnimationOptionsTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardAnimationOptionsTest.swift; sourceTree = "<group>"; };
+		ADF64752261A62D000FE6BA3 /* SwipeCardTest_Base.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwipeCardTest_Base.swift; sourceTree = "<group>"; };
+		ADF64753261A62D000FE6BA3 /* SwipeCardTest_MainMethods.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwipeCardTest_MainMethods.swift; sourceTree = "<group>"; };
 		ADF64755261A62D000FE6BA3 /* TestableSwipeCard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestableSwipeCard.swift; sourceTree = "<group>"; };
 		ADF64756261A62D000FE6BA3 /* TestableSwipeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestableSwipeView.swift; sourceTree = "<group>"; };
 		ADF64757261A62D000FE6BA3 /* TestableCardTransformProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestableCardTransformProvider.swift; sourceTree = "<group>"; };
@@ -121,13 +121,13 @@
 		ADF6475E261A62D000FE6BA3 /* MockSwipeCardStackDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockSwipeCardStackDelegate.swift; sourceTree = "<group>"; };
 		ADF6475F261A62D000FE6BA3 /* MockCardStackAnimator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockCardStackAnimator.swift; sourceTree = "<group>"; };
 		ADF64760261A62D000FE6BA3 /* MockCardStackTransformProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockCardStackTransformProvider.swift; sourceTree = "<group>"; };
-		ADF64762261A62D000FE6BA3 /* SwipeCardStackSpec_MainMethods.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwipeCardStackSpec_MainMethods.swift; sourceTree = "<group>"; };
-		ADF64763261A62D000FE6BA3 /* CardStackStateManagerSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardStackStateManagerSpec.swift; sourceTree = "<group>"; };
-		ADF64764261A62D000FE6BA3 /* CardStackLayoutProviderSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardStackLayoutProviderSpec.swift; sourceTree = "<group>"; };
-		ADF64765261A62D000FE6BA3 /* SwipeCardStackSpec_SwipeCardDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwipeCardStackSpec_SwipeCardDelegate.swift; sourceTree = "<group>"; };
-		ADF64766261A62D000FE6BA3 /* CardStackAnimationOptionsSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardStackAnimationOptionsSpec.swift; sourceTree = "<group>"; };
-		ADF64767261A62D000FE6BA3 /* SwipeCardStackSpec_StateManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwipeCardStackSpec_StateManager.swift; sourceTree = "<group>"; };
-		ADF64768261A62D000FE6BA3 /* SwipeCardStackSpec_Base.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwipeCardStackSpec_Base.swift; sourceTree = "<group>"; };
+		ADF64762261A62D000FE6BA3 /* SwipeCardStackTest_MainMethods.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwipeCardStackTest_MainMethods.swift; sourceTree = "<group>"; };
+		ADF64763261A62D000FE6BA3 /* CardStackStateManagerTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardStackStateManagerTest.swift; sourceTree = "<group>"; };
+		ADF64764261A62D000FE6BA3 /* CardStackLayoutProviderTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardStackLayoutProviderTest.swift; sourceTree = "<group>"; };
+		ADF64765261A62D000FE6BA3 /* SwipeCardStackTest_SwipeCardDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwipeCardStackTest_SwipeCardDelegate.swift; sourceTree = "<group>"; };
+		ADF64766261A62D000FE6BA3 /* CardStackAnimationOptionsTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardStackAnimationOptionsTest.swift; sourceTree = "<group>"; };
+		ADF64767261A62D000FE6BA3 /* SwipeCardStackTest_StateManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwipeCardStackTest_StateManager.swift; sourceTree = "<group>"; };
+		ADF64768261A62D000FE6BA3 /* SwipeCardStackTest_Base.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwipeCardStackTest_Base.swift; sourceTree = "<group>"; };
 		ADF6476A261A62D000FE6BA3 /* TestableSwipeCardStack.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestableSwipeCardStack.swift; sourceTree = "<group>"; };
 		ADF6476B261A62D000FE6BA3 /* TestableCardStackStateManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestableCardStackStateManager.swift; sourceTree = "<group>"; };
 		B7158B1C202B3EC4CDCA39F0 /* Pods-ShuffleTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ShuffleTests.release.xcconfig"; path = "Target Support Files/Pods-ShuffleTests/Pods-ShuffleTests.release.xcconfig"; sourceTree = "<group>"; };
@@ -190,9 +190,10 @@
 		607FACE81AFB9204008FA782 /* Tests */ = {
 			isa = PBXGroup;
 			children = (
-				ADF64744261A62D000FE6BA3 /* TestableNotificationCenter.swift */,
-				ADF64746261A62D000FE6BA3 /* SwipeCard */,
-				ADF64759261A62D000FE6BA3 /* SwipeCardStack */,
+				ADF6475A261A62D000FE6BA3 /* Mocks */,
+				ADF64746261A62D000FE6BA3 /* SwipeCardTests */,
+				ADF64759261A62D000FE6BA3 /* SwipeCardStackTests */,
+				ADF64769261A62D000FE6BA3 /* Testables */,
 				ADF6478E261A62D900FE6BA3 /* Supporting Files */,
 			);
 			path = Tests;
@@ -224,8 +225,8 @@
 			isa = PBXGroup;
 			children = (
 				ADF646CB261A5CD200FE6BA3 /* TinderCardContentView.swift */,
-				ADF646CC261A5CD200FE6BA3 /* TinderCardModel.swift */,
 				ADF646CD261A5CD200FE6BA3 /* TinderCardFooterView.swift */,
+				ADF646CC261A5CD200FE6BA3 /* TinderCardModel.swift */,
 				ADF646CE261A5CD200FE6BA3 /* TinderCardOverlay.swift */,
 			);
 			path = TinderCard;
@@ -249,94 +250,61 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		ADF64746261A62D000FE6BA3 /* SwipeCard */ = {
+		ADF64746261A62D000FE6BA3 /* SwipeCardTests */ = {
 			isa = PBXGroup;
 			children = (
-				ADF64747261A62D000FE6BA3 /* Mocks */,
-				ADF6474C261A62D000FE6BA3 /* Specs */,
-				ADF64754261A62D000FE6BA3 /* Testables */,
+				ADF64751261A62D000FE6BA3 /* CardAnimationOptionsTest.swift */,
+				ADF6474F261A62D000FE6BA3 /* CardAnimatorTest.swift */,
+				ADF6474E261A62D000FE6BA3 /* CardLayoutProviderTest.swift */,
+				ADF6474D261A62D000FE6BA3 /* CardTransformProviderTest.swift */,
+				ADF64752261A62D000FE6BA3 /* SwipeCardTest_Base.swift */,
+				ADF64753261A62D000FE6BA3 /* SwipeCardTest_MainMethods.swift */,
+				ADF64750261A62D000FE6BA3 /* SwipeViewTest.swift */,
 			);
-			path = SwipeCard;
+			path = SwipeCardTests;
 			sourceTree = "<group>";
 		};
-		ADF64747261A62D000FE6BA3 /* Mocks */ = {
+		ADF64759261A62D000FE6BA3 /* SwipeCardStackTests */ = {
 			isa = PBXGroup;
 			children = (
-				ADF64748261A62D000FE6BA3 /* MockCardAnimator.swift */,
-				ADF64749261A62D000FE6BA3 /* MockSwipeCardDelegate.swift */,
-				ADF6474A261A62D000FE6BA3 /* MockCardLayoutProvider.swift */,
-				ADF6474B261A62D000FE6BA3 /* MockCardTransformProvider.swift */,
+				ADF64766261A62D000FE6BA3 /* CardStackAnimationOptionsTest.swift */,
+				ADF64764261A62D000FE6BA3 /* CardStackLayoutProviderTest.swift */,
+				ADF64763261A62D000FE6BA3 /* CardStackStateManagerTest.swift */,
+				ADF64768261A62D000FE6BA3 /* SwipeCardStackTest_Base.swift */,
+				ADF64762261A62D000FE6BA3 /* SwipeCardStackTest_MainMethods.swift */,
+				ADF64767261A62D000FE6BA3 /* SwipeCardStackTest_StateManager.swift */,
+				ADF64765261A62D000FE6BA3 /* SwipeCardStackTest_SwipeCardDelegate.swift */,
 			);
-			path = Mocks;
-			sourceTree = "<group>";
-		};
-		ADF6474C261A62D000FE6BA3 /* Specs */ = {
-			isa = PBXGroup;
-			children = (
-				ADF6474D261A62D000FE6BA3 /* CardTransformProviderSpec.swift */,
-				ADF6474E261A62D000FE6BA3 /* CardLayoutProviderSpec.swift */,
-				ADF6474F261A62D000FE6BA3 /* CardAnimatorSpec.swift */,
-				ADF64750261A62D000FE6BA3 /* SwipeViewSpec.swift */,
-				ADF64751261A62D000FE6BA3 /* CardAnimationOptionsSpec.swift */,
-				ADF64752261A62D000FE6BA3 /* SwipeCardSpec_Base.swift */,
-				ADF64753261A62D000FE6BA3 /* SwipeCardSpec_MainMethods.swift */,
-			);
-			path = Specs;
-			sourceTree = "<group>";
-		};
-		ADF64754261A62D000FE6BA3 /* Testables */ = {
-			isa = PBXGroup;
-			children = (
-				ADF64755261A62D000FE6BA3 /* TestableSwipeCard.swift */,
-				ADF64756261A62D000FE6BA3 /* TestableSwipeView.swift */,
-				ADF64757261A62D000FE6BA3 /* TestableCardTransformProvider.swift */,
-				ADF64758261A62D000FE6BA3 /* TestableCardAnimator.swift */,
-			);
-			path = Testables;
-			sourceTree = "<group>";
-		};
-		ADF64759261A62D000FE6BA3 /* SwipeCardStack */ = {
-			isa = PBXGroup;
-			children = (
-				ADF6475A261A62D000FE6BA3 /* Mocks */,
-				ADF64761261A62D000FE6BA3 /* Specs */,
-				ADF64769261A62D000FE6BA3 /* Testables */,
-			);
-			path = SwipeCardStack;
+			path = SwipeCardStackTests;
 			sourceTree = "<group>";
 		};
 		ADF6475A261A62D000FE6BA3 /* Mocks */ = {
 			isa = PBXGroup;
 			children = (
-				ADF6475B261A62D000FE6BA3 /* MockCardStackLayoutProvider.swift */,
-				ADF6475C261A62D000FE6BA3 /* MockCardStackStateManager.swift */,
-				ADF6475D261A62D000FE6BA3 /* MockSwipeCardStackDataSource.swift */,
-				ADF6475E261A62D000FE6BA3 /* MockSwipeCardStackDelegate.swift */,
+				ADF64748261A62D000FE6BA3 /* MockCardAnimator.swift */,
+				ADF6474A261A62D000FE6BA3 /* MockCardLayoutProvider.swift */,
 				ADF6475F261A62D000FE6BA3 /* MockCardStackAnimator.swift */,
 				ADF64760261A62D000FE6BA3 /* MockCardStackTransformProvider.swift */,
+				ADF6474B261A62D000FE6BA3 /* MockCardTransformProvider.swift */,
+				ADF6475B261A62D000FE6BA3 /* MockCardStackLayoutProvider.swift */,
+				ADF6475C261A62D000FE6BA3 /* MockCardStackStateManager.swift */,
+				ADF64749261A62D000FE6BA3 /* MockSwipeCardDelegate.swift */,
+				ADF6475D261A62D000FE6BA3 /* MockSwipeCardStackDataSource.swift */,
+				ADF6475E261A62D000FE6BA3 /* MockSwipeCardStackDelegate.swift */,
 			);
 			path = Mocks;
-			sourceTree = "<group>";
-		};
-		ADF64761261A62D000FE6BA3 /* Specs */ = {
-			isa = PBXGroup;
-			children = (
-				ADF64762261A62D000FE6BA3 /* SwipeCardStackSpec_MainMethods.swift */,
-				ADF64763261A62D000FE6BA3 /* CardStackStateManagerSpec.swift */,
-				ADF64764261A62D000FE6BA3 /* CardStackLayoutProviderSpec.swift */,
-				ADF64765261A62D000FE6BA3 /* SwipeCardStackSpec_SwipeCardDelegate.swift */,
-				ADF64766261A62D000FE6BA3 /* CardStackAnimationOptionsSpec.swift */,
-				ADF64767261A62D000FE6BA3 /* SwipeCardStackSpec_StateManager.swift */,
-				ADF64768261A62D000FE6BA3 /* SwipeCardStackSpec_Base.swift */,
-			);
-			path = Specs;
 			sourceTree = "<group>";
 		};
 		ADF64769261A62D000FE6BA3 /* Testables */ = {
 			isa = PBXGroup;
 			children = (
-				ADF6476A261A62D000FE6BA3 /* TestableSwipeCardStack.swift */,
+				ADF64758261A62D000FE6BA3 /* TestableCardAnimator.swift */,
 				ADF6476B261A62D000FE6BA3 /* TestableCardStackStateManager.swift */,
+				ADF64757261A62D000FE6BA3 /* TestableCardTransformProvider.swift */,
+				ADF64744261A62D000FE6BA3 /* TestableNotificationCenter.swift */,
+				ADF64755261A62D000FE6BA3 /* TestableSwipeCard.swift */,
+				ADF6476A261A62D000FE6BA3 /* TestableSwipeCardStack.swift */,
+				ADF64756261A62D000FE6BA3 /* TestableSwipeView.swift */,
 			);
 			path = Testables;
 			sourceTree = "<group>";
@@ -605,20 +573,20 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				ADF64789261A62D000FE6BA3 /* SwipeCardStackSpec_Base.swift in Sources */,
-				ADF64772261A62D000FE6BA3 /* CardTransformProviderSpec.swift in Sources */,
-				ADF64777261A62D000FE6BA3 /* SwipeCardSpec_Base.swift in Sources */,
-				ADF64785261A62D000FE6BA3 /* CardStackLayoutProviderSpec.swift in Sources */,
+				ADF64789261A62D000FE6BA3 /* SwipeCardStackTest_Base.swift in Sources */,
+				ADF64772261A62D000FE6BA3 /* CardTransformProviderTest.swift in Sources */,
+				ADF64777261A62D000FE6BA3 /* SwipeCardTest_Base.swift in Sources */,
+				ADF64785261A62D000FE6BA3 /* CardStackLayoutProviderTest.swift in Sources */,
 				ADF6477E261A62D000FE6BA3 /* MockCardStackStateManager.swift in Sources */,
-				ADF64775261A62D000FE6BA3 /* SwipeViewSpec.swift in Sources */,
-				ADF64774261A62D000FE6BA3 /* CardAnimatorSpec.swift in Sources */,
-				ADF64788261A62D000FE6BA3 /* SwipeCardStackSpec_StateManager.swift in Sources */,
+				ADF64775261A62D000FE6BA3 /* SwipeViewTest.swift in Sources */,
+				ADF64774261A62D000FE6BA3 /* CardAnimatorTest.swift in Sources */,
+				ADF64788261A62D000FE6BA3 /* SwipeCardStackTest_StateManager.swift in Sources */,
 				ADF64770261A62D000FE6BA3 /* MockCardLayoutProvider.swift in Sources */,
-				ADF64776261A62D000FE6BA3 /* CardAnimationOptionsSpec.swift in Sources */,
+				ADF64776261A62D000FE6BA3 /* CardAnimationOptionsTest.swift in Sources */,
 				ADF6477F261A62D000FE6BA3 /* MockSwipeCardStackDataSource.swift in Sources */,
-				ADF64787261A62D000FE6BA3 /* CardStackAnimationOptionsSpec.swift in Sources */,
-				ADF64773261A62D000FE6BA3 /* CardLayoutProviderSpec.swift in Sources */,
-				ADF64778261A62D000FE6BA3 /* SwipeCardSpec_MainMethods.swift in Sources */,
+				ADF64787261A62D000FE6BA3 /* CardStackAnimationOptionsTest.swift in Sources */,
+				ADF64773261A62D000FE6BA3 /* CardLayoutProviderTest.swift in Sources */,
+				ADF64778261A62D000FE6BA3 /* SwipeCardTest_MainMethods.swift in Sources */,
 				ADF6476F261A62D000FE6BA3 /* MockSwipeCardDelegate.swift in Sources */,
 				ADF6476E261A62D000FE6BA3 /* MockCardAnimator.swift in Sources */,
 				ADF64782261A62D000FE6BA3 /* MockCardStackTransformProvider.swift in Sources */,
@@ -626,13 +594,13 @@
 				ADF64771261A62D000FE6BA3 /* MockCardTransformProvider.swift in Sources */,
 				ADF6476C261A62D000FE6BA3 /* TestableNotificationCenter.swift in Sources */,
 				ADF6477D261A62D000FE6BA3 /* MockCardStackLayoutProvider.swift in Sources */,
-				ADF64784261A62D000FE6BA3 /* CardStackStateManagerSpec.swift in Sources */,
+				ADF64784261A62D000FE6BA3 /* CardStackStateManagerTest.swift in Sources */,
 				ADF6478B261A62D000FE6BA3 /* TestableCardStackStateManager.swift in Sources */,
 				ADF64779261A62D000FE6BA3 /* TestableSwipeCard.swift in Sources */,
 				ADF64781261A62D000FE6BA3 /* MockCardStackAnimator.swift in Sources */,
 				ADF6477A261A62D000FE6BA3 /* TestableSwipeView.swift in Sources */,
-				ADF64786261A62D000FE6BA3 /* SwipeCardStackSpec_SwipeCardDelegate.swift in Sources */,
-				ADF64783261A62D000FE6BA3 /* SwipeCardStackSpec_MainMethods.swift in Sources */,
+				ADF64786261A62D000FE6BA3 /* SwipeCardStackTest_SwipeCardDelegate.swift in Sources */,
+				ADF64783261A62D000FE6BA3 /* SwipeCardStackTest_MainMethods.swift in Sources */,
 				ADF6477C261A62D000FE6BA3 /* TestableCardAnimator.swift in Sources */,
 				ADF6477B261A62D000FE6BA3 /* TestableCardTransformProvider.swift in Sources */,
 				ADF6478A261A62D000FE6BA3 /* TestableSwipeCardStack.swift in Sources */,
@@ -783,6 +751,7 @@
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
 				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
@@ -800,6 +769,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
 				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
 		};

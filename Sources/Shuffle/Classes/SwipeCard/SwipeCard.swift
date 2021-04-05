@@ -208,9 +208,9 @@ open class SwipeCard: SwipeView {
     animator.animateSwipe(on: self,
                           direction: direction,
                           forced: forced) { [weak self] finished in
-                            if finished {
-                              self?.swipeCompletionBlock()
-                            }
+      if finished {
+        self?.swipeCompletionBlock()
+      }
     }
   }
 

@@ -28,7 +28,7 @@ import Quick
 import UIKit
 
 // swiftlint:disable closure_body_length function_body_length implicitly_unwrapped_optional
-class CardTransformProviderSpec: QuickSpec {
+class CardTransformProviderTest: QuickSpec {
 
   override func spec() {
     let cardWidth: CGFloat = 100
