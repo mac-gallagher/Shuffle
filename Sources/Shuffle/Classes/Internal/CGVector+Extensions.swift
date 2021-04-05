@@ -22,7 +22,7 @@
 /// SOFTWARE.
 ///
 
-import CoreGraphics
+import UIKit
 
 extension CGVector {
 

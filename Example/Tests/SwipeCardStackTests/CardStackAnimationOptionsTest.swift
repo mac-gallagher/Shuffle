@@ -28,7 +28,7 @@ import Quick
 import UIKit
 
 // swiftlint:disable implicitly_unwrapped_optional
-class CardStackAnimationOptionsSpec: QuickSpec {
+class CardStackAnimationOptionsTest: QuickSpec {
 
   override func spec() {
     var subject: CardStackAnimationOptions!

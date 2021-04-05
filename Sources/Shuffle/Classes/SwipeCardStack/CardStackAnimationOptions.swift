@@ -22,7 +22,7 @@
 /// SOFTWARE.
 ///
 
-import Foundation
+import UIKit
 
 public protocol CardStackAnimatableOptions {
   var resetDuration: TimeInterval? { get }

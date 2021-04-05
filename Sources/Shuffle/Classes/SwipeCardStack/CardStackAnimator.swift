@@ -22,7 +22,7 @@
 /// SOFTWARE.
 ///
 
-import Foundation
+import UIKit
 
 protocol CardStackAnimatable {
   func animateReset(_ cardStack: SwipeCardStack,

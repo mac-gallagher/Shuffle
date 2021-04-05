@@ -22,7 +22,7 @@
 /// SOFTWARE.
 ///
 
-import Foundation
+import UIKit
 
 public protocol SwipeCardStackDataSource: AnyObject {
   func cardStack(_ cardStack: SwipeCardStack, cardForIndexAt index: Int) -> SwipeCard

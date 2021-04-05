@@ -28,7 +28,7 @@ import Quick
 import UIKit
 
 // swiftlint:disable implicitly_unwrapped_optional
-class CardStackLayoutProviderSpec: QuickSpec {
+class CardStackLayoutProviderTest: QuickSpec {
 
   override func spec() {
     let insets = UIEdgeInsets(top: -1, left: 2, bottom: 3, right: -4)

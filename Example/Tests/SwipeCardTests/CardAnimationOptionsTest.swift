@@ -28,7 +28,7 @@ import Shuffle_iOS
 import UIKit
 
 // swiftlint:disable function_body_length implicitly_unwrapped_optional
-class CardAnimationOptionsSpec: QuickSpec {
+class CardAnimationOptionsTest: QuickSpec {
 
   override func spec() {
     var subject: CardAnimationOptions!

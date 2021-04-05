@@ -150,7 +150,7 @@ open class SwipeView: UIView {
   open func endSwiping(_ recognizer: UIPanGestureRecognizer) {
     if let direction = activeDirection() {
       if dragSpeed(on: direction) >= minimumSwipeSpeed(on: direction)
-        || dragPercentage(on: direction) >= 1 {
+          || dragPercentage(on: direction) >= 1 {
         didSwipe(recognizer, with: direction)
         return
       }
