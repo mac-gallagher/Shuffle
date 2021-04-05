@@ -32,22 +32,17 @@ class SwipeCardTest_Base: QuickSpec {
 
   override func spec() {
     var mockCardAnimator: MockCardAnimator!
-    var mockCardLayoutProvider: MockCardLayoutProvider!
     var mockCardTransformProvider: MockCardTransformProvider!
     var mockSwipeCardDelegate: MockSwipeCardDelegate!
-    var mockNotificationCenter: TestableNotificationCenter!
     var subject: TestableSwipeCard!
 
     beforeEach {
       mockCardAnimator = MockCardAnimator()
-      mockCardLayoutProvider = MockCardLayoutProvider()
       mockCardTransformProvider = MockCardTransformProvider()
       mockSwipeCardDelegate = MockSwipeCardDelegate()
-      mockNotificationCenter = TestableNotificationCenter()
 
       subject = TestableSwipeCard(animator: mockCardAnimator,
-                                  layoutProvider: mockCardLayoutProvider,
-                                  notificationCenter: mockNotificationCenter,
+                                  notificationCenter: NotificationCenter.default,
                                   transformProvider: mockCardTransformProvider)
       subject.delegate = mockSwipeCardDelegate
     }
@@ -179,65 +174,90 @@ class SwipeCardTest_Base: QuickSpec {
       }
     }
 
-    // MARK: Swipe Completion Block
-
-    describe("When the swipe animation completion block is called") {
-      beforeEach {
-        subject.swipeCompletionBlock()
-      }
-
-      it("should post the correct notification to the notification center") {
-        expect(mockNotificationCenter.postedNotificationName) == CardDidFinishSwipeAnimationNotification
-        expect(mockNotificationCenter.postedNotificationObject).to(be(subject))
-      }
-    }
-
-    // MARK: Reverse Swipe Completion Block
-
-    describe("When the reverse swipe animation completion block is called") {
-      beforeEach {
-        subject.isUserInteractionEnabled = false
-        subject.reverseSwipeCompletionBlock()
-      }
-
-      it("should enable user interaction on the card") {
-        expect(subject.isUserInteractionEnabled) == true
-      }
-    }
-
     // MARK: - Layout
 
     describe("When calling layoutSubviews") {
-      let overlayContainerFrame = CGRect(x: 1, y: 2, width: 3, height: 4)
-      let contentFrame = CGRect(x: 5, y: 6, width: 7, height: 8)
-      let footerFrame = CGRect(x: 9, y: 10, width: 11, height: 12)
       let content = UIView()
-      let footer = UIView()
       let overlay = UIView()
 
+      let cardWidth: CGFloat = 100
+      let cardHeight: CGFloat = 200
+      let footerHeight: CGFloat = 50
+
       beforeEach {
-        mockCardLayoutProvider.testContentFrame = contentFrame
-        mockCardLayoutProvider.testFooterFrame = footerFrame
-        mockCardLayoutProvider.testOverlayContainerFrame = overlayContainerFrame
-
+        subject.frame = CGRect(x: 0, y: 0, width: cardWidth, height: cardHeight)
+        subject.footerHeight = footerHeight
         subject.content = content
-        subject.footer = footer
         subject.setOverlay(overlay, forDirection: .left)
-
-        subject.layoutSubviews()
       }
 
-      it("should correctly layout the footer and the content") {
-        expect(footer.frame) == footerFrame
-        expect(content.frame) == contentFrame
+      context("and there is a footer") {
+        let footer = UIView()
+
+        beforeEach {
+          subject.footer = footer
+        }
+
+        context("and the footer is opaque") {
+          beforeEach {
+            footer.isOpaque = true
+            subject.layoutSubviews()
+          }
+
+          it("should correctly layout the footer") {
+            let expectedFrame = CGRect(x: 0, y: cardHeight - footerHeight, width: cardWidth, height: footerHeight)
+            expect(footer.frame) == expectedFrame
+          }
+
+          it("should layout the content above the footer") {
+            let expectedFrame = CGRect(x: 0, y: 0, width: cardWidth, height: cardHeight - footerHeight)
+            expect(content.frame) == expectedFrame
+          }
+
+          it("the overlays should be laid out above the footer") {
+            let expectedFrame = CGRect(x: 0, y: 0, width: cardWidth, height: cardHeight - footerHeight)
+            expect(overlay.frame) == expectedFrame
+          }
+        }
+
+        context("and the footer is partially transparent") {
+          beforeEach {
+            footer.isOpaque = false
+            subject.layoutSubviews()
+          }
+
+          it("should correctly layout the footer") {
+            let expectedFrame = CGRect(x: 0, y: cardHeight - footerHeight, width: cardWidth, height: footerHeight)
+            expect(footer.frame) == expectedFrame
+          }
+
+          it("should layout the content behind the footer") {
+            let expectedFrame = CGRect(x: 0, y: 0, width: cardWidth, height: cardHeight)
+            expect(content.frame) == expectedFrame
+          }
+
+          it("the overlays should be laid out above the footer") {
+            let expectedFrame = CGRect(x: 0, y: 0, width: cardWidth, height: cardHeight - footerHeight)
+            expect(overlay.frame) == expectedFrame
+          }
+        }
       }
 
-      it("should correctly layout the overlay container and its overlays") {
-        let overlayContainer = subject.subviews.last
-        expect(overlayContainer?.frame) == overlayContainerFrame
+      context("and there is no footer") {
+        beforeEach {
+          subject.footer = nil
+          subject.layoutSubviews()
+        }
 
-        let expectedOverlayFrame = CGRect(origin: .zero, size: overlayContainerFrame.size)
-        expect(overlay.frame) == expectedOverlayFrame
+        it("the content should be laid out over the entire card") {
+          let expectedFrame = CGRect(x: 0, y: 0, width: cardWidth, height: cardHeight)
+          expect(content.frame) == expectedFrame
+        }
+
+        it("the overlays should be laid out over the entire card") {
+          let expectedFrame = CGRect(x: 0, y: 0, width: cardWidth, height: cardHeight)
+          expect(overlay.frame) == expectedFrame
+        }
       }
     }
 

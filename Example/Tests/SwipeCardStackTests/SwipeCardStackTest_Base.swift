@@ -33,15 +33,12 @@ class SwipeCardStackTest_Base: QuickSpec {
   typealias Card = SwipeCardStack.Card
 
   override func spec() {
-    var mockLayoutProvider: MockCardStackLayoutProvider!
     var mockStateManager: MockCardStackStateManager!
     var subject: TestableSwipeCardStack!
 
     beforeEach {
-      mockLayoutProvider = MockCardStackLayoutProvider()
       mockStateManager = MockCardStackStateManager()
       subject = TestableSwipeCardStack(animator: MockCardStackAnimator(),
-                                       layoutProvider: mockLayoutProvider,
                                        notificationCenter: NotificationCenter.default,
                                        stateManager: mockStateManager,
                                        transformProvider: MockCardStackTransformProvider())
@@ -246,12 +243,15 @@ class SwipeCardStackTest_Base: QuickSpec {
     // MARK: Layout Subviews
 
     describe("When calling layoutSubviews") {
-      let cardContainerFrame = CGRect(x: 1, y: 2, width: 3, height: 4)
+      let insets = UIEdgeInsets(top: -1, left: 2, bottom: 3, right: -4)
+      let cardStackWidth: CGFloat = 100
+      let cardStackHeight: CGFloat = 200
       let numberOfCards: Int = 3
       let visibleCards = [SwipeCard(), SwipeCard(), SwipeCard()]
 
       beforeEach {
-        mockLayoutProvider.testCardContainerFrame = cardContainerFrame
+        subject.cardStackInsets = insets
+        subject.frame = CGRect(x: 0, y: 0, width: cardStackWidth, height: cardStackHeight)
         subject.visibleCards = [Card(index: 0, card: visibleCards[0]),
                                 Card(index: 1, card: visibleCards[1]),
                                 Card(index: 2, card: visibleCards[2])]
@@ -259,8 +259,13 @@ class SwipeCardStackTest_Base: QuickSpec {
       }
 
       it("should correctly layout the card container") {
-        let cardContainer = subject.subviews.first
-        expect(cardContainer?.frame) == cardContainerFrame
+        let expectedWidth = cardStackWidth - (insets.left + insets.right)
+        let expectedHeight = cardStackHeight - (insets.top + insets.bottom)
+        let expectedFrame = CGRect(x: insets.left,
+                                   y: insets.top,
+                                   width: expectedWidth,
+                                   height: expectedHeight)
+        expect(subject.cardContainer.frame) == expectedFrame
       }
 
       it("should call layoutCard for each card") {
@@ -272,18 +277,19 @@ class SwipeCardStackTest_Base: QuickSpec {
     // MARK: Layout Card
 
     describe("When calling layoutCard") {
-      let cardFrame = CGRect(x: 1, y: 2, width: 3, height: 4)
+      let containerFrame = CGRect(x: 1, y: 2, width: 3, height: 4)
       let cardTransform = CGAffineTransform(a: 1, b: 2, c: 3, d: 4, tx: 5, ty: 6)
       let card = SwipeCard()
 
-      let transformedFrame: CGRect = {
-        let tempView = UIView(frame: cardFrame)
+      let expectedTransformedFrame: CGRect = {
+        let tempView = UIView(frame: CGRect(origin: .zero, size: containerFrame.size))
         tempView.transform = cardTransform
         return tempView.frame
       }()
 
       beforeEach {
-        mockLayoutProvider.testCardFrame = cardFrame
+        subject.cardContainer.frame = containerFrame
+        subject.testTransformForCard = cardTransform
       }
 
       context("and position is zero") {
@@ -294,7 +300,11 @@ class SwipeCardStackTest_Base: QuickSpec {
           subject.layoutCard(card, at: position)
         }
 
-        testLayoutCard(position: position)
+        it("should correctly layout the card and enable user interaction") {
+          expect(card.frame) == expectedTransformedFrame
+          expect(card.transform) == cardTransform
+          expect(card.isUserInteractionEnabled) == true
+        }
       }
 
       context("and position is greater than zero") {
@@ -305,14 +315,10 @@ class SwipeCardStackTest_Base: QuickSpec {
           subject.layoutCard(card, at: position)
         }
 
-        testLayoutCard(position: position)
-      }
-
-      func testLayoutCard(position: Int) {
         it("should correctly layout the card and disable user interaction") {
-          expect(card.frame) == transformedFrame
+          expect(card.frame) == expectedTransformedFrame
           expect(card.transform) == cardTransform
-          expect(card.isUserInteractionEnabled) == (position == 0)
+          expect(card.isUserInteractionEnabled) == false
         }
       }
     }

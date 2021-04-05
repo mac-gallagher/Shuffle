@@ -33,15 +33,16 @@ class SwipeCardTest_MainMethods: QuickSpec {
   override func spec() {
     var mockCardAnimator: MockCardAnimator!
     var mockSwipeCardDelegate: MockSwipeCardDelegate!
+    var mockNotificationCenter: TestableNotificationCenter!
     var subject: TestableSwipeCard!
 
     beforeEach {
       mockCardAnimator = MockCardAnimator()
       mockSwipeCardDelegate = MockSwipeCardDelegate()
+      mockNotificationCenter = TestableNotificationCenter()
 
       subject = TestableSwipeCard(animator: mockCardAnimator,
-                                  layoutProvider: MockCardLayoutProvider(),
-                                  notificationCenter: NotificationCenter.default,
+                                  notificationCenter: mockNotificationCenter,
                                   transformProvider: MockCardTransformProvider())
       subject.delegate = mockSwipeCardDelegate
     }
@@ -148,8 +149,9 @@ class SwipeCardTest_MainMethods: QuickSpec {
         expect(mockCardAnimator.animateSwipeForced) == forced
       }
 
-      it("should invoke the swipe completion block once the animation has completed") {
-        expect(subject.swipeCompletionBlockCalled) == true
+      it("should post the correct notification to the notification center") {
+        expect(mockNotificationCenter.postedNotificationName) == CardDidFinishSwipeAnimationNotification
+        expect(mockNotificationCenter.postedNotificationObject).to(be(subject))
       }
     }
 
@@ -159,21 +161,12 @@ class SwipeCardTest_MainMethods: QuickSpec {
       let direction: SwipeDirection = .left
 
       beforeEach {
-        subject.testReverseSwipeCompletionBlock = {}
         subject.reverseSwipe(from: direction)
-      }
-
-      it("should disable user interaction on the card") {
-        expect(subject.isUserInteractionEnabled) == false
       }
 
       it("should call the animator's reverse swipe method with the correct direction") {
         expect(mockCardAnimator.animateReverseSwipeCalled) == true
         expect(mockCardAnimator.animateReverseSwipeDirection) == direction
-      }
-
-      it("should invoke the reverse swipe completion block once the animation has completed") {
-        expect(subject.reverseSwipeCompletionBlockCalled) == true
       }
     }
 
@@ -181,14 +174,14 @@ class SwipeCardTest_MainMethods: QuickSpec {
 
     describe("When calling removeAllAnimations") {
       beforeEach {
-        // add animation key to card
+        // Add arbitrary animation key to card
         UIView.animate(withDuration: 100) {
           subject.alpha = 0
         }
         subject.removeAllAnimations()
       }
 
-      it("should remove all the current animations on it's layer") {
+      it("should remove all the current animations on its layer") {
         expect(subject.layer.animationKeys()).to(beNil())
       }
 

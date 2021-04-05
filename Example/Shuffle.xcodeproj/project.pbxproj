@@ -21,8 +21,8 @@
 /* End PBXAggregateTarget section */
 
 /* Begin PBXBuildFile section */
-		5F57C481455B6160EDB7E287 /* Pods_ShuffleTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 18AFD7AA72AA976397371F14 /* Pods_ShuffleTests.framework */; };
-		A2A6726E4080452BDB432655 /* Pods_ShuffleExample.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F8397BB7664A96B3F7276F02 /* Pods_ShuffleExample.framework */; };
+		13428DB08D67C399311FF2FC /* Pods_ShuffleExample.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4664D842E2EB45B708F03949 /* Pods_ShuffleExample.framework */; };
+		81052FC54C519D4BC1A59A50 /* Pods_ShuffleTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 96E655EA6DB7A38C33ED8F64 /* Pods_ShuffleTests.framework */; };
 		ADF646DA261A5CD200FE6BA3 /* TinderCardContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADF646CB261A5CD200FE6BA3 /* TinderCardContentView.swift */; };
 		ADF646DB261A5CD200FE6BA3 /* TinderCardModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADF646CC261A5CD200FE6BA3 /* TinderCardModel.swift */; };
 		ADF646DC261A5CD200FE6BA3 /* TinderCardFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADF646CD261A5CD200FE6BA3 /* TinderCardFooterView.swift */; };
@@ -37,10 +37,8 @@
 		ADF6476C261A62D000FE6BA3 /* TestableNotificationCenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADF64744261A62D000FE6BA3 /* TestableNotificationCenter.swift */; };
 		ADF6476E261A62D000FE6BA3 /* MockCardAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADF64748261A62D000FE6BA3 /* MockCardAnimator.swift */; };
 		ADF6476F261A62D000FE6BA3 /* MockSwipeCardDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADF64749261A62D000FE6BA3 /* MockSwipeCardDelegate.swift */; };
-		ADF64770261A62D000FE6BA3 /* MockCardLayoutProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADF6474A261A62D000FE6BA3 /* MockCardLayoutProvider.swift */; };
 		ADF64771261A62D000FE6BA3 /* MockCardTransformProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADF6474B261A62D000FE6BA3 /* MockCardTransformProvider.swift */; };
 		ADF64772261A62D000FE6BA3 /* CardTransformProviderTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADF6474D261A62D000FE6BA3 /* CardTransformProviderTest.swift */; };
-		ADF64773261A62D000FE6BA3 /* CardLayoutProviderTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADF6474E261A62D000FE6BA3 /* CardLayoutProviderTest.swift */; };
 		ADF64774261A62D000FE6BA3 /* CardAnimatorTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADF6474F261A62D000FE6BA3 /* CardAnimatorTest.swift */; };
 		ADF64775261A62D000FE6BA3 /* SwipeViewTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADF64750261A62D000FE6BA3 /* SwipeViewTest.swift */; };
 		ADF64776261A62D000FE6BA3 /* CardAnimationOptionsTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADF64751261A62D000FE6BA3 /* CardAnimationOptionsTest.swift */; };
@@ -50,7 +48,6 @@
 		ADF6477A261A62D000FE6BA3 /* TestableSwipeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADF64756261A62D000FE6BA3 /* TestableSwipeView.swift */; };
 		ADF6477B261A62D000FE6BA3 /* TestableCardTransformProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADF64757261A62D000FE6BA3 /* TestableCardTransformProvider.swift */; };
 		ADF6477C261A62D000FE6BA3 /* TestableCardAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADF64758261A62D000FE6BA3 /* TestableCardAnimator.swift */; };
-		ADF6477D261A62D000FE6BA3 /* MockCardStackLayoutProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADF6475B261A62D000FE6BA3 /* MockCardStackLayoutProvider.swift */; };
 		ADF6477E261A62D000FE6BA3 /* MockCardStackStateManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADF6475C261A62D000FE6BA3 /* MockCardStackStateManager.swift */; };
 		ADF6477F261A62D000FE6BA3 /* MockSwipeCardStackDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADF6475D261A62D000FE6BA3 /* MockSwipeCardStackDataSource.swift */; };
 		ADF64780261A62D000FE6BA3 /* MockSwipeCardStackDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADF6475E261A62D000FE6BA3 /* MockSwipeCardStackDelegate.swift */; };
@@ -58,7 +55,6 @@
 		ADF64782261A62D000FE6BA3 /* MockCardStackTransformProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADF64760261A62D000FE6BA3 /* MockCardStackTransformProvider.swift */; };
 		ADF64783261A62D000FE6BA3 /* SwipeCardStackTest_MainMethods.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADF64762261A62D000FE6BA3 /* SwipeCardStackTest_MainMethods.swift */; };
 		ADF64784261A62D000FE6BA3 /* CardStackStateManagerTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADF64763261A62D000FE6BA3 /* CardStackStateManagerTest.swift */; };
-		ADF64785261A62D000FE6BA3 /* CardStackLayoutProviderTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADF64764261A62D000FE6BA3 /* CardStackLayoutProviderTest.swift */; };
 		ADF64786261A62D000FE6BA3 /* SwipeCardStackTest_SwipeCardDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADF64765261A62D000FE6BA3 /* SwipeCardStackTest_SwipeCardDelegate.swift */; };
 		ADF64787261A62D000FE6BA3 /* CardStackAnimationOptionsTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADF64766261A62D000FE6BA3 /* CardStackAnimationOptionsTest.swift */; };
 		ADF64788261A62D000FE6BA3 /* SwipeCardStackTest_StateManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADF64767261A62D000FE6BA3 /* SwipeCardStackTest_StateManager.swift */; };
@@ -67,25 +63,15 @@
 		ADF6478B261A62D000FE6BA3 /* TestableCardStackStateManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADF6476B261A62D000FE6BA3 /* TestableCardStackStateManager.swift */; };
 /* End PBXBuildFile section */
 
-/* Begin PBXContainerItemProxy section */
-		607FACE61AFB9204008FA782 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 607FACC81AFB9204008FA782 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 607FACCF1AFB9204008FA782;
-			remoteInfo = Shuffle;
-		};
-/* End PBXContainerItemProxy section */
-
 /* Begin PBXFileReference section */
-		01D52DD4444FBF02CDBF714D /* Pods-ShuffleTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ShuffleTests.debug.xcconfig"; path = "Target Support Files/Pods-ShuffleTests/Pods-ShuffleTests.debug.xcconfig"; sourceTree = "<group>"; };
-		18AFD7AA72AA976397371F14 /* Pods_ShuffleTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ShuffleTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		3BF96DA14E02E2949D8BAE02 /* Pods-ShuffleExample.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ShuffleExample.release.xcconfig"; path = "Target Support Files/Pods-ShuffleExample/Pods-ShuffleExample.release.xcconfig"; sourceTree = "<group>"; };
+		0A69FCED2F213622CAD2F11C /* Pods-ShuffleExample.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ShuffleExample.release.xcconfig"; path = "Target Support Files/Pods-ShuffleExample/Pods-ShuffleExample.release.xcconfig"; sourceTree = "<group>"; };
+		4664D842E2EB45B708F03949 /* Pods_ShuffleExample.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ShuffleExample.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		47BC2D80DADBC4D39AE261DD /* Pods-ShuffleTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ShuffleTests.release.xcconfig"; path = "Target Support Files/Pods-ShuffleTests/Pods-ShuffleTests.release.xcconfig"; sourceTree = "<group>"; };
 		607FACD01AFB9204008FA782 /* ShuffleExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ShuffleExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		607FACE51AFB9204008FA782 /* ShuffleTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ShuffleTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		6AD5D90D898A5D96840E619C /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
 		6D7D80EFAC2C40B10D76131E /* Shuffle-iOS.podspec */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = "Shuffle-iOS.podspec"; path = "../Shuffle-iOS.podspec"; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
-		941AD27A9BA6BD0828F4008C /* Pods-ShuffleExample.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ShuffleExample.debug.xcconfig"; path = "Target Support Files/Pods-ShuffleExample/Pods-ShuffleExample.debug.xcconfig"; sourceTree = "<group>"; };
+		96E655EA6DB7A38C33ED8F64 /* Pods_ShuffleTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ShuffleTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		ADF646CB261A5CD200FE6BA3 /* TinderCardContentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TinderCardContentView.swift; sourceTree = "<group>"; };
 		ADF646CC261A5CD200FE6BA3 /* TinderCardModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TinderCardModel.swift; sourceTree = "<group>"; };
 		ADF646CD261A5CD200FE6BA3 /* TinderCardFooterView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TinderCardFooterView.swift; sourceTree = "<group>"; };
@@ -102,10 +88,8 @@
 		ADF64745261A62D000FE6BA3 /* ShuffleTests.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = ShuffleTests.plist; sourceTree = "<group>"; };
 		ADF64748261A62D000FE6BA3 /* MockCardAnimator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockCardAnimator.swift; sourceTree = "<group>"; };
 		ADF64749261A62D000FE6BA3 /* MockSwipeCardDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockSwipeCardDelegate.swift; sourceTree = "<group>"; };
-		ADF6474A261A62D000FE6BA3 /* MockCardLayoutProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockCardLayoutProvider.swift; sourceTree = "<group>"; };
 		ADF6474B261A62D000FE6BA3 /* MockCardTransformProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockCardTransformProvider.swift; sourceTree = "<group>"; };
 		ADF6474D261A62D000FE6BA3 /* CardTransformProviderTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardTransformProviderTest.swift; sourceTree = "<group>"; };
-		ADF6474E261A62D000FE6BA3 /* CardLayoutProviderTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardLayoutProviderTest.swift; sourceTree = "<group>"; };
 		ADF6474F261A62D000FE6BA3 /* CardAnimatorTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardAnimatorTest.swift; sourceTree = "<group>"; };
 		ADF64750261A62D000FE6BA3 /* SwipeViewTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwipeViewTest.swift; sourceTree = "<group>"; };
 		ADF64751261A62D000FE6BA3 /* CardAnimationOptionsTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardAnimationOptionsTest.swift; sourceTree = "<group>"; };
@@ -115,7 +99,6 @@
 		ADF64756261A62D000FE6BA3 /* TestableSwipeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestableSwipeView.swift; sourceTree = "<group>"; };
 		ADF64757261A62D000FE6BA3 /* TestableCardTransformProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestableCardTransformProvider.swift; sourceTree = "<group>"; };
 		ADF64758261A62D000FE6BA3 /* TestableCardAnimator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestableCardAnimator.swift; sourceTree = "<group>"; };
-		ADF6475B261A62D000FE6BA3 /* MockCardStackLayoutProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockCardStackLayoutProvider.swift; sourceTree = "<group>"; };
 		ADF6475C261A62D000FE6BA3 /* MockCardStackStateManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockCardStackStateManager.swift; sourceTree = "<group>"; };
 		ADF6475D261A62D000FE6BA3 /* MockSwipeCardStackDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockSwipeCardStackDataSource.swift; sourceTree = "<group>"; };
 		ADF6475E261A62D000FE6BA3 /* MockSwipeCardStackDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockSwipeCardStackDelegate.swift; sourceTree = "<group>"; };
@@ -123,16 +106,15 @@
 		ADF64760261A62D000FE6BA3 /* MockCardStackTransformProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockCardStackTransformProvider.swift; sourceTree = "<group>"; };
 		ADF64762261A62D000FE6BA3 /* SwipeCardStackTest_MainMethods.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwipeCardStackTest_MainMethods.swift; sourceTree = "<group>"; };
 		ADF64763261A62D000FE6BA3 /* CardStackStateManagerTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardStackStateManagerTest.swift; sourceTree = "<group>"; };
-		ADF64764261A62D000FE6BA3 /* CardStackLayoutProviderTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardStackLayoutProviderTest.swift; sourceTree = "<group>"; };
 		ADF64765261A62D000FE6BA3 /* SwipeCardStackTest_SwipeCardDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwipeCardStackTest_SwipeCardDelegate.swift; sourceTree = "<group>"; };
 		ADF64766261A62D000FE6BA3 /* CardStackAnimationOptionsTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardStackAnimationOptionsTest.swift; sourceTree = "<group>"; };
 		ADF64767261A62D000FE6BA3 /* SwipeCardStackTest_StateManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwipeCardStackTest_StateManager.swift; sourceTree = "<group>"; };
 		ADF64768261A62D000FE6BA3 /* SwipeCardStackTest_Base.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwipeCardStackTest_Base.swift; sourceTree = "<group>"; };
 		ADF6476A261A62D000FE6BA3 /* TestableSwipeCardStack.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestableSwipeCardStack.swift; sourceTree = "<group>"; };
 		ADF6476B261A62D000FE6BA3 /* TestableCardStackStateManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestableCardStackStateManager.swift; sourceTree = "<group>"; };
-		B7158B1C202B3EC4CDCA39F0 /* Pods-ShuffleTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ShuffleTests.release.xcconfig"; path = "Target Support Files/Pods-ShuffleTests/Pods-ShuffleTests.release.xcconfig"; sourceTree = "<group>"; };
 		BDFBB5FCC0EDD35C6A08BD0E /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = LICENSE; path = ../LICENSE; sourceTree = "<group>"; };
-		F8397BB7664A96B3F7276F02 /* Pods_ShuffleExample.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ShuffleExample.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		C250298DC1C1654DC4386386 /* Pods-ShuffleTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ShuffleTests.debug.xcconfig"; path = "Target Support Files/Pods-ShuffleTests/Pods-ShuffleTests.debug.xcconfig"; sourceTree = "<group>"; };
+		E9AC75B0C3970E4F6597D8B1 /* Pods-ShuffleExample.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ShuffleExample.debug.xcconfig"; path = "Target Support Files/Pods-ShuffleExample/Pods-ShuffleExample.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -140,7 +122,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A2A6726E4080452BDB432655 /* Pods_ShuffleExample.framework in Frameworks */,
+				13428DB08D67C399311FF2FC /* Pods_ShuffleExample.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -148,7 +130,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5F57C481455B6160EDB7E287 /* Pods_ShuffleTests.framework in Frameworks */,
+				81052FC54C519D4BC1A59A50 /* Pods_ShuffleTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -163,7 +145,7 @@
 				607FACE81AFB9204008FA782 /* Tests */,
 				607FACD11AFB9204008FA782 /* Products */,
 				D227647704E6DAA75E687B00 /* Pods */,
-				F01916E401B13801D2BA5145 /* Frameworks */,
+				A3F99DBA041EC60E82C25153 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -207,6 +189,15 @@
 				BDFBB5FCC0EDD35C6A08BD0E /* LICENSE */,
 			);
 			name = "Podspec Metadata";
+			sourceTree = "<group>";
+		};
+		A3F99DBA041EC60E82C25153 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				4664D842E2EB45B708F03949 /* Pods_ShuffleExample.framework */,
+				96E655EA6DB7A38C33ED8F64 /* Pods_ShuffleTests.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		ADF646C9261A5CD200FE6BA3 /* TinderExample */ = {
@@ -255,7 +246,6 @@
 			children = (
 				ADF64751261A62D000FE6BA3 /* CardAnimationOptionsTest.swift */,
 				ADF6474F261A62D000FE6BA3 /* CardAnimatorTest.swift */,
-				ADF6474E261A62D000FE6BA3 /* CardLayoutProviderTest.swift */,
 				ADF6474D261A62D000FE6BA3 /* CardTransformProviderTest.swift */,
 				ADF64752261A62D000FE6BA3 /* SwipeCardTest_Base.swift */,
 				ADF64753261A62D000FE6BA3 /* SwipeCardTest_MainMethods.swift */,
@@ -268,7 +258,6 @@
 			isa = PBXGroup;
 			children = (
 				ADF64766261A62D000FE6BA3 /* CardStackAnimationOptionsTest.swift */,
-				ADF64764261A62D000FE6BA3 /* CardStackLayoutProviderTest.swift */,
 				ADF64763261A62D000FE6BA3 /* CardStackStateManagerTest.swift */,
 				ADF64768261A62D000FE6BA3 /* SwipeCardStackTest_Base.swift */,
 				ADF64762261A62D000FE6BA3 /* SwipeCardStackTest_MainMethods.swift */,
@@ -282,11 +271,9 @@
 			isa = PBXGroup;
 			children = (
 				ADF64748261A62D000FE6BA3 /* MockCardAnimator.swift */,
-				ADF6474A261A62D000FE6BA3 /* MockCardLayoutProvider.swift */,
 				ADF6475F261A62D000FE6BA3 /* MockCardStackAnimator.swift */,
 				ADF64760261A62D000FE6BA3 /* MockCardStackTransformProvider.swift */,
 				ADF6474B261A62D000FE6BA3 /* MockCardTransformProvider.swift */,
-				ADF6475B261A62D000FE6BA3 /* MockCardStackLayoutProvider.swift */,
 				ADF6475C261A62D000FE6BA3 /* MockCardStackStateManager.swift */,
 				ADF64749261A62D000FE6BA3 /* MockSwipeCardDelegate.swift */,
 				ADF6475D261A62D000FE6BA3 /* MockSwipeCardStackDataSource.swift */,
@@ -320,21 +307,12 @@
 		D227647704E6DAA75E687B00 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				941AD27A9BA6BD0828F4008C /* Pods-ShuffleExample.debug.xcconfig */,
-				3BF96DA14E02E2949D8BAE02 /* Pods-ShuffleExample.release.xcconfig */,
-				01D52DD4444FBF02CDBF714D /* Pods-ShuffleTests.debug.xcconfig */,
-				B7158B1C202B3EC4CDCA39F0 /* Pods-ShuffleTests.release.xcconfig */,
+				E9AC75B0C3970E4F6597D8B1 /* Pods-ShuffleExample.debug.xcconfig */,
+				0A69FCED2F213622CAD2F11C /* Pods-ShuffleExample.release.xcconfig */,
+				C250298DC1C1654DC4386386 /* Pods-ShuffleTests.debug.xcconfig */,
+				47BC2D80DADBC4D39AE261DD /* Pods-ShuffleTests.release.xcconfig */,
 			);
 			path = Pods;
-			sourceTree = "<group>";
-		};
-		F01916E401B13801D2BA5145 /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				F8397BB7664A96B3F7276F02 /* Pods_ShuffleExample.framework */,
-				18AFD7AA72AA976397371F14 /* Pods_ShuffleTests.framework */,
-			);
-			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -344,11 +322,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 607FACEF1AFB9204008FA782 /* Build configuration list for PBXNativeTarget "ShuffleExample" */;
 			buildPhases = (
-				55F4B7CB7751093A93CC9349 /* [CP] Check Pods Manifest.lock */,
+				7A7754D17C5F986C993327D4 /* [CP] Check Pods Manifest.lock */,
 				607FACCC1AFB9204008FA782 /* Sources */,
 				607FACCD1AFB9204008FA782 /* Frameworks */,
 				607FACCE1AFB9204008FA782 /* Resources */,
-				F3A3E452FCC3804C51332641 /* [CP] Embed Pods Frameworks */,
+				AD8E58BE261B9FB600E99C62 /* Run SwiftLint */,
+				0830382F2BF4A4AFA7763EE1 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -363,16 +342,16 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 607FACF21AFB9204008FA782 /* Build configuration list for PBXNativeTarget "ShuffleTests" */;
 			buildPhases = (
-				F55AB40A64AEAA0C1E910FF7 /* [CP] Check Pods Manifest.lock */,
+				C0037843D29A8AFBBA1EDC00 /* [CP] Check Pods Manifest.lock */,
 				607FACE11AFB9204008FA782 /* Sources */,
 				607FACE21AFB9204008FA782 /* Frameworks */,
 				607FACE31AFB9204008FA782 /* Resources */,
-				F4FC9B7E6431F0F72F9D29C8 /* [CP] Embed Pods Frameworks */,
+				AD8E58BF261B9FCB00E99C62 /* Run SwiftLint */,
+				55A0E0697C4A448757CF82AF /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				607FACE71AFB9204008FA782 /* PBXTargetDependency */,
 			);
 			name = ShuffleTests;
 			productName = Tests;
@@ -444,47 +423,7 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		55F4B7CB7751093A93CC9349 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-ShuffleExample-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		ADF647FE261A6D8000FE6BA3 /* Run SwiftLint */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-			);
-			name = "Run SwiftLint";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "if which swiftlint >/dev/null; then\n  swiftlint\nelse\n  echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
-		};
-		F3A3E452FCC3804C51332641 /* [CP] Embed Pods Frameworks */ = {
+		0830382F2BF4A4AFA7763EE1 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -506,7 +445,7 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-ShuffleExample/Pods-ShuffleExample-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		F4FC9B7E6431F0F72F9D29C8 /* [CP] Embed Pods Frameworks */ = {
+		55A0E0697C4A448757CF82AF /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -528,7 +467,83 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-ShuffleTests/Pods-ShuffleTests-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		F55AB40A64AEAA0C1E910FF7 /* [CP] Check Pods Manifest.lock */ = {
+		7A7754D17C5F986C993327D4 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-ShuffleExample-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		AD8E58BE261B9FB600E99C62 /* Run SwiftLint */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "Run SwiftLint";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if which swiftlint >/dev/null; then\n  swiftlint\nelse\n  echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
+		};
+		AD8E58BF261B9FCB00E99C62 /* Run SwiftLint */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "Run SwiftLint";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if which swiftlint >/dev/null; then\n  swiftlint\nelse\n  echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
+		};
+		ADF647FE261A6D8000FE6BA3 /* Run SwiftLint */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "Run SwiftLint";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if which swiftlint >/dev/null; then\n  swiftlint\nelse\n  echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
+		};
+		C0037843D29A8AFBBA1EDC00 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -576,16 +591,13 @@
 				ADF64789261A62D000FE6BA3 /* SwipeCardStackTest_Base.swift in Sources */,
 				ADF64772261A62D000FE6BA3 /* CardTransformProviderTest.swift in Sources */,
 				ADF64777261A62D000FE6BA3 /* SwipeCardTest_Base.swift in Sources */,
-				ADF64785261A62D000FE6BA3 /* CardStackLayoutProviderTest.swift in Sources */,
 				ADF6477E261A62D000FE6BA3 /* MockCardStackStateManager.swift in Sources */,
 				ADF64775261A62D000FE6BA3 /* SwipeViewTest.swift in Sources */,
 				ADF64774261A62D000FE6BA3 /* CardAnimatorTest.swift in Sources */,
 				ADF64788261A62D000FE6BA3 /* SwipeCardStackTest_StateManager.swift in Sources */,
-				ADF64770261A62D000FE6BA3 /* MockCardLayoutProvider.swift in Sources */,
 				ADF64776261A62D000FE6BA3 /* CardAnimationOptionsTest.swift in Sources */,
 				ADF6477F261A62D000FE6BA3 /* MockSwipeCardStackDataSource.swift in Sources */,
 				ADF64787261A62D000FE6BA3 /* CardStackAnimationOptionsTest.swift in Sources */,
-				ADF64773261A62D000FE6BA3 /* CardLayoutProviderTest.swift in Sources */,
 				ADF64778261A62D000FE6BA3 /* SwipeCardTest_MainMethods.swift in Sources */,
 				ADF6476F261A62D000FE6BA3 /* MockSwipeCardDelegate.swift in Sources */,
 				ADF6476E261A62D000FE6BA3 /* MockCardAnimator.swift in Sources */,
@@ -593,7 +605,6 @@
 				ADF64780261A62D000FE6BA3 /* MockSwipeCardStackDelegate.swift in Sources */,
 				ADF64771261A62D000FE6BA3 /* MockCardTransformProvider.swift in Sources */,
 				ADF6476C261A62D000FE6BA3 /* TestableNotificationCenter.swift in Sources */,
-				ADF6477D261A62D000FE6BA3 /* MockCardStackLayoutProvider.swift in Sources */,
 				ADF64784261A62D000FE6BA3 /* CardStackStateManagerTest.swift in Sources */,
 				ADF6478B261A62D000FE6BA3 /* TestableCardStackStateManager.swift in Sources */,
 				ADF64779261A62D000FE6BA3 /* TestableSwipeCard.swift in Sources */,
@@ -608,14 +619,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXTargetDependency section */
-		607FACE71AFB9204008FA782 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 607FACCF1AFB9204008FA782 /* ShuffleExample */;
-			targetProxy = 607FACE61AFB9204008FA782 /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		ADF646ED261A5D2700FE6BA3 /* LaunchScreen.xib */ = {
@@ -738,7 +741,7 @@
 		};
 		607FACF01AFB9204008FA782 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 941AD27A9BA6BD0828F4008C /* Pods-ShuffleExample.debug.xcconfig */;
+			baseConfigurationReference = E9AC75B0C3970E4F6597D8B1 /* Pods-ShuffleExample.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
@@ -757,7 +760,7 @@
 		};
 		607FACF11AFB9204008FA782 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 3BF96DA14E02E2949D8BAE02 /* Pods-ShuffleExample.release.xcconfig */;
+			baseConfigurationReference = 0A69FCED2F213622CAD2F11C /* Pods-ShuffleExample.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
@@ -775,7 +778,7 @@
 		};
 		607FACF31AFB9204008FA782 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 01D52DD4444FBF02CDBF714D /* Pods-ShuffleTests.debug.xcconfig */;
+			baseConfigurationReference = C250298DC1C1654DC4386386 /* Pods-ShuffleTests.debug.xcconfig */;
 			buildSettings = {
 				CLANG_ENABLE_MODULES = YES;
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
@@ -799,7 +802,7 @@
 		};
 		607FACF41AFB9204008FA782 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = B7158B1C202B3EC4CDCA39F0 /* Pods-ShuffleTests.release.xcconfig */;
+			baseConfigurationReference = 47BC2D80DADBC4D39AE261DD /* Pods-ShuffleTests.release.xcconfig */;
 			buildSettings = {
 				CLANG_ENABLE_MODULES = YES;
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";

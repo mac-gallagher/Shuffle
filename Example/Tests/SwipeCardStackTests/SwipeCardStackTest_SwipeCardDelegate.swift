@@ -43,7 +43,6 @@ class SwipeCardStackTest_SwipeCardDelegate: QuickSpec {
       mockStateManager = MockCardStackStateManager()
       mockTransformProvider = MockCardStackTransformProvider()
       subject = TestableSwipeCardStack(animator: mockAnimator,
-                                       layoutProvider: MockCardStackLayoutProvider(),
                                        notificationCenter: NotificationCenter(),
                                        stateManager: mockStateManager,
                                        transformProvider: mockTransformProvider)

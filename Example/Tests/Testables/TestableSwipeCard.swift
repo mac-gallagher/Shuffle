@@ -32,22 +32,6 @@ class TestableSwipeCard: SwipeCard {
     return testTouchLocation ?? super.touchLocation
   }
 
-  // MARK: - Completion Blocks
-
-  var swipeCompletionBlockCalled: Bool = false
-  override var swipeCompletionBlock: () -> Void {
-    swipeCompletionBlockCalled = true
-    return super.swipeCompletionBlock
-  }
-
-  var reverseSwipeCompletionBlockCalled: Bool = false
-  var testReverseSwipeCompletionBlock: (() -> Void)?
-
-  override var reverseSwipeCompletionBlock: () -> Void {
-    reverseSwipeCompletionBlockCalled = true
-    return testReverseSwipeCompletionBlock ?? super.reverseSwipeCompletionBlock
-  }
-
   // MARK: - Swipe Calculations
 
   var testActiveDirection: SwipeDirection?

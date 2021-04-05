@@ -28,7 +28,7 @@ import Quick
 import UIKit
 
 // swiftlint:disable type_body_length closure_body_length implicitly_unwrapped_optional
-class SwipeCardStackSpec_MainMethods: QuickSpec {
+class SwipeCardStackTest_MainMethods: QuickSpec {
 
   typealias Card = SwipeCardStack.Card
 
@@ -44,7 +44,6 @@ class SwipeCardStackSpec_MainMethods: QuickSpec {
       mockDelegate = MockSwipeCardStackDelegate()
       mockStateManager = MockCardStackStateManager()
       subject = TestableSwipeCardStack(animator: mockAnimator,
-                                       layoutProvider: MockCardStackLayoutProvider(),
                                        notificationCenter: NotificationCenter.default,
                                        stateManager: mockStateManager,
                                        transformProvider: MockCardStackTransformProvider())

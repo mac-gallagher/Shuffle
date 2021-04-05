@@ -40,7 +40,6 @@ class CardAnimatorTest: QuickSpec {
     beforeEach {
       subject = TestableCardAnimator()
       card = TestableSwipeCard(animator: MockCardAnimator(),
-                               layoutProvider: MockCardLayoutProvider(),
                                notificationCenter: NotificationCenter.default,
                                transformProvider: MockCardTransformProvider())
       card.frame = CGRect(x: 0, y: 0, width: cardWidth, height: cardHeight)
@@ -143,7 +142,7 @@ class CardAnimatorTest: QuickSpec {
       beforeEach {
         card.setOverlay(overlay, forDirection: .left)
 
-        // add animation key to overlay
+        // Add arbitrary animation key to overlay
         UIView.animate(withDuration: 100) {
           card.alpha = 0
           overlay.transform = CGAffineTransform(a: 1, b: 2, c: 3, d: 4, tx: 5, ty: 6)
