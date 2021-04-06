@@ -1,7 +1,7 @@
 included: # paths to include during linting. `--path` is ignored if present.
-- Shuffle
+- Shuffle # path to example
 - Tests
-- ../Shuffle/Classes # Path to development pod
+- ../Sources/Shuffle/Classes # path to development pod
 
 excluded:
 - Pods
