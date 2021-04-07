@@ -24,21 +24,11 @@
 
 import UIKit
 
-public protocol CardAnimatableOptions {
-  var maximumRotationAngle: CGFloat { get }
-  var relativeReverseSwipeOverlayFadeDuration: Double { get }
-  var relativeSwipeOverlayFadeDuration: Double { get }
-  var resetSpringDamping: CGFloat { get }
-  var totalResetDuration: TimeInterval { get }
-  var totalReverseSwipeDuration: TimeInterval { get }
-  var totalSwipeDuration: TimeInterval { get }
-}
-
 /// The animation options provided to the internal card animator.
-public final class CardAnimationOptions: CardAnimatableOptions {
+public final class CardAnimationOptions: NSObject {
 
   /// The static default instance of `CardAnimationOptions`.
-  public static let `default`: CardAnimationOptions = CardAnimationOptions()
+  public static let `default` = CardAnimationOptions()
 
   /// The maximum rotation angle of the card, measured in radians.
   ///
@@ -62,8 +52,7 @@ public final class CardAnimationOptions: CardAnimatableOptions {
   /// Defined as a value in the range `[0, 1]`. Defaults to `0.5`
   public let resetSpringDamping: CGFloat
 
-  /// The duration of the spring-like animation applied when a swipe is canceled,
-  /// measured in seconds.
+  /// The duration of the spring-like animation applied when a swipe is canceled, measured in seconds.
   ///
   /// This value must be greater than zero. Defaults to `0.6`.
   public let totalResetDuration: TimeInterval

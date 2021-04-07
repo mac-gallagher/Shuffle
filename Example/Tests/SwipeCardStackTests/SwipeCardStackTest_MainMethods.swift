@@ -27,7 +27,7 @@ import Quick
 @testable import Shuffle_iOS
 import UIKit
 
-// swiftlint:disable type_body_length closure_body_length implicitly_unwrapped_optional
+// swiftlint:disable closure_body_length implicitly_unwrapped_optional
 class SwipeCardStackTest_MainMethods: QuickSpec {
 
   typealias Card = SwipeCardStack.Card
@@ -539,39 +539,6 @@ class SwipeCardStackTest_MainMethods: QuickSpec {
         }
       }
     }
-
-    // MARK: - Did Finish Swipe Animation
-
-    describe("When calling didFinishSwipeAnimation") {
-      context("and the notification object is not a SwipeCard") {
-        beforeEach {
-          let notification = NSNotification(name: CardDidFinishSwipeAnimationNotification,
-                                            object: UIView())
-          subject.didFinishSwipeAnimation(notification)
-        }
-
-        it("should do nothing!") {
-          //do nothing
-        }
-      }
-
-      context("and the notification object is a SwipeCard") {
-        let swipeCard = SwipeCard()
-
-        beforeEach {
-          let superview = UIView()
-          superview.addSubview(swipeCard)
-
-          let notification = NSNotification(name: CardDidFinishSwipeAnimationNotification,
-                                            object: swipeCard)
-          subject.didFinishSwipeAnimation(notification)
-        }
-
-        it("should remove the card from its superview") {
-          expect(swipeCard.superview).to(beNil())
-        }
-      }
-    }
   }
 }
-// swiftlint:enable type_body_length closure_body_length implicitly_unwrapped_optional
+// swiftlint:enable closure_body_length implicitly_unwrapped_optional

@@ -55,7 +55,7 @@ class SwipeCardStackTest_SwipeCardDelegate: QuickSpec {
       context("and topCardIndex is nil") {
         beforeEach {
           subject.testTopCardIndex = nil
-          subject.card(didTap: SwipeCard())
+          subject.cardDidTap(SwipeCard())
         }
 
         it("should not call the cardStack's didSelectCard delegate method") {
@@ -68,7 +68,7 @@ class SwipeCardStackTest_SwipeCardDelegate: QuickSpec {
 
         beforeEach {
           subject.testTopCardIndex = topIndex
-          subject.card(didTap: SwipeCard())
+          subject.cardDidTap(SwipeCard())
         }
 
         it("should call the cardStack's didSelectCard delegate method with the correct index") {
@@ -82,7 +82,7 @@ class SwipeCardStackTest_SwipeCardDelegate: QuickSpec {
 
     describe("When calling didBeginSwipe") {
       beforeEach {
-        subject.card(didBeginSwipe: SwipeCard())
+        subject.cardDidBeginSwipe(SwipeCard())
       }
 
       it("should call the animator's removeBackgroundCardAnimation method") {
@@ -100,7 +100,7 @@ class SwipeCardStackTest_SwipeCardDelegate: QuickSpec {
         backgroundCards = [SwipeCard(), SwipeCard(), SwipeCard()]
         subject.testBackgroundCards = backgroundCards
         mockTransformProvider.testBackgroundCardDragTransform = cardTransform
-        subject.card(didContinueSwipe: SwipeCard())
+        subject.cardDidContinueSwipe(SwipeCard())
       }
 
       it("should set the transforms on any of the background cards") {
@@ -114,7 +114,7 @@ class SwipeCardStackTest_SwipeCardDelegate: QuickSpec {
 
     describe("When the calling didCancelSwipe") {
       beforeEach {
-        subject.card(didCancelSwipe: SwipeCard())
+        subject.cardDidCancelSwipe(SwipeCard())
       }
 
       it("should call the animator's reset method") {
@@ -128,7 +128,7 @@ class SwipeCardStackTest_SwipeCardDelegate: QuickSpec {
       let direction: SwipeDirection = .left
 
       beforeEach {
-        subject.card(didSwipe: SwipeCard(), with: direction)
+        subject.cardDidSwipe(SwipeCard(), withDirection: direction)
       }
 
       it("and should call swipeAction with the correct parameters") {
@@ -136,6 +136,22 @@ class SwipeCardStackTest_SwipeCardDelegate: QuickSpec {
         expect(subject.swipeActionDirection) == direction
         expect(subject.swipeActionForced) == false
         expect(subject.swipeActionAnimated) == true
+      }
+    }
+
+    // MARK: - Did Finish Swipe Animation
+
+    context("When calling didFinishSwipeAnimation") {
+      let swipeCard = SwipeCard()
+
+      beforeEach {
+        let superview = UIView()
+        superview.addSubview(swipeCard)
+        subject.cardDidFinishSwipeAnimation(swipeCard)
+      }
+
+      it("should remove the card from its superview") {
+        expect(swipeCard.superview).to(beNil())
       }
     }
   }

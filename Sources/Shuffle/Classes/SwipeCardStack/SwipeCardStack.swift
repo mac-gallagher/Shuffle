@@ -32,7 +32,7 @@ open class SwipeCardStack: UIView, SwipeCardDelegate, UIGestureRecognizerDelegat
     var card: SwipeCard
   }
 
-  open var animationOptions: CardStackAnimatableOptions = CardStackAnimationOptions.default
+  open var animationOptions: CardStackAnimationOptions = .default
 
   /// Return `false` if you wish to ignore all horizontal gestures on the card stack.
   ///
@@ -116,10 +116,6 @@ open class SwipeCardStack: UIView, SwipeCardDelegate, UIGestureRecognizerDelegat
 
   private func initialize() {
     addSubview(cardContainer)
-    notificationCenter.addObserver(self,
-                                   selector: #selector(didFinishSwipeAnimation),
-                                   name: CardDidFinishSwipeAnimationNotification,
-                                   object: nil)
   }
 
   // MARK: - Layout
@@ -434,26 +430,18 @@ open class SwipeCardStack: UIView, SwipeCardDelegate, UIGestureRecognizerDelegat
     reloadVisibleCards()
   }
 
-  // MARK: - Notifications
-
-  @objc
-  func didFinishSwipeAnimation(_ notification: NSNotification) {
-    guard let card = notification.object as? SwipeCard else { return }
-    card.removeFromSuperview()
-  }
-
   // MARK: - SwipeCardDelegate
 
-  func card(didTap card: SwipeCard) {
+  func cardDidTap(_ card: SwipeCard) {
     guard let topCardIndex = topCardIndex else { return }
     delegate?.cardStack?(self, didSelectCardAt: topCardIndex)
   }
 
-  func card(didBeginSwipe card: SwipeCard) {
+  func cardDidBeginSwipe(_ card: SwipeCard) {
     animator.removeBackgroundCardAnimations(self)
   }
 
-  func card(didContinueSwipe card: SwipeCard) {
+  func cardDidContinueSwipe(_ card: SwipeCard) {
     for (position, backgroundCard) in backgroundCards.enumerated() {
       backgroundCard.transform = transformProvider.backgroundCardDragTransform(for: self,
                                                                                topCard: card,
@@ -461,12 +449,15 @@ open class SwipeCardStack: UIView, SwipeCardDelegate, UIGestureRecognizerDelegat
     }
   }
 
-  func card(didCancelSwipe card: SwipeCard) {
+  func cardDidCancelSwipe(_ card: SwipeCard) {
     animator.animateReset(self, topCard: card)
   }
 
-  func card(didSwipe card: SwipeCard,
-            with direction: SwipeDirection) {
+  func cardDidFinishSwipeAnimation(_ card: SwipeCard) {
+    card.removeFromSuperview()
+  }
+
+  func cardDidSwipe(_ card: SwipeCard, withDirection direction: SwipeDirection) {
     swipeAction(topCard: card, direction: direction, forced: false, animated: true)
   }
 }

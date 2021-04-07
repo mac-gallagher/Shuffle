@@ -33,17 +33,12 @@ class SwipeCardTest_MainMethods: QuickSpec {
   override func spec() {
     var mockCardAnimator: MockCardAnimator!
     var mockSwipeCardDelegate: MockSwipeCardDelegate!
-    var mockNotificationCenter: TestableNotificationCenter!
     var subject: TestableSwipeCard!
 
     beforeEach {
       mockCardAnimator = MockCardAnimator()
       mockSwipeCardDelegate = MockSwipeCardDelegate()
-      mockNotificationCenter = TestableNotificationCenter()
-
-      subject = TestableSwipeCard(animator: mockCardAnimator,
-                                  notificationCenter: mockNotificationCenter,
-                                  transformProvider: MockCardTransformProvider())
+      subject = TestableSwipeCard(animator: mockCardAnimator)
       subject.delegate = mockSwipeCardDelegate
     }
 
@@ -149,9 +144,8 @@ class SwipeCardTest_MainMethods: QuickSpec {
         expect(mockCardAnimator.animateSwipeForced) == forced
       }
 
-      it("should post the correct notification to the notification center") {
-        expect(mockNotificationCenter.postedNotificationName) == CardDidFinishSwipeAnimationNotification
-        expect(mockNotificationCenter.postedNotificationObject).to(be(subject))
+      it("should call the didFinishSwipeAnimation delegate method") {
+        expect(mockSwipeCardDelegate.cardDidFinishSwipeAnimationCalled) == true
       }
     }
 

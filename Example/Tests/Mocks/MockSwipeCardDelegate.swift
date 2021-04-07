@@ -28,30 +28,35 @@ import UIKit
 class MockSwipeCardDelegate: SwipeCardDelegate {
 
   var didBeginSwipeCalled: Bool = false
-  func card(didBeginSwipe card: SwipeCard) {
+  func cardDidBeginSwipe(_ card: SwipeCard) {
     didBeginSwipeCalled = true
   }
 
   var didCancelSwipeCalled: Bool = false
-  func card(didCancelSwipe card: SwipeCard) {
+  func cardDidCancelSwipe(_ card: SwipeCard) {
     didCancelSwipeCalled = true
   }
 
   var didContinueSwipeCalled: Bool = false
-  func card(didContinueSwipe card: SwipeCard) {
+  func cardDidContinueSwipe(_ card: SwipeCard) {
     didContinueSwipeCalled = true
+  }
+
+  var cardDidFinishSwipeAnimationCalled: Bool = false
+  func cardDidFinishSwipeAnimation(_ card: SwipeCard) {
+    cardDidFinishSwipeAnimationCalled = true
   }
 
   var didSwipeCalled: Bool = false
   var didSwipeDirection: SwipeDirection?
 
-  func card(didSwipe card: SwipeCard, with direction: SwipeDirection) {
+  func cardDidSwipe(_ card: SwipeCard, withDirection direction: SwipeDirection) {
     didSwipeCalled = true
     didSwipeDirection = direction
   }
 
   var didTapCalled: Bool = false
-  func card(didTap card: SwipeCard) {
+  func cardDidTap(_ card: SwipeCard) {
     didTapCalled = true
   }
 

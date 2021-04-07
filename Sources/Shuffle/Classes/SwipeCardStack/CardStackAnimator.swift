@@ -79,12 +79,12 @@ class CardStackAnimator: CardStackAnimatable {
       return
     }
 
-    // place background cards in old positions
+    // Place background cards in old positions
     for (position, value) in cardStack.visibleCards.enumerated() {
       value.card.transform = cardStack.transform(forCardAtPosition: position + distance)
     }
 
-    // animate background cards to new positions
+    // Animate background cards to new positions
     Animator.animateKeyFrames(withDuration: shiftDuration(cardStack),
                               animations: { [weak self] in
                                 self?.addShiftAnimationKeyFrames(cardStack) },
@@ -113,7 +113,7 @@ class CardStackAnimator: CardStackAnimatable {
                                  direction: direction,
                                  forced: forced)
 
-    // no background cards left to animate, so we instead just delay calling the completion block
+    // No background cards left to animate, so we instead just delay calling the completion block
     if cardStack.visibleCards.isEmpty {
       DispatchQueue.main.asyncAfter(deadline: .now() + delay + duration) {
         completion?(true)
@@ -142,12 +142,12 @@ class CardStackAnimator: CardStackAnimatable {
       return
     }
 
-    // place background cards in old positions
+    // Place background cards in old positions
     for (position, card) in cardStack.backgroundCards.enumerated() {
       card.transform = cardStack.transform(forCardAtPosition: position)
     }
 
-    // animate background cards to new positions
+    // Animate background cards to new positions
     Animator.animateKeyFrames(withDuration: undoDuration(cardStack, topCard: topCard),
                               animations: { [weak self] in
                                 self?.addUndoAnimationKeyFrames(cardStack) },
@@ -226,12 +226,12 @@ class CardStackAnimator: CardStackAnimatable {
 
     let velocityFactor = topCard.dragSpeed(on: direction) / topCard.minimumSwipeSpeed(on: direction)
 
-    // card swiped below the minimum swipe speed
+    // Card swiped below the minimum swipe speed
     if velocityFactor < 1.0 {
       return topCard.animationOptions.totalSwipeDuration / 2
     }
 
-    // card swiped at least the minimum swipe speed -> return relative duration
+    // Card swiped at least the minimum swipe speed -> return relative duration
     return 1.0 / (2.0 * TimeInterval(velocityFactor))
   }
 
