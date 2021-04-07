@@ -32,18 +32,14 @@ class SwipeCardTest_Base: QuickSpec {
 
   override func spec() {
     var mockCardAnimator: MockCardAnimator!
-    var mockCardTransformProvider: MockCardTransformProvider!
     var mockSwipeCardDelegate: MockSwipeCardDelegate!
     var subject: TestableSwipeCard!
 
     beforeEach {
       mockCardAnimator = MockCardAnimator()
-      mockCardTransformProvider = MockCardTransformProvider()
       mockSwipeCardDelegate = MockSwipeCardDelegate()
 
-      subject = TestableSwipeCard(animator: mockCardAnimator,
-                                  notificationCenter: NotificationCenter.default,
-                                  transformProvider: mockCardTransformProvider)
+      subject = TestableSwipeCard(animator: mockCardAnimator)
       subject.delegate = mockSwipeCardDelegate
     }
 
@@ -174,93 +170,6 @@ class SwipeCardTest_Base: QuickSpec {
       }
     }
 
-    // MARK: - Layout
-
-    describe("When calling layoutSubviews") {
-      let content = UIView()
-      let overlay = UIView()
-
-      let cardWidth: CGFloat = 100
-      let cardHeight: CGFloat = 200
-      let footerHeight: CGFloat = 50
-
-      beforeEach {
-        subject.frame = CGRect(x: 0, y: 0, width: cardWidth, height: cardHeight)
-        subject.footerHeight = footerHeight
-        subject.content = content
-        subject.setOverlay(overlay, forDirection: .left)
-      }
-
-      context("and there is a footer") {
-        let footer = UIView()
-
-        beforeEach {
-          subject.footer = footer
-        }
-
-        context("and the footer is opaque") {
-          beforeEach {
-            footer.isOpaque = true
-            subject.layoutSubviews()
-          }
-
-          it("should correctly layout the footer") {
-            let expectedFrame = CGRect(x: 0, y: cardHeight - footerHeight, width: cardWidth, height: footerHeight)
-            expect(footer.frame) == expectedFrame
-          }
-
-          it("should layout the content above the footer") {
-            let expectedFrame = CGRect(x: 0, y: 0, width: cardWidth, height: cardHeight - footerHeight)
-            expect(content.frame) == expectedFrame
-          }
-
-          it("the overlays should be laid out above the footer") {
-            let expectedFrame = CGRect(x: 0, y: 0, width: cardWidth, height: cardHeight - footerHeight)
-            expect(overlay.frame) == expectedFrame
-          }
-        }
-
-        context("and the footer is partially transparent") {
-          beforeEach {
-            footer.isOpaque = false
-            subject.layoutSubviews()
-          }
-
-          it("should correctly layout the footer") {
-            let expectedFrame = CGRect(x: 0, y: cardHeight - footerHeight, width: cardWidth, height: footerHeight)
-            expect(footer.frame) == expectedFrame
-          }
-
-          it("should layout the content behind the footer") {
-            let expectedFrame = CGRect(x: 0, y: 0, width: cardWidth, height: cardHeight)
-            expect(content.frame) == expectedFrame
-          }
-
-          it("the overlays should be laid out above the footer") {
-            let expectedFrame = CGRect(x: 0, y: 0, width: cardWidth, height: cardHeight - footerHeight)
-            expect(overlay.frame) == expectedFrame
-          }
-        }
-      }
-
-      context("and there is no footer") {
-        beforeEach {
-          subject.footer = nil
-          subject.layoutSubviews()
-        }
-
-        it("the content should be laid out over the entire card") {
-          let expectedFrame = CGRect(x: 0, y: 0, width: cardWidth, height: cardHeight)
-          expect(content.frame) == expectedFrame
-        }
-
-        it("the overlays should be laid out over the entire card") {
-          let expectedFrame = CGRect(x: 0, y: 0, width: cardWidth, height: cardHeight)
-          expect(overlay.frame) == expectedFrame
-        }
-      }
-    }
-
     // MARK: - Gesture Recognizer Methods
 
     // MARK: Tap Gesture
@@ -323,8 +232,8 @@ class SwipeCardTest_Base: QuickSpec {
 
       beforeEach {
         subject.setOverlay(overlay, forDirection: .left)
-        mockCardTransformProvider.testOverlayPercentage[.left] = overlayPercentage
-        mockCardTransformProvider.testTranform = transform
+        subject.testSwipeOverlayPercentage[.left] = overlayPercentage
+        subject.testSwipeTransform = transform
         subject.continueSwiping(UIPanGestureRecognizer())
       }
 

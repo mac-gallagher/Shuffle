@@ -32,6 +32,28 @@ class TestableSwipeCard: SwipeCard {
     return testTouchLocation ?? super.touchLocation
   }
 
+  // MARK: - Swipe Transform
+
+  var testSwipeTransform: CGAffineTransform?
+  override func swipeTransform() -> CGAffineTransform {
+    testSwipeTransform ?? super.swipeTransform()
+  }
+
+  var testSwipeOverlayPercentage = [SwipeDirection: CGFloat]()
+  override func swipeOverlayPercentage(forDirection direction: SwipeDirection) -> CGFloat {
+    testSwipeOverlayPercentage[direction] ?? super.swipeOverlayPercentage(forDirection: direction)
+  }
+
+  var testSwipeRotationDirectionY: CGFloat?
+  override func swipeRotationDirectionY() -> CGFloat {
+    return testSwipeRotationDirectionY ?? super.swipeRotationDirectionY()
+  }
+
+  var testSwipeRotationAngle: CGFloat?
+  override func swipeRotationAngle() -> CGFloat {
+    return testSwipeRotationAngle ?? super.swipeRotationAngle()
+  }
+
   // MARK: - Swipe Calculations
 
   var testActiveDirection: SwipeDirection?
@@ -63,7 +85,6 @@ class TestableSwipeCard: SwipeCard {
   // MARK: - Main Methods
 
   var setOverlayOverlays = [SwipeDirection: UIView]()
-
   override func setOverlay(_ overlay: UIView?, forDirection direction: SwipeDirection) {
     setOverlayOverlays[direction] = overlay
     super.setOverlay(overlay, forDirection: direction)

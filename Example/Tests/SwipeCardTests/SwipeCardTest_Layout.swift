@@ -28,7 +28,7 @@ import Quick
 import UIKit
 
 // swiftlint:disable closure_body_length function_body_length implicitly_unwrapped_optional
-class CardTransformProviderTest: QuickSpec {
+class SwipeCardTest_Layout: QuickSpec {
 
   override func spec() {
     let cardWidth: CGFloat = 100
@@ -36,18 +36,100 @@ class CardTransformProviderTest: QuickSpec {
     let cardCenterX = cardWidth / 2
     let cardCenterY = cardHeight / 2
 
-    var card: TestableSwipeCard!
+    var subject: TestableSwipeCard!
     var testPanGestureRecognizer: PanGestureRecognizer!
-    var subject: TestableCardTransformProvider!
 
     beforeEach {
-      subject = TestableCardTransformProvider()
-      card = TestableSwipeCard(animator: MockCardAnimator(),
-                               notificationCenter: NotificationCenter.default,
-                               transformProvider: MockCardTransformProvider())
-      card.frame = CGRect(x: 0, y: 0, width: cardWidth, height: cardHeight)
+      subject = TestableSwipeCard(animator: MockCardAnimator())
+      subject.frame = CGRect(x: 0, y: 0, width: cardWidth, height: cardHeight)
 
-      testPanGestureRecognizer = card.panGestureRecognizer as? PanGestureRecognizer
+      testPanGestureRecognizer = subject.panGestureRecognizer as? PanGestureRecognizer
+    }
+
+    // MARK: - Layout
+
+    describe("When calling layoutSubviews") {
+      let content = UIView()
+      let overlay = UIView()
+      let cardWidth: CGFloat = 100
+      let cardHeight: CGFloat = 200
+      let footerHeight: CGFloat = 50
+
+      beforeEach {
+        subject.frame = CGRect(x: 0, y: 0, width: cardWidth, height: cardHeight)
+        subject.footerHeight = footerHeight
+        subject.content = content
+        subject.setOverlay(overlay, forDirection: .left)
+      }
+
+      context("and there is a footer") {
+        let footer = UIView()
+
+        beforeEach {
+          subject.footer = footer
+        }
+
+        context("and the footer is opaque") {
+          beforeEach {
+            footer.isOpaque = true
+            subject.layoutSubviews()
+          }
+
+          it("should correctly layout the footer") {
+            let expectedFrame = CGRect(x: 0, y: cardHeight - footerHeight, width: cardWidth, height: footerHeight)
+            expect(footer.frame) == expectedFrame
+          }
+
+          it("should layout the content above the footer") {
+            let expectedFrame = CGRect(x: 0, y: 0, width: cardWidth, height: cardHeight - footerHeight)
+            expect(content.frame) == expectedFrame
+          }
+
+          it("the overlays should be laid out above the footer") {
+            let expectedFrame = CGRect(x: 0, y: 0, width: cardWidth, height: cardHeight - footerHeight)
+            expect(overlay.frame) == expectedFrame
+          }
+        }
+
+        context("and the footer is not opaque") {
+          beforeEach {
+            footer.isOpaque = false
+            subject.layoutSubviews()
+          }
+
+          it("should correctly layout the footer") {
+            let expectedFrame = CGRect(x: 0, y: cardHeight - footerHeight, width: cardWidth, height: footerHeight)
+            expect(footer.frame) == expectedFrame
+          }
+
+          it("should layout the content behind the footer") {
+            let expectedFrame = CGRect(x: 0, y: 0, width: cardWidth, height: cardHeight)
+            expect(content.frame) == expectedFrame
+          }
+
+          it("the overlays should be laid out above the footer") {
+            let expectedFrame = CGRect(x: 0, y: 0, width: cardWidth, height: cardHeight - footerHeight)
+            expect(overlay.frame) == expectedFrame
+          }
+        }
+      }
+
+      context("and there is no footer") {
+        beforeEach {
+          subject.footer = nil
+          subject.layoutSubviews()
+        }
+
+        it("the content should be laid out over the entire card") {
+          let expectedFrame = CGRect(x: 0, y: 0, width: cardWidth, height: cardHeight)
+          expect(content.frame) == expectedFrame
+        }
+
+        it("the overlays should be laid out over the entire card") {
+          let expectedFrame = CGRect(x: 0, y: 0, width: cardWidth, height: cardHeight)
+          expect(overlay.frame) == expectedFrame
+        }
+      }
     }
 
     // MARK: - Overlay Percentage
@@ -55,11 +137,11 @@ class CardTransformProviderTest: QuickSpec {
     describe("When calling overlayPercentage") {
       context("and there is no active direction") {
         beforeEach {
-          card.testActiveDirection = nil
+          subject.testActiveDirection = nil
         }
 
         it("should return zero") {
-          expect(subject.overlayPercentage(for: card, direction: .left)) == 0
+          expect(subject.swipeOverlayPercentage(forDirection: .left)) == 0
         }
       }
 
@@ -67,17 +149,17 @@ class CardTransformProviderTest: QuickSpec {
         let dragPercentage: CGFloat = 0.1
 
         beforeEach {
-          card.testDragPercentage[.left] = dragPercentage
+          subject.testDragPercentage[.left] = dragPercentage
         }
 
         it("should return the drag percentage in the dragged direction") {
-          let actualPercentage = subject.overlayPercentage(for: card, direction: .left)
+          let actualPercentage = subject.swipeOverlayPercentage(forDirection: .left)
           expect(actualPercentage) == dragPercentage
         }
 
         it("should return zero for all other directions") {
           for direction in [SwipeDirection.up, .right, .down] {
-            let actualPercentage = subject.overlayPercentage(for: card, direction: direction)
+            let actualPercentage = subject.swipeOverlayPercentage(forDirection: direction)
             expect(actualPercentage) == 0
           }
         }
@@ -88,11 +170,11 @@ class CardTransformProviderTest: QuickSpec {
         let dragPercentage: CGFloat = 0.99
 
         beforeEach {
-          card.testDragPercentage[direction] = dragPercentage
+          subject.testDragPercentage[direction] = dragPercentage
         }
 
         it("should return a value less than 1 that direction") {
-          let expectedPercentage: CGFloat = subject.overlayPercentage(for: card, direction: direction)
+          let expectedPercentage: CGFloat = subject.swipeOverlayPercentage(forDirection: direction)
           expect(expectedPercentage) == dragPercentage
         }
       }
@@ -101,11 +183,11 @@ class CardTransformProviderTest: QuickSpec {
         let direction = SwipeDirection.left
 
         beforeEach {
-          card.testDragPercentage[direction] = 1.5
+          subject.testDragPercentage[direction] = 1.5
         }
 
         it("should return 1 in that direction") {
-          let expectedPercentage: CGFloat = subject.overlayPercentage(for: card, direction: direction)
+          let expectedPercentage: CGFloat = subject.swipeOverlayPercentage(forDirection: direction)
           expect(expectedPercentage) == 1
         }
       }
@@ -116,13 +198,13 @@ class CardTransformProviderTest: QuickSpec {
 
         context("and the drag percentage in the two directions are equal") {
           beforeEach {
-            card.testDragPercentage[direction1] = 0.1
-            card.testDragPercentage[direction2] = 0.1
+            subject.testDragPercentage[direction1] = 0.1
+            subject.testDragPercentage[direction2] = 0.1
           }
 
           it("should return zero for both directions") {
-            expect(subject.overlayPercentage(for: card, direction: direction1)) == 0
-            expect(subject.overlayPercentage(for: card, direction: direction2)) == 0
+            expect(subject.swipeOverlayPercentage(forDirection: direction1)) == 0
+            expect(subject.swipeOverlayPercentage(forDirection: direction2)) == 0
           }
         }
 
@@ -131,13 +213,13 @@ class CardTransformProviderTest: QuickSpec {
           let smallerPercentage: CGFloat = 0.1
 
           beforeEach {
-            card.testDragPercentage[direction1] = largerPercentage
-            card.testDragPercentage[direction2] = smallerPercentage
+            subject.testDragPercentage[direction1] = largerPercentage
+            subject.testDragPercentage[direction2] = smallerPercentage
           }
 
           it("should return the difference of percentages for the larger direction and zero for the other") {
-            let direction1Percentage = subject.overlayPercentage(for: card, direction: direction1)
-            let direction2Percentage = subject.overlayPercentage(for: card, direction: direction2)
+            let direction1Percentage = subject.swipeOverlayPercentage(forDirection: direction1)
+            let direction2Percentage = subject.swipeOverlayPercentage(forDirection: direction2)
 
             expect(direction1Percentage).to(beCloseTo(largerPercentage - smallerPercentage))
             expect(direction2Percentage) == 0
@@ -157,7 +239,7 @@ class CardTransformProviderTest: QuickSpec {
         }
 
         it("should return zero") {
-          let actualRotationAngle = subject.rotationAngle(for: card)
+          let actualRotationAngle = subject.swipeRotationAngle()
           expect(actualRotationAngle) == 0
         }
       }
@@ -167,8 +249,8 @@ class CardTransformProviderTest: QuickSpec {
           let maximumRotationAngle = CGFloat.pi / 4
 
           beforeEach {
-            subject.testRotationDirectionY = rotationDirection
-            card.animationOptions = CardAnimationOptions(maximumRotationAngle: maximumRotationAngle)
+            subject.testSwipeRotationDirectionY = rotationDirection
+            subject.animationOptions = CardAnimationOptions(maximumRotationAngle: maximumRotationAngle)
           }
 
           context("and less than the screen's width") {
@@ -181,7 +263,7 @@ class CardTransformProviderTest: QuickSpec {
             }
 
             it("should return a rotation angle less than the maximum rotation angle") {
-              let actualRotationAngle = subject.rotationAngle(for: card)
+              let actualRotationAngle = subject.swipeRotationAngle()
               expect(abs(actualRotationAngle)) < maximumRotationAngle
             }
           }
@@ -196,7 +278,7 @@ class CardTransformProviderTest: QuickSpec {
             }
 
             it("should return a rotation angle equal to the maximum rotation angle") {
-              let actualRotationAngle = subject.rotationAngle(for: card)
+              let actualRotationAngle = subject.swipeRotationAngle()
               expect(abs(actualRotationAngle)) == maximumRotationAngle
             }
           }
@@ -206,54 +288,54 @@ class CardTransformProviderTest: QuickSpec {
 
     // MARK: - Rotation Direction Y
 
-    describe("When calling the rotationDirectionY method") {
+    describe("When calling the swipeRotationDirectionY method") {
       context("and the touch point is nil") {
         it("should return zero") {
-          expect(subject.rotationDirectionY(for: card)) == 0
+          expect(subject.swipeRotationDirectionY()) == 0
         }
       }
 
       context("and the touch location is in the first quadrant of the card's bounds") {
         beforeEach {
           let location = CGPoint(x: cardCenterX + 1, y: cardCenterY - 1)
-          card.testTouchLocation = location
+          subject.testTouchLocation = location
         }
 
         it("should return 1") {
-          expect(subject.rotationDirectionY(for: card)) == 1
+          expect(subject.swipeRotationDirectionY()) == 1
         }
       }
 
       context("and the touch location is in the second quadrant of the card's bounds") {
         beforeEach {
           let location = CGPoint(x: cardCenterX - 1, y: cardCenterY - 1)
-          card.testTouchLocation = location
+          subject.testTouchLocation = location
         }
 
         it("should return 1") {
-          expect(subject.rotationDirectionY(for: card)) == 1
+          expect(subject.swipeRotationDirectionY()) == 1
         }
       }
 
       context("and the touch location is in the third quadrant of the card's bounds") {
         beforeEach {
           let location = CGPoint(x: cardCenterX - 1, y: cardCenterY + 1)
-          card.testTouchLocation = location
+          subject.testTouchLocation = location
         }
 
         it("should return -1") {
-          expect(subject.rotationDirectionY(for: card)) == -1
+          expect(subject.swipeRotationDirectionY()) == -1
         }
       }
 
       context("and the touch location is in the fourth quadrant of the card's bounds") {
         beforeEach {
           let location = CGPoint(x: cardCenterX + 1, y: cardCenterY + 1)
-          card.testTouchLocation = location
+          subject.testTouchLocation = location
         }
 
         it("should return -1") {
-          expect(subject.rotationDirectionY(for: card)) == -1
+          expect(subject.swipeRotationDirectionY()) == -1
         }
       }
     }
@@ -265,14 +347,14 @@ class CardTransformProviderTest: QuickSpec {
       let translation = CGPoint(x: 100, y: 100)
 
       beforeEach {
-        subject.testRotationAngle = rotationAngle
+        subject.testSwipeRotationAngle = rotationAngle
         testPanGestureRecognizer.performPan(withLocation: nil, translation: translation, velocity: nil)
       }
 
       it("should return the transform with the proper rotation and translation") {
         let expectedTransform = CGAffineTransform(translationX: translation.x, y: translation.y)
           .concatenating(CGAffineTransform(rotationAngle: rotationAngle))
-        expect(subject.transform(for: card)) == expectedTransform
+        expect(subject.swipeTransform()) == expectedTransform
       }
     }
   }

@@ -52,9 +52,8 @@ class CardStackStateManager: CardStackStateManagable {
 
   /// The indices of the data source which have yet to be swiped.
   ///
-  /// This array reflects the current order of the card stack, with the first element equal
-  /// to the index of the top card in the data source. The order of this array accounts
-  /// for both swiped and shifted cards in the stack.
+  /// This array reflects the current order of the card stack, with the first element equal to the index of
+  /// the top card in the data source. The order of this array accounts for both swiped and shifted cards in the stack.
   var remainingIndices: [Int] = []
 
   /// An array containing the swipe history of the card stack.

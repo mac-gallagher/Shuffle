@@ -25,9 +25,10 @@
 import UIKit
 
 protocol SwipeCardDelegate: AnyObject {
-  func card(didBeginSwipe card: SwipeCard)
-  func card(didCancelSwipe card: SwipeCard)
-  func card(didContinueSwipe card: SwipeCard)
-  func card(didSwipe card: SwipeCard, with direction: SwipeDirection)
-  func card(didTap card: SwipeCard)
+  func cardDidBeginSwipe(_ card: SwipeCard)
+  func cardDidCancelSwipe(_ card: SwipeCard)
+  func cardDidContinueSwipe(_ card: SwipeCard)
+  func cardDidFinishSwipeAnimation(_ card: SwipeCard)
+  func cardDidSwipe(_ card: SwipeCard, withDirection direction: SwipeDirection)
+  func cardDidTap(_ card: SwipeCard)
 }
