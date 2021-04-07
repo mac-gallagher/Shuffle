@@ -49,7 +49,6 @@
 		ADF6477F261A62D000FE6BA3 /* MockSwipeCardStackDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADF6475D261A62D000FE6BA3 /* MockSwipeCardStackDataSource.swift */; };
 		ADF64780261A62D000FE6BA3 /* MockSwipeCardStackDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADF6475E261A62D000FE6BA3 /* MockSwipeCardStackDelegate.swift */; };
 		ADF64781261A62D000FE6BA3 /* MockCardStackAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADF6475F261A62D000FE6BA3 /* MockCardStackAnimator.swift */; };
-		ADF64782261A62D000FE6BA3 /* MockCardStackTransformProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADF64760261A62D000FE6BA3 /* MockCardStackTransformProvider.swift */; };
 		ADF64783261A62D000FE6BA3 /* SwipeCardStackTest_MainMethods.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADF64762261A62D000FE6BA3 /* SwipeCardStackTest_MainMethods.swift */; };
 		ADF64784261A62D000FE6BA3 /* CardStackStateManagerTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADF64763261A62D000FE6BA3 /* CardStackStateManagerTest.swift */; };
 		ADF64786261A62D000FE6BA3 /* SwipeCardStackTest_SwipeCardDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADF64765261A62D000FE6BA3 /* SwipeCardStackTest_SwipeCardDelegate.swift */; };
@@ -97,7 +96,6 @@
 		ADF6475D261A62D000FE6BA3 /* MockSwipeCardStackDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockSwipeCardStackDataSource.swift; sourceTree = "<group>"; };
 		ADF6475E261A62D000FE6BA3 /* MockSwipeCardStackDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockSwipeCardStackDelegate.swift; sourceTree = "<group>"; };
 		ADF6475F261A62D000FE6BA3 /* MockCardStackAnimator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockCardStackAnimator.swift; sourceTree = "<group>"; };
-		ADF64760261A62D000FE6BA3 /* MockCardStackTransformProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockCardStackTransformProvider.swift; sourceTree = "<group>"; };
 		ADF64762261A62D000FE6BA3 /* SwipeCardStackTest_MainMethods.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwipeCardStackTest_MainMethods.swift; sourceTree = "<group>"; };
 		ADF64763261A62D000FE6BA3 /* CardStackStateManagerTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardStackStateManagerTest.swift; sourceTree = "<group>"; };
 		ADF64765261A62D000FE6BA3 /* SwipeCardStackTest_SwipeCardDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwipeCardStackTest_SwipeCardDelegate.swift; sourceTree = "<group>"; };
@@ -266,7 +264,6 @@
 			children = (
 				ADF64748261A62D000FE6BA3 /* MockCardAnimator.swift */,
 				ADF6475F261A62D000FE6BA3 /* MockCardStackAnimator.swift */,
-				ADF64760261A62D000FE6BA3 /* MockCardStackTransformProvider.swift */,
 				ADF6475C261A62D000FE6BA3 /* MockCardStackStateManager.swift */,
 				ADF64749261A62D000FE6BA3 /* MockSwipeCardDelegate.swift */,
 				ADF6475D261A62D000FE6BA3 /* MockSwipeCardStackDataSource.swift */,
@@ -375,10 +372,9 @@
 			};
 			buildConfigurationList = 607FACCB1AFB9204008FA782 /* Build configuration list for PBXProject "Shuffle" */;
 			compatibilityVersion = "Xcode 6.3";
-			developmentRegion = English;
+			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
-				English,
 				en,
 				Base,
 			);
@@ -592,7 +588,6 @@
 				ADF64778261A62D000FE6BA3 /* SwipeCardTest_MainMethods.swift in Sources */,
 				ADF6476F261A62D000FE6BA3 /* MockSwipeCardDelegate.swift in Sources */,
 				ADF6476E261A62D000FE6BA3 /* MockCardAnimator.swift in Sources */,
-				ADF64782261A62D000FE6BA3 /* MockCardStackTransformProvider.swift in Sources */,
 				ADF64780261A62D000FE6BA3 /* MockSwipeCardStackDelegate.swift in Sources */,
 				ADF64784261A62D000FE6BA3 /* CardStackStateManagerTest.swift in Sources */,
 				ADF6478B261A62D000FE6BA3 /* TestableCardStackStateManager.swift in Sources */,

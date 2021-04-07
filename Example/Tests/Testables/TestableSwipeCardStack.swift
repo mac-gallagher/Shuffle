@@ -48,7 +48,7 @@ class TestableSwipeCardStack: SwipeCardStack {
     return testIsEnabled ?? super.isEnabled
   }
 
-  // MARK: - Lifecycle
+  // MARK: - Layout & Transform
 
   var setNeedsLayoutCalled: Bool = false
   override func setNeedsLayout() {
@@ -66,6 +66,19 @@ class TestableSwipeCardStack: SwipeCardStack {
     layoutCardCards.append(card)
     layoutCardPositions.append(position)
   }
+
+  var testBackgroundCardDragTransform: CGAffineTransform = .identity
+  var backgroundCardDragTransformCard: SwipeCard?
+  var backgroundCardDragTransformPosition: Int?
+
+  override func backgroundCardDragTransform(topCard: SwipeCard,
+                                            currentPosition: Int) -> CGAffineTransform {
+    backgroundCardDragTransformCard = topCard
+    backgroundCardDragTransformPosition = currentPosition
+    return testBackgroundCardDragTransform
+  }
+
+  // MARK: - Main Methods
 
   var swipeActionCalled = false
   var swipeActionDirection: SwipeDirection?

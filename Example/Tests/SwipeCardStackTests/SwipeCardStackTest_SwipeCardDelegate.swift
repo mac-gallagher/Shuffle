@@ -34,18 +34,14 @@ class SwipeCardStackTest_SwipeCardDelegate: QuickSpec {
     var mockAnimator: MockCardStackAnimator!
     var mockDelegate: MockSwipeCardStackDelegate!
     var mockStateManager: MockCardStackStateManager!
-    var mockTransformProvider: MockCardStackTransformProvider!
     var subject: TestableSwipeCardStack!
 
     beforeEach {
       mockAnimator = MockCardStackAnimator()
       mockDelegate = MockSwipeCardStackDelegate()
       mockStateManager = MockCardStackStateManager()
-      mockTransformProvider = MockCardStackTransformProvider()
       subject = TestableSwipeCardStack(animator: mockAnimator,
-                                       notificationCenter: NotificationCenter(),
-                                       stateManager: mockStateManager,
-                                       transformProvider: mockTransformProvider)
+                                       stateManager: mockStateManager)
       subject.delegate = mockDelegate
     }
 
@@ -99,7 +95,7 @@ class SwipeCardStackTest_SwipeCardDelegate: QuickSpec {
       beforeEach {
         backgroundCards = [SwipeCard(), SwipeCard(), SwipeCard()]
         subject.testBackgroundCards = backgroundCards
-        mockTransformProvider.testBackgroundCardDragTransform = cardTransform
+        subject.testBackgroundCardDragTransform = cardTransform
         subject.cardDidContinueSwipe(SwipeCard())
       }
 
