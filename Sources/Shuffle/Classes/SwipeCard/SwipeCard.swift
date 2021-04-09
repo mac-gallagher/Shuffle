@@ -26,7 +26,7 @@ import UIKit
 
 open class SwipeCard: SwipeView {
 
-  open var animationOptions: CardAnimationOptions = .default
+  open var animationOptions = CardAnimationOptions()
 
   /// The the main content view.
   public var content: UIView? {
@@ -129,7 +129,7 @@ open class SwipeCard: SwipeView {
     let rotationStrength = min(superviewTranslation.x / UIScreen.main.bounds.width, 1)
     return swipeRotationDirectionY()
       * rotationStrength
-      * abs(animationOptions.maximumRotationAngle)
+      * animationOptions.maximumRotationAngle
   }
 
   func swipeRotationDirectionY() -> CGFloat {

@@ -158,89 +158,6 @@ class CardAnimatorTest: QuickSpec {
       }
     }
 
-    // MARK: - Animation Calculations
-
-    // MARK: Relative Swipe Overlay Fade Duration
-
-    describe("When calling relativeSwipeOverlayFadeDuration") {
-      let direction: SwipeDirection = .left
-
-      context("and there is no overlay in the indicated direction") {
-        beforeEach {
-          card.setOverlay(nil, forDirection: direction)
-        }
-
-        it("should return zero") {
-          let actualDuration = subject.relativeSwipeOverlayFadeDuration(card,
-                                                                        direction: direction,
-                                                                        forced: true)
-          expect(actualDuration) == 0.0
-        }
-      }
-
-      context("and there an overlay in the indicated direction") {
-        let relativeDuration: TimeInterval = 0.9
-        let totalDuration: TimeInterval = 50.0
-
-        beforeEach {
-          card.setOverlay(UIView(), forDirection: direction)
-          card.animationOptions = CardAnimationOptions(relativeSwipeOverlayFadeDuration: relativeDuration,
-                                                       totalSwipeDuration: totalDuration)
-        }
-
-        context("and forced is true") {
-          it("should return the correct duration") {
-            let actualDuration = subject.relativeSwipeOverlayFadeDuration(card,
-                                                                          direction: direction,
-                                                                          forced: true)
-            expect(actualDuration) == relativeDuration
-          }
-        }
-
-        context("and forced is false") {
-          it("should return zero") {
-            let actualDuration = subject.relativeSwipeOverlayFadeDuration(card,
-                                                                          direction: direction,
-                                                                          forced: false)
-            expect(actualDuration) == 0
-          }
-        }
-      }
-    }
-
-    // MARK: Relative Reverse Swipe Overlay Fade Duration
-
-    describe("When calling relativeReverseSwipeOverlayFadeDuration") {
-      let direction: SwipeDirection = .left
-
-      context("and there is no overlay in the indicated direction") {
-        beforeEach {
-          card.setOverlay(nil, forDirection: direction)
-        }
-
-        it("should return zero") {
-          let actualDuration = subject.relativeReverseSwipeOverlayFadeDuration(card, direction: direction)
-          expect(actualDuration) == 0.0
-        }
-      }
-
-      context("and there is an overlay in the indicated direction") {
-        let relativeDuration: TimeInterval = 0.9
-        let totalDuration: TimeInterval = 50.0
-
-        beforeEach {
-          card.setOverlay(UIView(), forDirection: direction)
-          card.animationOptions = CardAnimationOptions(relativeReverseSwipeOverlayFadeDuration: relativeDuration,
-                                                       totalReverseSwipeDuration: totalDuration)
-        }
-
-        it("should return the correct duration") {
-          let actualDuration = subject.relativeReverseSwipeOverlayFadeDuration(card, direction: direction)
-          expect(actualDuration) == relativeDuration
-        }
-      }
-    }
-
     // MARK: Swipe Duration
 
     describe("When calling swipeDuration") {
@@ -249,7 +166,7 @@ class CardAnimatorTest: QuickSpec {
       let minimumSwipeSpeed: CGFloat = 100
 
       beforeEach {
-        card.animationOptions = CardAnimationOptions(totalSwipeDuration: totalDuration)
+        card.animationOptions.totalSwipeDuration = totalDuration
         card.testMinimumSwipeSpeed = minimumSwipeSpeed
       }
 
@@ -302,7 +219,7 @@ class CardAnimatorTest: QuickSpec {
           let maximumRotationAngle = CGFloat.pi / 4
 
           beforeEach {
-            card.animationOptions = CardAnimationOptions(maximumRotationAngle: maximumRotationAngle)
+            card.animationOptions.maximumRotationAngle = maximumRotationAngle
           }
 
           context("and forced is true") {

@@ -250,7 +250,7 @@ class SwipeCardTest_Layout: QuickSpec {
 
           beforeEach {
             subject.testSwipeRotationDirectionY = rotationDirection
-            subject.animationOptions = CardAnimationOptions(maximumRotationAngle: maximumRotationAngle)
+            subject.animationOptions.maximumRotationAngle = maximumRotationAngle
           }
 
           context("and less than the screen's width") {

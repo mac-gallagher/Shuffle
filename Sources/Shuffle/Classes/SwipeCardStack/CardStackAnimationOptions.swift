@@ -25,10 +25,7 @@
 import UIKit
 
 /// The animation options provided to the internal card stack animator.
-public final class CardStackAnimationOptions: NSObject {
-
-  /// The static default instance of `CardStackAnimationOptions`.
-  static let `default` = CardStackAnimationOptions()
+public struct CardStackAnimationOptions {
 
   /// The duration of the animation applied to the background cards after a canceled swipe has been recognized
   /// on the top card.
@@ -36,48 +33,46 @@ public final class CardStackAnimationOptions: NSObject {
   /// If this value is `nil`, the animation will last exactly half the duration of
   /// `animationOptions.resetDuration` on the top card. This value must be greater than zero.
   /// Defaults to `nil`.
-  public let resetDuration: TimeInterval?
+  public var resetDuration: TimeInterval? {
+    didSet {
+      if let duration = resetDuration {
+        resetDuration = max(.leastNormalMagnitude, duration)
+      }
+    }
+  }
 
   /// The duration of the card stack shift animation.
   ///
   /// This value must be greater than zero. Defaults to `0.1`.
-  public let shiftDuration: TimeInterval
+  public var shiftDuration: TimeInterval = 0.1 {
+    didSet {
+      shiftDuration = max(.leastNormalMagnitude, shiftDuration)
+    }
+  }
 
   /// The duration of the animation applied to the background cards after a swipe has been recognized on the top card.
   ///
   /// If this value is `nil`, the animation will last exactly half the duration of
   /// `animationOptions.totalSwipeDuration` on the top card. This value must be greater than zero.
   /// Defaults to `nil`.
-  public let swipeDuration: TimeInterval?
+  public var swipeDuration: TimeInterval? {
+    didSet {
+      if let duration = swipeDuration {
+        swipeDuration = max(.leastNormalMagnitude, duration)
+      }
+    }
+  }
 
   /// The duration of the animation applied to the background cards after an `undo` has been triggered.
   ///
   /// If this value is `nil`, the animation will last exactly half the duration of
   /// `animationOptions.totalReverseSwipeDuration` on the top card. This value must be greater than zero.
   /// Defaults to `nil`.
-  public let undoDuration: TimeInterval?
-
-  public init(resetDuration: TimeInterval? = nil,
-              shiftDuration: TimeInterval = 0.1,
-              swipeDuration: TimeInterval? = nil,
-              undoDuration: TimeInterval? = nil) {
-    if let resetDuration = resetDuration {
-      self.resetDuration = max(0, resetDuration)
-    } else {
-      self.resetDuration = nil
-    }
-
-    self.shiftDuration = max(0, shiftDuration)
-    if let swipeDuration = swipeDuration {
-      self.swipeDuration = max(0, swipeDuration)
-    } else {
-      self.swipeDuration = nil
-    }
-
-    if let undoDuration = undoDuration {
-      self.undoDuration = max(0, undoDuration)
-    } else {
-      self.undoDuration = nil
+  public var undoDuration: TimeInterval? {
+    didSet {
+      if let duration = undoDuration {
+        undoDuration = max(.leastNormalMagnitude, duration)
+      }
     }
   }
 }

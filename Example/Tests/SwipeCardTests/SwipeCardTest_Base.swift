@@ -70,7 +70,6 @@ class SwipeCardTest_Base: QuickSpec {
 
       func testDefaultProperties() {
         expect(card.delegate).to(beNil())
-        expect(card.animationOptions).to(be(CardAnimationOptions.default))
         expect(card.footerHeight) == 100
         expect(card.content).to(beNil())
         expect(card.footer).to(beNil())

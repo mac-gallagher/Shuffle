@@ -32,7 +32,7 @@ open class SwipeCardStack: UIView, SwipeCardDelegate, UIGestureRecognizerDelegat
     var card: SwipeCard
   }
 
-  open var animationOptions: CardStackAnimationOptions = .default
+  open var animationOptions = CardStackAnimationOptions()
 
   /// Return `false` if you wish to ignore all horizontal gestures on the card stack.
   ///
