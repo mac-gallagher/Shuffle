@@ -25,34 +25,14 @@
 import UIKit
 
 protocol CardAnimatable {
-
-  /// Calling this method triggers a spring-like animation on the card, eventually settling back to
-  ///  it's original position.
-  /// - Parameter card: The card to animate.
   func animateReset(on card: SwipeCard)
-
-  /// Calling this method triggers a reverse swipe (i.e. undo) animation on the card.
-  /// - Parameters:
-  ///   - card: The card to animate.
-  ///   - direction: The direction from which the card will be coming off-screen.
-  ///   - completion: An optional block which is called once the animation has completed.
   func animateReverseSwipe(on card: SwipeCard,
                            from direction: SwipeDirection,
                            completion: ((Bool) -> Void)?)
-
-  /// Calling this method triggers a swipe animation on the card.
-  /// - Parameters:
-  ///   - card: The card to animate.
-  ///   - direction: The direction to which the card will swipe off-screen.
-  ///   - forced: A boolean idicating whether the card was swiped programmatically
-  ///   - completion: An optional block which is called once the animation has completed.
   func animateSwipe(on card: SwipeCard,
                     direction: SwipeDirection,
                     forced: Bool,
                     completion: ((Bool) -> Void)?)
-
-  /// Calling this method will remove any active animations on the card and it's layers.
-  /// - Parameter card: The card on which the animations will be removed.
   func removeAllAnimations(on card: SwipeCard)
 }
 
@@ -62,12 +42,16 @@ class CardAnimator: CardAnimatable {
 
   // MARK: - Main Methods
 
+  /// Calling this method triggers a spring-like animation on the card, eventually settling back to
+  ///  it's original position.
+  /// - Parameter card: The card to animate.
   func animateReset(on card: SwipeCard) {
     removeAllAnimations(on: card)
 
-    Animator.animateSpring(withDuration: card.animationOptions.totalResetDuration,
-                           usingSpringWithDamping: card.animationOptions.resetSpringDamping,
-                           options: [.curveLinear, .allowUserInteraction]) {
+    Animator.animateSpring(
+      withDuration: card.animationOptions.totalResetDuration,
+      usingSpringWithDamping: card.animationOptions.resetSpringDamping,
+      options: [.curveLinear, .allowUserInteraction]) {
       if let direction = card.activeDirection(),
          let overlay = card.overlay(forDirection: direction) {
         overlay.alpha = 0
@@ -76,6 +60,11 @@ class CardAnimator: CardAnimatable {
     }
   }
 
+  /// Calling this method triggers a reverse swipe (i.e. undo) animation on the card.
+  /// - Parameters:
+  ///   - card: The card to animate.
+  ///   - direction: The direction from which the card will be coming off-screen.
+  ///   - completion: An optional block which is called once the animation has completed.
   func animateReverseSwipe(on card: SwipeCard,
                            from direction: SwipeDirection,
                            completion: ((Bool) -> Void)?) {
@@ -89,13 +78,21 @@ class CardAnimator: CardAnimatable {
     }
 
     // Reverse swipe
-    Animator.animateKeyFrames(withDuration: card.animationOptions.totalReverseSwipeDuration,
-                              options: .calculationModeLinear,
-                              animations: { [weak self] in
-                                self?.addReverseSwipeAnimationKeyFrames(card, direction: direction)},
-                              completion: completion)
+    Animator.animateKeyFrames(
+      withDuration: card.animationOptions.totalReverseSwipeDuration,
+      options: .calculationModeLinear,
+      animations: { [weak self] in
+        self?.addReverseSwipeAnimationKeyFrames(card, direction: direction)
+      },
+      completion: completion)
   }
 
+  /// Calling this method triggers a swipe animation on the card.
+  /// - Parameters:
+  ///   - card: The card to animate.
+  ///   - direction: The direction to which the card will swipe off-screen.
+  ///   - forced: A boolean idicating whether the card was swiped programmatically
+  ///   - completion: An optional block which is called once the animation has completed.
   func animateSwipe(on card: SwipeCard,
                     direction: SwipeDirection,
                     forced: Bool,
@@ -103,15 +100,19 @@ class CardAnimator: CardAnimatable {
     removeAllAnimations(on: card)
 
     let duration = swipeDuration(card, direction: direction, forced: forced)
-    Animator.animateKeyFrames(withDuration: duration,
-                              options: .calculationModeLinear,
-                              animations: { [weak self] in
-                                self?.addSwipeAnimationKeyFrames(card,
-                                                                 direction: direction,
-                                                                 forced: forced) },
-                              completion: completion)
+    Animator.animateKeyFrames(
+      withDuration: duration,
+      options: .calculationModeLinear,
+      animations: { [weak self] in
+        self?.addSwipeAnimationKeyFrames(card,
+                                         direction: direction,
+                                         forced: forced)
+      },
+      completion: completion)
   }
 
+  /// Calling this method will remove any active animations on the card and its layers.
+  /// - Parameter card: The card on which the animations will be removed.
   func removeAllAnimations(on card: SwipeCard) {
     card.layer.removeAllAnimations()
     card.swipeDirections.forEach {
@@ -122,7 +123,8 @@ class CardAnimator: CardAnimatable {
   // MARK: - Animation Keyframes
 
   func addReverseSwipeAnimationKeyFrames(_ card: SwipeCard, direction: SwipeDirection) {
-    let relativeOverlayDuration = relativeReverseSwipeOverlayFadeDuration(card, direction: direction)
+    let overlay = card.overlay(forDirection: direction)
+    let relativeOverlayDuration = overlay != nil ? card.animationOptions.relativeReverseSwipeOverlayFadeDuration : 0.0
 
     // Transform
     Animator.addTransformKeyFrame(to: card,
@@ -134,7 +136,6 @@ class CardAnimator: CardAnimatable {
       card.overlay(forDirection: direction)?.alpha = swipeDirection == direction ? 1.0 : 0.0
     }
 
-    let overlay = card.overlay(forDirection: direction)
     Animator.addFadeKeyFrame(to: overlay,
                              withRelativeStartTime: 1 - relativeOverlayDuration,
                              relativeDuration: relativeOverlayDuration,
@@ -142,16 +143,16 @@ class CardAnimator: CardAnimatable {
   }
 
   func addSwipeAnimationKeyFrames(_ card: SwipeCard, direction: SwipeDirection, forced: Bool) {
-    let relativeOverlayDuration = relativeSwipeOverlayFadeDuration(card,
-                                                                   direction: direction,
-                                                                   forced: forced)
+    let overlay = card.overlay(forDirection: direction)
 
     // Overlays
     for swipeDirection in card.swipeDirections.filter({ $0 != direction }) {
       card.overlay(forDirection: swipeDirection)?.alpha = 0.0
     }
 
-    let overlay = card.overlay(forDirection: direction)
+    let relativeOverlayDuration = (forced && overlay != nil)
+      ? card.animationOptions.relativeSwipeOverlayFadeDuration
+      : 0.0
     Animator.addFadeKeyFrame(to: overlay,
                              relativeDuration: relativeOverlayDuration,
                              alpha: 1.0)
@@ -165,25 +166,6 @@ class CardAnimator: CardAnimatable {
   }
 
   // MARK: - Animation Calculations
-
-  func relativeReverseSwipeOverlayFadeDuration(_ card: SwipeCard,
-                                               direction: SwipeDirection) -> Double {
-    let overlay = card.overlay(forDirection: direction)
-    if overlay != nil {
-      return card.animationOptions.relativeReverseSwipeOverlayFadeDuration
-    }
-    return 0.0
-  }
-
-  func relativeSwipeOverlayFadeDuration(_ card: SwipeCard,
-                                        direction: SwipeDirection,
-                                        forced: Bool) -> Double {
-    let overlay = card.overlay(forDirection: direction)
-    if forced && overlay != nil {
-      return card.animationOptions.relativeSwipeOverlayFadeDuration
-    }
-    return 0.0
-  }
 
   func swipeDuration(_ card: SwipeCard, direction: SwipeDirection, forced: Bool) -> TimeInterval {
     if forced {
