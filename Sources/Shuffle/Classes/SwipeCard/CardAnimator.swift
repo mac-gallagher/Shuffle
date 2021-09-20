@@ -133,7 +133,7 @@ class CardAnimator: CardAnimatable {
 
     // Overlays
     for swipeDirection in card.swipeDirections {
-      card.overlay(forDirection: direction)?.alpha = swipeDirection == direction ? 1.0 : 0.0
+      card.overlay(forDirection: swipeDirection)?.alpha = swipeDirection == direction ? 1.0 : 0.0
     }
 
     Animator.addFadeKeyFrame(to: overlay,
