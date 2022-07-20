@@ -183,7 +183,7 @@ open class SwipeCardStack: UIView, SwipeCardDelegate, UIGestureRecognizerDelegat
   ///   - direction: The direction to swipe the top card.
   ///   - animated: A boolean indicating whether the swipe action should be animated.
   public func swipe(_ direction: SwipeDirection, animated: Bool) {
-    if !isEnabled { return }
+    // if !isEnabled { return }
 
     if animated {
       topCard?.swipe(direction: direction)
@@ -228,9 +228,7 @@ open class SwipeCardStack: UIView, SwipeCardDelegate, UIGestureRecognizerDelegat
                           direction: direction,
                           forced: forced,
                           animated: animated) { [weak self] finished in
-      if finished {
         self?.isAnimating = false
-      }
     }
   }
 
