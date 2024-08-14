@@ -236,7 +236,7 @@ open class SwipeCardStack: UIView, SwipeCardDelegate, UIGestureRecognizerDelegat
 
   /// Returns the most recently swiped card to the top of the card stack.
   /// - Parameter animated: A boolean indicating whether the undo action should be animated.
-  public func undoLastSwipe(animated: Bool) {
+    public func undoLastSwipe(direction: SwipeDirection? = nil, animated: Bool) {
     if !isEnabled { return }
     guard let previousSwipe = stateManager.undoSwipe() else { return }
 
@@ -244,7 +244,12 @@ open class SwipeCardStack: UIView, SwipeCardDelegate, UIGestureRecognizerDelegat
     delegate?.cardStack?(self, didUndoCardAt: previousSwipe.index, from: previousSwipe.direction)
 
     if animated {
-      topCard?.reverseSwipe(from: previousSwipe.direction)
+        if let direction {
+            topCard?.reverseSwipe(from: direction)
+        }
+        else {
+            topCard?.reverseSwipe(from: previousSwipe.direction)
+        }
     }
 
     isAnimating = true
